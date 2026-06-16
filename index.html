@@ -305,6 +305,14 @@ body {
 @keyframes recPulse { 0%,100%{transform:scale(1);box-shadow:0 0 18px rgba(231,76,60,.3)} 50%{transform:scale(1.1);box-shadow:0 0 40px rgba(231,76,60,.6)} }
 @keyframes grow     { from{height:0} to{height:var(--h)} }
 @keyframes drawLine { to{stroke-dashoffset:0} }
+@keyframes voiceWave { 0%,100%{height:6px;opacity:.4} 50%{height:36px;opacity:1} }
+
+/* voice waves */
+.vwave {
+  width: 5px; border-radius: 3px; background: var(--danger);
+  height: 6px; animation: voiceWave .55s ease-in-out infinite;
+  animation-delay: var(--d); transition: background .3s;
+}
 </style>
 </head>
 <body>
@@ -421,11 +429,12 @@ body {
   <div class="screen" id="s-phome">
     <div class="status-bar" style="background:var(--primary);color:white"><span>9:41</span><span>📶 🔋</span></div>
     <div class="app-bar" style="background:var(--primary);color:white">
-      <div style="font-size:24px">🦽</div>
+      <button class="icon-btn" onclick="go('s-profile')">👤</button>
       <div style="flex:1">
         <div class="sub">مرحباً بك،</div>
         <div style="font-size:16px;font-weight:700" id="pName">محمد الأحمدي</div>
       </div>
+      <button class="icon-btn" onclick="go('s-dchat')">💬</button>
       <button class="icon-btn" onclick="go('s-notifs')" style="position:relative">🔔<div class="nbadge">3</div></button>
     </div>
     <div class="scroll-body" style="padding:14px;background:var(--bg)">
@@ -515,6 +524,7 @@ body {
         <div style="font-size:15px;font-weight:700">🤖 مساعد رفيق</div>
         <div class="sub">مدعوم بـ GPT-4o + RAG</div>
       </div>
+      <button class="icon-btn" onclick="go('s-voice')" title="الصوت">🎙️</button>
       <div style="width:8px;height:8px;background:#2ECC71;border-radius:50%;animation:pulse 1s infinite"></div>
     </div>
     <div class="msgs" id="pmsgs">
@@ -773,6 +783,88 @@ body {
     <div class="scroll-body" style="padding:22px" id="linkBody"></div>
   </div>
 
+  <!-- ════════════════════════════════════════
+       VOICE ASSISTANT
+  ════════════════════════════════════════ -->
+  <div class="screen" id="s-voice" style="background:#0D1B2A">
+    <div class="status-bar" style="background:transparent;color:white"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:transparent;color:rgba(255,255,255,.75)">
+      <button class="icon-btn" style="background:rgba(255,255,255,.12)" onclick="back()">←</button>
+      <span class="title" style="color:white;text-align:center">رفيق الصوتي</span>
+      <div style="width:34px"></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:0">
+      <p style="color:rgba(255,255,255,.65);font-size:15px;text-align:center;margin-bottom:40px;line-height:1.6">اضغط على الزر للتحدث مع رفيق</p>
+
+      <!-- Sound waves -->
+      <div id="voiceWaves" style="display:flex;align-items:center;gap:5px;height:44px;margin-bottom:18px;opacity:0;transition:opacity .3s">
+        <div class="vwave" style="--d:0ms"></div><div class="vwave" style="--d:80ms"></div>
+        <div class="vwave" style="--d:160ms"></div><div class="vwave" style="--d:240ms"></div>
+        <div class="vwave" style="--d:320ms"></div><div class="vwave" style="--d:160ms"></div>
+        <div class="vwave" style="--d:80ms"></div>
+      </div>
+
+      <!-- Mic button -->
+      <div id="voiceBtn" onclick="cycleVoice()" style="width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .35s;position:relative;background:rgba(27,79,114,.18);border:3px solid #1B4F72;box-shadow:0 0 40px rgba(27,79,114,.5)">
+        <span id="voiceIcon" style="font-size:54px;transition:all .25s">🎤</span>
+        <!-- spinner for thinking state -->
+        <div id="voiceSpinner" style="display:none;position:absolute;inset:-6px;border-radius:50%;border:3px solid transparent;border-top-color:var(--warning);animation:spin .75s linear infinite"></div>
+      </div>
+
+      <p id="voiceStatus" style="color:rgba(255,255,255,.6);font-size:15px;margin-top:22px;text-align:center">اضغط للتحدث</p>
+
+      <!-- Transcript card -->
+      <div id="voiceTranscript" style="display:none;background:rgba(27,79,114,.25);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;margin-top:22px;width:100%;animation:fadeUp .4s ease">
+        <div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:4px">أنت</div>
+        <div style="font-size:14px;color:white;line-height:1.55" id="voiceUserText"></div>
+      </div>
+
+      <!-- Reply card -->
+      <div id="voiceReply" style="display:none;background:rgba(39,174,96,.2);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;margin-top:10px;width:100%;animation:fadeUp .4s ease">
+        <div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:4px">رفيق</div>
+        <div style="font-size:13px;color:white;line-height:1.55" id="voiceAiText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       DIRECT CHAT (Patient ↔ Caregiver)
+  ════════════════════════════════════════ -->
+  <div class="screen" id="s-dchat" style="background:var(--bg)">
+    <div class="status-bar" style="background:var(--primary);color:white"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white">
+      <button class="icon-btn" onclick="back()">←</button>
+      <div style="width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">👩‍⚕️</div>
+      <div style="flex:1;margin-right:4px">
+        <div style="font-size:14px;font-weight:700">سارة الرعاية</div>
+        <div style="font-size:10px;opacity:.7;display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#2ECC71;border-radius:50%;display:inline-block"></span>متصلة الآن</div>
+      </div>
+      <button class="icon-btn" onclick="toast('📞 جارٍ الاتصال...')">📞</button>
+    </div>
+    <!-- date divider -->
+    <div style="text-align:center;font-size:11px;color:#aaa;padding:9px 0;background:var(--bg);flex-shrink:0">─────── اليوم ───────</div>
+    <div class="msgs" id="dchatMsgs"></div>
+    <div class="chat-bar">
+      <button class="icon-btn" style="background:#F0F0F0;color:#666" onclick="toast('📎 إرفاق صورة')">📎</button>
+      <input class="chat-inp" id="dcInp" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter')sendDirect()">
+      <span style="font-size:22px;cursor:pointer" id="dcMic" onmousedown="startDcVoice()" onmouseup="stopDcVoice()" ontouchstart="startDcVoice()" ontouchend="stopDcVoice()">🎤</span>
+      <button class="send-btn" style="background:var(--primary)" onclick="sendDirect()">➤</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       PROFILE
+  ════════════════════════════════════════ -->
+  <div class="screen" id="s-profile" style="background:var(--bg)">
+    <div class="status-bar" style="background:var(--primary);color:white"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white">
+      <button class="icon-btn" onclick="back()">←</button>
+      <span class="title">الملف الشخصي</span>
+      <button class="icon-btn" onclick="toast('✏️ تعديل الملف الشخصي')">✏️</button>
+    </div>
+    <div class="scroll-body" style="padding:0" id="profileBody"></div>
+  </div>
+
 </div><!-- end phone -->
 
 <div style="text-align:center;padding:10px;font-size:11px;color:rgba(255,255,255,.35)">
@@ -907,6 +999,9 @@ function onEnter(id) {
   if (id === 's-linking') renderLinking();
   if (id === 's-health')  renderHealth();
   if (id === 's-appts')   renderAppts();
+  if (id === 's-dchat')   renderDirectChat();
+  if (id === 's-profile') renderProfile();
+  if (id === 's-voice')   initVoice();
 }
 
 // Splash → Login
@@ -1407,6 +1502,18 @@ function countUp(id, from, to, suf, dur) {
 }
 
 // ══════════════════════════════════════════════════════════
+// DIRECT CHAT data
+// ══════════════════════════════════════════════════════════
+let dcMessages = [
+  { who:'them', text:'مرحباً يا محمد! كيف حالك اليوم؟ هل أخذت دواءك الصباحي؟', time:'9:15 ص' },
+  { who:'me',   text:'أهلاً سارة! نعم أخذت الأملوديبين. أشعر بتحسن اليوم 😊', time:'9:17 ص' },
+  { who:'them', text:'ممتاز! لا تنسَ باكلوفين الساعة الواحدة. وكيف كان نومك؟', time:'9:18 ص' },
+  { who:'me',   text:'نمت 7 ساعات تقريباً. الألم كان 3 من 10 فقط 🙏', time:'9:20 ص' },
+  { who:'them', voice:true, duration:'0:18', time:'9:25 ص' },
+  { who:'me',   text:'شكراً سارة، سأراسلك إذا احتجت أي شيء ❤️', time:'9:27 ص' },
+];
+
+// ══════════════════════════════════════════════════════════
 // HEALTH DASHBOARD
 // ══════════════════════════════════════════════════════════
 let healthData = { ...DEMO.health };
@@ -1531,6 +1638,228 @@ function renderHealth() {
 function refreshHealth() {
   showLoad(true);
   setTimeout(() => { showLoad(false); renderHealth(); toast('✅ تم تحديث القراءات'); }, 800);
+}
+
+// ══════════════════════════════════════════════════════════
+// VOICE ASSISTANT
+// ══════════════════════════════════════════════════════════
+const VOICE_STATES = ['idle','recording','thinking','speaking'];
+const VOICE_CFG = {
+  idle:      { bg:'rgba(27,79,114,.18)',  border:'#1B4F72', shadow:'rgba(27,79,114,.5)',  icon:'🎤', label:'اضغط للتحدث',     waves:false, spinner:false },
+  recording: { bg:'rgba(231,76,60,.18)', border:'#E74C3C', shadow:'rgba(231,76,60,.5)', icon:'⏺',  label:'جارٍ التسجيل...', waves:true,  spinner:false },
+  thinking:  { bg:'rgba(243,156,18,.18)',border:'#F39C12', shadow:'rgba(243,156,18,.5)',icon:'⏳',  label:'رفيق يفكر...',     waves:false, spinner:true  },
+  speaking:  { bg:'rgba(39,174,96,.18)', border:'#27AE60', shadow:'rgba(39,174,96,.5)', icon:'🔊', label:'رفيق يتحدث...',    waves:true,  spinner:false },
+};
+let voiceState = 'idle';
+let voiceTimer = null;
+
+function initVoice() {
+  voiceState = 'idle';
+  document.getElementById('voiceTranscript').style.display = 'none';
+  document.getElementById('voiceReply').style.display = 'none';
+  applyVoiceState('idle');
+}
+
+function applyVoiceState(st) {
+  const cfg = VOICE_CFG[st];
+  const btn = document.getElementById('voiceBtn');
+  const ico = document.getElementById('voiceIcon');
+  const lbl = document.getElementById('voiceStatus');
+  const waves = document.getElementById('voiceWaves');
+  const spinner = document.getElementById('voiceSpinner');
+  btn.style.background = cfg.bg;
+  btn.style.border = '3px solid ' + cfg.border;
+  btn.style.boxShadow = '0 0 40px ' + cfg.shadow;
+  ico.textContent = cfg.icon;
+  lbl.textContent = cfg.label;
+  waves.style.opacity = cfg.waves ? '1' : '0';
+  document.querySelectorAll('.vwave').forEach(w => w.style.background = st==='speaking' ? 'var(--success)' : 'var(--danger)');
+  spinner.style.display = cfg.spinner ? 'block' : 'none';
+  if (cfg.spinner) spinner.style.borderTopColor = '#F39C12';
+}
+
+function cycleVoice() {
+  clearTimeout(voiceTimer);
+  if (voiceState === 'idle') {
+    voiceState = 'recording'; applyVoiceState('recording');
+    voiceTimer = setTimeout(() => {
+      voiceState = 'thinking'; applyVoiceState('thinking');
+      voiceTimer = setTimeout(() => {
+        voiceState = 'speaking'; applyVoiceState('speaking');
+        // show cards
+        document.getElementById('voiceUserText').textContent = 'ما هي أدويتي اليوم؟';
+        document.getElementById('voiceTranscript').style.display = 'block';
+        voiceTimer = setTimeout(() => {
+          document.getElementById('voiceAiText').textContent = 'أدويتك اليوم: أملوديبين 5mg الساعة 8 صباحاً ✓، باكلوفين 10mg الساعة 1 ظهراً ⏳، فيتامين د الساعة 8 مساءً ⏳. لا تنسَ شرب الماء الكافي 💙';
+          document.getElementById('voiceReply').style.display = 'block';
+          voiceTimer = setTimeout(() => { voiceState = 'idle'; applyVoiceState('idle'); }, 3000);
+        }, 2000);
+      }, 2000);
+    }, 2200);
+  } else {
+    // manual interrupt → back to idle
+    voiceState = 'idle'; applyVoiceState('idle');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// DIRECT CHAT
+// ══════════════════════════════════════════════════════════
+let dcVoiceTimer = null;
+
+function renderDirectChat() {
+  const c = document.getElementById('dchatMsgs');
+  c.innerHTML = '';
+  dcMessages.forEach(m => appendDcMsg(m, false));
+  c.scrollTop = c.scrollHeight;
+}
+
+function appendDcMsg(m, animate) {
+  const c = document.getElementById('dchatMsgs');
+  const isMe = m.who === 'me';
+  const div = document.createElement('div');
+  div.style.cssText = `display:flex;flex-direction:column;align-items:${isMe?'flex-start':'flex-end'};margin-bottom:4px;${animate?'animation:fadeUp .25s ease':''}`;
+
+  if (m.voice) {
+    // voice note bubble
+    div.innerHTML = `
+      <div style="background:${isMe?'var(--primary)':'white'};color:${isMe?'white':'var(--dark)'};border-radius:${isMe?'18px 18px 4px 18px':'18px 18px 18px 4px'};padding:10px 13px;max-width:75%;box-shadow:var(--shadow);display:flex;align-items:center;gap:9px">
+        <button onclick="playVoiceNote(this)" style="width:32px;height:32px;border-radius:50%;background:${isMe?'rgba(255,255,255,.25)':'var(--primary)'};color:${isMe?'white':'white'};border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center">▶</button>
+        <div>
+          <div style="display:flex;gap:2px;align-items:center;height:22px">
+            ${[8,14,10,18,12,16,9,14,11,17,8,13].map(h=>`<div style="width:3px;height:${h}px;background:${isMe?'rgba(255,255,255,.7)':'var(--primary)'};border-radius:2px"></div>`).join('')}
+          </div>
+          <div style="font-size:10px;opacity:.65;margin-top:3px">${m.duration}</div>
+        </div>
+      </div>
+      <div style="font-size:9px;color:#aaa;margin-top:2px;padding:0 4px">${m.time}</div>`;
+  } else {
+    div.innerHTML = `
+      <div style="background:${isMe?'var(--primary)':'white'};color:${isMe?'white':'var(--dark)'};border-radius:${isMe?'18px 18px 4px 18px':'18px 18px 18px 4px'};padding:10px 13px;max-width:80%;font-size:13px;line-height:1.5;box-shadow:var(--shadow)">${esc(m.text)}${isMe?'<span style="font-size:10px;opacity:.65;margin-right:5px">✓✓</span>':''}</div>
+      <div style="font-size:9px;color:#aaa;margin-top:2px;padding:0 4px">${m.time}</div>`;
+  }
+  c.appendChild(div);
+}
+
+function sendDirect() {
+  const inp = document.getElementById('dcInp');
+  const txt = inp.value.trim(); if (!txt) return;
+  inp.value = '';
+  const msg = { who:'me', text:txt, time:nowTime() };
+  dcMessages.push(msg);
+  appendDcMsg(msg, true);
+  const c = document.getElementById('dchatMsgs');
+  c.scrollTop = c.scrollHeight;
+  // caregiver auto-reply after 1.5s
+  setTimeout(() => {
+    const replies = ['حسناً يا محمد، شكراً للتحديث 😊','سأتابع معك لاحقاً إن شاء الله','ممتاز! استمر على هذا المنوال 💪','تم الأخذ بعين الاعتبار ✅'];
+    const r = { who:'them', text:replies[Math.floor(Math.random()*replies.length)], time:nowTime() };
+    dcMessages.push(r);
+    appendDcMsg(r, true);
+    c.scrollTop = c.scrollHeight;
+  }, 1500);
+}
+
+function startDcVoice() {
+  const mic = document.getElementById('dcMic');
+  mic.textContent = '🔴';
+  dcVoiceTimer = Date.now();
+}
+
+function stopDcVoice() {
+  const mic = document.getElementById('dcMic');
+  mic.textContent = '🎤';
+  const dur = ((Date.now() - (dcVoiceTimer||Date.now())) / 1000).toFixed(0);
+  if (dur < 1) return;
+  const msg = { who:'me', voice:true, duration:`0:${String(dur).padStart(2,'0')}`, time:nowTime() };
+  dcMessages.push(msg);
+  appendDcMsg(msg, true);
+  const c = document.getElementById('dchatMsgs');
+  c.scrollTop = c.scrollHeight;
+}
+
+function playVoiceNote(btn) {
+  btn.textContent = '⏸';
+  toast('🔊 جارٍ تشغيل الرسالة الصوتية...');
+  setTimeout(() => { btn.textContent = '▶'; }, 2000);
+}
+
+// ══════════════════════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════════════════════
+function renderProfile() {
+  const p = DEMO.patient;
+  document.getElementById('profileBody').innerHTML = `
+    <!-- Header banner -->
+    <div style="background:linear-gradient(160deg,var(--primary),#0d2b40);padding:32px 20px 50px;text-align:center;position:relative">
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.18);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;border:3px solid rgba(255,255,255,.3)">♿</div>
+      <div style="font-size:20px;font-weight:700;color:white">${p.name}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65);margin-top:3px">${p.email}</div>
+      <span style="background:rgba(255,255,255,.15);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;display:inline-block">مريض</span>
+    </div>
+
+    <div style="padding:14px;margin-top:-22px;position:relative">
+      <!-- Info card -->
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:12px">المعلومات الطبية</div>
+        ${[
+          ['🩺','التشخيص', p.diagnosis],
+          ['🩸','فصيلة الدم', p.blood_type],
+          ['🎂','العمر', p.age + ' سنة'],
+        ].map(([ic,lb,vl])=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #F5F5F5">
+            <span style="font-size:18px;width:26px;text-align:center">${ic}</span>
+            <span style="font-size:12px;color:#888;flex:1">${lb}</span>
+            <span style="font-size:13px;font-weight:600;color:var(--dark)">${vl}</span>
+          </div>`).join('')}
+      </div>
+
+      <!-- Link code card -->
+      <div class="card" style="margin-bottom:12px;background:rgba(27,79,114,.04);border:1.5px solid rgba(27,79,114,.15)">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px">🔗 رمز الربط</div>
+        <div style="text-align:center;padding:14px 0">
+          <div style="font-size:32px;font-weight:900;letter-spacing:10px;color:var(--primary);margin-bottom:12px">${p.link_code}</div>
+          <button class="btn btn-primary btn-sm" style="width:auto;padding:9px 22px" onclick="navigator.clipboard.writeText('${p.link_code}').catch(()=>{}); toast('✅ تم نسخ الرمز: ${p.link_code}')">📋 نسخ الرمز</button>
+        </div>
+        <div style="background:rgba(243,156,18,.08);border-radius:8px;padding:9px 11px;font-size:11px;color:#856404;margin-top:8px">
+          ℹ️ شارك هذا الرمز مع مقدم الرعاية ليتمكن من متابعتك
+        </div>
+      </div>
+
+      <!-- Linked caregiver -->
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px">مقدم الرعاية المرتبط</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:44px;height:44px;border-radius:50%;background:rgba(39,174,96,.12);display:flex;align-items:center;justify-content:center;font-size:22px">👩‍⚕️</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700">${DEMO.caregiver.name}</div>
+            <div style="font-size:11px;color:#888">${DEMO.caregiver.email}</div>
+          </div>
+          <span class="badge bs">مرتبطة 🔗</span>
+        </div>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="go('s-dchat')">💬 فتح المحادثة المباشرة</button>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="card">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:10px">الإعدادات</div>
+        ${[
+          ['🔔','إعدادات الإشعارات','s-notifs'],
+          ['🔗','ربط الحسابات','s-linking'],
+          ['📊','التقارير الأسبوعية','s-reports'],
+        ].map(([ic,lb,sc])=>`
+          <div onclick="go('${sc}')" style="display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #F5F5F5;cursor:pointer">
+            <span style="font-size:18px;width:26px;text-align:center">${ic}</span>
+            <span style="font-size:13px;flex:1">${lb}</span>
+            <span style="color:#ccc">›</span>
+          </div>`).join('')}
+        <div onclick="go('s-login')" style="display:flex;align-items:center;gap:10px;padding:11px 0;cursor:pointer">
+          <span style="font-size:18px;width:26px;text-align:center">🚪</span>
+          <span style="font-size:13px;color:var(--danger);flex:1">تسجيل الخروج</span>
+          <span style="color:#ccc">›</span>
+        </div>
+      </div>
+    </div>`;
 }
 
 // ══════════════════════════════════════════════════════════
