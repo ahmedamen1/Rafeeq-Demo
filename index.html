@@ -789,11 +789,12 @@ body {
 // ══════════════════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════════════════
-const API = window.location.hostname === 'ahmedamen1.github.io'
-  ? 'http://76.13.56.28:8000/api/v1'   // GitHub Pages — user must allow mixed content or use http://
-  : (window.location.port === '8000' || window.location.hostname === '76.13.56.28')
-    ? '/api/v1'                          // served directly from FastAPI — relative path
-    : 'http://76.13.56.28:8000/api/v1'; // local file / other
+const API_BASE = 'http://76.13.56.28:8000/api/v1';
+const PROXY    = 'https://corsproxy.io/?url=';
+
+// On GitHub Pages (https) we must proxy the http API to avoid mixed-content block
+const IS_GITHUB_PAGES = window.location.hostname.includes('github.io');
+const API = IS_GITHUB_PAGES ? PROXY + encodeURIComponent(API_BASE) : API_BASE;
 let authToken = null;
 let currentUser = null;
 let currentRole = 'patient';
@@ -841,10 +842,19 @@ function goBack() {
 
 function goPatientHome() { goScreen('screen-patient-home'); }
 
+function buildUrl(path) {
+  if (IS_GITHUB_PAGES) {
+    return PROXY + encodeURIComponent(API_BASE + path);
+  }
+  return API_BASE + path;
+}
+
 async function apiFetch(path, opts = {}) {
-  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  const isFormData = opts.body instanceof FormData;
+  const headers = { ...(opts.headers || {}) };
+  if (!isFormData) headers['Content-Type'] = 'application/json';
   if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-  const res = await fetch(API + path, { ...opts, headers });
+  const res = await fetch(buildUrl(path), { ...opts, headers });
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
     throw new Error(err.detail || 'خطأ في الخادم');
@@ -1116,7 +1126,7 @@ async function createAlarm() {
     fd.append('repeat_type', repeat);
     const headers = {};
     if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-    const res = await fetch(API + '/alarms', { method: 'POST', headers, body: fd });
+    const res = await fetch(buildUrl('/alarms'), { method: 'POST', headers, body: fd });
     if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'خطأ'); }
     showLoading(false);
     showToast('تم حفظ التنبيه ✅');
@@ -1671,7 +1681,7 @@ function escapeHtml(str) {
 }
 
 // Check API connectivity
-fetch(API + '/auth/login', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"email":"x","password":"x"}' })
+fetch(buildUrl('/auth/login'), { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"email":"x","password":"x"}' })
   .then(() => { document.getElementById('connStatus').textContent = '● متصل'; document.getElementById('connStatus').style.color = 'var(--success)'; })
   .catch(() => { document.getElementById('connStatus').textContent = '● غير متصل'; document.getElementById('connStatus').style.color = 'var(--danger)'; });
 </script>
