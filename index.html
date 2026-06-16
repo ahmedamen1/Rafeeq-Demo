@@ -29,18 +29,40 @@ body {
   padding: 16px 0 32px;
 }
 
-/* ── MOBILE: fill the screen, no phone shell ──────────────── */
-@media (max-width: 480px) {
-  body { padding: 0; background: var(--bg); }
+/* ── MOBILE: any phone — fill entire screen ───────────────── */
+/* Triggers when viewport width is phone-sized OR when the device
+   reports a touch pointer (catches tablets too if you want) */
+@media (max-width: 600px), (pointer: coarse) and (max-width: 900px) {
+  body {
+    padding: 0;
+    background: var(--bg);
+    min-height: 100svh;       /* svh = excludes browser chrome bar */
+  }
   .demo-header { display: none; }
   .phone {
-    width: 100vw;
-    height: 100dvh;
-    border-radius: 0;
-    box-shadow: none;
+    width: 100vw !important;
+    height: 100svh !important;   /* svh respects browser bottom bar */
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
-  .phone-notch { display: none; }
-  .status-bar { padding-top: 10px !important; }
+  .phone-notch { display: none !important; }
+  /* status bar: remove tall top padding (no fake notch needed) */
+  .status-bar {
+    padding-top: env(safe-area-inset-top, 8px) !important;
+    height: auto !important;
+    padding-bottom: 6px !important;
+  }
+  /* bottom nav: sit above home bar on iPhone/Android */
+  .bnav {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: auto !important;
+    min-height: 58px;
+  }
+  /* FAB sits above bottom nav + home indicator */
+  .fab {
+    bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+  }
 }
 
 /* ── DEMO HEADER ─────────────────────────────────────────── */
@@ -63,11 +85,11 @@ body {
 .demo-chip:hover { background: rgba(255,255,255,.2); }
 .demo-chip.active { background: rgba(255,255,255,.25); border-color: rgba(255,255,255,.5); }
 
-/* ── PHONE SHELL ─────────────────────────────────────────── */
+/* ── PHONE SHELL (desktop mockup) ───────────────────────── */
 .phone {
   width: 390px;
-  height: 820px;
-  height: min(820px, 100dvh);
+  max-width: 390px;
+  height: min(820px, calc(100vh - 120px));
   background: var(--bg);
   border-radius: 44px;
   box-shadow: 0 0 0 3px #333, 0 0 0 6px #555, 0 40px 80px rgba(0,0,0,.7);
