@@ -1,99 +1,1672 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rafeeq — Graduation Project</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<title>رفيق — عرض تجريبي مباشر</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #1B4F72;
+  --primary-light: #2E86C1;
+  --success: #27AE60;
+  --danger: #E74C3C;
+  --warning: #F39C12;
+  --info: #3498DB;
+  --bg: #F8F9FA;
+  --dark: #1C2833;
+  --gray: #BDC3C7;
+  --card-bg: #ffffff;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  html, body {
-    min-height: 100vh;
-    font-family: 'Inter', system-ui, sans-serif;
-    background: #0D1F3C;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
+/* ── PHONE SHELL ─────────────────────────────────────────── */
+.app-shell {
+  width: 390px;
+  min-height: 844px;
+  max-height: 844px;
+  margin: 20px auto;
+  background: var(--bg);
+  border-radius: 44px;
+  box-shadow: 0 0 0 3px #222, 0 0 0 6px #555, 0 40px 80px rgba(0,0,0,0.5);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 120px; height: 30px;
+  background: #111;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+}
+.screen {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+.screen.active { display: flex; }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse at 25% 50%, rgba(201,153,42,0.10) 0%, transparent 55%),
-      radial-gradient(ellipse at 75% 30%, rgba(27,95,166,0.12) 0%, transparent 50%);
-    pointer-events: none;
-  }
+/* ── STATUS BAR ──────────────────────────────────────────── */
+.status-bar {
+  height: 44px;
+  background: inherit;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 24px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  padding-top: 30px;
+}
 
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    padding: 0 24px;
-  }
+/* ── APP BAR ─────────────────────────────────────────────── */
+.app-bar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.app-bar .title { font-size: 18px; font-weight: 700; flex: 1; }
+.app-bar .icon-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; background: rgba(255,255,255,0.2);
+  color: inherit; font-size: 18px; transition: .2s;
+}
+.app-bar .icon-btn:hover { background: rgba(255,255,255,0.35); }
 
-  .name {
-    font-size: clamp(48px, 12vw, 88px);
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    color: #ffffff;
-    line-height: 1;
-  }
+/* ── CARDS ───────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-sm { border-radius: 12px; padding: 12px; }
 
-  .name-ar {
-    font-size: clamp(22px, 5vw, 38px);
-    font-weight: 700;
-    color: #C9992A;
-    direction: rtl;
-    margin-top: -12px;
-  }
+/* ── BUTTONS ─────────────────────────────────────────────── */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 14px 20px;
+  border-radius: 12px; border: none; cursor: pointer;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 16px; font-weight: 700;
+  transition: all .2s; width: 100%;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-success { background: var(--success); color: white; }
+.btn-danger  { background: var(--danger);  color: white; }
+.btn-outline-primary { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+.btn:hover { opacity: 0.9; transform: scale(0.98); }
+.btn:active { transform: scale(0.96); }
+.btn-sm { padding: 8px 14px; font-size: 13px; border-radius: 8px; }
 
-  .divider {
-    width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, #C9992A, #E8B84B);
-    border-radius: 2px;
-  }
+/* ── INPUT ───────────────────────────────────────────────── */
+.input-group { margin-bottom: 14px; }
+.input-label { font-size: 13px; font-weight: 600; color: #666; margin-bottom: 6px; display: block; }
+.input-field {
+  width: 100%; padding: 13px 14px;
+  border: 1.5px solid #E8EAF0;
+  border-radius: 10px; font-family: 'Tajawal', sans-serif;
+  font-size: 15px; color: var(--dark); background: #FAFBFC;
+  transition: border-color .2s; outline: none; direction: rtl;
+}
+.input-field:focus { border-color: var(--primary); background: white; }
 
-  .label {
-    font-size: clamp(13px, 2.5vw, 16px);
-    font-weight: 600;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.04em;
-  }
+/* ── BADGE ───────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700;
+}
+.badge-success { background: #E9F7EF; color: var(--success); }
+.badge-danger  { background: #FDEDEC; color: var(--danger); }
+.badge-warning { background: #FEF9E7; color: var(--warning); }
+.badge-primary { background: #EBF5FB; color: var(--primary); }
+.badge-info    { background: #EBF5FB; color: var(--info); }
 
-  .coming {
-    font-size: clamp(15px, 3vw, 20px);
-    font-weight: 700;
-    color: rgba(255,255,255,0.75);
-  }
+/* ── BOTTOM NAV ──────────────────────────────────────────── */
+.bottom-nav {
+  height: 64px;
+  background: white;
+  display: flex;
+  border-top: 1px solid #F0F0F0;
+  flex-shrink: 0;
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px; cursor: pointer; border: none; background: none;
+  font-family: 'Tajawal', sans-serif; font-size: 10px;
+  color: #999; transition: color .2s; position: relative;
+}
+.nav-item.active { color: var(--primary); }
+.nav-item .nav-icon { font-size: 22px; }
+.nav-badge {
+  position: absolute; top: 6px; right: 14px;
+  background: var(--danger); color: white;
+  font-size: 9px; font-weight: 700;
+  width: 16px; height: 16px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
 
-  .link {
-    font-size: clamp(12px, 2vw, 15px);
-    font-weight: 600;
-    color: #C9992A;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    border-bottom: 1px solid rgba(201,153,42,0.3);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .link:hover { color: #E8B84B; border-color: rgba(232,184,75,0.6); }
+/* ── FAB ─────────────────────────────────────────────────── */
+.fab {
+  position: absolute; bottom: 72px; left: 16px;
+  background: var(--success); color: white;
+  border: none; border-radius: 28px; padding: 14px 20px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(39,174,96,.4);
+  z-index: 10; transition: all .2s;
+}
+.fab:hover { transform: scale(1.05); }
+
+/* ── CHAT BUBBLES ────────────────────────────────────────── */
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.bubble {
+  max-width: 78%; padding: 10px 14px; font-size: 14px; line-height: 1.5;
+  animation: fadeUp .25s ease both;
+}
+.bubble-user {
+  background: var(--primary); color: white;
+  border-radius: 18px 18px 4px 18px;
+  align-self: flex-start;
+}
+.bubble-ai {
+  background: white; color: var(--dark);
+  border-radius: 18px 18px 18px 4px;
+  align-self: flex-end;
+  box-shadow: var(--shadow);
+}
+.bubble-time { font-size: 10px; opacity: .6; margin-top: 3px; text-align: left; }
+.typing-dots { display: flex; gap: 4px; padding: 12px 16px; background: white; border-radius: 18px 18px 18px 4px; align-self: flex-end; box-shadow: var(--shadow); }
+.typing-dot { width: 7px; height: 7px; background: var(--gray); border-radius: 50%; animation: typingDot .6s ease-in-out infinite; }
+.typing-dot:nth-child(2) { animation-delay: .15s; }
+.typing-dot:nth-child(3) { animation-delay: .30s; }
+
+.chat-input-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; background: white;
+  border-top: 1px solid #F0F0F0; flex-shrink: 0;
+}
+.chat-input {
+  flex: 1; border: 1.5px solid #E8EAF0; border-radius: 24px;
+  padding: 10px 16px; font-family: 'Tajawal', sans-serif;
+  font-size: 14px; outline: none; direction: rtl;
+}
+.chat-input:focus { border-color: var(--primary); }
+.chat-send-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: var(--primary); color: white; font-size: 18px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: .2s;
+}
+.chat-send-btn:hover { background: var(--primary-light); }
+
+/* ── PROGRESS BAR ────────────────────────────────────────── */
+.progress-bar { height: 8px; background: #F0F0F0; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: #1C2833; color: white; padding: 10px 20px;
+  border-radius: 24px; font-size: 14px; font-weight: 600;
+  z-index: 9999; transition: transform .3s ease, opacity .3s ease;
+  opacity: 0; pointer-events: none; white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ── LOADING OVERLAY ─────────────────────────────────────── */
+.loading-overlay {
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.85);
+  display: none; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px; z-index: 50;
+}
+.loading-overlay.show { display: flex; }
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid #E8EAF0;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+/* ── SOS OVERLAY ─────────────────────────────────────────── */
+.sos-overlay {
+  position: absolute; inset: 0;
+  background: rgba(231,76,60,.85);
+  display: none; align-items: center; justify-content: center;
+  z-index: 200; animation: fadeIn .3s ease;
+}
+.sos-overlay.show { display: flex; }
+.sos-dialog {
+  background: white; border-radius: 24px; padding: 32px 24px;
+  width: 300px; text-align: center;
+  box-shadow: 0 0 60px rgba(231,76,60,.6);
+  animation: scaleInBounce .4s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes scaleInBounce { 0%{opacity:0;transform:scale(.5)} 70%{transform:scale(1.05)} 100%{opacity:1;transform:scale(1)} }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes typingDot { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1.2)} }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes countUp { from{opacity:0} to{opacity:1} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideRight { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+@keyframes progressFill { from{width:0} to{width:var(--w)} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+@keyframes recordPulse { 0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(231,76,60,.3)} 50%{transform:scale(1.12);box-shadow:0 0 50px rgba(231,76,60,.6)} }
+
+/* ── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: var(--gray); border-radius: 3px; }
+
+/* ── DEMO HEADER (outside phone) ─────────────────────────── */
+.demo-header {
+  text-align: center; padding: 16px;
+  background: linear-gradient(135deg, #0A0E1A, #1B4F72);
+  color: white;
+}
+.demo-header h1 { font-size: 22px; font-weight: 900; letter-spacing: 1px; }
+.demo-header p { font-size: 13px; opacity: .7; margin-top: 4px; }
+.demo-accounts {
+  display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap;
+}
+.demo-chip {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer;
+  transition: .2s; color: white;
+}
+.demo-chip:hover { background: rgba(255,255,255,.22); }
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="name">Rafeeq</div>
-  <div class="name-ar">رفيق</div>
-  <div class="divider"></div>
-  <div class="label">Graduation Project &nbsp;·&nbsp; Zewail City of Science and Technology &nbsp;·&nbsp; 2025</div>
-  <div class="coming">Demo coming soon</div>
-  <a class="link" href="https://ahmedamen1.github.io/Rafeeq-Demo/">ahmedamen1.github.io/Rafeeq-Demo</a>
+
+<div class="demo-header">
+  <h1>🦽 رفيق — Live Demo</h1>
+  <p>Your wheelchair. Finally smart.</p>
+  <div class="demo-accounts">
+    <div class="demo-chip" onclick="quickLogin('patient')">👤 مريض تجريبي</div>
+    <div class="demo-chip" onclick="quickLogin('caregiver')">👨‍⚕️ مشرف تجريبي</div>
+  </div>
 </div>
+
+<!-- PHONE SHELL -->
+<div class="app-shell" id="appShell">
+  <div class="phone-notch"></div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div style="font-size:14px;color:#666;font-family:Tajawal,sans-serif;">جارٍ التحميل...</div>
+  </div>
+
+  <!-- SOS OVERLAY -->
+  <div class="sos-overlay" id="sosOverlay">
+    <div class="sos-dialog">
+      <div style="font-size:60px;animation:shake .5s ease infinite">🚨</div>
+      <h2 style="color:var(--danger);font-size:22px;margin:12px 0 8px">استغاثة طارئة!</h2>
+      <p id="sosMsg" style="font-size:15px;color:#333;line-height:1.5">يحتاج المريض مساعدة فورية!</p>
+      <button class="btn btn-danger" style="margin-top:20px" onclick="closeSOS()">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 1: SPLASH -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-splash" style="background:linear-gradient(160deg,#1B4F72,#0d2b40);align-items:center;justify-content:center;">
+    <div style="text-align:center;animation:scaleInBounce 1s ease both;">
+      <div style="width:100px;height:100px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:float 3s ease-in-out infinite;">
+        <span style="font-size:50px">🦽</span>
+      </div>
+      <h1 style="color:white;font-size:42px;font-weight:900;letter-spacing:2px;animation:fadeUp .6s .3s both">رفيق</h1>
+      <p style="color:rgba(255,255,255,.7);font-size:16px;margin-top:8px;animation:fadeUp .6s .5s both">رفيقك الذكي في رحلتك</p>
+      <div style="margin-top:30px;animation:fadeIn .4s .8s both;">
+        <div class="spinner" style="margin:0 auto;border-top-color:white;border-color:rgba(255,255,255,.3)"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 2: LOGIN -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-login" style="background:white;">
+    <div class="status-bar" style="background:var(--primary);color:white;">
+      <span>9:41</span><span>📶 🔋</span>
+    </div>
+
+    <!-- Header -->
+    <div style="background:var(--primary);padding:24px 24px 40px;color:white;">
+      <div style="font-size:36px;margin-bottom:8px;animation:float 3s ease-in-out infinite">🦽</div>
+      <h2 style="font-size:26px;font-weight:900">أهلاً بك</h2>
+      <p style="opacity:.75;font-size:14px;margin-top:4px">سجّل دخولك للمتابعة</p>
+    </div>
+
+    <!-- Role chips -->
+    <div style="background:var(--primary);padding:0 24px 24px;">
+      <div style="display:flex;gap:8px;">
+        <div id="chip-patient" onclick="selectRole('patient')" style="flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:white;color:var(--primary);font-weight:700;font-size:13px;transition:.2s;">
+          🦽 مريض
+        </div>
+        <div id="chip-caregiver" onclick="selectRole('caregiver')" style="flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.2);color:white;font-weight:700;font-size:13px;transition:.2s;">
+          👨‍⚕️ مشرف
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1;padding:24px;overflow-y:auto;margin-top:-16px;background:white;border-radius:20px 20px 0 0;position:relative;z-index:1;">
+      <div class="input-group">
+        <label class="input-label">البريد الإلكتروني</label>
+        <input class="input-field" id="loginEmail" type="email" placeholder="demo@rafeeq.app" value="demo.patient@rafeeq.app">
+      </div>
+      <div class="input-group">
+        <label class="input-label">كلمة المرور</label>
+        <input class="input-field" id="loginPassword" type="password" placeholder="••••••••" value="demo1234">
+      </div>
+      <div id="loginError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;padding:10px;background:#FDEDEC;border-radius:8px;"></div>
+      <button class="btn btn-primary" id="loginBtn" onclick="doLogin()">تسجيل الدخول</button>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:#888">
+        ليس لديك حساب؟ <span style="color:var(--primary);cursor:pointer;font-weight:700" onclick="goScreen('screen-register')">إنشاء حساب</span>
+      </p>
+
+      <!-- Demo shortcuts -->
+      <div style="margin-top:20px;border-top:1px solid #F0F0F0;padding-top:16px;">
+        <p style="font-size:11px;color:#aaa;text-align:center;margin-bottom:10px;">دخول سريع للعرض التجريبي</p>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline-primary btn-sm" style="flex:1" onclick="quickLogin('patient')">👤 مريض</button>
+          <button class="btn btn-sm" style="flex:1;background:var(--success);color:white;border-radius:8px" onclick="quickLogin('caregiver')">👨‍⚕️ مشرف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 3: REGISTER -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-register" style="background:white;">
+    <div class="status-bar" style="background:var(--primary);color:white;">
+      <span>9:41</span><span>📶 🔋</span>
+    </div>
+    <div style="background:var(--primary);padding:14px 16px;display:flex;align-items:center;gap:12px;color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-login')">←</button>
+      <span style="font-size:18px;font-weight:700">إنشاء حساب جديد</span>
+    </div>
+    <div style="flex:1;padding:20px;overflow-y:auto;">
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <div id="reg-chip-patient" onclick="selectRegRole('patient')" style="flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:var(--primary);color:white;font-weight:700;font-size:13px;">🦽 مريض</div>
+        <div id="reg-chip-caregiver" onclick="selectRegRole('caregiver')" style="flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:#F0F0F0;color:#666;font-weight:700;font-size:13px;">👨‍⚕️ مشرف</div>
+      </div>
+      <div class="input-group"><label class="input-label">الاسم الكامل</label><input class="input-field" id="regName" placeholder="أحمد محمد"></div>
+      <div class="input-group"><label class="input-label">البريد الإلكتروني</label><input class="input-field" id="regEmail" type="email" placeholder="ahmed@example.com"></div>
+      <div class="input-group"><label class="input-label">رقم الهاتف</label><input class="input-field" id="regPhone" placeholder="+201xxxxxxxxx"></div>
+      <div class="input-group"><label class="input-label">كلمة المرور</label><input class="input-field" id="regPassword" type="password" placeholder="••••••••"></div>
+      <div id="regError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;padding:10px;background:#FDEDEC;border-radius:8px;"></div>
+      <button class="btn btn-primary" onclick="doRegister()">إنشاء الحساب</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 4: PATIENT HOME -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-patient-home">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <div style="font-size:26px;">🦽</div>
+      <div class="title">
+        <div style="font-size:12px;opacity:.75;font-weight:400">مرحباً بك،</div>
+        <div id="patientGreeting" style="font-size:16px;font-weight:700">...</div>
+      </div>
+      <button class="icon-btn" onclick="goScreen('screen-notifications')" style="position:relative;">
+        🔔
+        <div class="nav-badge" id="notifBadge" style="display:none">3</div>
+      </button>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;padding:16px;background:var(--bg);">
+      <!-- Quick actions -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="card" style="cursor:pointer;text-align:center;padding:18px 12px" onclick="goScreen('screen-alarms')">
+          <div style="font-size:28px;margin-bottom:6px">⏰</div>
+          <div style="font-size:13px;font-weight:700;color:var(--primary)">التنبيهات</div>
+          <div id="alarmCount" style="font-size:11px;color:#888;margin-top:2px">...</div>
+        </div>
+        <div class="card" style="cursor:pointer;text-align:center;padding:18px 12px" onclick="goScreen('screen-medications')">
+          <div style="font-size:28px;margin-bottom:6px">💊</div>
+          <div style="font-size:13px;font-weight:700;color:var(--primary)">الأدوية</div>
+          <div id="medCount" style="font-size:11px;color:#888;margin-top:2px">...</div>
+        </div>
+        <div class="card" style="cursor:pointer;text-align:center;padding:18px 12px" onclick="goScreen('screen-patient-chat')">
+          <div style="font-size:28px;margin-bottom:6px">🤖</div>
+          <div style="font-size:13px;font-weight:700;color:var(--info)">مساعد رفيق</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">AI متقدم</div>
+        </div>
+        <div class="card" style="cursor:pointer;text-align:center;padding:18px 12px" onclick="goScreen('screen-reports')">
+          <div style="font-size:28px;margin-bottom:6px">📊</div>
+          <div style="font-size:13px;font-weight:700;color:var(--success)">التقارير</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">أسبوعي</div>
+        </div>
+      </div>
+
+      <!-- SOS -->
+      <div class="card" style="background:linear-gradient(135deg,#FDEDEC,#FDECEA);border:1.5px solid rgba(231,76,60,.2);cursor:pointer;display:flex;align-items:center;gap:14px;padding:16px 20px" onclick="triggerSOS()">
+        <div style="font-size:36px;animation:recordPulse 1.5s ease-in-out infinite">🆘</div>
+        <div>
+          <div style="font-size:16px;font-weight:700;color:var(--danger)">استغاثة طارئة</div>
+          <div style="font-size:12px;color:#888">اضغط عند الحاجة للمساعدة الفورية</div>
+        </div>
+      </div>
+
+      <!-- Daily check-in -->
+      <div class="card" style="margin-top:4px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:14px;color:var(--dark)">تسجيل اليومي</div>
+        <div style="font-size:13px;color:#666;margin-bottom:10px">كيف تشعر اليوم؟</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="moodGrid">
+          <div class="mood-btn" data-mood="0" onclick="selectMood(0)" style="padding:8px 12px;border-radius:10px;cursor:pointer;background:#F0F0F0;font-size:13px;transition:.2s">😊 سعيد</div>
+          <div class="mood-btn" data-mood="1" onclick="selectMood(1)" style="padding:8px 12px;border-radius:10px;cursor:pointer;background:#F0F0F0;font-size:13px;transition:.2s">😐 محايد</div>
+          <div class="mood-btn" data-mood="2" onclick="selectMood(2)" style="padding:8px 12px;border-radius:10px;cursor:pointer;background:#F0F0F0;font-size:13px;transition:.2s">😢 حزين</div>
+          <div class="mood-btn" data-mood="3" onclick="selectMood(3)" style="padding:8px 12px;border-radius:10px;cursor:pointer;background:#F0F0F0;font-size:13px;transition:.2s">😡 غضبان</div>
+          <div class="mood-btn" data-mood="5" onclick="selectMood(5)" style="padding:8px 12px;border-radius:10px;cursor:pointer;background:#F0F0F0;font-size:13px;transition:.2s">😴 متعب</div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:4px"><span>مستوى الألم</span><span id="painVal">3</span></div>
+          <input type="range" min="0" max="10" value="3" id="painSlider" oninput="document.getElementById('painVal').textContent=this.value" style="width:100%">
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:4px"><span>ساعات النوم</span><span id="sleepVal">7</span></div>
+          <input type="range" min="0" max="12" value="7" id="sleepSlider" oninput="document.getElementById('sleepVal').textContent=this.value" style="width:100%">
+        </div>
+        <button class="btn btn-success btn-sm" onclick="submitCheckin()" style="width:100%">إرسال التسجيل</button>
+      </div>
+    </div>
+
+    <div class="bottom-nav" id="patientNav">
+      <button class="nav-item active" onclick="goScreen('screen-patient-home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+      <button class="nav-item" onclick="goScreen('screen-alarms')"><span class="nav-icon">⏰</span>التنبيهات</button>
+      <button class="nav-item" onclick="goScreen('screen-patient-chat')"><span class="nav-icon">🤖</span>رفيق AI</button>
+      <button class="nav-item" onclick="goScreen('screen-reports')"><span class="nav-icon">📊</span>التقارير</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 5: PATIENT CHATBOT -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-patient-chat" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-patient-home')">←</button>
+      <div class="title">
+        <div style="font-size:16px;font-weight:700">🤖 مساعد رفيق</div>
+        <div style="font-size:11px;opacity:.75">مدعوم بالذكاء الاصطناعي</div>
+      </div>
+      <div style="width:8px;height:8px;background:#2ECC71;border-radius:50%;animation:pulse 1s infinite"></div>
+    </div>
+
+    <div class="chat-messages" id="patientChatMessages">
+      <div class="bubble bubble-ai">
+        مرحباً! أنا رفيق، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟ 😊
+        <div class="bubble-time">الآن</div>
+      </div>
+      <!-- Quick replies -->
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;margin-top:4px" id="patientQuickReplies">
+        <div onclick="sendPatientMsg('ما هي أدويتي اليوم؟')" style="background:white;border:1.5px solid var(--primary);color:var(--primary);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">💊 ما هي أدويتي اليوم؟</div>
+        <div onclick="sendPatientMsg('ما هو موعدي القادم؟')" style="background:white;border:1.5px solid var(--primary);color:var(--primary);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">📅 ما هو موعدي القادم؟</div>
+        <div onclick="sendPatientMsg('كيف كان التزامي هذا الأسبوع؟')" style="background:white;border:1.5px solid var(--primary);color:var(--primary);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">📊 التزامي هذا الأسبوع؟</div>
+        <div onclick="sendPatientMsg('اعمل تقريري الطبي PDF')" style="background:white;border:1.5px solid var(--danger);color:var(--danger);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">📄 تقرير PDF</div>
+      </div>
+    </div>
+
+    <div class="chat-input-bar">
+      <button class="chat-send-btn" onclick="sendPatientMsg()">➤</button>
+      <input class="chat-input" id="patientChatInput" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendPatientMsg()">
+      <span style="font-size:22px;cursor:pointer" onclick="showToast('التسجيل الصوتي قيد التطوير')">🎤</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 6: ALARMS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-alarms" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goPatientHome()">←</button>
+      <span class="title">التنبيهات</span>
+      <button class="icon-btn" onclick="goScreen('screen-add-alarm')">＋</button>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="alarmsList">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+
+    <button class="fab" onclick="goScreen('screen-add-alarm')">＋ إضافة تنبيه</button>
+
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="goScreen('screen-patient-home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+      <button class="nav-item active" onclick="goScreen('screen-alarms')"><span class="nav-icon">⏰</span>التنبيهات</button>
+      <button class="nav-item" onclick="goScreen('screen-patient-chat')"><span class="nav-icon">🤖</span>رفيق AI</button>
+      <button class="nav-item" onclick="goScreen('screen-reports')"><span class="nav-icon">📊</span>التقارير</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 7: ADD ALARM -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-add-alarm" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-alarms')">←</button>
+      <span class="title">تنبيه جديد</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;">
+      <div class="card">
+        <div class="input-group"><label class="input-label">عنوان التنبيه</label><input class="input-field" id="newAlarmTitle" placeholder="مثال: دواء الصباح"></div>
+        <div class="input-group"><label class="input-label">الوصف (اختياري)</label><input class="input-field" id="newAlarmDesc" placeholder="ملاحظات إضافية"></div>
+        <div class="input-group">
+          <label class="input-label">النوع</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="type-chip active-chip" data-type="medication" onclick="selectAlarmType('medication')" style="padding:8px 14px;border-radius:20px;cursor:pointer;background:var(--primary);color:white;font-size:13px;font-family:Tajawal,sans-serif;font-weight:600">💊 دواء</div>
+            <div class="type-chip" data-type="appointment" onclick="selectAlarmType('appointment')" style="padding:8px 14px;border-radius:20px;cursor:pointer;background:#F0F0F0;color:#666;font-size:13px;font-family:Tajawal,sans-serif;font-weight:600">🏥 موعد</div>
+            <div class="type-chip" data-type="exercise" onclick="selectAlarmType('exercise')" style="padding:8px 14px;border-radius:20px;cursor:pointer;background:#F0F0F0;color:#666;font-size:13px;font-family:Tajawal,sans-serif;font-weight:600">🏋️ تمرين</div>
+            <div class="type-chip" data-type="general" onclick="selectAlarmType('general')" style="padding:8px 14px;border-radius:20px;cursor:pointer;background:#F0F0F0;color:#666;font-size:13px;font-family:Tajawal,sans-serif;font-weight:600">📌 عام</div>
+          </div>
+        </div>
+        <div class="input-group"><label class="input-label">وقت التنبيه</label><input class="input-field" id="newAlarmTime" type="time" value="08:00"></div>
+        <div class="input-group">
+          <label class="input-label">التكرار</label>
+          <select class="input-field" id="newAlarmRepeat">
+            <option value="daily">يومياً</option>
+            <option value="weekly">أسبوعياً</option>
+            <option value="once">مرة واحدة</option>
+          </select>
+        </div>
+        <div id="addAlarmError" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none;padding:8px;background:#FDEDEC;border-radius:8px;"></div>
+        <button class="btn btn-primary" onclick="createAlarm()">حفظ التنبيه</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 8: MEDICATIONS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-medications" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goPatientHome()">←</button>
+      <span class="title">الأدوية</span>
+      <button class="icon-btn" onclick="goScreen('screen-add-medication')">＋</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="medsList">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+    <button class="fab" onclick="goScreen('screen-add-medication')">＋ إضافة دواء</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 9: ADD MEDICATION -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-add-medication" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-medications')">←</button>
+      <span class="title">دواء جديد</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;">
+      <div class="card">
+        <div class="input-group"><label class="input-label">اسم الدواء</label><input class="input-field" id="newMedName" placeholder="مثال: أملوديبين"></div>
+        <div class="input-group"><label class="input-label">الجرعة</label><input class="input-field" id="newMedDosage" placeholder="مثال: 5mg"></div>
+        <div class="input-group"><label class="input-label">التكرار</label><input class="input-field" id="newMedFreq" placeholder="مرة يومياً" value="مرة يومياً"></div>
+        <div class="input-group"><label class="input-label">مواعيد الأخذ (مفصولة بفاصلة)</label><input class="input-field" id="newMedTimes" placeholder="08:00,20:00"></div>
+        <div class="input-group"><label class="input-label">ملاحظات</label><input class="input-field" id="newMedNotes" placeholder="مع الطعام..."></div>
+        <button class="btn btn-primary" onclick="createMedication()">حفظ الدواء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 10: REPORTS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-reports" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goPatientHome()">←</button>
+      <span class="title">التقارير</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="reportsContent">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="goScreen('screen-patient-home')"><span class="nav-icon">🏠</span>الرئيسية</button>
+      <button class="nav-item" onclick="goScreen('screen-alarms')"><span class="nav-icon">⏰</span>التنبيهات</button>
+      <button class="nav-item" onclick="goScreen('screen-patient-chat')"><span class="nav-icon">🤖</span>رفيق AI</button>
+      <button class="nav-item active" onclick="goScreen('screen-reports')"><span class="nav-icon">📊</span>التقارير</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 11: NOTIFICATIONS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-notifications" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goBack()">←</button>
+      <span class="title">الإشعارات</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="notifsList">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 12: CAREGIVER HOME -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-caregiver-home" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--success);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--success);color:white;">
+      <div style="font-size:24px">👨‍⚕️</div>
+      <div class="title">
+        <div style="font-size:12px;opacity:.75;font-weight:400">لوحة التحكم</div>
+        <div id="caregiverGreeting" style="font-size:16px;font-weight:700">...</div>
+      </div>
+      <button class="icon-btn" onclick="goScreen('screen-caregiver-chat')" title="مساعد رفيق">🤖</button>
+      <button class="icon-btn" onclick="goScreen('screen-notifications')" style="position:relative">🔔
+        <div class="nav-badge" id="cgNotifBadge" style="display:none">5</div>
+      </button>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="caregiverDashboard">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+
+    <button class="fab" style="background:var(--success)" onclick="goScreen('screen-caregiver-chat')">🤖 مساعد رفيق</button>
+
+    <div class="bottom-nav">
+      <button class="nav-item active" style="--primary:var(--success)" onclick="goScreen('screen-caregiver-home')"><span class="nav-icon">👥</span>المرضى</button>
+      <button class="nav-item" onclick="goScreen('screen-cg-reports')"><span class="nav-icon">📊</span>التقارير</button>
+      <button class="nav-item" onclick="goScreen('screen-notifications')"><span class="nav-icon">🔔</span>الإشعارات</button>
+      <button class="nav-item" onclick="goScreen('screen-linking')"><span class="nav-icon">🔗</span>الربط</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 13: CAREGIVER CHATBOT -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-caregiver-chat" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--success);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--success);color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-caregiver-home')">←</button>
+      <div class="title">
+        <div style="font-size:16px;font-weight:700">🤖 مساعد رفيق</div>
+        <div style="font-size:11px;opacity:.75">للمشرفين</div>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="caregiverChatMessages">
+      <div class="bubble bubble-ai" style="background:#E8F8F0;">
+        مرحباً! يمكنني مساعدتك في متابعة مرضاك وتحليل بياناتهم 👨‍⚕️
+        <div class="bubble-time">الآن</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;margin-top:4px" id="cgQuickReplies">
+        <div onclick="sendCaregiverMsg('ما حالة المرضى اليوم؟')" style="background:white;border:1.5px solid var(--success);color:var(--success);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">👥 حالة المرضى اليوم؟</div>
+        <div onclick="sendCaregiverMsg('من لم يأخذ دواءه اليوم؟')" style="background:white;border:1.5px solid var(--success);color:var(--success);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">💊 من فاته دواؤه؟</div>
+        <div onclick="sendCaregiverMsg('اعمل تقرير أسبوعي لجميع المرضى')" style="background:white;border:1.5px solid var(--danger);color:var(--danger);padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif;font-weight:600">📄 تقرير أسبوعي PDF</div>
+      </div>
+    </div>
+
+    <div class="chat-input-bar" style="border-top-color:#E8F8F0">
+      <button class="chat-send-btn" style="background:var(--success)" onclick="sendCaregiverMsg()">➤</button>
+      <input class="chat-input" id="caregiverChatInput" placeholder="اسأل عن مرضاك..." onkeydown="if(event.key==='Enter')sendCaregiverMsg()">
+      <span style="font-size:22px;cursor:pointer" onclick="showToast('التسجيل الصوتي قيد التطوير')">🎤</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 14: CAREGIVER REPORTS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-cg-reports" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--success);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--success);color:white;">
+      <button class="icon-btn" onclick="goScreen('screen-caregiver-home')">←</button>
+      <span class="title">تقارير المرضى</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;" id="cgReportsContent">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SCREEN 15: LINKING -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-linking" style="background:var(--bg);">
+    <div class="status-bar" style="background:var(--primary);color:white;"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white;">
+      <button class="icon-btn" onclick="goBack()">←</button>
+      <span class="title">ربط الحسابات</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:24px;" id="linkingContent">
+      <div style="text-align:center;color:#aaa;padding:40px;font-size:14px">جارٍ التحميل...</div>
+    </div>
+  </div>
+
+</div><!-- end app-shell -->
+
+<div style="text-align:center;padding:12px;font-size:11px;color:#999;">
+  API: <code>http://76.13.56.28:8000/api/v1</code> &nbsp;|&nbsp;
+  <span id="connStatus" style="color:var(--success)">● متصل</span>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════
+const API = 'http://76.13.56.28:8000/api/v1';
+let authToken = null;
+let currentUser = null;
+let currentRole = 'patient';
+let screenHistory = ['screen-splash'];
+let selectedMood = 0;
+let selectedAlarmType = 'medication';
+let selectedRegRole = 'patient';
+let linkedPatients = [];
+
+// ══════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════
+function showLoading(show) {
+  document.getElementById('loadingOverlay').className = 'loading-overlay' + (show ? ' show' : '');
+}
+
+function showToast(msg, ms = 2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), ms);
+}
+
+function goScreen(id) {
+  const current = document.querySelector('.screen.active');
+  if (current && current.id !== id) {
+    screenHistory.push(id);
+    current.classList.remove('active');
+    const next = document.getElementById(id);
+    if (next) {
+      next.classList.add('active');
+      onScreenEnter(id);
+    }
+  }
+}
+
+function goBack() {
+  screenHistory.pop();
+  const prev = screenHistory[screenHistory.length - 1] || 'screen-login';
+  const current = document.querySelector('.screen.active');
+  if (current) current.classList.remove('active');
+  const target = document.getElementById(prev);
+  if (target) { target.classList.add('active'); onScreenEnter(prev); }
+}
+
+function goPatientHome() { goScreen('screen-patient-home'); }
+
+async function apiFetch(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+  if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+  const res = await fetch(API + path, { ...opts, headers });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    throw new Error(err.detail || 'خطأ في الخادم');
+  }
+  return res.json();
+}
+
+function nowTime() {
+  return new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+}
+
+// ══════════════════════════════════════════════════════════
+// SPLASH → LOGIN
+// ══════════════════════════════════════════════════════════
+setTimeout(() => {
+  document.getElementById('screen-splash').classList.remove('active');
+  document.getElementById('screen-login').classList.add('active');
+  screenHistory = ['screen-login'];
+}, 2200);
+
+// ══════════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════════
+function selectRole(role) {
+  currentRole = role;
+  const p = document.getElementById('chip-patient');
+  const c = document.getElementById('chip-caregiver');
+  if (role === 'patient') {
+    p.style.cssText = 'flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:white;color:var(--primary);font-weight:700;font-size:13px;transition:.2s;';
+    c.style.cssText = 'flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.2);color:white;font-weight:700;font-size:13px;transition:.2s;';
+    document.getElementById('loginEmail').value = 'demo.patient@rafeeq.app';
+  } else {
+    c.style.cssText = 'flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:white;color:var(--success);font-weight:700;font-size:13px;transition:.2s;';
+    p.style.cssText = 'flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.2);color:white;font-weight:700;font-size:13px;transition:.2s;';
+    document.getElementById('loginEmail').value = 'demo.caregiver@rafeeq.app';
+  }
+  document.getElementById('loginPassword').value = 'demo1234';
+}
+
+function selectRegRole(role) {
+  selectedRegRole = role;
+  const p = document.getElementById('reg-chip-patient');
+  const c = document.getElementById('reg-chip-caregiver');
+  if (role === 'patient') {
+    p.style.background = 'var(--primary)'; p.style.color = 'white';
+    c.style.background = '#F0F0F0'; c.style.color = '#666';
+  } else {
+    c.style.background = 'var(--success)'; c.style.color = 'white';
+    p.style.background = '#F0F0F0'; p.style.color = '#666';
+  }
+}
+
+async function quickLogin(role) {
+  selectRole(role);
+  document.getElementById('loginEmail').value = role === 'patient' ? 'demo.patient@rafeeq.app' : 'demo.caregiver@rafeeq.app';
+  document.getElementById('loginPassword').value = 'demo1234';
+  goScreen('screen-login');
+  await doLogin();
+}
+
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+  if (!email || !password) { errEl.textContent = 'يرجى إدخال البريد الإلكتروني وكلمة المرور'; errEl.style.display = 'block'; return; }
+  showLoading(true);
+  try {
+    const data = await apiFetch('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    });
+    authToken = data.access_token;
+    currentUser = data.user;
+    showLoading(false);
+    if (data.user.role === 'caregiver') {
+      goScreen('screen-caregiver-home');
+    } else {
+      goScreen('screen-patient-home');
+    }
+  } catch (e) {
+    showLoading(false);
+    errEl.textContent = e.message || 'فشل تسجيل الدخول';
+    errEl.style.display = 'block';
+  }
+}
+
+async function doRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const errEl = document.getElementById('regError');
+  errEl.style.display = 'none';
+  if (!name || !email || !password) { errEl.textContent = 'يرجى ملء جميع الحقول المطلوبة'; errEl.style.display = 'block'; return; }
+  showLoading(true);
+  try {
+    const data = await apiFetch('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, phone, password, role: selectedRegRole })
+    });
+    authToken = data.access_token;
+    currentUser = data.user;
+    showLoading(false);
+    showToast('تم إنشاء الحساب بنجاح! ✅');
+    if (data.user.role === 'caregiver') goScreen('screen-caregiver-home');
+    else goScreen('screen-patient-home');
+  } catch (e) {
+    showLoading(false);
+    errEl.textContent = e.message || 'فشل إنشاء الحساب';
+    errEl.style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// SCREEN ENTER HOOKS
+// ══════════════════════════════════════════════════════════
+function onScreenEnter(id) {
+  switch (id) {
+    case 'screen-patient-home':   loadPatientHome(); break;
+    case 'screen-caregiver-home': loadCaregiverHome(); break;
+    case 'screen-alarms':         loadAlarms(); break;
+    case 'screen-medications':    loadMedications(); break;
+    case 'screen-reports':        loadReports(); break;
+    case 'screen-cg-reports':     loadCgReports(); break;
+    case 'screen-notifications':  loadNotifications(); break;
+    case 'screen-linking':        loadLinking(); break;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// PATIENT HOME
+// ══════════════════════════════════════════════════════════
+async function loadPatientHome() {
+  if (!currentUser) return;
+  document.getElementById('patientGreeting').textContent = (currentUser.name || '').split(' ')[0];
+  // load counts
+  try {
+    const alarms = await apiFetch('/alarms');
+    const pending = (alarms.alarms || []).filter(a => a.status === 'pending').length;
+    document.getElementById('alarmCount').textContent = pending + ' تنبيه معلق';
+  } catch {}
+  try {
+    const meds = await apiFetch('/medications');
+    document.getElementById('medCount').textContent = (meds.medications || []).length + ' دواء';
+  } catch {}
+}
+
+// ══════════════════════════════════════════════════════════
+// PATIENT CHECK-IN
+// ══════════════════════════════════════════════════════════
+function selectMood(idx) {
+  selectedMood = idx;
+  document.querySelectorAll('.mood-btn').forEach(el => {
+    const isSelected = parseInt(el.dataset.mood) === idx;
+    el.style.background = isSelected ? 'var(--primary)' : '#F0F0F0';
+    el.style.color = isSelected ? 'white' : 'inherit';
+  });
+}
+
+async function submitCheckin() {
+  const pain = parseInt(document.getElementById('painSlider').value);
+  const sleep = parseInt(document.getElementById('sleepSlider').value);
+  const moods = ['happy', 'neutral', 'sad', 'angry', 'anxious', 'tired'];
+  try {
+    showLoading(true);
+    await apiFetch('/checkin', {
+      method: 'POST',
+      body: JSON.stringify({ mood: moods[selectedMood] || 'neutral', mood_index: selectedMood, pain_level: pain, energy_level: 5, sleep_hours: sleep, symptoms: [] })
+    });
+    showLoading(false);
+    showToast('تم حفظ التسجيل اليومي ✅');
+  } catch (e) {
+    showLoading(false);
+    showToast('خطأ: ' + e.message);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// SOS
+// ══════════════════════════════════════════════════════════
+async function triggerSOS() {
+  if (!confirm('هل أنت متأكد من إرسال نداء الاستغاثة؟')) return;
+  showLoading(true);
+  try {
+    await apiFetch('/auth/sos', { method: 'POST' });
+    showLoading(false);
+    showToast('تم إرسال الاستغاثة! 🚨 تم إخطار مقدم الرعاية', 4000);
+  } catch (e) {
+    showLoading(false);
+    showToast('لم يتمكن من الإرسال: ' + e.message);
+  }
+}
+
+function closeSOS() {
+  document.getElementById('sosOverlay').classList.remove('show');
+}
+
+// ══════════════════════════════════════════════════════════
+// ALARMS
+// ══════════════════════════════════════════════════════════
+async function loadAlarms() {
+  const container = document.getElementById('alarmsList');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const data = await apiFetch('/alarms');
+    const alarms = data.alarms || [];
+    if (!alarms.length) {
+      container.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px;font-size:14px">لا توجد تنبيهات بعد<br><br><span style="font-size:40px">⏰</span></div>';
+      return;
+    }
+    const typeIcons = { medication: '💊', appointment: '🏥', exercise: '🏋️', general: '📌' };
+    const statusColors = { pending: 'var(--warning)', taken: 'var(--success)', missed: 'var(--danger)', snoozed: 'var(--info)' };
+    const statusLabels = { pending: 'معلق', taken: 'مكتمل', missed: 'فائت', snoozed: 'مؤجل' };
+    container.innerHTML = alarms.map((a, i) => `
+      <div class="card" style="animation:slideRight .3s ${i * 0.08}s both;border-right:3px solid ${statusColors[a.status] || 'var(--gray)'}">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:24px">${typeIcons[a.alarm_type] || '📌'}</div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:700">${a.title}</div>
+            <div style="font-size:12px;color:#888;margin-top:2px">⏰ ${a.alarm_time} · ${a.repeat_type === 'daily' ? 'يومياً' : a.repeat_type}</div>
+          </div>
+          <span class="badge" style="background:${statusColors[a.status]}1a;color:${statusColors[a.status]}">${statusLabels[a.status] || a.status}</span>
+        </div>
+        ${a.description ? `<div style="font-size:12px;color:#888;margin-top:8px;padding-top:8px;border-top:1px solid #F5F5F5">${a.description}</div>` : ''}
+        <div style="display:flex;gap:6px;margin-top:10px">
+          <button class="btn btn-sm" style="flex:1;background:var(--success);color:white;border-radius:8px" onclick="updateAlarmStatus('${a.id}','taken')">✓ تم</button>
+          <button class="btn btn-sm" style="flex:1;background:var(--danger);color:white;border-radius:8px" onclick="updateAlarmStatus('${a.id}','missed')">✗ فائت</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+async function updateAlarmStatus(id, status) {
+  try {
+    await apiFetch(`/alarms/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) });
+    showToast(status === 'taken' ? 'تم تسجيل التنبيه ✅' : 'تم تسجيل التنبيه كفائت');
+    loadAlarms();
+  } catch (e) { showToast('خطأ: ' + e.message); }
+}
+
+function selectAlarmType(type) {
+  selectedAlarmType = type;
+  document.querySelectorAll('.type-chip').forEach(el => {
+    const isSelected = el.dataset.type === type;
+    el.style.background = isSelected ? 'var(--primary)' : '#F0F0F0';
+    el.style.color = isSelected ? 'white' : '#666';
+  });
+}
+
+async function createAlarm() {
+  const title = document.getElementById('newAlarmTitle').value.trim();
+  const desc = document.getElementById('newAlarmDesc').value.trim();
+  const time = document.getElementById('newAlarmTime').value;
+  const repeat = document.getElementById('newAlarmRepeat').value;
+  const errEl = document.getElementById('addAlarmError');
+  if (!title || !time) { errEl.textContent = 'يرجى إدخال العنوان والوقت'; errEl.style.display = 'block'; return; }
+  errEl.style.display = 'none';
+  showLoading(true);
+  try {
+    const fd = new FormData();
+    fd.append('title', title);
+    fd.append('description', desc);
+    fd.append('alarm_type', selectedAlarmType);
+    fd.append('alarm_time', time);
+    fd.append('repeat_type', repeat);
+    const headers = {};
+    if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+    const res = await fetch(API + '/alarms', { method: 'POST', headers, body: fd });
+    if (!res.ok) { const e = await res.json(); throw new Error(e.detail || 'خطأ'); }
+    showLoading(false);
+    showToast('تم حفظ التنبيه ✅');
+    document.getElementById('newAlarmTitle').value = '';
+    document.getElementById('newAlarmDesc').value = '';
+    goScreen('screen-alarms');
+  } catch (e) {
+    showLoading(false);
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// MEDICATIONS
+// ══════════════════════════════════════════════════════════
+async function loadMedications() {
+  const container = document.getElementById('medsList');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const data = await apiFetch('/medications');
+    const meds = data.medications || [];
+    if (!meds.length) {
+      container.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px;font-size:14px">لا توجد أدوية بعد<br><br><span style="font-size:40px">💊</span></div>';
+      return;
+    }
+    container.innerHTML = meds.map((m, i) => `
+      <div class="card" style="animation:slideRight .3s ${i * 0.08}s both;border-right:3px solid var(--primary)">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:28px">💊</div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:700">${m.name}</div>
+            <div style="font-size:12px;color:#888;margin-top:2px">${m.dosage || ''} · ${m.frequency || ''}</div>
+            ${m.times && m.times.length ? `<div style="font-size:11px;color:var(--primary);margin-top:4px">⏰ ${m.times.join(', ')}</div>` : ''}
+          </div>
+          <span class="badge badge-primary">${m.is_active ? 'فعال' : 'غير فعال'}</span>
+        </div>
+        ${m.notes ? `<div style="font-size:12px;color:#888;margin-top:8px;padding-top:8px;border-top:1px solid #F5F5F5">${m.notes}</div>` : ''}
+      </div>
+    `).join('');
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+async function createMedication() {
+  const name = document.getElementById('newMedName').value.trim();
+  if (!name) { showToast('يرجى إدخال اسم الدواء'); return; }
+  showLoading(true);
+  try {
+    await apiFetch('/medications', {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        dosage: document.getElementById('newMedDosage').value,
+        frequency: document.getElementById('newMedFreq').value,
+        times: document.getElementById('newMedTimes').value,
+        notes: document.getElementById('newMedNotes').value,
+      })
+    });
+    showLoading(false);
+    showToast('تم حفظ الدواء ✅');
+    document.getElementById('newMedName').value = '';
+    goScreen('screen-medications');
+  } catch (e) {
+    showLoading(false);
+    showToast('خطأ: ' + e.message);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// REPORTS
+// ══════════════════════════════════════════════════════════
+async function loadReports() {
+  const container = document.getElementById('reportsContent');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const data = await apiFetch('/reports/summary');
+    const c = data.weekly_compliance || {};
+    const pct = c.compliance_pct || 0;
+    const color = pct >= 70 ? 'var(--success)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
+    const icon = pct >= 70 ? '👍' : '⚠️';
+    const msg = pct >= 70 ? 'أداء ممتاز! استمر 🎉' : pct >= 50 ? 'حاول التحسين ⚡' : 'تحتاج إلى متابعة ⚠️';
+
+    const adh = data.medication_adherence || {};
+    const moods = data.mood_trend || [];
+    const appts = data.upcoming_appointments || [];
+
+    container.innerHTML = `
+      <!-- Compliance Hero -->
+      <div style="background:linear-gradient(135deg,${color},${color}cc);border-radius:20px;padding:24px;color:white;margin-bottom:14px;animation:slideDown .5s ease">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="opacity:.75;font-size:13px">الالتزام هذا الأسبوع</div>
+            <div style="font-size:52px;font-weight:900;line-height:1.1" id="compliancePct">0%</div>
+            <div style="opacity:.75;font-size:13px;margin-top:4px">${msg}</div>
+          </div>
+          <div style="font-size:50px">${icon}</div>
+        </div>
+      </div>
+
+      <!-- Bar chart -->
+      <div class="card">
+        <div style="font-size:15px;font-weight:700;margin-bottom:12px">📊 الأداء اليومي (7 أيام)</div>
+        <div style="display:flex;gap:6px;align-items:flex-end;height:80px">
+          ${(c.days || []).map((d, i) => {
+            const total = d.taken + d.missed;
+            const h = total ? Math.round((d.taken / total) * 70) : 0;
+            const day = ['أحد','إثن','ثلا','أرب','خمي','جمع','سبت'][new Date(d.date).getDay()];
+            return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+              <div style="width:100%;height:${h}px;background:var(--success);border-radius:4px 4px 0 0;min-height:3px;animation:fadeUp .4s ${i*.08}s both"></div>
+              <div style="font-size:9px;color:#888">${day}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Medication adherence -->
+      <div class="card">
+        <div style="font-size:15px;font-weight:700;margin-bottom:12px">💊 التزام الأدوية (30 يوم)</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <div style="flex:1;background:#E9F7EF;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:20px;font-weight:700;color:var(--success)">${adh.taken || 0}</div>
+            <div style="font-size:11px;color:#888">مكتملة ✓</div>
+          </div>
+          <div style="flex:1;background:#FDEDEC;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:20px;font-weight:700;color:var(--danger)">${adh.missed || 0}</div>
+            <div style="font-size:11px;color:#888">فائتة ✗</div>
+          </div>
+          <div style="flex:1;background:#EBF5FB;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:20px;font-weight:700;color:var(--primary)">${adh.total || 0}</div>
+            <div style="font-size:11px;color:#888">إجمالي</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${adh.adherence_pct || 0}%;background:${adh.adherence_pct >= 70 ? 'var(--success)' : 'var(--danger)'}"></div>
+        </div>
+        <div style="text-align:left;font-size:11px;color:#888;margin-top:4px">${adh.adherence_pct || 0}%</div>
+      </div>
+
+      <!-- Mood trend -->
+      ${moods.length ? `
+      <div class="card">
+        <div style="font-size:15px;font-weight:700;margin-bottom:10px">😊 مزاج آخر 7 أيام</div>
+        ${moods.map((m, i) => {
+          const moodEmojis = ['😊','😐','😢','😡','😰','😴'];
+          return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #F5F5F5;animation:slideRight .3s ${i*.06}s both">
+            <span style="font-size:20px">${moodEmojis[m.mood_index] || '😐'}</span>
+            <div style="flex:1">
+              <div style="font-size:12px;font-weight:600">${m.mood_label || m.mood}</div>
+              <div style="font-size:10px;color:#aaa">ألم: ${m.pain_level}/10 · نوم: ${m.sleep_hours}س</div>
+            </div>
+            <div style="font-size:10px;color:#bbb">${m.date}</div>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+
+      <!-- Upcoming appointments -->
+      ${appts.length ? `
+      <div class="card">
+        <div style="font-size:15px;font-weight:700;margin-bottom:10px">📅 المواعيد القادمة</div>
+        ${appts.map(a => `
+          <div style="border-right:3px solid var(--info);padding:10px 12px;border-radius:8px;background:#EBF5FB;margin-bottom:8px">
+            <div style="font-size:14px;font-weight:700">${a.title}</div>
+            <div style="font-size:12px;color:#666;margin-top:3px">👨‍⚕️ ${a.doctor_name || ''} · 📍 ${a.location || ''}</div>
+            <div style="font-size:11px;color:var(--info);margin-top:3px">📅 ${new Date(a.appointment_date).toLocaleDateString('ar-EG')}</div>
+          </div>
+        `).join('')}
+      </div>` : ''}
+    `;
+    // Animate counter
+    animateCount('compliancePct', 0, pct, '%', 1000);
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+function animateCount(elId, from, to, suffix, duration) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const start = performance.now();
+  function update(now) {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(from + (to - from) * p) + suffix;
+    if (p < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ══════════════════════════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════════════════════════
+async function loadNotifications() {
+  const container = document.getElementById('notifsList');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const data = await apiFetch('/notifications');
+    const notifs = data.notifications || [];
+    if (!notifs.length) {
+      container.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px">لا توجد إشعارات</div>';
+      return;
+    }
+    const typeIcons = { alarm_due: '⏰', alarm_assigned: '➕', sos: '🚨', checkin_submitted: '❤️' };
+    const typeColors = { alarm_due: 'var(--warning)', alarm_assigned: 'var(--primary)', sos: 'var(--danger)', checkin_submitted: 'var(--success)' };
+    container.innerHTML = notifs.map((n, i) => `
+      <div class="card" style="animation:fadeUp .3s ${i*.06}s both;background:${n.is_read ? 'white' : '#F0F6FF'};border:${n.is_read ? 'none' : '1.5px solid rgba(27,79,114,.15)'}">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="font-size:24px">${typeIcons[n.type] || '🔔'}</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:${n.is_read ? '400' : '700'}">${n.title}</div>
+            <div style="font-size:12px;color:#666;margin-top:3px;line-height:1.4">${n.body || ''}</div>
+            <div style="font-size:10px;color:#aaa;margin-top:4px">${new Date(n.created_at).toLocaleString('ar-EG')}</div>
+          </div>
+          ${!n.is_read ? '<div style="width:8px;height:8px;background:var(--primary);border-radius:50%;flex-shrink:0;margin-top:5px"></div>' : ''}
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// CAREGIVER HOME
+// ══════════════════════════════════════════════════════════
+async function loadCaregiverHome() {
+  if (!currentUser) return;
+  document.getElementById('caregiverGreeting').textContent = (currentUser.name || '').split(' ')[0];
+  const container = document.getElementById('caregiverDashboard');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto;border-top-color:var(--success)"></div></div>';
+  try {
+    const linksData = await apiFetch('/linking/my-links');
+    const patients = linksData.linked_users || [];
+    linkedPatients = patients;
+
+    const alarmData = await apiFetch('/alarms');
+    const allAlarms = alarmData.alarms || [];
+    const taken = allAlarms.filter(a => a.status === 'taken').length;
+    const missed = allAlarms.filter(a => a.status === 'missed').length;
+    const pending = allAlarms.filter(a => a.status === 'pending').length;
+
+    container.innerHTML = `
+      <!-- Summary cards -->
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <div class="card card-sm" style="flex:1;text-align:center;animation:scaleInBounce .4s .1s both">
+          <div style="font-size:22px;font-weight:700;color:var(--success)">${taken}</div>
+          <div style="font-size:10px;color:#888">مكتمل ✓</div>
+        </div>
+        <div class="card card-sm" style="flex:1;text-align:center;animation:scaleInBounce .4s .2s both">
+          <div style="font-size:22px;font-weight:700;color:var(--danger)">${missed}</div>
+          <div style="font-size:10px;color:#888">فائت ✗</div>
+        </div>
+        <div class="card card-sm" style="flex:1;text-align:center;animation:scaleInBounce .4s .3s both">
+          <div style="font-size:22px;font-weight:700;color:var(--warning)">${pending}</div>
+          <div style="font-size:10px;color:#888">انتظار ⏳</div>
+        </div>
+      </div>
+
+      ${missed > 0 ? `
+      <div style="background:#FDEDEC;border:1px solid rgba(231,76,60,.3);border-radius:12px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;animation:slideDown .3s ease">
+        <span style="font-size:18px">⚠️</span>
+        <span style="font-size:13px;color:var(--danger);font-weight:600">${missed} تنبيه فائت اليوم</span>
+      </div>` : ''}
+
+      <!-- Patients section -->
+      <div style="font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+        <span>مرضاي</span>
+        <button onclick="goScreen('screen-linking')" style="background:none;border:1.5px solid var(--success);color:var(--success);padding:5px 12px;border-radius:8px;font-family:Tajawal,sans-serif;font-size:12px;cursor:pointer;font-weight:600">+ ربط مريض</button>
+      </div>
+
+      ${patients.length === 0 ? `
+        <div class="card" style="text-align:center;padding:30px;color:#aaa">
+          <div style="font-size:40px;margin-bottom:10px">👥</div>
+          <div>لا يوجد مرضى مرتبطون بعد</div>
+          <button class="btn btn-success btn-sm" style="width:auto;margin:12px auto 0" onclick="goScreen('screen-linking')">ربط مريض جديد</button>
+        </div>
+      ` : patients.map((p, i) => `
+        <div class="card" style="animation:slideRight .4s ${i*.15}s both">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="width:44px;height:44px;background:rgba(39,174,96,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--success)">
+              ${(p.name || '؟')[0]}
+            </div>
+            <div style="flex:1">
+              <div style="font-size:15px;font-weight:700">${p.name || ''}</div>
+              <div style="font-size:12px;color:#888">${p.diagnosis || 'مريض مرتبط'}</div>
+            </div>
+            <span class="badge badge-success">مرتبط 🔗</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <button class="btn btn-sm" style="background:rgba(39,174,96,.1);color:var(--success);border:1px solid rgba(39,174,96,.3)" onclick="showPatientAlarms('${p.id}','${p.name}')">⏰ التنبيهات</button>
+            <button class="btn btn-sm" style="background:rgba(27,79,114,.1);color:var(--primary);border:1px solid rgba(27,79,114,.3)" onclick="showPatientReports('${p.id}','${p.name}')">📊 التقارير</button>
+          </div>
+        </div>
+      `).join('')}
+    `;
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+async function showPatientAlarms(patientId, name) {
+  goScreen('screen-cg-reports');
+  document.querySelector('#screen-cg-reports .title') && (document.querySelector('#screen-cg-reports .title').textContent = 'تنبيهات ' + name);
+  const container = document.getElementById('cgReportsContent');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto;border-top-color:var(--success)"></div></div>';
+  try {
+    const data = await apiFetch('/alarms/patient/' + patientId);
+    const alarms = data.alarms || [];
+    const typeIcons = { medication: '💊', appointment: '🏥', exercise: '🏋️', general: '📌' };
+    const statusColors = { pending: 'var(--warning)', taken: 'var(--success)', missed: 'var(--danger)', snoozed: 'var(--info)' };
+    const statusLabels = { pending: 'معلق', taken: 'مكتمل', missed: 'فائت', snoozed: 'مؤجل' };
+    container.innerHTML = `<div style="font-size:15px;font-weight:700;margin-bottom:12px">تنبيهات ${name}</div>` +
+      (alarms.length ? alarms.map((a, i) => `
+        <div class="card" style="animation:slideRight .3s ${i*.08}s both;border-right:3px solid ${statusColors[a.status]||'var(--gray)'}">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:22px">${typeIcons[a.alarm_type]||'📌'}</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700">${a.title}</div>
+              <div style="font-size:11px;color:#888">⏰ ${a.alarm_time}</div>
+            </div>
+            <span class="badge" style="background:${statusColors[a.status]}1a;color:${statusColors[a.status]}">${statusLabels[a.status]||a.status}</span>
+          </div>
+        </div>`).join('') : '<div style="text-align:center;color:#aaa;padding:30px">لا توجد تنبيهات</div>');
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+async function showPatientReports(patientId, name) {
+  goScreen('screen-cg-reports');
+  const container = document.getElementById('cgReportsContent');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto;border-top-color:var(--success)"></div></div>';
+  try {
+    const data = await apiFetch('/reports/summary?patient_id=' + patientId);
+    const c = data.weekly_compliance || {};
+    const pct = c.compliance_pct || 0;
+    const color = pct >= 70 ? 'var(--success)' : pct >= 50 ? 'var(--warning)' : 'var(--danger)';
+    container.innerHTML = `
+      <div style="font-size:15px;font-weight:700;margin-bottom:12px">تقارير ${name}</div>
+      <div style="background:linear-gradient(135deg,${color},${color}cc);border-radius:16px;padding:20px;color:white;margin-bottom:12px">
+        <div style="opacity:.75;font-size:12px">الالتزام هذا الأسبوع</div>
+        <div style="font-size:44px;font-weight:900">${pct}%</div>
+      </div>
+      ${(data.mood_trend || []).length ? `
+      <div class="card"><div style="font-size:14px;font-weight:700;margin-bottom:8px">😊 المزاج الأخير</div>
+      ${data.mood_trend.slice(0,3).map(m => {
+        const moodEmojis=['😊','😐','😢','😡','😰','😴'];
+        return `<div style="display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid #F5F5F5">
+          <span>${moodEmojis[m.mood_index]||'😐'}</span>
+          <div style="flex:1;font-size:12px">${m.mood_label||m.mood}</div>
+          <span style="font-size:10px;color:#aaa">${m.date}</span>
+        </div>`;
+      }).join('')}</div>` : ''}
+    `;
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+async function loadCgReports() { /* loaded on demand by buttons */ }
+
+// ══════════════════════════════════════════════════════════
+// LINKING
+// ══════════════════════════════════════════════════════════
+async function loadLinking() {
+  const container = document.getElementById('linkingContent');
+  container.innerHTML = '<div style="text-align:center;padding:30px"><div class="spinner" style="margin:0 auto"></div></div>';
+  try {
+    const linksData = await apiFetch('/linking/my-links');
+    const linked = linksData.linked_users || [];
+
+    if (currentUser && currentUser.role === 'patient') {
+      const codeData = await apiFetch('/linking/my-code');
+      const code = codeData.link_code || '';
+      container.innerHTML = `
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:6px">رمز الربط الخاص بك</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:24px">شارك هذا الرمز مع مقدم الرعاية</p>
+        <div style="background:rgba(27,79,114,.06);border:1px solid rgba(27,79,114,.2);border-radius:20px;padding:32px 20px;text-align:center;margin-bottom:16px">
+          <div style="font-size:36px;font-weight:900;color:var(--primary);letter-spacing:10px;margin-bottom:20px">${code}</div>
+          <button class="btn btn-primary btn-sm" style="width:auto" onclick="copyCode('${code}')">📋 نسخ الرمز</button>
+        </div>
+        <div style="background:rgba(243,156,18,.08);border-radius:10px;padding:12px;font-size:12px;color:#856404;margin-bottom:20px">
+          ℹ️ الرمز دائم ولا ينتهي صلاحيته. شاركه فقط مع مقدم الرعاية الموثوق.
+        </div>
+        ${linked.length ? `<div style="font-size:15px;font-weight:700;margin-bottom:10px">مقدمو الرعاية المرتبطون</div>
+        ${linked.map(u => `<div class="card" style="display:flex;align-items:center;gap:10px">
+          <div style="width:40px;height:40px;background:rgba(39,174,96,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">❤️</div>
+          <div style="flex:1;font-size:14px;font-weight:600">${u.name||''}</div>
+        </div>`).join('')}` : ''}
+      `;
+    } else {
+      container.innerHTML = `
+        <h3 style="font-size:20px;font-weight:700;margin-bottom:6px">ربط مع مريض</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:20px">اطلب من المريض رمز الربط الخاص به</p>
+        <div style="background:white;border-radius:20px;box-shadow:var(--shadow);padding:20px;margin-bottom:16px">
+          <div class="input-group">
+            <label class="input-label">رمز الربط (6 أحرف)</label>
+            <input class="input-field" id="joinCode" placeholder="------" maxlength="6" style="text-align:center;font-size:28px;font-weight:700;letter-spacing:8px;text-transform:uppercase">
+          </div>
+          <button class="btn btn-success" onclick="joinWithCode()">ربط المريض</button>
+        </div>
+        ${linked.length ? `<div style="font-size:15px;font-weight:700;margin-bottom:10px">المرضى المرتبطون</div>
+        ${linked.map(u => `<div class="card" style="display:flex;align-items:center;gap:10px">
+          <div style="width:40px;height:40px;background:rgba(27,79,114,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">♿</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:600">${u.name||''}</div>
+            <div style="font-size:12px;color:#888">${u.diagnosis||''}</div>
+          </div>
+          <span class="badge badge-success">مرتبط</span>
+        </div>`).join('')}` : ''}
+      `;
+    }
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;color:var(--danger);padding:30px">${e.message}</div>`;
+  }
+}
+
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(() => showToast('تم نسخ الرمز ✅')).catch(() => showToast('الرمز: ' + code));
+}
+
+async function joinWithCode() {
+  const code = (document.getElementById('joinCode').value || '').trim().toUpperCase();
+  if (code.length !== 6) { showToast('يرجى إدخال 6 أحرف'); return; }
+  showLoading(true);
+  try {
+    await apiFetch('/linking/join', { method: 'POST', body: JSON.stringify({ link_code: code }) });
+    showLoading(false);
+    showToast('تم الربط بنجاح! ✅');
+    loadLinking();
+  } catch (e) {
+    showLoading(false);
+    showToast('خطأ: ' + e.message);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// PATIENT CHATBOT
+// ══════════════════════════════════════════════════════════
+async function sendPatientMsg(presetMsg) {
+  const input = document.getElementById('patientChatInput');
+  const msg = presetMsg || input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  // Remove quick replies on first user message
+  const qr = document.getElementById('patientQuickReplies');
+  if (qr) qr.remove();
+
+  const messages = document.getElementById('patientChatMessages');
+  const time = nowTime();
+
+  // User bubble
+  messages.insertAdjacentHTML('beforeend', `
+    <div class="bubble bubble-user" style="animation:fadeUp .2s ease both">
+      ${escapeHtml(msg)}<div class="bubble-time">${time}</div>
+    </div>`);
+  messages.scrollTop = messages.scrollHeight;
+
+  // Typing indicator
+  const typingId = 'typing-' + Date.now();
+  messages.insertAdjacentHTML('beforeend', `
+    <div id="${typingId}" class="typing-dots">
+      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+    </div>`);
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    const data = await apiFetch('/chatbot/patient/message', {
+      method: 'POST',
+      body: JSON.stringify({ message: msg })
+    });
+    document.getElementById(typingId)?.remove();
+    const reply = data.reply || '';
+    const isPdf = reply.includes('PDF') || reply.includes('تقرير') && data.media_url;
+
+    messages.insertAdjacentHTML('beforeend', `
+      <div class="bubble bubble-ai" style="animation:fadeUp .2s ease both">
+        ${escapeHtml(reply)}
+        ${data.media_url ? `<br><a href="${data.media_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--primary);color:white;padding:8px 14px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700">📄 تحميل التقرير PDF</a>` : ''}
+        <div class="bubble-time">${nowTime()}</div>
+      </div>`);
+    messages.scrollTop = messages.scrollHeight;
+  } catch (e) {
+    document.getElementById(typingId)?.remove();
+    messages.insertAdjacentHTML('beforeend', `
+      <div class="bubble bubble-ai" style="background:#FDEDEC;animation:fadeUp .2s ease both">
+        عذراً، حدث خطأ: ${escapeHtml(e.message)}<div class="bubble-time">${nowTime()}</div>
+      </div>`);
+    messages.scrollTop = messages.scrollHeight;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// CAREGIVER CHATBOT
+// ══════════════════════════════════════════════════════════
+async function sendCaregiverMsg(presetMsg) {
+  const input = document.getElementById('caregiverChatInput');
+  const msg = presetMsg || input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const qr = document.getElementById('cgQuickReplies');
+  if (qr) qr.remove();
+
+  const messages = document.getElementById('caregiverChatMessages');
+  const time = nowTime();
+
+  messages.insertAdjacentHTML('beforeend', `
+    <div class="bubble bubble-user" style="animation:fadeUp .2s ease both;background:var(--success)">
+      ${escapeHtml(msg)}<div class="bubble-time">${time}</div>
+    </div>`);
+  messages.scrollTop = messages.scrollHeight;
+
+  const typingId = 'typing-' + Date.now();
+  messages.insertAdjacentHTML('beforeend', `
+    <div id="${typingId}" class="typing-dots" style="background:#E8F8F0">
+      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+    </div>`);
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    const data = await apiFetch('/chatbot/caregiver/message', {
+      method: 'POST',
+      body: JSON.stringify({ message: msg })
+    });
+    document.getElementById(typingId)?.remove();
+    const reply = data.reply || '';
+
+    messages.insertAdjacentHTML('beforeend', `
+      <div class="bubble bubble-ai" style="background:#E8F8F0;animation:fadeUp .2s ease both">
+        ${escapeHtml(reply)}
+        ${data.media_url ? `<br><a href="${data.media_url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;background:var(--success);color:white;padding:8px 14px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700">📄 تحميل التقرير PDF</a>` : ''}
+        <div class="bubble-time">${nowTime()}</div>
+      </div>`);
+    messages.scrollTop = messages.scrollHeight;
+  } catch (e) {
+    document.getElementById(typingId)?.remove();
+    messages.insertAdjacentHTML('beforeend', `
+      <div class="bubble bubble-ai" style="background:#FDEDEC;animation:fadeUp .2s ease both">
+        خطأ: ${escapeHtml(e.message)}<div class="bubble-time">${nowTime()}</div>
+      </div>`);
+    messages.scrollTop = messages.scrollHeight;
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════
+function escapeHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// Check API connectivity
+fetch(API + '/auth/login', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"email":"x","password":"x"}' })
+  .then(() => { document.getElementById('connStatus').textContent = '● متصل'; document.getElementById('connStatus').style.color = 'var(--success)'; })
+  .catch(() => { document.getElementById('connStatus').textContent = '● غير متصل'; document.getElementById('connStatus').style.color = 'var(--danger)'; });
+</script>
 </body>
 </html>
