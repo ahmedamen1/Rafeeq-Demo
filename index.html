@@ -315,6 +315,9 @@ body {
     <div class="demo-chip" onclick="quickLogin('patient')">👤 مريض تجريبي</div>
     <div class="demo-chip" onclick="quickLogin('caregiver')">👨‍⚕️ مشرف تجريبي</div>
   </div>
+  <p id="directLinkHint" style="margin-top:10px;font-size:11px;opacity:.6">
+    للتجربة المباشرة: <a href="http://76.13.56.28:8000/demo" target="_blank" style="color:#16c479">http://76.13.56.28:8000/demo</a>
+  </p>
 </div>
 
 <!-- PHONE SHELL -->
@@ -778,7 +781,7 @@ body {
 </div><!-- end app-shell -->
 
 <div style="text-align:center;padding:12px;font-size:11px;color:#999;">
-  API: <code>http://76.13.56.28:8000/api/v1</code> &nbsp;|&nbsp;
+  API: <code>http://76.13.56.28:8000/api/v1</code> &nbsp;|&nbsp; Demo: <a href="http://76.13.56.28:8000/demo" style="color:var(--primary)">http://76.13.56.28:8000/demo</a> &nbsp;|&nbsp;
   <span id="connStatus" style="color:var(--success)">● متصل</span>
 </div>
 
@@ -786,7 +789,11 @@ body {
 // ══════════════════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════════════════
-const API = 'http://76.13.56.28:8000/api/v1';
+const API = window.location.hostname === 'ahmedamen1.github.io'
+  ? 'http://76.13.56.28:8000/api/v1'   // GitHub Pages — user must allow mixed content or use http://
+  : (window.location.port === '8000' || window.location.hostname === '76.13.56.28')
+    ? '/api/v1'                          // served directly from FastAPI — relative path
+    : 'http://76.13.56.28:8000/api/v1'; // local file / other
 let authToken = null;
 let currentUser = null;
 let currentRole = 'patient';
