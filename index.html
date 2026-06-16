@@ -1787,7 +1787,6 @@ function refreshHealth() {
 // ══════════════════════════════════════════════════════════
 // VOICE ASSISTANT
 // ══════════════════════════════════════════════════════════
-const VOICE_STATES = ['idle','recording','thinking','speaking'];
 const VOICE_CFG = {
   idle:      { bg:'rgba(27,79,114,.18)',  border:'#1B4F72', shadow:'rgba(27,79,114,.5)',  icon:'🎤', label:'اضغط للتحدث',     waves:false, spinner:false },
   recording: { bg:'rgba(231,76,60,.18)', border:'#E74C3C', shadow:'rgba(231,76,60,.5)', icon:'⏺',  label:'جارٍ التسجيل...', waves:true,  spinner:false },
@@ -1795,7 +1794,8 @@ const VOICE_CFG = {
   speaking:  { bg:'rgba(39,174,96,.18)', border:'#27AE60', shadow:'rgba(39,174,96,.5)', icon:'🔊', label:'رفيق يتحدث...',    waves:true,  spinner:false },
 };
 let voiceState = 'idle';
-let voiceTimer = null;
+let voiceMediaRecorder = null;
+let voiceChunks = [];
 
 function initVoice() {
   voiceState = 'idle';
@@ -1822,34 +1822,89 @@ function applyVoiceState(st) {
   if (cfg.spinner) spinner.style.borderTopColor = '#F39C12';
 }
 
-function cycleVoice() {
-  clearTimeout(voiceTimer);
-  if (voiceState === 'idle') {
-    voiceState = 'recording'; applyVoiceState('recording');
-    voiceTimer = setTimeout(() => {
-      voiceState = 'thinking'; applyVoiceState('thinking');
-      voiceTimer = setTimeout(() => {
-        voiceState = 'speaking'; applyVoiceState('speaking');
-        // show cards
-        document.getElementById('voiceUserText').textContent = 'ما هي أدويتي اليوم؟';
-        document.getElementById('voiceTranscript').style.display = 'block';
-        voiceTimer = setTimeout(() => {
-          document.getElementById('voiceAiText').textContent = 'أدويتك اليوم: أملوديبين 5mg الساعة 8 صباحاً ✓، باكلوفين 10mg الساعة 1 ظهراً ⏳، فيتامين د الساعة 8 مساءً ⏳. لا تنسَ شرب الماء الكافي 💙';
-          document.getElementById('voiceReply').style.display = 'block';
-          voiceTimer = setTimeout(() => { voiceState = 'idle'; applyVoiceState('idle'); }, 3000);
-        }, 2000);
-      }, 2000);
-    }, 2200);
-  } else {
-    // manual interrupt → back to idle
-    voiceState = 'idle'; applyVoiceState('idle');
+async function cycleVoice() {
+  if (voiceState === 'recording') {
+    // stop recording
+    if (voiceMediaRecorder && voiceMediaRecorder.state !== 'inactive') voiceMediaRecorder.stop();
+    return;
   }
+  if (voiceState !== 'idle') return;
+
+  // request mic
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch(e) {
+    toast('يرجى السماح باستخدام الميكروفون'); return;
+  }
+
+  voiceChunks = [];
+  voiceMediaRecorder = new MediaRecorder(stream);
+  voiceMediaRecorder.ondataavailable = e => { if (e.data.size > 0) voiceChunks.push(e.data); };
+
+  voiceMediaRecorder.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop());
+    const blob = new Blob(voiceChunks, { type: 'audio/webm' });
+
+    // STT via Whisper
+    voiceState = 'thinking'; applyVoiceState('thinking');
+    let transcript = '';
+    try {
+      const fd = new FormData();
+      fd.append('file', blob, 'voice.webm');
+      fd.append('model', 'whisper-1');
+      fd.append('language', 'ar');
+      const sttRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + OPENAI_KEY },
+        body: fd
+      });
+      const sttData = await sttRes.json();
+      transcript = sttData.text || '';
+    } catch(e) { transcript = ''; }
+
+    if (!transcript) { toast('لم يُتعرَّف على الصوت، حاول مجدداً'); voiceState='idle'; applyVoiceState('idle'); return; }
+
+    document.getElementById('voiceUserText').textContent = transcript;
+    document.getElementById('voiceTranscript').style.display = 'block';
+
+    // RAG via GPT-4o-mini
+    let reply = '';
+    try {
+      const messages = [
+        { role: 'system', content: buildPatientSystemPrompt() },
+        { role: 'user', content: transcript }
+      ];
+      reply = await callOpenAI(messages);
+    } catch(e) { reply = 'عذراً، حدث خطأ في الاتصال.'; }
+
+    document.getElementById('voiceAiText').textContent = reply;
+    document.getElementById('voiceReply').style.display = 'block';
+
+    // TTS via browser SpeechSynthesis (Arabic)
+    voiceState = 'speaking'; applyVoiceState('speaking');
+    const utter = new SpeechSynthesisUtterance(reply);
+    utter.lang = 'ar-SA';
+    utter.rate = 0.95;
+    // pick an Arabic voice if available
+    const voices = speechSynthesis.getVoices();
+    const arVoice = voices.find(v => v.lang.startsWith('ar'));
+    if (arVoice) utter.voice = arVoice;
+    utter.onend = () => { voiceState = 'idle'; applyVoiceState('idle'); };
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
+  };
+
+  voiceState = 'recording'; applyVoiceState('recording');
+  voiceMediaRecorder.start();
 }
 
 // ══════════════════════════════════════════════════════════
 // DIRECT CHAT
 // ══════════════════════════════════════════════════════════
-let dcVoiceTimer = null;
+let dcVoiceMediaRecorder = null;
+let dcVoiceChunks = [];
+let dcVoiceStart = null;
 
 function renderDirectChat() {
   const c = document.getElementById('dchatMsgs');
@@ -1904,22 +1959,64 @@ function sendDirect() {
   }, 1500);
 }
 
-function startDcVoice() {
+async function startDcVoice() {
   const mic = document.getElementById('dcMic');
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch(e) { toast('يرجى السماح باستخدام الميكروفون'); return; }
+
+  dcVoiceChunks = [];
+  dcVoiceStart = Date.now();
+  dcVoiceMediaRecorder = new MediaRecorder(stream);
+  dcVoiceMediaRecorder.ondataavailable = e => { if (e.data.size > 0) dcVoiceChunks.push(e.data); };
+  dcVoiceMediaRecorder.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop());
+    const dur = Math.max(1, Math.round((Date.now() - dcVoiceStart) / 1000));
+    const blob = new Blob(dcVoiceChunks, { type: 'audio/webm' });
+
+    // STT
+    let transcript = '';
+    try {
+      const fd = new FormData();
+      fd.append('file', blob, 'voice.webm');
+      fd.append('model', 'whisper-1');
+      fd.append('language', 'ar');
+      const sttRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + OPENAI_KEY },
+        body: fd
+      });
+      const sttData = await sttRes.json();
+      transcript = sttData.text || '';
+    } catch(e) { transcript = ''; }
+
+    const c = document.getElementById('dchatMsgs');
+    // show voice bubble
+    const voiceMsg = { who:'me', voice:true, duration:`0:${String(dur).padStart(2,'0')}`, time:nowTime() };
+    dcMessages.push(voiceMsg);
+    appendDcMsg(voiceMsg, true);
+    // if transcript available, also show text bubble and auto-reply
+    if (transcript) {
+      const tMsg = { who:'me', text: transcript, time:nowTime() };
+      dcMessages.push(tMsg);
+      appendDcMsg(tMsg, true);
+      setTimeout(() => {
+        const r = { who:'them', text:'استلمت رسالتك الصوتية، سأتابع الأمر معك قريباً 💙', time:nowTime() };
+        dcMessages.push(r); appendDcMsg(r, true); c.scrollTop = c.scrollHeight;
+      }, 1000);
+    }
+    c.scrollTop = c.scrollHeight;
+    mic.textContent = '🎤';
+  };
+  dcVoiceMediaRecorder.start();
   mic.textContent = '🔴';
-  dcVoiceTimer = Date.now();
 }
 
 function stopDcVoice() {
-  const mic = document.getElementById('dcMic');
-  mic.textContent = '🎤';
-  const dur = ((Date.now() - (dcVoiceTimer||Date.now())) / 1000).toFixed(0);
-  if (dur < 1) return;
-  const msg = { who:'me', voice:true, duration:`0:${String(dur).padStart(2,'0')}`, time:nowTime() };
-  dcMessages.push(msg);
-  appendDcMsg(msg, true);
-  const c = document.getElementById('dchatMsgs');
-  c.scrollTop = c.scrollHeight;
+  if (dcVoiceMediaRecorder && dcVoiceMediaRecorder.state !== 'inactive') {
+    dcVoiceMediaRecorder.stop();
+  }
 }
 
 function playVoiceNote(btn) {
