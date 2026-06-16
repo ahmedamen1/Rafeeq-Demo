@@ -304,6 +304,7 @@ body {
 @keyframes slideD   { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
 @keyframes recPulse { 0%,100%{transform:scale(1);box-shadow:0 0 18px rgba(231,76,60,.3)} 50%{transform:scale(1.1);box-shadow:0 0 40px rgba(231,76,60,.6)} }
 @keyframes grow     { from{height:0} to{height:var(--h)} }
+@keyframes drawLine { to{stroke-dashoffset:0} }
 </style>
 </head>
 <body>
@@ -445,10 +446,23 @@ body {
           <div style="font-size:12px;font-weight:700;color:var(--info)">مساعد رفيق</div>
           <div style="font-size:10px;color:#888;margin-top:2px">AI متقدم</div>
         </div>
+        <div class="card" style="cursor:pointer;text-align:center;padding:16px 10px" onclick="go('s-health')">
+          <div style="font-size:26px;margin-bottom:5px;animation:pulse 1.4s infinite">❤️</div>
+          <div style="font-size:12px;font-weight:700;color:var(--danger)">قراءات الصحة</div>
+          <div style="font-size:10px;color:#888;margin-top:2px" id="hrHome">72 bpm · 97%</div>
+        </div>
+      </div>
+      <!-- second row -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px">
         <div class="card" style="cursor:pointer;text-align:center;padding:16px 10px" onclick="go('s-reports')">
           <div style="font-size:26px;margin-bottom:5px">📊</div>
           <div style="font-size:12px;font-weight:700;color:var(--success)">التقارير</div>
-          <div style="font-size:10px;color:#888;margin-top:2px">الأسبوعي</div>
+          <div style="font-size:10px;color:#888;margin-top:2px">72% التزام</div>
+        </div>
+        <div class="card" style="cursor:pointer;text-align:center;padding:16px 10px" onclick="go('s-appts')">
+          <div style="font-size:26px;margin-bottom:5px">📅</div>
+          <div style="font-size:12px;font-weight:700;color:var(--warning)">المواعيد</div>
+          <div style="font-size:10px;color:#888;margin-top:2px">2 قادمة</div>
         </div>
       </div>
       <!-- SOS -->
@@ -484,6 +498,7 @@ body {
     <div class="bnav">
       <button class="ni on" onclick="go('s-phome')"><span class="ico">🏠</span>الرئيسية</button>
       <button class="ni" onclick="go('s-alarms')"><span class="ico">⏰</span>التنبيهات</button>
+      <button class="ni" onclick="go('s-health')"><span class="ico">❤️</span>الصحة</button>
       <button class="ni" onclick="go('s-pchat')"><span class="ico">🤖</span>رفيق AI</button>
       <button class="ni" onclick="go('s-reports')"><span class="ico">📊</span>التقارير</button>
     </div>
@@ -522,7 +537,8 @@ body {
     <div class="bnav">
       <button class="ni" onclick="go('s-phome')"><span class="ico">🏠</span>الرئيسية</button>
       <button class="ni" onclick="go('s-alarms')"><span class="ico">⏰</span>التنبيهات</button>
-      <button class="ni on" onclick="go('s-pchat')"><span class="ico">🤖</span>رفيق AI</button>
+      <button class="ni" onclick="go('s-health')"><span class="ico">❤️</span>الصحة</button>
+      <button class="ni on"><span class="ico">🤖</span>رفيق AI</button>
       <button class="ni" onclick="go('s-reports')"><span class="ico">📊</span>التقارير</button>
     </div>
   </div>
@@ -542,6 +558,7 @@ body {
     <div class="bnav">
       <button class="ni" onclick="go('s-phome')"><span class="ico">🏠</span>الرئيسية</button>
       <button class="ni on"><span class="ico">⏰</span>التنبيهات</button>
+      <button class="ni" onclick="go('s-health')"><span class="ico">❤️</span>الصحة</button>
       <button class="ni" onclick="go('s-pchat')"><span class="ico">🤖</span>رفيق AI</button>
       <button class="ni" onclick="go('s-reports')"><span class="ico">📊</span>التقارير</button>
     </div>
@@ -623,6 +640,7 @@ body {
     <div class="bnav">
       <button class="ni" onclick="go('s-phome')"><span class="ico">🏠</span>الرئيسية</button>
       <button class="ni" onclick="go('s-alarms')"><span class="ico">⏰</span>التنبيهات</button>
+      <button class="ni" onclick="go('s-health')"><span class="ico">❤️</span>الصحة</button>
       <button class="ni" onclick="go('s-pchat')"><span class="ico">🤖</span>رفيق AI</button>
       <button class="ni on"><span class="ico">📊</span>التقارير</button>
     </div>
@@ -708,6 +726,42 @@ body {
   </div>
 
   <!-- ════════════════════════════════════════
+       HEALTH DASHBOARD
+  ════════════════════════════════════════ -->
+  <div class="screen" id="s-health" style="background:var(--bg)">
+    <div class="status-bar" style="background:var(--primary);color:white"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white">
+      <button class="icon-btn" onclick="go('s-phome')">←</button>
+      <span class="title">قراءات الصحة</span>
+      <div style="display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.18);border-radius:12px;padding:4px 9px">
+        <div id="liveDot" style="width:8px;height:8px;background:#2ECC71;border-radius:50%;animation:pulse .9s infinite"></div>
+        <span style="font-size:11px;font-weight:700" id="liveLabel">مباشر</span>
+      </div>
+      <button class="icon-btn" onclick="refreshHealth()">↻</button>
+    </div>
+    <div class="scroll-body" style="padding:14px" id="healthBody"></div>
+    <div class="bnav">
+      <button class="ni" onclick="go('s-phome')"><span class="ico">🏠</span>الرئيسية</button>
+      <button class="ni" onclick="go('s-alarms')"><span class="ico">⏰</span>التنبيهات</button>
+      <button class="ni on"><span class="ico">❤️</span>الصحة</button>
+      <button class="ni" onclick="go('s-pchat')"><span class="ico">🤖</span>رفيق AI</button>
+      <button class="ni" onclick="go('s-reports')"><span class="ico">📊</span>التقارير</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       APPOINTMENTS
+  ════════════════════════════════════════ -->
+  <div class="screen" id="s-appts" style="background:var(--bg)">
+    <div class="status-bar" style="background:var(--primary);color:white"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="app-bar" style="background:var(--primary);color:white">
+      <button class="icon-btn" onclick="go('s-phome')">←</button>
+      <span class="title">المواعيد</span>
+    </div>
+    <div class="scroll-body" style="padding:14px" id="apptBody"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
        LINKING
   ════════════════════════════════════════ -->
   <div class="screen" id="s-linking" style="background:var(--bg)">
@@ -776,9 +830,22 @@ const DEMO = {
     {date:'الأحد',mood:'😢 حزين',pain:6,sleep:6},
   ],
   appointments: [
-    { title:'فحص دورية', doctor:'د. محمد الشافعي', location:'مستشفى القاهرة', date:'22 يونيو 2026' },
-    { title:'جلسة علاج طبيعي', doctor:'د. أمينة خالد', location:'مركز النور', date:'29 يونيو 2026' },
-  ]
+    { title:'فحص دورية', doctor:'د. محمد الشافعي', location:'مستشفى القاهرة', date:'22 يونيو 2026', time:'10:00 ص' },
+    { title:'جلسة علاج طبيعي', doctor:'د. أمينة خالد', location:'مركز النور', date:'29 يونيو 2026', time:'11:30 ص' },
+    { title:'متابعة ضغط الدم', doctor:'د. سامي رضا', location:'عيادة الأمل', date:'5 يوليو 2026', time:'09:00 ص' },
+  ],
+  health: {
+    hr: 72, spo2: 97, temp: 36.8,
+    occupied: true, finger: true,
+    sparkline: [68,72,75,71,69,73,74,72],
+    history: [
+      { time:'14:32:05', hr:72,  spo2:97, temp:36.8, ok:true  },
+      { time:'14:22:01', hr:74,  spo2:96, temp:36.9, ok:true  },
+      { time:'14:12:08', hr:108, spo2:93, temp:37.1, ok:false },
+      { time:'14:02:03', hr:70,  spo2:97, temp:36.7, ok:true  },
+      { time:'13:52:11', hr:71,  spo2:98, temp:36.6, ok:true  },
+    ]
+  }
 };
 
 // Patient AI replies
@@ -838,6 +905,8 @@ function onEnter(id) {
   if (id === 's-chome')   renderCgDash();
   if (id === 's-cgrpt')   renderCgReports();
   if (id === 's-linking') renderLinking();
+  if (id === 's-health')  renderHealth();
+  if (id === 's-appts')   renderAppts();
 }
 
 // Splash → Login
@@ -1335,6 +1404,160 @@ function countUp(id, from, to, suf, dur) {
   const el = document.getElementById(id); if(!el) return;
   const s = performance.now();
   (function f(now){ const p=Math.min((now-s)/dur,1); el.textContent=Math.round(from+(to-from)*p)+suf; if(p<1)requestAnimationFrame(f); })(s);
+}
+
+// ══════════════════════════════════════════════════════════
+// HEALTH DASHBOARD
+// ══════════════════════════════════════════════════════════
+let healthData = { ...DEMO.health };
+let healthInterval = null;
+
+function renderHealth() {
+  const h = healthData;
+  const spo2Pct = h.spo2;
+  const tempPct = Math.round((h.temp - 35) / (42 - 35) * 100);
+  const spo2Deg = Math.round(spo2Pct / 100 * 360);
+  const tempDeg = Math.round(tempPct / 100 * 360);
+  const hrStatus = h.hr > 100 || h.hr < 55 ? '<span style="background:#FDEDEC;color:var(--danger);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">تحذير ⚠️</span>' : '<span style="background:#E9F7EF;color:var(--success);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">طبيعي ✓</span>';
+  const spo2Status = h.spo2 < 94 ? '<span style="background:#FDEDEC;color:var(--danger);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">منخفض ⚠️</span>' : '<span style="background:#E9F7EF;color:var(--success);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">طبيعي ✓</span>';
+  const tempStatus = h.temp > 37.5 ? '<span style="background:#FEF9E7;color:var(--warning);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">مرتفع ⚠️</span>' : '<span style="background:#E9F7EF;color:var(--success);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">طبيعي ✓</span>';
+
+  // SVG sparkline
+  const pts = h.sparkline;
+  const min = Math.min(...pts)-5, max = Math.max(...pts)+5;
+  const svgPts = pts.map((v,i)=>`${i*(160/7)},${50-((v-min)/(max-min))*44}`).join(' ');
+
+  document.getElementById('healthBody').innerHTML = `
+    <!-- Presence badges -->
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <div style="flex:1;display:flex;align-items:center;gap:5px;background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.3);border-radius:20px;padding:6px 12px">
+        <span style="font-size:13px">♿</span>
+        <span style="font-size:11px;font-weight:700;color:var(--success)">${h.occupied ? 'المريض على الكرسي' : 'الكرسي فارغ'}</span>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;gap:5px;background:rgba(52,152,219,.1);border:1px solid rgba(52,152,219,.3);border-radius:20px;padding:6px 12px">
+        <span style="font-size:13px">👆</span>
+        <span style="font-size:11px;font-weight:700;color:var(--info)">${h.finger ? 'الإصبع موضوع' : 'لا إصبع'}</span>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#aaa;margin-bottom:12px">آخر تحديث: ${h.history[0].time} · يتجدد كل 10 ثوانٍ</div>
+
+    <!-- HR Hero card -->
+    <div class="card" style="border:1px solid rgba(231,76,60,.15);box-shadow:0 4px 16px rgba(231,76,60,.12);margin-bottom:12px;animation:slideD .4s ease">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+        <div style="background:rgba(231,76,60,.1);border-radius:10px;padding:8px;font-size:20px">❤️</div>
+        <span style="font-size:15px;font-weight:700;flex:1">معدل ضربات القلب</span>
+        ${hrStatus}
+      </div>
+      <div style="display:flex;align-items:flex-end;gap:5px;margin-bottom:12px">
+        <span style="font-size:52px;font-weight:900;color:var(--danger);line-height:1" id="hrVal">${h.hr}</span>
+        <span style="font-size:14px;color:#888;margin-bottom:8px">bpm</span>
+      </div>
+      <!-- Sparkline SVG -->
+      <svg width="100%" height="52" viewBox="0 0 160 52" preserveAspectRatio="none" style="display:block">
+        <defs>
+          <linearGradient id="hrGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E74C3C" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#E74C3C" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="${svgPts} ${160},52 0,52" fill="url(#hrGrad)"/>
+        <polyline points="${svgPts}" fill="none" stroke="#E74C3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:400;stroke-dashoffset:400;animation:drawLine 1s .3s ease forwards"/>
+      </svg>
+    </div>
+
+    <!-- SpO2 + Temp rings -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <!-- SpO2 -->
+      <div class="card" style="text-align:center;animation:fadeUp .4s .15s both">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+          <span style="font-size:16px">💧</span>
+          <span style="font-size:11px;font-weight:700">مستوى الأكسجين</span>
+        </div>
+        <div style="position:relative;width:76px;height:76px;margin:0 auto 8px">
+          <svg width="76" height="76" viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="30" fill="none" stroke="rgba(52,152,219,.15)" stroke-width="7"/>
+            <circle cx="38" cy="38" r="30" fill="none" stroke="#3498DB" stroke-width="7"
+              stroke-dasharray="${Math.round(spo2Pct/100*188.5)} 188.5"
+              stroke-linecap="round" transform="rotate(-90 38 38)"
+              style="transition:stroke-dasharray 1s ease"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--info)">${spo2Pct}%</div>
+        </div>
+        ${spo2Status}
+      </div>
+      <!-- Temperature -->
+      <div class="card" style="text-align:center;animation:fadeUp .4s .25s both">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px">
+          <span style="font-size:16px">🌡️</span>
+          <span style="font-size:11px;font-weight:700">درجة الحرارة</span>
+        </div>
+        <div style="position:relative;width:76px;height:76px;margin:0 auto 8px">
+          <svg width="76" height="76" viewBox="0 0 76 76">
+            <circle cx="38" cy="38" r="30" fill="none" stroke="rgba(243,156,18,.15)" stroke-width="7"/>
+            <circle cx="38" cy="38" r="30" fill="none" stroke="#F39C12" stroke-width="7"
+              stroke-dasharray="${Math.round(tempPct/100*188.5)} 188.5"
+              stroke-linecap="round" transform="rotate(-90 38 38)"
+              style="transition:stroke-dasharray 1s ease"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--warning)">${h.temp}°</div>
+        </div>
+        ${tempStatus}
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="card">
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px">آخر القراءات</div>
+      ${h.history.map((r,i)=>`
+        <div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #F5F5F5;animation:slideR .3s ${i*.07}s both">
+          <div style="width:9px;height:9px;border-radius:50%;background:${r.ok?'var(--success)':'var(--warning)'};flex-shrink:0"></div>
+          <span style="font-size:12px;color:#888;min-width:60px">${r.time}</span>
+          <span style="font-size:11px;color:var(--dark);flex:1">❤️ ${r.hr} · 💧 ${r.spo2}% · 🌡️ ${r.temp}°</span>
+        </div>`).join('')}
+    </div>`;
+
+  // start live updates
+  clearInterval(healthInterval);
+  healthInterval = setInterval(() => {
+    if (!document.getElementById('s-health').classList.contains('active')) { clearInterval(healthInterval); return; }
+    healthData.hr = Math.max(50, Math.min(120, healthData.hr + Math.round((Math.random()-0.5)*4)));
+    const el = document.getElementById('hrVal');
+    if (el) el.textContent = healthData.hr;
+    const hrHome = document.getElementById('hrHome');
+    if (hrHome) hrHome.textContent = healthData.hr + ' bpm · ' + healthData.spo2 + '%';
+  }, 10000);
+}
+
+function refreshHealth() {
+  showLoad(true);
+  setTimeout(() => { showLoad(false); renderHealth(); toast('✅ تم تحديث القراءات'); }, 800);
+}
+
+// ══════════════════════════════════════════════════════════
+// APPOINTMENTS
+// ══════════════════════════════════════════════════════════
+function renderAppts() {
+  document.getElementById('apptBody').innerHTML = `
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--primary)">📅 المواعيد القادمة (${DEMO.appointments.length})</div>
+    ${DEMO.appointments.map((a,i)=>`
+      <div class="card" style="border-right:3px solid var(--info);animation:slideR .35s ${i*.1}s both">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div style="background:rgba(52,152,219,.1);border-radius:10px;padding:9px;font-size:20px;flex-shrink:0">🏥</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700">${a.title}</div>
+            <div style="font-size:12px;color:#666;margin-top:3px">👨‍⚕️ ${a.doctor}</div>
+            <div style="font-size:11px;color:#888;margin-top:2px">📍 ${a.location}</div>
+            <div style="display:flex;gap:10px;margin-top:6px">
+              <span style="background:rgba(52,152,219,.1);color:var(--info);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">📅 ${a.date}</span>
+              <span style="background:rgba(27,79,114,.1);color:var(--primary);font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px">⏰ ${a.time}</span>
+            </div>
+          </div>
+        </div>
+      </div>`).join('')}
+    <div class="card" style="background:rgba(27,79,114,.04);border:1.5px dashed rgba(27,79,114,.2);text-align:center;cursor:pointer;padding:18px" onclick="toast('سيتم إضافة حجز المواعيد قريباً')">
+      <div style="font-size:22px;margin-bottom:5px">➕</div>
+      <div style="font-size:13px;font-weight:700;color:var(--primary)">حجز موعد جديد</div>
+    </div>`;
 }
 </script>
 </body>
