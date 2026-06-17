@@ -524,6 +524,7 @@ body {
         <div style="font-size:15px;font-weight:700">🤖 مساعد رفيق</div>
         <div class="sub">مدعوم بـ GPT-4o + RAG</div>
       </div>
+      <button class="icon-btn" onclick="callRafeeqLive()" title="اتصل برفيق">📞</button>
       <button class="icon-btn" onclick="go('s-voice')" title="الصوت">🎙️</button>
       <div style="width:8px;height:8px;background:#2ECC71;border-radius:50%;animation:pulse 1s infinite"></div>
     </div>
@@ -712,6 +713,7 @@ body {
         <div style="font-size:15px;font-weight:700">🤖 مساعد رفيق</div>
         <div class="sub">للمشرفين — GPT-4o + RAG</div>
       </div>
+      <button class="icon-btn" onclick="callRafeeqLive()" title="اتصل برفيق">📞</button>
     </div>
     <div class="msgs" id="cmsgs">
       <div class="bubble bai" style="background:#E8F8F0">
@@ -830,6 +832,11 @@ body {
       </div>
 
       <p id="voiceStatus" style="color:rgba(255,255,255,.6);font-size:15px;margin-top:22px;text-align:center">اضغط للتحدث</p>
+
+      <!-- Call Rafeeq live (ElevenLabs Conversational Agent) -->
+      <button onclick="callRafeeqLive()" style="margin-top:28px;display:flex;align-items:center;gap:8px;background:rgba(39,174,96,.18);border:1.5px solid #27AE60;color:#fff;font-family:'Tajawal',sans-serif;font-weight:700;font-size:14px;padding:12px 22px;border-radius:30px;cursor:pointer">
+        📞 اتصل برفيق مباشرة
+      </button>
 
       <!-- Transcript card -->
       <div id="voiceTranscript" style="display:none;background:rgba(27,79,114,.25);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px;margin-top:22px;width:100%;animation:fadeUp .4s ease">
@@ -1782,6 +1789,17 @@ function renderHealth() {
 function refreshHealth() {
   showLoad(true);
   setTimeout(() => { showLoad(false); renderHealth(); toast('✅ تم تحديث القراءات'); }, 800);
+}
+
+// ══════════════════════════════════════════════════════════
+// CALL RAFEEQ LIVE — ElevenLabs Conversational Agent
+// ══════════════════════════════════════════════════════════
+const ELEVENLABS_AGENT_ID = 'agent_5001kva35cd3e2ntns9p2s5pqb04';
+const ELEVENLABS_CALL_URL = `https://elevenlabs.io/app/talk-to?agent_id=${ELEVENLABS_AGENT_ID}&branch_id=agtbrch_4001kva35dzbehrsdwcs6jtmg3kn`;
+
+function callRafeeqLive() {
+  toast('📞 جارٍ الاتصال برفيق...');
+  window.open(ELEVENLABS_CALL_URL, '_blank');
 }
 
 // ══════════════════════════════════════════════════════════
