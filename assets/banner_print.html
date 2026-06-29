@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafeeq — Defense Banner 90×190cm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+@page { size: 90cm 190cm portrait; margin: 0; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body, .banner { width: 90cm; height: 190cm; }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Preview: 474px wide × 1000px tall (same 9:19 ratio) */
+html {
+  background: #666;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px;
+}
+body {
+  width: 474px;
+  height: 1000px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 12px 80px rgba(0,0,0,0.55);
+}
+.banner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ════════════════════════════
+   HEADER — navy (height ~90px)
+   ════════════════════════════ */
+.hdr {
+  background: #0D1F3C;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: relative;
+}
+.hdr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C9992A, #E8B84B, #C9992A, transparent);
+}
+
+/* Left side: Zewail + ISF */
+.hdr-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hdr-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hdr-logo-block img {
+  object-fit: contain;
+  /* NO filter — show actual logo colors on navy background */
+}
+.hdr-logo-name {
+  font-size: 7px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+.hdr-vsep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.15);
+}
+
+/* Right side: Rafeeq logo + name */
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.hdr-rafeeq-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  padding: 2px;
+}
+.hdr-rafeeq-name { display: flex; flex-direction: column; gap: 1px; }
+.hdr-rafeeq-en { font-size: 13px; font-weight: 900; color: #fff; letter-spacing: -0.02em; line-height: 1; }
+.hdr-rafeeq-ar { font-size: 8px;  font-weight: 700; color: #C9992A; direction: rtl; line-height: 1; }
+
+/* ════════════════════════════
+   HERO — navy (height ~270px)
+   ════════════════════════════ */
+.hero {
+  background: #0D1F3C;
+  flex: 0 0 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 28px;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 40%, rgba(201,153,42,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 60%, rgba(27,95,166,0.16) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-en {
+  font-size: 84px;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  color: #fff;
+  line-height: 1;
+  position: relative; z-index: 1;
+}
+.hero-ar {
+  font-size: 38px;
+  font-weight: 700;
+  color: #C9992A;
+  direction: rtl;
+  margin-top: -6px;
+  position: relative; z-index: 1;
+}
+.hero-line {
+  width: 42px;
+  height: 3px;
+  background: linear-gradient(90deg, #C9992A, #E8B84B);
+  border-radius: 2px;
+  position: relative; z-index: 1;
+}
+.hero-slogan {
+  font-size: 19px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.3;
+  position: relative; z-index: 1;
+}
+.hero-slogan span { color: #C9992A; }
+.hero-sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.04em;
+  position: relative; z-index: 1;
+}
+
+/* ════════════════════════════
+   GOLD BAND
+   ════════════════════════════ */
+.gold-band {
+  flex-shrink: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #C9992A, #E8B84B, #C9992A);
+}
+
+/* ════════════════════════════
+   FEATURES — white (height ~220px)
+   ════════════════════════════ */
+.features {
+  background: #fff;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  gap: 10px;
+}
+.sec-eyebrow {
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C9992A;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  width: 100%;
+}
+.feat-card {
+  background: #F4F6FB;
+  border: 1px solid #E2E8F4;
+  border-top: 3px solid #C9992A;
+  border-radius: 8px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+}
+.feat-icon { font-size: 20px; line-height: 1; }
+.feat-name { font-size: 7.5px; font-weight: 700; color: #0D1F3C; line-height: 1.35; }
+.feat-desc { font-size: 6px;   font-weight: 500; color: #6B7A99; line-height: 1.5; }
+
+/* ════════════════════════════
+   QUOTE — navy (height ~90px)
+   ════════════════════════════ */
+.quote-section {
+  background: #0D1F3C;
+  flex: 0 0 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.quote-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(201,153,42,0.09) 0%, transparent 65%);
+}
+.quote-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.6;
+  position: relative; z-index: 1;
+}
+.quote-text em { color: #C9992A; font-style: normal; }
+
+/* ════════════════════════════
+   TEAM — light (height ~160px)
+   ════════════════════════════ */
+.team {
+  background: #F4F6FB;
+  flex: 0 0 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  gap: 10px;
+  border-top: 1px solid #E2E8F4;
+}
+.team-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+  width: 100%;
+}
+.team-group-label {
+  font-size: 6.5px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C9992A;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(201,153,42,0.2);
+  margin-bottom: 5px;
+}
+.team-names { display: flex; flex-direction: column; gap: 3px; }
+.team-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+  font-weight: 600;
+  color: #0D1F3C;
+  padding: 4px 7px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #E2E8F4;
+}
+.tdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.tdot.gold { background: #C9992A; }
+.tdot.blue { background: #3B7DE8; }
+
+/* Powered by ISF line */
+.powered-by {
+  font-size: 6.5px;
+  font-weight: 600;
+  color: #6B7A99;
+  text-align: center;
+  letter-spacing: 0.04em;
+  padding-top: 6px;
+  border-top: 1px solid #E2E8F4;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.powered-by img {
+  height: 14px;
+  width: auto;
+  object-fit: contain;
+}
+.powered-by strong { color: #0D1F3C; font-weight: 700; }
+
+/* ════════════════════════════
+   FOOTER — navy (flex:1 remaining)
+   ════════════════════════════ */
+.footer {
+  background: #0D1F3C;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  position: relative;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C9992A, #E8B84B, #C9992A, transparent);
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.footer-scan { font-size: 10px; font-weight: 800; color: #fff; }
+.footer-url  { font-size: 7px;  font-weight: 600; color: #C9992A; }
+
+.footer-logos-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.footer-logo-unit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.footer-logo-unit img {
+  object-fit: contain;
+}
+.footer-logo-unit-name {
+  font-size: 5.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
+}
+.footer-vsep {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.12);
+}
+
+/* QR */
+.footer-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.qr-frame {
+  width: 72px;
+  height: 72px;
+  background: #fff;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  box-shadow: 0 0 14px rgba(0,0,0,0.5);
+}
+.qr-frame img { width: 100%; height: 100%; object-fit: contain; }
+.qr-fallback {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px;
+}
+.qr-fallback-icon { font-size: 18px; }
+.qr-fallback-hint { font-size: 4.5px; color: #0D1F3C; font-weight: 700; text-align: center; line-height: 1.4; }
+.qr-fallback-url  { font-size: 4px;   color: #C9992A; font-weight: 600; text-align: center; word-break: break-all; }
+.qr-caption { font-size: 6px; color: rgba(255,255,255,0.45); font-weight: 600; text-align: center; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="banner">
+
+  <!-- ══ HEADER ══ -->
+  <div class="hdr">
+    <div class="hdr-left">
+      <!-- Zewail -->
+      <div class="hdr-logo-block">
+        <img src="zewail.png" alt="Zewail" width="36" height="36" style="object-fit:contain;">
+        <div class="hdr-logo-name">Zewail City of<br>Science and Technology</div>
+      </div>
+      <div class="hdr-vsep"></div>
+      <!-- ISF -->
+      <div class="hdr-logo-block">
+        <img src="isf.png" alt="ISF" width="36" height="36" style="object-fit:contain;">
+        <div class="hdr-logo-name">Innovators<br>Support Fund</div>
+      </div>
+    </div>
+    <!-- Rafeeq -->
+    <div class="hdr-right">
+      <img src="Rafeeq_Logo.jfif" alt="Rafeeq" class="hdr-rafeeq-img" width="36" height="36" style="object-fit:contain;">
+      <div class="hdr-rafeeq-name">
+        <div class="hdr-rafeeq-en">Rafeeq</div>
+        <div class="hdr-rafeeq-ar">رفيق</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="hero-en">Rafeeq</div>
+    <div class="hero-ar">رفيق</div>
+    <div class="hero-line"></div>
+    <div class="hero-slogan">Your wheelchair.<br><span>Finally smart.</span></div>
+    <div class="hero-sub">AI-Powered Smart Wheelchair Retrofit Kit</div>
+  </div>
+
+  <!-- ══ GOLD BAND ══ -->
+  <div class="gold-band"></div>
+
+  <!-- ══ FEATURES ══ -->
+  <div class="features">
+    <div class="sec-eyebrow">What Rafeeq Does</div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🎙️</div>
+        <div class="feat-name">Egyptian Arabic<br>Voice Control</div>
+        <div class="feat-desc">Speak naturally in Egyptian Arabic to control every movement</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🗺️</div>
+        <div class="feat-name">Autonomous<br>Navigation</div>
+        <div class="feat-desc">Just say the room name — Rafeeq finds the way safely</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">❤️</div>
+        <div class="feat-name">Health<br>Monitoring</div>
+        <div class="feat-desc">Tracks heart rate & oxygen 24/7, alerts caregivers instantly</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <div class="feat-name">Companion<br>App</div>
+        <div class="feat-desc">SOS button, medication reminders, health tracking, chat with caregiver & emergency alerts</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-name">AI<br>Companion</div>
+        <div class="feat-desc">Speaks Arabic, understands how you feel, answers health questions & keeps you company</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUOTE ══ -->
+  <div class="quote-section">
+    <div class="quote-text">
+      Every wheelchair user deserves to move freely,<br>
+      feel safe, and live with <em>independence</em>, <em>dignity</em>, and <em>care</em>.<br>
+      That is what Rafeeq is built for.
+    </div>
+  </div>
+
+  <!-- ══ TEAM ══ -->
+  <div class="team">
+    <div class="sec-eyebrow">The Team</div>
+    <div class="team-cols">
+      <div>
+        <div class="team-group-label">Students</div>
+        <div class="team-names">
+          <div class="team-name"><div class="tdot gold"></div>Ahmed Amin</div>
+          <div class="team-name"><div class="tdot gold"></div>Omar Awad</div>
+          <div class="team-name"><div class="tdot gold"></div>Nourhan Mohamed</div>
+          <div class="team-name"><div class="tdot gold"></div>Mohamed Morshedy</div>
+          <div class="team-name"><div class="tdot gold"></div>Ziad Behairy</div>
+        </div>
+      </div>
+      <div>
+        <div class="team-group-label">Supervised By</div>
+        <div class="team-names">
+          <div class="team-name"><div class="tdot blue"></div>Prof. Moustafa Elshafei</div>
+          <div class="team-name"><div class="tdot blue"></div>Dr. Ahmed Sayed Abd-Rabou</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Powered by ISF -->
+    <div class="powered-by">
+      <img src="isf.png" alt="ISF" height="14">
+      <span>Powered by &nbsp;<strong>ISF — Innovators Support Fund</strong></span>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-scan">Scan to watch the demo</div>
+      <div class="footer-url">ahmedamen1.github.io/Rafeeq-Demo</div>
+      <div class="footer-logos-row">
+        <div class="footer-logo-unit">
+          <img src="zewail.png" alt="Zewail" width="30" height="30"
+            style="object-fit:contain;opacity:0.85;background:rgba(255,255,255,0.08);border-radius:4px;padding:2px;">
+          <div class="footer-logo-unit-name">Zewail City of<br>Science and Technology</div>
+        </div>
+        <div class="footer-vsep"></div>
+        <div class="footer-logo-unit">
+          <img src="isf.png" alt="ISF" width="30" height="30"
+            style="object-fit:contain;opacity:0.85;background:rgba(255,255,255,0.08);border-radius:4px;padding:2px;">
+          <div class="footer-logo-unit-name">Innovators<br>Support Fund</div>
+        </div>
+        <div class="footer-vsep"></div>
+        <div class="footer-logo-unit">
+          <img src="Rafeeq_Logo.jfif" alt="Rafeeq" width="30" height="30"
+            style="object-fit:contain;border-radius:4px;padding:2px;">
+          <div class="footer-logo-unit-name">Rafeeq &nbsp;رفيق</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-qr">
+      <div class="qr-frame">
+        <img src="qr_demo.png" alt="QR Code"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="qr-fallback" style="display:none">
+          <div class="qr-fallback-icon">📱</div>
+          <div class="qr-fallback-hint">Add qr_demo.png<br>to this folder</div>
+          <div class="qr-fallback-url">ahmedamen1.github.io/Rafeeq-Demo</div>
+        </div>
+      </div>
+      <div class="qr-caption">Scan to watch<br>the demo</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
