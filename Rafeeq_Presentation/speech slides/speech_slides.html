@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafeeq — Voice Control &amp; System Flow</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+/* ══ SHARED: Variables ══ */
+:root {
+  --navy:       #0D1F3C;
+  --teal:       #C9992A;
+  --teal-light: #E8B84B;
+  --teal-dim:   rgba(201,153,42,0.18);
+  --white:      #ffffff;
+  --gray:       #7a8499;
+  --coral:      #C94040;
+  --amber:      #E8B84B;
+  --blue:       #3B7DE8;
+  --purple:     #8B5CF6;
+  --muted:      rgba(255,255,255,0.38);
+  --muted-dark: rgba(13,31,60,0.35);
+
+  --slide-w: 100vw;
+  --slide-h: 100vh;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:  cubic-bezier(0.7, 0, 0.84, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══ SHARED: Animations ══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.72); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes springPop {
+  from { opacity: 0; transform: scale(0.5); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes flipIn {
+  from { opacity: 0; transform: rotateY(-90deg) scale(0.9); }
+  to   { opacity: 1; transform: rotateY(0deg)  scale(1); }
+}
+
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes rotateSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes soundWave {
+  0%, 100% { transform: scaleY(0.25); }
+  50%       { transform: scaleY(1); }
+}
+
+@keyframes dashDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes underlineDraw {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes typewriter {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* ─── ENTRANCE UTILITY CLASSES ───────────────────────────────────── */
+.au { opacity: 0; }
+.ai { opacity: 0; }
+.al { opacity: 0; }
+.ar { opacity: 0; }
+.as { opacity: 0; }
+.ap { opacity: 0; }
+.af { opacity: 0; }
+
+.slide.active .au { animation: fadeUp    0.65s var(--ease-out-expo) both; }
+.slide.active .ai { animation: fadeIn    0.55s ease both; }
+.slide.active .al { animation: slideInLeft 0.6s var(--ease-out-expo) both; }
+.slide.active .ar { animation: fadeLeft  0.6s var(--ease-out-expo) both; }
+.slide.active .as { animation: scaleIn   0.55s var(--ease-out-expo) both; }
+.slide.active .ap { animation: springPop 0.6s var(--ease-spring) both; }
+.slide.active .af { animation: flipIn    0.6s var(--ease-out-expo) both; }
+
+/* ─── STAGGER DELAYS ─────────────────────────────────────────────── */
+.d0  { animation-delay: 0ms   !important; }
+.d1  { animation-delay: 80ms  !important; }
+.d2  { animation-delay: 160ms !important; }
+.d3  { animation-delay: 240ms !important; }
+.d4  { animation-delay: 320ms !important; }
+.d5  { animation-delay: 400ms !important; }
+.d6  { animation-delay: 480ms !important; }
+.d7  { animation-delay: 560ms !important; }
+.d8  { animation-delay: 640ms !important; }
+.d9  { animation-delay: 720ms !important; }
+.d10 { animation-delay: 800ms !important; }
+.d11 { animation-delay: 900ms !important; }
+.d12 { animation-delay: 1000ms !important; }
+
+/* ══ SHARED: Transitions ══ */
+.slide {
+  transition:
+    transform 520ms var(--ease-out-expo),
+    opacity   520ms ease;
+}
+
+.slide.leaving-left {
+  transform: scale(0.92) translateX(-6%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.slide.leaving-right {
+  transform: scale(0.92) translateX(6%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.slide.entering-right {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+.slide.entering-left {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+
+.slide.active {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+.slide.no-transition {
+  transition: none !important;
+}
+
+/* ══ SHARED: Layout ══ */
+#slides-wrapper {
+  width: 100vw; height: 100vh;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.slide {
+  position: absolute;
+  width: 100vw; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0; left: 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.slide.dark  { background: var(--navy); }
+.slide.light { background: #f5f7fa; }
+
+/* ─── TOP PROGRESS BAR ───────────────────────────────────────────── */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  transition: width 0.5s var(--ease-out-expo);
+  z-index: 200;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(201,153,42,0.5);
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────────── */
+#nav {
+  display: none;
+}
+
+.nav-btn {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201,153,42,0.5);
+  background: rgba(201,153,42,0.08);
+  color: var(--teal);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s var(--ease-spring);
+  backdrop-filter: blur(8px);
+}
+
+.nav-btn:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--navy);
+  transform: scale(1.1);
+}
+
+.nav-btn:active { transform: scale(0.95); }
+
+/* ─── SLIDE COUNTER ──────────────────────────────────────────────── */
+#slide-counter {
+  position: fixed; bottom: 28px; right: 32px;
+  font-size: 12px; color: var(--muted);
+  font-weight: 600; z-index: 200;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+/* ─── SLIDE HINT (keyboard) ──────────────────────────────────────── */
+#slide-hint {
+  position: fixed; bottom: 28px; left: 32px;
+  font-size: 11px; color: var(--muted);
+  z-index: 200; letter-spacing: 0.04em;
+  opacity: 1; transition: opacity 1s;
+}
+#slide-hint.hidden { opacity: 0; pointer-events: none; }
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:50%"></div>
+<div id="slide-hint">← → to navigate</div>
+
+<div id="slides-wrapper">
+
+<!-- SLIDE 1 — MODEL TRAINING & DATA COLLECTION -->
+<div class="slide light" id="slide-1" data-slide="1">
+  <div class="spdt-layout">
+
+    <!-- LEFT: info panel -->
+    <div class="spdt-left" id="spdt-left">
+      <div class="spdt-num">00</div>
+      <div class="spdt-tag">Model Training</div>
+      <div class="spdt-title">Teaching Rafeeq<br>to Understand You</div>
+      <div class="spdt-uline" id="spdt-uline"></div>
+      <div class="spdt-desc">
+        Before Rafeeq can recognize a command, it has to hear it —
+        many times, from a real voice. Every command in the
+        vocabulary is recorded <strong>10 times</strong> by the user,
+        building a personalized dataset for the wake-word and
+        command-recognition models.
+      </div>
+
+      <div class="spdt-pipeline" id="spdt-pipeline">
+        <div class="spdt-step" id="spdt-ps0"><div class="spdt-step-icon"><i class="ti ti-microphone"></i></div><div class="spdt-step-lbl">Record Each Command<div class="spdt-step-sub">10 repetitions, user's own voice</div></div></div>
+        <div class="spdt-step-arr"><i class="ti ti-chevron-down"></i></div>
+        <div class="spdt-step" id="spdt-ps1"><div class="spdt-step-icon"><i class="ti ti-tag"></i></div><div class="spdt-step-lbl">Label &amp; Filter Noise<div class="spdt-step-sub">Clean recordings, tagged per command</div></div></div>
+        <div class="spdt-step-arr"><i class="ti ti-chevron-down"></i></div>
+        <div class="spdt-step" id="spdt-ps2"><div class="spdt-step-icon"><i class="ti ti-brain"></i></div><div class="spdt-step-lbl">Train the CNN Model<div class="spdt-step-sub">Wake-word &amp; command classifier</div></div></div>
+        <div class="spdt-step-arr"><i class="ti ti-chevron-down"></i></div>
+        <div class="spdt-step" id="spdt-ps3"><div class="spdt-step-icon"><i class="ti ti-cpu"></i></div><div class="spdt-step-lbl">Deploy On-Device<div class="spdt-step-sub">Runs fully offline on Raspberry Pi 5</div></div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: interactive demo -->
+    <div class="spdt-right" id="spdt-right">
+      <div class="spdt-demo-card">
+        <div class="spdt-demo-head">
+          <i class="ti ti-microphone-2"></i>
+          Recording Session
+        </div>
+
+        <!-- Current command -->
+        <div class="spdt-cmd-box">
+          <div class="spdt-cmd-label">What you want to call this room:</div>
+          <input class="spdt-cmd-input" id="spdt-cmd-input" type="text" placeholder="e.g. الصالة, kitchen, my room…" />
+        </div>
+
+        <!-- Mic + ring -->
+        <div class="spdt-mic-wrap">
+          <div class="spdt-mic-ring" id="spdt-mic-ring"></div>
+          <div class="spdt-mic" id="spdt-mic"><i class="ti ti-microphone"></i></div>
+        </div>
+
+        <!-- Sample dots -->
+        <div class="spdt-dots" id="spdt-dots"></div>
+        <div class="spdt-count" id="spdt-count">Sample 0 / 10</div>
+
+        <!-- Record button -->
+        <button class="spdt-record-btn" id="spdt-record-btn">
+          <i class="ti ti-player-record"></i> Record Sample
+        </button>
+
+        <!-- Overall progress -->
+        <div class="spdt-overall">
+          <div class="spdt-overall-lbl" id="spdt-overall-lbl">Commands trained: 0 / 4</div>
+          <div class="spdt-overall-bar"><div class="spdt-overall-fill" id="spdt-overall-fill"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-1 { background: #fff; overflow: hidden; }
+
+.spdt-layout {
+  display: flex; width: 100%; height: 100%;
+  padding: 36px 48px 32px; box-sizing: border-box; gap: 40px;
+}
+
+/* LEFT */
+.spdt-left {
+  flex: 0 0 380px; display: flex; flex-direction: column; gap: 14px;
+  opacity: 0; transform: translateX(-24px); transition: none;
+}
+.spdt-num {
+  font-size: 72px; font-weight: 900; color: rgba(201,153,42,0.12);
+  letter-spacing: -0.05em; line-height: 1; margin-bottom: -8px;
+}
+.spdt-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #C9992A;
+}
+.spdt-title {
+  font-size: 30px; font-weight: 900; color: #0D1F3C;
+  line-height: 1.15; letter-spacing: -0.02em;
+}
+.spdt-uline {
+  height: 3px; background: #C9992A; border-radius: 2px;
+  width: 0; transition: none;
+}
+.spdt-desc {
+  font-size: 13px; color: rgba(13,31,60,0.65); line-height: 1.6;
+}
+
+/* Pipeline steps */
+.spdt-pipeline { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+.spdt-step {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 14px; border-radius: 10px;
+  border: 1.5px solid #ececec; background: #fafafa;
+  transition: all 0.3s ease;
+}
+.spdt-step-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: rgba(201,153,42,0.1); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 17px; color: #C9992A; flex-shrink: 0;
+  transition: background 0.3s;
+}
+.spdt-step-lbl { font-size: 12px; font-weight: 700; color: #0D1F3C; line-height: 1.3; }
+.spdt-step-sub { font-size: 10px; color: #aaa; font-weight: 500; margin-top: 1px; }
+.spdt-step-arr { color: rgba(201,153,42,0.4); font-size: 13px; text-align: center; padding: 1px 0; }
+
+/* RIGHT */
+.spdt-right {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateX(24px); transition: none;
+}
+.spdt-demo-card {
+  background: #0D1F3C; border-radius: 20px;
+  width: 100%; max-width: 460px;
+  padding: 28px; display: flex; flex-direction: column; gap: 18px;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.2);
+  align-items: center;
+}
+.spdt-demo-head {
+  display: flex; align-items: center; gap: 10px; align-self: flex-start;
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.spdt-demo-head i { color: #C9992A; font-size: 18px; }
+
+/* Command box */
+.spdt-cmd-box {
+  width: 100%; text-align: center;
+  background: rgba(255,255,255,0.04); border-radius: 12px;
+  padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08);
+}
+.spdt-cmd-label { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+.spdt-cmd-input {
+  width: 100%; text-align: center; background: transparent;
+  border: none; border-bottom: 1.5px solid rgba(201,153,42,0.35);
+  color: #fff; font-size: 20px; font-weight: 800;
+  font-family: inherit; padding: 4px 2px 8px; outline: none;
+  transition: border-color 0.2s ease;
+}
+.spdt-cmd-input::placeholder { color: rgba(255,255,255,0.25); font-weight: 600; font-size: 15px; }
+.spdt-cmd-input:focus { border-bottom-color: #C9992A; }
+
+/* Mic + ring */
+.spdt-mic-wrap { position: relative; width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
+.spdt-mic {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(201,153,42,0.12); border: 1.5px solid rgba(201,153,42,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: #C9992A; z-index: 1;
+  transition: all 0.25s ease;
+}
+.spdt-mic-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px solid #C9992A; opacity: 0;
+}
+.spdt-mic-wrap.recording .spdt-mic {
+  background: #C9992A; color: #0D1F3C; border-color: #C9992A;
+  transform: scale(1.06);
+}
+.spdt-mic-wrap.recording .spdt-mic-ring {
+  animation: spdtPulse 0.9s ease-out infinite;
+}
+@keyframes spdtPulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* Sample dots */
+.spdt-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+.spdt-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  background: transparent; transition: all 0.25s var(--ease-spring);
+}
+.spdt-dot.filled { background: #22c55e; border-color: #22c55e; }
+.spdt-count { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+/* Record button */
+.spdt-record-btn {
+  width: 100%; background: rgba(201,153,42,0.12); border: 1px solid rgba(201,153,42,0.4);
+  border-radius: 10px; color: #C9992A; font-size: 14px; font-weight: 700;
+  padding: 12px 16px; cursor: pointer; text-align: center;
+  transition: all 0.2s ease; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.spdt-record-btn:hover { background: rgba(201,153,42,0.22); }
+.spdt-record-btn:active { transform: scale(0.97); }
+.spdt-record-btn.busy { pointer-events: none; opacity: 0.6; }
+.spdt-record-btn.done { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: #22c55e; }
+
+/* Overall progress */
+.spdt-overall { width: 100%; }
+.spdt-overall-lbl { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; margin-bottom: 6px; text-align: center; }
+.spdt-overall-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.spdt-overall-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--teal), var(--teal-light)); border-radius: 3px; transition: width 0.4s var(--ease-out-expo); }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(sel) { return document.querySelector(sel); }
+
+  var REPS_NEEDED = 10;
+  var GOAL = 4;
+  var repCount = 0, trainedCount = 0, isRecording = false;
+
+  function buildDots() {
+    var dots = q('#spdt-dots');
+    if (!dots) return;
+    dots.innerHTML = '';
+    for (var i = 0; i < REPS_NEEDED; i++) {
+      var d = document.createElement('div');
+      d.className = 'spdt-dot';
+      dots.appendChild(d);
+    }
+  }
+
+  function renderDots() {
+    var els = document.querySelectorAll('#spdt-dots .spdt-dot');
+    els.forEach(function(el, i) { el.classList.toggle('filled', i < repCount); });
+    var count = q('#spdt-count');
+    if (count) count.textContent = 'Sample ' + repCount + ' / ' + REPS_NEEDED;
+  }
+
+  function renderOverall() {
+    var lbl = q('#spdt-overall-lbl');
+    var fill = q('#spdt-overall-fill');
+    if (lbl) lbl.textContent = 'Commands trained: ' + trainedCount + ' / ' + GOAL;
+    if (fill) fill.style.width = ((trainedCount / GOAL) * 100) + '%';
+  }
+
+  function recordSample() {
+    if (isRecording) return;
+
+    var input = q('#spdt-cmd-input');
+    if (input && !input.value.trim()) {
+      input.focus();
+      return;
+    }
+
+    isRecording = true;
+
+    var wrap = q('#spdt-mic-wrap');
+    var btn  = q('#spdt-record-btn');
+    if (wrap) wrap.classList.add('recording');
+    if (btn)  btn.classList.add('busy');
+    if (input) input.disabled = true;
+
+    at(function() {
+      if (wrap) wrap.classList.remove('recording');
+      repCount++;
+      renderDots();
+
+      if (repCount >= REPS_NEEDED) {
+        trainedCount++;
+        renderOverall();
+        if (btn) {
+          btn.classList.add('done');
+          btn.innerHTML = '<i class="ti ti-check"></i> Command Complete';
+        }
+        at(function() {
+          repCount = 0;
+          renderDots();
+          if (trainedCount >= GOAL) { trainedCount = 0; renderOverall(); }
+          if (input) { input.value = ''; input.disabled = false; input.focus(); }
+          if (btn) {
+            btn.classList.remove('busy','done');
+            btn.innerHTML = '<i class="ti ti-player-record"></i> Record Sample';
+          }
+          isRecording = false;
+        }, 900);
+      } else {
+        if (btn) btn.classList.remove('busy');
+        if (input) input.disabled = false;
+        isRecording = false;
+      }
+    }, 700);
+  }
+
+  function hide() {
+    var left  = q('#spdt-left');
+    var right = q('#spdt-right');
+    var uline = q('#spdt-uline');
+    if (left)  { left.style.transition='none'; left.style.opacity='0'; left.style.transform='translateX(-24px)'; }
+    if (right) { right.style.transition='none'; right.style.opacity='0'; right.style.transform='translateX(24px)'; }
+    if (uline) { uline.style.transition='none'; uline.style.width='0'; }
+
+    repCount = 0; trainedCount = 0; isRecording = false;
+    var wrap = q('#spdt-mic-wrap'); if (wrap) wrap.classList.remove('recording');
+    var btn  = q('#spdt-record-btn');
+    if (btn) {
+      btn.classList.remove('busy','done');
+      btn.innerHTML = '<i class="ti ti-player-record"></i> Record Sample';
+    }
+    var input = q('#spdt-cmd-input');
+    if (input) { input.value = ''; input.disabled = false; }
+    buildDots();
+    renderDots();
+    renderOverall();
+  }
+
+  function runSequence() {
+    at(function() {
+      var left = q('#spdt-left');
+      if (left) { left.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'; left.style.opacity='1'; left.style.transform='translateX(0)'; }
+    }, 0);
+    at(function() {
+      var uline = q('#spdt-uline');
+      if (uline) { uline.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; uline.style.width='56px'; }
+    }, 350);
+    at(function() {
+      var right = q('#spdt-right');
+      if (right) { right.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'; right.style.opacity='1'; right.style.transform='translateX(0)'; }
+    }, 200);
+  }
+
+  function attachListeners() {
+    var btn = q('#spdt-record-btn');
+    if (btn) btn.addEventListener('click', recordSample);
+  }
+
+  window._slide01 = {
+    enter: function() { hide(); runSequence(); attachListeners(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+<!-- SLIDE 2 — SYSTEM FLOW (WAKE-WORD STATE MACHINE, CLICK-THROUGH) -->
+<div class="slide light" id="slide-2" data-slide="2">
+  <div class="spflow-layout">
+    <div class="spflow-head">
+      <div class="spflow-tag">System Flow</div>
+      <div class="spflow-title au d0">From Sleep to Action — Step by Step</div>
+      <div class="spflow-uline" id="spflow-uline"></div>
+    </div>
+
+    <div class="spflow-flow" id="spflow-grid">
+      <div class="spflow-row" data-i="0">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-moon"></i></div>
+          <div class="spflow-txt"><strong>Sleep Mode</strong><span>Listening passively for the wake word</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="1">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-microphone"></i></div>
+          <div class="spflow-txt"><strong>Microphone Captures Audio</strong><span>Continuous 1-second windows @ 16 kHz</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="2">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-filter"></i></div>
+          <div class="spflow-txt"><strong>Filter Background Noise</strong><span>Cleans the audio signal before analysis</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="3">
+        <div class="spflow-node spflow-decision">
+          <div class="spflow-icon"><i class="ti ti-ear"></i></div>
+          <div class="spflow-txt"><strong>"Rafeeq" Detected?</strong><span>Wake-word check — local CNN model</span></div>
+        </div>
+        <div class="spflow-branch" id="spflow-branch-3"><i class="ti ti-corner-left-down"></i> NO → keep listening (loop)</div>
+      </div>
+      <div class="spflow-row" data-i="4">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-clock"></i></div>
+          <div class="spflow-txt"><strong>5-Second Command Window Opens</strong><span>System is ACTIVE, waiting for a command</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="5">
+        <div class="spflow-node spflow-decision">
+          <div class="spflow-icon"><i class="ti ti-wave-square"></i></div>
+          <div class="spflow-txt"><strong>Command Detected?</strong><span>Local CNN model listening within the window</span></div>
+        </div>
+        <div class="spflow-branch" id="spflow-branch-5"><i class="ti ti-clock-pause"></i> NO (timeout) → return to sleep</div>
+      </div>
+      <div class="spflow-row" data-i="6">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-volume"></i></div>
+          <div class="spflow-txt"><strong>Confirm Command Aloud</strong><span>System speaks the detected command back</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="7">
+        <div class="spflow-node spflow-decision">
+          <div class="spflow-icon"><i class="ti ti-player-stop"></i></div>
+          <div class="spflow-txt"><strong>Is Command "Stop"?</strong><span>Safety check before acting</span></div>
+        </div>
+        <div class="spflow-branch" id="spflow-branch-7"><i class="ti ti-ban"></i> YES → ignore, not valid here → sleep</div>
+      </div>
+      <div class="spflow-row" data-i="8">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-send"></i></div>
+          <div class="spflow-txt"><strong>Publish Command to ROS 2</strong><span>Wheelchair executes the navigation or motion</span></div>
+        </div>
+      </div>
+      <div class="spflow-row" data-i="9">
+        <div class="spflow-node">
+          <div class="spflow-icon"><i class="ti ti-rotate-clockwise-2"></i></div>
+          <div class="spflow-txt"><strong>Return to Sleep</strong><span>State resets — loop back to step 1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spflow-progress" id="spflow-progress">Click <strong>Next</strong> to begin</div>
+  </div>
+</div>
+
+<style>
+#slide-2 { background: #fff; overflow: hidden; }
+
+.spflow-layout {
+  display: flex; flex-direction: column; width: 100%; height: 100%;
+  padding: 40px 56px 30px; box-sizing: border-box; gap: 18px;
+}
+
+.spflow-head { flex: 0 0 auto; }
+.spflow-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #C9992A; margin-bottom: 6px;
+}
+.spflow-title {
+  font-size: 30px; font-weight: 900; color: #0D1F3C;
+  line-height: 1.15; letter-spacing: -0.02em;
+}
+.spflow-uline {
+  height: 3px; background: #C9992A; border-radius: 2px;
+  width: 0; margin-top: 10px; transition: none;
+}
+
+/* Vertical flow */
+.spflow-flow {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.spflow-row {
+  flex: 1; min-height: 0;
+  display: flex; align-items: center; gap: 18px;
+}
+
+.spflow-node {
+  flex: 0 0 auto; width: min(640px, 64%); height: 100%;
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 22px;
+  border-radius: 14px;
+  border: 1.5px solid transparent; background: transparent;
+  opacity: 0; transform: translateX(-14px) scale(0.97);
+  transition: all 0.4s var(--ease-out-expo);
+}
+.spflow-node.active {
+  opacity: 1; transform: translateX(0) scale(1);
+  border-color: #C9992A; background: rgba(201,153,42,0.08);
+  box-shadow: 0 8px 24px rgba(201,153,42,0.18);
+}
+.spflow-node.done {
+  opacity: 0.85; transform: translateX(0) scale(1);
+  border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.05);
+}
+.spflow-icon {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(13,31,60,0.06); display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: rgba(13,31,60,0.35); transition: all 0.35s;
+}
+.spflow-decision .spflow-icon { transform: rotate(45deg); border-radius: 8px; }
+.spflow-decision .spflow-icon i { display: block; transform: rotate(-45deg); }
+.spflow-node.active .spflow-icon { background: #C9992A; color: #fff; }
+.spflow-node.done .spflow-icon { background: #22c55e; color: #fff; }
+.spflow-txt strong { display: block; font-size: 15px; font-weight: 800; color: #0D1F3C; line-height: 1.25; }
+.spflow-txt span { display: block; font-size: 11.5px; color: rgba(13,31,60,0.5); margin-top: 2px; line-height: 1.4; }
+
+/* Decision branch callouts */
+.spflow-branch {
+  flex: 1; display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 700; color: #C94040;
+  background: rgba(201,64,64,0.06); border: 1.5px dashed rgba(201,64,64,0.35);
+  border-radius: 12px; padding: 10px 16px; height: 100%; box-sizing: border-box;
+  opacity: 0; transform: translateX(14px);
+  transition: all 0.4s var(--ease-out-expo);
+}
+.spflow-branch.show { opacity: 1; transform: translateX(0); }
+.spflow-branch i { font-size: 16px; flex-shrink: 0; }
+
+.spflow-progress {
+  flex: 0 0 auto; text-align: center; font-size: 13px; font-weight: 600;
+  color: rgba(13,31,60,0.45); letter-spacing: 0.04em;
+}
+.spflow-progress strong { color: #C9992A; }
+
+/* Responsive breakpoints */
+@media (max-width: 1100px) {
+  .spflow-node { width: 100%; }
+  .spflow-row { flex-direction: column; align-items: stretch; gap: 6px; }
+  .spflow-branch { height: auto; }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  function q(sel) { return document.querySelector(sel); }
+  function qa(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+
+  var TOTAL_STEPS = 10;
+  var stepIndex = -1;
+  var BRANCH_ROWS = [3, 5, 7];
+
+  var LABELS = [
+    'Step 1 / 10 — Sleep Mode',
+    'Step 2 / 10 — Capturing Audio',
+    'Step 3 / 10 — Filtering Noise',
+    'Step 4 / 10 — Wake-Word Check',
+    'Step 5 / 10 — Command Window Open',
+    'Step 6 / 10 — Command Detected?',
+    'Step 7 / 10 — Confirm Aloud',
+    'Step 8 / 10 — "Stop" Check',
+    'Step 9 / 10 — Published to ROS 2',
+    'Step 10 / 10 — Back to Sleep'
+  ];
+
+  function render() {
+    qa('#spflow-grid .spflow-node').forEach(function(el, i) {
+      el.classList.remove('active','done');
+      if (i < stepIndex) el.classList.add('done');
+      if (i === stepIndex) el.classList.add('active');
+    });
+    BRANCH_ROWS.forEach(function(i) {
+      var el = q('#spflow-branch-' + i);
+      if (el) el.classList.toggle('show', i === stepIndex);
+    });
+    var prog = q('#spflow-progress');
+    if (prog) {
+      prog.innerHTML = stepIndex < 0
+        ? 'Click <strong>Next</strong> to begin'
+        : LABELS[stepIndex];
+    }
+  }
+
+  function hide() {
+    var ul = q('#spflow-uline');
+    if (ul) { ul.style.transition='none'; ul.style.width='0'; }
+    stepIndex = -1;
+    render();
+  }
+
+  function runSequence() {
+    var ul = q('#spflow-uline');
+    if (ul) {
+      requestAnimationFrame(function() {
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)';
+        ul.style.width = '56px';
+      });
+    }
+  }
+
+  window._slide02 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { hide(); },
+    onNext: function() {
+      if (stepIndex < TOTAL_STEPS - 1) {
+        stepIndex++;
+        render();
+        return true;  // consume this click — stay on this slide
+      }
+      return false;   // all steps shown — let the deck advance
+    }
+  };
+})();
+</script>
+
+<!-- SLIDE 3 — MODEL ACCURACY & RESULTS -->
+<div class="slide light" id="slide-3" data-slide="3">
+  <div class="spacc-layout">
+    <div class="spacc-head">
+      <div class="spacc-tag">Results</div>
+      <div class="spacc-title au d0">Model Accuracy — Per Command</div>
+      <div class="spacc-uline" id="spacc-uline"></div>
+    </div>
+
+    <div class="spacc-body">
+      <div class="spacc-side ar d1">
+        <div class="spacc-stat">
+          <div class="spacc-stat-value">77.1<span>%</span></div>
+          <div class="spacc-stat-label">Overall Accuracy</div>
+          <div class="spacc-stat-sub">MFCC + Δ + ΔΔ features<br>across all 10 commands</div>
+        </div>
+
+        <div class="spacc-eval">
+          <div class="spacc-eval-title"><i class="ti ti-clipboard-check"></i> Evaluation Setup</div>
+          <div class="spacc-eval-row"><span>Total test samples</span><strong>410</strong></div>
+          <div class="spacc-eval-row"><span>Correctly classified</span><strong>316</strong></div>
+          <div class="spacc-eval-row"><span>Training accuracy (epoch 50)</span><strong>77.1%</strong></div>
+          <div class="spacc-eval-note">
+            40 samples each for <em>rafeeq, move_forward, move_backward, turn_left,
+            turn_right, go_to_bathroom, go_to_bedroom, go_to_livingroom</em> (8 × 40 = 320),
+            60 for <em>stop</em>, and 30 for <em>go_to_kitchen</em> — recorded under
+            realistic indoor conditions with ambient background noise.
+          </div>
+        </div>
+      </div>
+      <div class="spacc-chart al d2">
+        <img src="3_per_command_accuracy.png" alt="Per-Command Accuracy Chart">
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-3 { background: #fff; overflow: hidden; }
+
+.spacc-layout {
+  display: flex; flex-direction: column; width: 100%; height: 100%;
+  padding: 40px 56px 36px; box-sizing: border-box; gap: 24px;
+}
+
+.spacc-head { flex: 0 0 auto; }
+.spacc-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #C9992A; margin-bottom: 6px;
+}
+.spacc-title {
+  font-size: 30px; font-weight: 900; color: #0D1F3C;
+  line-height: 1.15; letter-spacing: -0.02em;
+}
+.spacc-uline {
+  height: 3px; background: #C9992A; border-radius: 2px;
+  width: 0; margin-top: 10px; transition: none;
+}
+
+.spacc-body {
+  flex: 1; min-height: 0;
+  display: flex; align-items: center; gap: 40px;
+}
+
+.spacc-side {
+  flex: 0 0 300px; height: 100%; min-height: 0;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.spacc-stat {
+  flex: 0 0 auto;
+  background: #0D1F3C; border-radius: 20px;
+  padding: 28px 28px; text-align: center;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.2);
+}
+.spacc-stat-value {
+  font-size: 56px; font-weight: 900; color: #C9992A;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.spacc-stat-value span { font-size: 28px; font-weight: 800; }
+.spacc-stat-label {
+  font-size: 13px; font-weight: 700; color: #fff;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-top: 10px;
+}
+.spacc-stat-sub {
+  font-size: 12px; color: rgba(255,255,255,0.4);
+  line-height: 1.6; margin-top: 12px;
+}
+
+/* Evaluation setup card */
+.spacc-eval {
+  flex: 1; min-height: 0; overflow: auto;
+  background: #fafafa; border: 1.5px solid #ececec; border-radius: 16px;
+  padding: 18px 20px; display: flex; flex-direction: column; gap: 10px;
+}
+.spacc-eval-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: #0D1F3C;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.spacc-eval-title i { color: #C9992A; font-size: 15px; }
+.spacc-eval-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; color: rgba(13,31,60,0.65);
+  border-bottom: 1px solid #ececec; padding-bottom: 6px;
+}
+.spacc-eval-row strong { color: #0D1F3C; font-weight: 800; }
+.spacc-eval-note {
+  font-size: 11px; color: rgba(13,31,60,0.5); line-height: 1.6; margin-top: 2px;
+}
+.spacc-eval-note em { color: #0D1F3C; font-style: normal; font-weight: 600; }
+
+.spacc-chart {
+  flex: 1; min-width: 0; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: #fafafa; border: 1.5px solid #ececec; border-radius: 16px;
+  padding: 16px; box-sizing: border-box;
+}
+.spacc-chart img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+  border-radius: 8px;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  function q(sel) { return document.querySelector(sel); }
+
+  function hide() {
+    var ul = q('#spacc-uline');
+    if (ul) { ul.style.transition='none'; ul.style.width='0'; }
+  }
+
+  function runSequence() {
+    var ul = q('#spacc-uline');
+    if (ul) {
+      requestAnimationFrame(function() {
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)';
+        ul.style.width = '56px';
+      });
+    }
+  }
+
+  window._slide03 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { hide(); }
+  };
+})();
+</script>
+
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" aria-label="Previous slide">
+    <i class="ti ti-chevron-left"></i>
+  </button>
+  <button class="nav-btn" id="btn-next" aria-label="Next slide">
+    <i class="ti ti-chevron-right"></i>
+  </button>
+</div>
+
+<div id="slide-counter">01 / 03</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const TOTAL        = 3;
+  let   current      = 0;
+  let   transitioning= false;
+
+  const slides      = Array.from(document.querySelectorAll('.slide'));
+  const counter     = document.getElementById('slide-counter');
+  const progressBar = document.getElementById('progress-bar');
+  const btnPrev     = document.getElementById('btn-prev');
+  const btnNext     = document.getElementById('btn-next');
+  const hint        = document.getElementById('slide-hint');
+
+  /* Lifecycle registry: each slide exposes window._slide01 = { enter, leave } */
+  function callHook(idx, hook) {
+    const key = '_slide' + String(idx + 1).padStart(2, '0');
+    const mod = window[key];
+    if (mod && typeof mod[hook] === 'function') {
+      try { mod[hook](); } catch(e) { console.warn(key, hook, e); }
+    }
+  }
+
+  /* Reset CSS animations so they replay on re-visit */
+  function resetAnims(slideEl) {
+    slideEl.querySelectorAll(
+      '.au,.ai,.al,.ar,.as,.ap,.af'
+    ).forEach(el => {
+      el.style.animation = 'none';
+      void el.offsetHeight;
+      el.style.animation = '';
+    });
+  }
+
+  /* Main transition function */
+  function goTo(idx, dir) {
+    if (transitioning || idx === current) return;
+    if (idx < 0 || idx >= TOTAL) return;
+    transitioning = true;
+
+    const leaving  = slides[current];
+    const entering = slides[idx];
+
+    callHook(current, 'leave');
+    resetAnims(leaving);
+
+    // Snap entering slide into start position instantly (no-transition + reflow)
+    entering.classList.add('no-transition');
+    entering.classList.remove('active', 'entering-right', 'entering-left', 'leaving-left', 'leaving-right');
+    entering.classList.add(dir > 0 ? 'entering-right' : 'entering-left');
+    void entering.offsetHeight; // commit off-screen position before enabling transitions
+    entering.classList.remove('no-transition');
+
+    // Force another reflow so the browser registers the transition start correctly
+    void entering.offsetHeight;
+
+    // Trigger transition on both
+    leaving.classList.remove('active');
+    leaving.classList.add(dir > 0 ? 'leaving-left' : 'leaving-right');
+    entering.classList.remove('entering-right', 'entering-left');
+    entering.classList.add('active');
+
+    setTimeout(() => {
+      leaving.classList.add('no-transition');
+      leaving.classList.remove('leaving-left', 'leaving-right');
+      leaving.classList.add(dir > 0 ? 'entering-right' : 'entering-left');
+      void leaving.offsetHeight;
+      leaving.classList.remove('no-transition');
+      transitioning = false;
+    }, 580);
+
+    current = idx;
+    updateUI();
+    callHook(current, 'enter');
+    if (hint) hint.classList.add('hidden');
+  }
+
+  function updateUI() {
+    const n   = current + 1;
+    const pad = s => String(s).padStart(2, '0');
+    counter.textContent   = pad(n) + ' / ' + pad(TOTAL);
+    progressBar.style.width = ((n / TOTAL) * 100).toFixed(2) + '%';
+  }
+
+  /* Allow the active slide to intercept "Next" for its own step sequence
+     before the deck advances to the next slide. */
+  function goNext() {
+    const mod = window['_slide' + String(current + 1).padStart(2, '0')];
+    if (mod && typeof mod.onNext === 'function' && mod.onNext()) return;
+    goTo(current + 1, 1);
+  }
+
+  /* Keyboard navigation */
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goNext();
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    goTo(current - 1, -1);
+    if (e.key === 'Home') goTo(0,          -1);
+    if (e.key === 'End')  goTo(TOTAL - 1,   1);
+  });
+
+  btnNext.addEventListener('click', goNext);
+  btnPrev.addEventListener('click', () => goTo(current - 1, -1));
+
+  /* Touch swipe */
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  /* Init: set all slides to off-screen right, activate slide 0 */
+  slides.forEach((s, i) => {
+    s.classList.add('no-transition');
+    s.classList.remove('active', 'entering-right', 'entering-left');
+    if (i === 0) {
+      s.classList.add('active');
+    } else {
+      s.classList.add('entering-right');
+    }
+  });
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slides.forEach(s => s.classList.remove('no-transition'));
+    });
+  });
+
+  updateUI();
+  callHook(0, 'enter');
+  setTimeout(() => { if (hint) hint.classList.add('hidden'); }, 5000);
+
+})();
+</script>
+
+</body>
+</html>

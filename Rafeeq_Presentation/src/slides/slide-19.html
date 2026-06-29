@@ -1,0 +1,120 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 16 — ELECTRICAL: FULL SYSTEM WIRING DIAGRAM
+     Annotated wiring diagram on white background
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-19" data-slide="19"
+     style="background:#ffffff; overflow:hidden;">
+
+  <!-- Top accent -->
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B5FA6,#C9992A,#27AE60);"></div>
+
+  <!-- Header row -->
+  <div id="elec2-hdr" style="
+    position:absolute;top:0;left:0;right:0;z-index:6;height:68px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 44px;
+    background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(13,31,60,0.08);
+    opacity:0;transform:translateY(-20px);transition:none;
+  ">
+    <div>
+      <div style="font-size:9px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                  color:#C9992A;font-family:'Inter',sans-serif;">Electrical System</div>
+      <div style="font-size:18px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;
+                  font-family:'Inter',sans-serif;line-height:1.1;">System Wiring Diagram</div>
+    </div>
+    <!-- Legend chips -->
+    <div style="display:flex;gap:10px;align-items:center;">
+      <div class="elec2-legend-chip" style="border-color:rgba(201,64,64,0.4);">
+        <span style="width:10px;height:3px;background:#C94040;border-radius:2px;display:inline-block;"></span>Power +
+      </div>
+      <div class="elec2-legend-chip" style="border-color:rgba(0,0,0,0.2);">
+        <span style="width:10px;height:3px;background:#555;border-radius:2px;display:inline-block;"></span>Ground
+      </div>
+      <div class="elec2-legend-chip" style="border-color:rgba(201,153,42,0.4);">
+        <span style="width:10px;height:3px;background:#C9992A;border-radius:2px;display:inline-block;"></span>Motor 3-Phase
+      </div>
+      <div class="elec2-legend-chip" style="border-color:rgba(39,174,96,0.4);">
+        <span style="width:10px;height:3px;background:#27AE60;border-radius:2px;display:inline-block;"></span>Control
+      </div>
+      <div class="elec2-legend-chip" style="border-color:rgba(27,95,166,0.4);">
+        <span style="width:10px;height:3px;background:#1B5FA6;border-radius:2px;display:inline-block;"></span>Sensor/Data
+      </div>
+    </div>
+  </div>
+
+  <!-- Wiring diagram -->
+  <div style="position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;
+              padding:72px 24px 16px;box-sizing:border-box;">
+    <div id="elec2-diagram" style="
+      position:relative;width:100%;height:100%;
+      opacity:0;transform:scale(0.96);transition:none;
+    ">
+      <img src="Electrical Slides/wiring_diagram.png" alt="System Wiring Diagram"
+           style="width:100%;height:100%;object-fit:contain;display:block;border-radius:10px;
+                  box-shadow:0 4px 24px rgba(13,31,60,0.08);">
+
+    </div>
+  </div>
+
+
+</div>
+
+<style>
+#slide-19 { background: #ffffff; }
+.elec2-legend-chip {
+  font-size:10px;font-weight:600;color:rgba(13,31,60,0.6);
+  border:1px solid;border-radius:16px;padding:4px 10px;
+  display:flex;align-items:center;gap:5px;
+  font-family:'Inter',sans-serif;
+}
+.elec2-callout {
+  position:absolute;display:flex;align-items:center;gap:6px;
+}
+.elec2-callout-dot {
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+}
+.elec2-callout-box {
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);
+  border:1px solid;border-radius:8px;padding:7px 10px;
+  min-width:130px;box-shadow:0 2px 12px rgba(13,31,60,0.1);
+}
+.elec2-callout-title {
+  font-size:11px;font-weight:800;color:#0D1F3C;
+  font-family:'Inter',sans-serif;margin-bottom:2px;
+}
+.elec2-callout-body {
+  font-size:9px;color:rgba(13,31,60,0.5);
+  font-family:'Inter',sans-serif;line-height:1.4;
+}
+.elec2-stat {
+  font-size:11px;font-weight:700;color:rgba(13,31,60,0.5);
+  font-family:'Inter',sans-serif;
+}
+.elec2-divider {
+  width:1px;height:20px;background:rgba(13,31,60,0.1);
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){timers.push(setTimeout(fn,ms));}
+  function clearAll(){timers.forEach(clearTimeout);timers=[];}
+  function q(id){return document.getElementById(id);}
+  function hide(){
+    var hdr=q('elec2-hdr');if(hdr){hdr.style.transition='none';hdr.style.opacity='0';hdr.style.transform='translateY(-20px)';}
+    var dg=q('elec2-diagram');if(dg){dg.style.transition='none';dg.style.opacity='0';dg.style.transform='scale(0.96)';}
+  }
+  window._slide19={
+    enter:function(){
+      hide();
+      at(function(){var h=q('elec2-hdr');if(h){h.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';h.style.opacity='1';h.style.transform='translateY(0)';}},80);
+      at(function(){var d=q('elec2-diagram');if(d){d.style.transition='opacity 0.7s ease,transform 0.7s cubic-bezier(0.16,1,0.3,1)';d.style.opacity='1';d.style.transform='scale(1)';}},250);
+    },
+    leave:function(){clearAll();hide();}
+  };
+})();
+</script>

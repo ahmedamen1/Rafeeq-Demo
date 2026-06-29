@@ -1,0 +1,211 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 28 — TF2 TRANSFORM TREE (actual frames from ros2 run tf2_tools)
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-32" data-slide="32"
+     style="background:#F8F9FA; overflow:hidden;">
+
+  <!-- Dot-grid texture -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(13,31,60,0.06) 1px,transparent 1px);
+    background-size:36px 36px;"></div>
+
+  <div style="position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+              padding:28px 56px 22px;box-sizing:border-box;">
+
+    <!-- Header -->
+    <div id="tf-hdr" style="flex:0 0 auto;margin-bottom:10px;opacity:0;transform:translateY(-14px);transition:none;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                  color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:6px;">
+        Autonomous Navigation · Coordinate Transforms
+      </div>
+      <div style="font-size:34px;font-weight:900;color:#0D1F3C;letter-spacing:-0.03em;
+                  font-family:'Inter',sans-serif;line-height:1.1;">TF2 Transform Tree</div>
+      <div id="tf-uline" style="height:3px;width:0;background:#C9992A;border-radius:2px;margin-top:10px;transition:none;"></div>
+    </div>
+
+    <!-- Tree -->
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+
+      <!-- map -->
+      <div id="tf-r0" style="display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(-10px);transition:none;">
+        <div class="tf-node tf-green">map</div>
+        <div class="tf-vline" style="height:22px;background:rgba(13,31,60,0.15);"></div>
+        <div class="tf-badge">AMCL — corrects drift</div>
+        <div class="tf-vline" style="height:22px;"></div>
+      </div>
+
+      <!-- odom -->
+      <div id="tf-r1" style="display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(-10px);transition:none;">
+        <div class="tf-node tf-blue">odom</div>
+        <div class="tf-vline" style="height:22px;background:rgba(13,31,60,0.15);"></div>
+        <div class="tf-badge">EKF — /odometry/filtered</div>
+        <div class="tf-vline" style="height:22px;background:rgba(13,31,60,0.15);"></div>
+      </div>
+
+      <!-- base_footprint -->
+      <div id="tf-r2" style="display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(-10px);transition:none;">
+        <div class="tf-node tf-gold">base_footprint</div>
+        <div class="tf-vline" style="height:22px;background:rgba(13,31,60,0.15);"></div>
+        <div class="tf-badge">URDF static transform</div>
+        <div class="tf-vline" style="height:22px;background:rgba(13,31,60,0.15);"></div>
+      </div>
+
+      <!-- base_link -->
+      <div id="tf-r3" style="display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(-10px);transition:none;">
+        <div class="tf-node tf-white">base_link</div>
+        <!-- horizontal spread line -->
+        <div style="position:relative;width:920px;height:24px;">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);
+               width:100%;height:1.5px;background:rgba(13,31,60,0.18);"></div>
+        </div>
+      </div>
+
+      <!-- leaf row -->
+      <div id="tf-r4" style="display:flex;gap:16px;align-items:flex-start;justify-content:center;opacity:0;transform:translateY(12px);transition:none;">
+
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">BackLeftWheel</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">BackRightWheel</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">LeftMotor</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">LeftWingWheel</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">RightMotor</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf">RightWingWheel</div>
+        </div>
+
+        <!-- Camera_Link with child -->
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf tf-cam">Camera_Link</div>
+          <div class="tf-vline" style="height:16px;"></div>
+          <div class="tf-leaf tf-cam" style="font-size:11px;padding:5px 11px;">Camera_Link_optical</div>
+        </div>
+
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf tf-imu">imu_link</div>
+        </div>
+        <div class="tf-leaf-col">
+          <div class="tf-vline" style="height:24px;"></div>
+          <div class="tf-leaf tf-lidar">Lidar_Link</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom note -->
+    <div id="tf-note" style="flex:0 0 auto;margin-top:14px;
+         border-left:3px solid #C9992A;padding:10px 16px;
+         background:rgba(201,153,42,0.06);border-radius:0 8px 8px 0;
+         opacity:0;transform:translateY(10px);transition:none;">
+      <div style="font-size:14px;color:rgba(13,31,60,0.72);font-family:'Inter',sans-serif;
+                  line-height:1.6;font-style:italic;">
+        "Every sensor reading is transformed into the
+        <strong style="color:#C9992A;font-style:normal;">map frame</strong>
+        before the navigation stack uses it — ensuring a single consistent coordinate space across all sensors."
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-32 { background: #F8F9FA; }
+
+.tf-node {
+  font-family:'Inter',sans-serif;font-size:17px;font-weight:800;
+  padding:12px 40px;border-radius:10px;border:2.5px solid;letter-spacing:0.02em;
+}
+.tf-green  { color:#22c55e; border-color:#22c55e; background:rgba(34,197,94,0.1); }
+.tf-blue   { color:#3B7DE8; border-color:#3B7DE8; background:rgba(59,125,232,0.1); }
+.tf-gold   { color:#C9992A; border-color:#C9992A; background:rgba(201,153,42,0.1); }
+.tf-white  { color:#0D1F3C; border-color:rgba(13,31,60,0.35); background:rgba(13,31,60,0.04); }
+
+.tf-vline { width:1.5px; height:16px; background:rgba(13,31,60,0.15); }
+
+.tf-badge {
+  font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(13,31,60,0.4);font-family:'Inter',sans-serif;margin:4px 0;
+}
+
+.tf-leaf-col { display:flex;flex-direction:column;align-items:center; }
+
+.tf-leaf {
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:700;
+  padding:7px 16px;border-radius:20px;
+  border:1.5px solid rgba(13,31,60,0.14);
+  background:rgba(13,31,60,0.04);
+  color:rgba(13,31,60,0.7);
+  white-space:nowrap;
+}
+.tf-cam   { border-color:rgba(201,153,42,0.4);color:rgba(181,133,22,0.9);background:rgba(201,153,42,0.08); }
+.tf-imu   { border-color:rgba(139,92,246,0.4);color:rgba(109,62,216,0.9);background:rgba(139,92,246,0.08); }
+.tf-lidar { border-color:rgba(59,125,232,0.4);color:rgba(59,125,232,0.9);background:rgba(59,125,232,0.08); }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var _t32=[];
+  function at(fn,ms){ _t32.push(setTimeout(fn,ms)); }
+  function ca32(){ _t32.forEach(clearTimeout); _t32=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  var RESET={
+    'tf-hdr':  {opacity:'0',transform:'translateY(-14px)'},
+    'tf-r0':   {opacity:'0',transform:'translateY(-10px)'},
+    'tf-r1':   {opacity:'0',transform:'translateY(-10px)'},
+    'tf-r2':   {opacity:'0',transform:'translateY(-10px)'},
+    'tf-r3':   {opacity:'0',transform:'translateY(-10px)'},
+    'tf-r4':   {opacity:'0',transform:'translateY(12px)'},
+    'tf-note': {opacity:'0',transform:'translateY(10px)'}
+  };
+
+  function hide32(){
+    Object.keys(RESET).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(RESET[id]).forEach(function(p){ el.style[p]=RESET[id][p]; });
+    });
+    var ul=q('tf-uline'); if(ul){ ul.style.transition='none'; ul.style.width='0'; }
+  }
+
+  function show(id,props,delay){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition='opacity 0.5s cubic-bezier(0.16,1,0.3,1),transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    },delay);
+  }
+
+  window._slide32={
+    enter:function(){
+      ca32(); hide32();
+      show('tf-hdr',  {opacity:'1',transform:'translateY(0)'},0);
+      at(function(){ var ul=q('tf-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='56px';} },300);
+      show('tf-r0',   {opacity:'1',transform:'translateY(0)'},180);
+      show('tf-r1',   {opacity:'1',transform:'translateY(0)'},340);
+      show('tf-r2',   {opacity:'1',transform:'translateY(0)'},490);
+      show('tf-r3',   {opacity:'1',transform:'translateY(0)'},630);
+      show('tf-r4',   {opacity:'1',transform:'translateY(0)'},780);
+      show('tf-note', {opacity:'1',transform:'translateY(0)'},960);
+    },
+    leave:function(){ ca32(); hide32(); }
+  };
+})();
+</script>

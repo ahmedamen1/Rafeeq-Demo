@@ -1,0 +1,134 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 22 — VOICE CONTROL: MODEL ACCURACY
+     77.1% + full evaluation breakdown + chart
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-26" data-slide="26"
+     style="background:#ffffff; overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:36px 48px 32px;box-sizing:border-box;gap:20px;">
+
+    <!-- Header -->
+    <div id="sp3-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;margin-bottom:5px;">Voice Control · Results</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Model Accuracy — Per Command</div>
+      <div id="s22-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body -->
+    <div style="flex:1;min-height:0;display:flex;gap:24px;">
+
+      <!-- LEFT column -->
+      <div style="flex:0 0 320px;display:flex;flex-direction:column;gap:14px;">
+
+        <!-- Big stat -->
+        <div id="sp3-stat" style="flex:0 0 auto;background:#0D1F3C;border-radius:20px;padding:24px;text-align:center;box-shadow:0 8px 40px rgba(13,31,60,0.18);opacity:0;transform:translateY(20px);transition:none;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">Overall Accuracy</div>
+          <div style="font-size:64px;font-weight:900;color:#C9992A;letter-spacing:-0.04em;line-height:1;">77.1<span style="font-size:30px;font-weight:800;">%</span></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);line-height:1.6;margin-top:10px;">MFCC + Delta + Delta-Delta features<br>across all 10 commands</div>
+        </div>
+
+        <!-- Eval stats grid -->
+        <div id="sp3-grid" style="flex:0 0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px;opacity:0;transform:translateY(16px);transition:none;">
+          <div class="sp3-statbox" style="border-color:rgba(201,153,42,0.3);">
+            <div class="sp3-sval" style="color:#C9992A;">410</div>
+            <div class="sp3-slbl">Test Samples</div>
+          </div>
+          <div class="sp3-statbox" style="border-color:rgba(34,197,94,0.3);">
+            <div class="sp3-sval" style="color:#22c55e;">316</div>
+            <div class="sp3-slbl">Correct</div>
+          </div>
+          <div class="sp3-statbox" style="border-color:rgba(27,95,166,0.3);">
+            <div class="sp3-sval" style="color:#1B5FA6;">10</div>
+            <div class="sp3-slbl">Commands</div>
+          </div>
+          <div class="sp3-statbox" style="border-color:rgba(124,58,237,0.3);">
+            <div class="sp3-sval" style="color:#7c3aed;">50</div>
+            <div class="sp3-slbl">Epochs</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: chart -->
+      <div id="sp3-chart" style="flex:1;min-width:0;background:#fafafa;border:1.5px solid #ececec;border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateX(24px);transition:none;">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#0D1F3C;display:flex;align-items:center;gap:7px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Per-Command Accuracy Breakdown
+        </div>
+        <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+          <img src="3_per_command_accuracy.png" alt="Per-Command Accuracy Chart"
+               style="max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+#slide-26 { background:#ffffff; }
+.sp3-statbox {
+  background:#fafafa;border:1.5px solid;border-radius:12px;
+  padding:12px 14px;display:flex;flex-direction:column;gap:3px;
+}
+.sp3-sval { font-size:28px;font-weight:900;letter-spacing:-0.03em;line-height:1; }
+.sp3-slbl { font-size:10px;font-weight:600;color:rgba(13,31,60,0.45);letter-spacing:0.04em; }
+.sp3-chip { font-size:10px;font-weight:700;border:1px solid;border-radius:20px;padding:3px 10px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id,delay,tx,ty){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.55s ease,transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+
+  function hide(){
+    ['sp3-hdr','sp3-stat','sp3-grid','sp3-chart'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+      if(id==='sp3-hdr') el.style.transform='translateY(-16px)';
+      else if(id==='sp3-chart') el.style.transform='translateX(24px)';
+      else if(id==='sp3-stat') el.style.transform='translateY(20px)';
+      else el.style.transform='translateY(16px)';
+    });
+    var ul=q('s22-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  function enter(){
+    hide();
+    at(function(){
+      var h=q('sp3-hdr'); if(h){h.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';h.style.opacity='1';h.style.transform='translateY(0)';}
+    },80);
+    at(function(){
+      var ul=q('s22-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='56px';}
+    },380);
+    show('sp3-stat',200);
+    show('sp3-grid',380);
+    show('sp3-chart',300);
+  }
+
+  window._slide26={
+    enter:enter,
+    leave:function(){ clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+
+﻿<!-- SLIDE 12 — NAVIGATION (INTERACTIVE FLOOR-PLAN DEMO) -->

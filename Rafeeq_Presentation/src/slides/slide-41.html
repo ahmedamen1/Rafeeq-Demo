@@ -1,0 +1,296 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 37 — APP: VOICE ASSISTANT (ElevenLabs)
+     Phone auto-cycles through mic states: idle → recording → thinking → speaking
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-41" data-slide="41"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#2E86C1,#F39C12,#27AE60);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:60px 64px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT: info -->
+    <div id="a37-left" style="flex:1;display:flex;flex-direction:column;gap:26px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:12px;">Mobile App Walkthrough · 06</div>
+        <div style="font-size:40px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">Live Call with Rafeeq</div>
+        <div id="a37-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:16px;color:rgba(13,31,60,0.6);line-height:1.85;max-width:480px;">
+        For the first time, the wheelchair speaks back. The patient holds the mic, speaks Arabic, and Rafeeq replies in a natural Egyptian Arabic voice — powered by Whisper, GPT-4o-mini RAG, and ElevenLabs TTS.
+      </div>
+
+      <div id="a37-pipeline" style="display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="a37-pstep"><div class="a37-pnum" style="background:#1B4F72;">1</div><div class="a37-ptxt"><strong>Record Voice</strong><span>Flutter audio capture</span></div></div>
+        <div class="a37-parrow">↓</div>
+        <div class="a37-pstep"><div class="a37-pnum" style="background:#3498DB;">2</div><div class="a37-ptxt"><strong>Whisper — Speech to Text</strong><span>OpenAI Whisper STT (Arabic)</span></div></div>
+        <div class="a37-parrow">↓</div>
+        <div class="a37-pstep"><div class="a37-pnum" style="background:#F39C12;">3</div><div class="a37-ptxt"><strong>Rafeeq Thinks &amp; Responds</strong><span>ChromaDB RAG + GPT-4o-mini</span></div></div>
+        <div class="a37-parrow">↓</div>
+        <div class="a37-pstep"><div class="a37-pnum" style="background:#27AE60;">4</div><div class="a37-ptxt"><strong>ElevenLabs Speaks the Reply</strong><span>Masry · eleven_multilingual_v2</span></div></div>
+      </div>
+
+      <div id="a37-meta" style="display:flex;gap:12px;opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a37-badge" style="background:rgba(39,174,96,0.1);color:#27AE60;border-color:rgba(39,174,96,0.3);">🎙 Voice: Masry (Egyptian Arabic)</span>
+      </div>
+    </div>
+
+    <!-- CENTER: phone with animated mic state machine -->
+    <div id="a37-center" style="flex:0 0 280px;display:flex;flex-direction:column;align-items:center;gap:16px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a37-phone">
+        <div class="a37-notch"></div>
+        <div class="a37-screen">
+          <div class="a37-appbar">Live Call with Rafeeq</div>
+          <div class="a37-instr">Tap the mic to play the real ElevenLabs reply</div>
+
+          <div class="a37-micwrap">
+            <div id="a37-mic" class="a37-mic a37-mic-idle" style="cursor:pointer;">
+              <span id="a37-micicon">🎤</span>
+              <div class="a37-ring"></div>
+            </div>
+            <div id="a37-waves" class="a37-waves">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div id="a37-status" class="a37-status">Tap to play</div>
+          <audio id="a37-audio" preload="metadata" style="display:none;">
+            <source src="rafeeq_11Labs_Audio.mp3" type="audio/mpeg">
+          </audio>
+
+          <div id="a37-card-user" class="a37-card a37-card-user">
+            <div class="a37-cardlbl">You</div>
+            <div class="a37-cardtxt">What are my medications today?</div>
+          </div>
+          <div id="a37-card-ai" class="a37-card a37-card-ai">
+            <div class="a37-cardlbl">Rafeeq</div>
+            <div class="a37-cardtxt">You have Amlodipine at 8 AM and Baclofen after lunch. Take care of yourself, Ahmed ❤️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: pipeline visual / state timeline -->
+    <div id="a37-right" style="flex:0 0 300px;display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateX(24px);transition:none;">
+      <div style="font-size:15px;font-weight:800;color:#0D1F3C;margin-bottom:2px;">Live State Timeline</div>
+      <div class="a37-tl-item" data-state="idle"><div class="a37-tl-dot" style="background:#1B4F72;"></div><div class="a37-tl-txt"><strong>Idle</strong><span>Teal pulse — waiting for press</span></div></div>
+      <div class="a37-tl-item" data-state="recording"><div class="a37-tl-dot" style="background:#E74C3C;"></div><div class="a37-tl-txt"><strong>Recording</strong><span>Red pulse + sound waves</span></div></div>
+      <div class="a37-tl-item" data-state="thinking"><div class="a37-tl-dot" style="background:#F39C12;"></div><div class="a37-tl-txt"><strong>Thinking</strong><span>Orange spinner — RAG + GPT-4o-mini</span></div></div>
+      <div class="a37-tl-item" data-state="speaking"><div class="a37-tl-dot" style="background:#27AE60;"></div><div class="a37-tl-txt"><strong>Speaking</strong><span>Green waves — ElevenLabs voice reply</span></div></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-41 { background: #F8F9FA; }
+
+.a37-pstep { display:flex;align-items:flex-start;gap:12px;background:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 2px 10px rgba(13,31,60,0.06); }
+.a37-pnum { width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900;font-family:'Inter',sans-serif; }
+.a37-ptxt { font-size:12px;color:rgba(13,31,60,0.65);line-height:1.4;padding-top:1px;font-family:'Inter',sans-serif; }
+.a37-ptxt strong { display:block;color:#0D1F3C;font-size:13px;margin-bottom:1px;font-family:'Cairo',sans-serif; }
+.a37-ptxt span { font-size:10.5px;color:rgba(13,31,60,0.4); }
+.a37-parrow { text-align:center;color:rgba(13,31,60,0.25);font-size:11px;font-weight:700;padding:2px 0;font-family:'Inter',sans-serif; }
+
+.a37-badge { font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;border:1px solid;font-family:'Inter',sans-serif; }
+
+.a37-phone {
+  width:264px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(46,134,193,.18);
+  position:relative;
+}
+.a37-notch {
+  width:84px;height:22px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a37-screen {
+  border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#0D1B2A;
+  display:flex;flex-direction:column;align-items:center;
+  padding:46px 18px 18px;box-sizing:border-box;position:relative;
+}
+
+.a37-appbar { color:#fff;font-weight:800;font-size:14px;font-family:'Cairo',sans-serif;margin-bottom:34px; }
+.a37-instr { color:rgba(255,255,255,0.7);font-size:11px;text-align:center;line-height:1.5;font-family:'Cairo',sans-serif;margin-bottom:30px; }
+
+.a37-micwrap { position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;height:96px; }
+.a37-mic {
+  width:88px;height:88px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;position:relative;
+  transition:background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.a37-mic-idle { background:rgba(27,79,114,0.18);border:3px solid #1B4F72;box-shadow:0 0 40px rgba(27,79,114,0.5);animation:a37pulse 0.9s ease-in-out infinite; }
+.a37-mic-recording { background:rgba(231,76,60,0.18);border:3px solid #E74C3C;box-shadow:0 0 40px rgba(231,76,60,0.5);animation:a37pulse 0.6s ease-in-out infinite; }
+.a37-mic-thinking { background:rgba(243,156,18,0.18);border:3px solid #F39C12;box-shadow:0 0 40px rgba(243,156,18,0.5);animation:none; }
+.a37-mic-speaking { background:rgba(39,174,96,0.18);border:3px solid #27AE60;box-shadow:0 0 40px rgba(39,174,96,0.5);animation:none; }
+
+@keyframes a37pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.16);} }
+
+.a37-ring {
+  position:absolute;inset:-3px;border-radius:50%;
+  border:3px solid transparent;border-top-color:#fff;
+  opacity:0;animation:none;
+}
+.a37-mic-thinking .a37-ring, .a37-mic-speaking .a37-ring {
+  opacity:0.85;animation:a37spin 1s linear infinite;
+}
+@keyframes a37spin { to { transform:rotate(360deg); } }
+
+.a37-waves { display:flex;gap:5px;align-items:center;height:26px;margin-top:10px;opacity:0;transition:opacity 0.3s ease; }
+.a37-waves.active { opacity:1; }
+.a37-waves span {
+  display:block;width:4px;border-radius:2px;background:#E74C3C;
+  height:8px;animation:a37wave 0.5s ease-in-out infinite alternate;
+}
+.a37-waves.speaking span { background:#27AE60; animation-duration: 0.8s; }
+.a37-waves span:nth-child(1){animation-delay:0s;}
+.a37-waves span:nth-child(2){animation-delay:0.1s;}
+.a37-waves span:nth-child(3){animation-delay:0.2s;}
+.a37-waves span:nth-child(4){animation-delay:0.3s;}
+.a37-waves span:nth-child(5){animation-delay:0.4s;}
+@keyframes a37wave { from{height:6px;} to{height:24px;} }
+
+.a37-status { color:rgba(255,255,255,0.7);font-size:13px;text-align:center;font-family:'Cairo',sans-serif;margin-top:14px;min-height:18px; }
+
+.a37-card {
+  width:100%;border-radius:14px;border:1px solid rgba(255,255,255,0.12);
+  padding:12px 14px;margin-top:10px;box-sizing:border-box;
+  opacity:0;transform:translateY(16px);transition:none;
+}
+.a37-card-user { background:rgba(27,79,114,0.2); }
+.a37-card-ai { background:rgba(39,174,96,0.2); }
+.a37-cardlbl { font-size:10px;font-weight:800;color:rgba(255,255,255,0.5);font-family:'Cairo',sans-serif;margin-bottom:3px; }
+.a37-cardtxt { font-size:12px;color:#fff;line-height:1.5;font-family:'Cairo',sans-serif;text-align:right; }
+
+.a37-tl-item { display:flex;align-items:center;gap:14px;background:#fff;border-radius:12px;padding:12px 16px;box-shadow:0 2px 10px rgba(13,31,60,0.06);opacity:0.35;transition:opacity 0.3s ease, transform 0.3s ease;transform:scale(1); }
+.a37-tl-item.active { opacity:1;transform:scale(1.03);box-shadow:0 4px 16px rgba(13,31,60,0.12); }
+.a37-tl-dot { width:14px;height:14px;border-radius:50%;flex-shrink:0; }
+.a37-tl-txt strong { display:block;font-size:13px;color:#0D1F3C;font-family:'Inter',sans-serif; }
+.a37-tl-txt span { font-size:11px;color:rgba(13,31,60,0.45);font-family:'Inter',sans-serif; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t41 = [];
+  function at(fn, ms) { _t41.push(setTimeout(fn, ms)); }
+  function ca41() { _t41.forEach(clearTimeout); _t41 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var statusText = {
+    idle: 'Tap to play',
+    recording: 'Recording...',
+    thinking: 'Rafeeq is thinking...',
+    speaking: 'Rafeeq is speaking...'
+  };
+  var micIcon = { idle: '🎤', recording: '⏺', thinking: '⏳', speaking: '🔊' };
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function setState(state) {
+    var mic = q('a37-mic'); if (!mic) return;
+    mic.className = 'a37-mic a37-mic-' + state;
+    q('a37-micicon').textContent = micIcon[state];
+    q('a37-status').textContent = statusText[state];
+
+    var waves = q('a37-waves');
+    waves.classList.remove('active', 'speaking');
+    if (state === 'recording') waves.classList.add('active');
+    if (state === 'speaking') { waves.classList.add('active', 'speaking'); }
+
+    document.querySelectorAll('#slide-41 .a37-tl-item').forEach(function (el) {
+      el.classList.toggle('active', el.getAttribute('data-state') === state);
+    });
+
+    var userCard = q('a37-card-user'), aiCard = q('a37-card-ai');
+    if (state === 'speaking') {
+      userCard.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+      userCard.style.opacity = '1'; userCard.style.transform = 'translateY(0)';
+      setTimeout(function () {
+        aiCard.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+        aiCard.style.opacity = '1'; aiCard.style.transform = 'translateY(0)';
+      }, 200);
+    }
+    if (state === 'idle') {
+      userCard.style.transition = 'none'; userCard.style.opacity = '0'; userCard.style.transform = 'translateY(16px)';
+      aiCard.style.transition = 'none'; aiCard.style.opacity = '0'; aiCard.style.transform = 'translateY(16px)';
+    }
+  }
+
+  function runPlayback() {
+    var audio = q('a37-audio');
+    setState('recording');
+    at(function () { setState('thinking'); }, 1200);
+    at(function () {
+      setState('speaking');
+      if (audio) { audio.currentTime = 0; audio.play(); }
+    }, 2400);
+  }
+
+  function attachMicClick() {
+    var mic = q('a37-mic'); if (!mic || mic.dataset.bound) return;
+    mic.dataset.bound = '1';
+    mic.addEventListener('click', function () {
+      var mic2 = q('a37-mic');
+      if (mic2.classList.contains('a37-mic-recording') || mic2.classList.contains('a37-mic-thinking') || mic2.classList.contains('a37-mic-speaking')) return;
+      runPlayback();
+    });
+    var audio = q('a37-audio');
+    if (audio && !audio.dataset.bound) {
+      audio.dataset.bound = '1';
+      audio.addEventListener('ended', function () { setState('idle'); });
+    }
+  }
+
+  function hide41() {
+    ['a37-left', 'a37-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a37-left').style.transform = 'translateX(-24px)';
+    q('a37-right').style.transform = 'translateX(24px)';
+
+    var c = q('a37-center'); if (c) { c.style.transition = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(60px) scale(0.9)'; }
+
+    ['a37-pipeline', 'a37-meta'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
+    });
+
+    var ul = q('a37-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    var audio = q('a37-audio'); if (audio) { audio.pause(); audio.currentTime = 0; }
+    setState('idle');
+    document.querySelectorAll('#slide-41 .a37-tl-item').forEach(function (el) { el.classList.remove('active'); });
+  }
+
+  window._slide41 = {
+    enter: function () {
+      ca41(); hide41();
+
+      show('a37-left', 80);
+      at(function () {
+        var ul = q('a37-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a37-center', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+
+      show('a37-pipeline', 400, 'translateY(0)');
+      show('a37-meta', 750, 'translateY(0)');
+
+      show('a37-right', 500);
+
+      attachMicClick();
+    },
+    leave: function () { ca41(); hide41(); }
+  };
+})();
+</script>

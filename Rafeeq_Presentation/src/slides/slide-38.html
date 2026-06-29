@@ -1,0 +1,301 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 42 — APP: LINKING SYSTEM & DIRECT CHAT
+     Two phones (patient chat / caregiver chat) with animated
+     message bubbles flowing between them in real time
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-38" data-slide="38"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B4F72,#27AE60,#F39C12);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:60px 64px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT: linking + chat info -->
+    <div id="a42-left" style="flex:0 0 420px;display:flex;flex-direction:column;gap:24px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:12px;">Mobile App Walkthrough · 02</div>
+        <div style="font-size:38px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">Secure Connection<br>in One Step</div>
+        <div id="a42-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:15.5px;color:rgba(13,31,60,0.6);line-height:1.8;max-width:420px;">
+        A simple 6-character code links a patient and caregiver permanently — no passwords, no setup. Once linked, they chat in real time over Firebase Firestore.
+      </div>
+
+      <!-- code flow -->
+      <div id="a42-codeflow" style="display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="a42-cstep"><div class="a42-cnum" style="background:#1B4F72;">1</div><div class="a42-ctxt"><strong>Patient gets a code</strong><span>Permanent 6-character code, e.g. DM0001</span></div></div>
+        <div class="a42-carrow">↓</div>
+        <div class="a42-cstep"><div class="a42-cnum" style="background:#2E86C1;">2</div><div class="a42-ctxt"><strong>Caregiver enters the code</strong><span>One-time entry on the Link to Patient screen</span></div></div>
+        <div class="a42-carrow">↓</div>
+        <div class="a42-cstep"><div class="a42-cnum" style="background:#27AE60;">3</div><div class="a42-ctxt"><strong>Linked — done!</strong><span>Chat, reports, alarms all connected</span></div></div>
+      </div>
+
+      <div id="a42-fbbadge" style="opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a42-badge">🔥 Firebase Firestore — text, images &amp; voice notes, real-time sync</span>
+      </div>
+    </div>
+
+    <!-- CENTER: patient — shares code, then sees chat -->
+    <div id="a42-p1" style="flex:0 0 270px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div style="font-size:13px;font-weight:800;color:#0D1F3C;">Patient</div>
+      <div class="a42-phone">
+        <div class="a42-notch"></div>
+        <div class="a42-screen" style="position:relative;">
+
+          <!-- State 1: Share code screen (CSS mockup) -->
+          <div id="a42-codescreen" class="a42-codescreen">
+            <div class="a42-cs-icon">&#128279;</div>
+            <div class="a42-cs-title">Your Link Code</div>
+            <div class="a42-cs-sub">Share this code with your<br>caregiver to connect</div>
+            <div class="a42-cs-boxes">
+              <span>D</span><span>M</span><span>0</span><span>0</span><span>0</span><span id="a42-cs-last">1</span>
+            </div>
+            <div id="a42-cs-btn" class="a42-cs-btn">Copy Code</div>
+          </div>
+
+          <!-- State 2: Chat screen (real screenshot) -->
+          <img id="a42-chatimg-p" src="App Slides/chat_patient.png" alt="Patient direct chat"
+               style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;opacity:0;transition:none;">
+        </div>
+      </div>
+    </div>
+
+    <!-- middle linked badge + flying message -->
+    <div id="a42-mid" style="flex:0 0 70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;transition:none;">
+      <div class="a42-linkicon">🔗</div>
+      <div id="a42-bubble" class="a42-bubble">Hello! 👋</div>
+      <div id="a42-linked" class="a42-linked">Linked! ✓</div>
+    </div>
+
+    <!-- RIGHT: caregiver — enters code, then sees chat -->
+    <div id="a42-p2" style="flex:0 0 270px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div style="font-size:13px;font-weight:800;color:#0D1F3C;">Caregiver</div>
+      <div class="a42-phone">
+        <div class="a42-notch"></div>
+        <div class="a42-screen" style="position:relative;">
+
+          <!-- State 1: Enter code screen (CSS mockup) -->
+          <div id="a42-codescreen2" class="a42-codescreen">
+            <div class="a42-cs-icon">&#128279;</div>
+            <div class="a42-cs-title">Link to Patient</div>
+            <div class="a42-cs-sub">Enter the 6-character code<br>your patient shared with you</div>
+            <div class="a42-cs-boxes">
+              <span>D</span><span>M</span><span>0</span><span>0</span><span>0</span><span id="a42-cs-last2">1</span>
+            </div>
+            <div id="a42-cs-btn2" class="a42-cs-btn">Connect</div>
+          </div>
+
+          <!-- State 2: Chat screen (real screenshot) -->
+          <img id="a42-chatimg" src="App Slides/chat_caregiver.png" alt="Caregiver direct chat"
+               style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;opacity:0;transition:none;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-38 { background: #F8F9FA; }
+
+.a42-badge {
+  display:inline-block;font-size:12.5px;font-weight:700;padding:10px 16px;border-radius:100px;
+  background:rgba(243,156,18,0.1);color:#D68910;border:1px solid rgba(243,156,18,0.3);
+  font-family:'Inter',sans-serif;line-height:1.5;
+}
+
+.a42-cstep { display:flex;align-items:flex-start;gap:12px;background:#fff;border-radius:12px;padding:11px 14px;box-shadow:0 2px 10px rgba(13,31,60,0.06); }
+.a42-cnum { width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;font-family:'Inter',sans-serif; }
+.a42-ctxt { font-size:12px;color:rgba(13,31,60,0.65);line-height:1.4;padding-top:1px;font-family:'Inter',sans-serif; }
+.a42-ctxt strong { display:block;color:#0D1F3C;font-size:12.5px;margin-bottom:1px; }
+.a42-ctxt span { font-size:10.5px;color:rgba(13,31,60,0.4); }
+.a42-carrow { text-align:center;color:rgba(13,31,60,0.2);font-size:13px;padding:2px 0; }
+
+.a42-phone {
+  width:264px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(27,79,114,.15);
+  position:relative;
+}
+.a42-notch {
+  width:84px;height:22px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a42-screen { border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA; }
+.a42-screen img { width:100%;height:100%;object-fit:cover;display:block; }
+
+.a42-linkicon {
+  width:48px;height:48px;border-radius:50%;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  box-shadow:0 4px 16px rgba(13,31,60,0.1);
+  opacity:0;transform:scale(0.6);transition:none;
+}
+
+.a42-bubble {
+  background:#1B4F72;color:#fff;border-radius:14px;padding:8px 14px;
+  font-size:12px;font-weight:700;font-family:'Cairo',sans-serif;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(27,79,114,0.3);
+  opacity:0;transform:translateX(40px) scale(0.8);transition:none;
+}
+
+.a42-linked {
+  background:rgba(39,174,96,0.1);color:#27AE60;border:1px solid rgba(39,174,96,0.3);
+  border-radius:100px;padding:7px 14px;font-size:11.5px;font-weight:800;
+  font-family:'Cairo',sans-serif;white-space:nowrap;
+  opacity:0;transform:scale(0.7);transition:none;
+}
+
+/* Caregiver "enter code" screen mockup */
+.a42-codescreen {
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:#F8F9FA;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;padding:0 22px;box-sizing:border-box;
+  opacity:1;transition:none;
+}
+.a42-cs-icon {
+  width:46px;height:46px;border-radius:50%;background:rgba(27,79,114,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:4px;
+}
+.a42-cs-title { font-size:14px;font-weight:800;color:#0D1F3C;font-family:'Inter',sans-serif; }
+.a42-cs-sub   { font-size:10px;color:rgba(13,31,60,0.45);text-align:center;line-height:1.5;font-family:'Inter',sans-serif;margin-bottom:6px; }
+.a42-cs-boxes { display:flex;gap:5px;margin-bottom:14px; }
+.a42-cs-boxes span {
+  width:26px;height:32px;border-radius:6px;background:#fff;border:1.5px solid rgba(13,31,60,0.15);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#0D1F3C;
+  font-family:'Inter',sans-serif;
+}
+.a42-cs-boxes #a42-cs-last,
+.a42-cs-boxes #a42-cs-last2 { border-color:#1B4F72;box-shadow:0 0 0 2px rgba(27,79,114,0.15); }
+.a42-cs-btn {
+  width:100%;max-width:160px;padding:9px;border-radius:10px;text-align:center;
+  background:#1B4F72;color:#fff;font-size:12px;font-weight:800;font-family:'Inter',sans-serif;
+  box-shadow:0 4px 14px rgba(27,79,114,0.3);
+  transform:scale(1);transition:none;
+}
+.a42-cs-btn.a42-cs-success { background:#27AE60;box-shadow:0 4px 14px rgba(39,174,96,0.35); }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t38 = [];
+  function at(fn, ms) { _t38.push(setTimeout(fn, ms)); }
+  function ca38() { _t38.forEach(clearTimeout); _t38 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function hide38() {
+    var l = q('a42-left'); if (l) { l.style.transition = 'none'; l.style.opacity = '0'; l.style.transform = 'translateX(-24px)'; }
+
+    ['a42-p1', 'a42-p2'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(60px) scale(0.9)';
+    });
+
+    var cf = q('a42-codeflow'); if (cf) { cf.style.transition = 'none'; cf.style.opacity = '0'; cf.style.transform = 'translateY(14px)'; }
+    var fb = q('a42-fbbadge'); if (fb) { fb.style.transition = 'none'; fb.style.opacity = '0'; fb.style.transform = 'translateY(10px)'; }
+    var ul = q('a42-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    var mid = q('a42-mid'); if (mid) { mid.style.transition = 'none'; mid.style.opacity = '0'; }
+    var li = q('a42-linkicon'); if (li) { li.style.transition = 'none'; li.style.opacity = '0'; li.style.transform = 'scale(0.6)'; }
+    var bb = q('a42-bubble'); if (bb) { bb.style.transition = 'none'; bb.style.opacity = '0'; bb.style.transform = 'translateX(40px) scale(0.8)'; }
+    var lk = q('a42-linked'); if (lk) { lk.style.transition = 'none'; lk.style.opacity = '0'; lk.style.transform = 'scale(0.7)'; }
+
+    var cs = q('a42-codescreen'); if (cs) { cs.style.transition = 'none'; cs.style.opacity = '1'; }
+    var btn = q('a42-cs-btn'); if (btn) { btn.style.transition = 'none'; btn.textContent = 'Copy Code'; }
+    var cip = q('a42-chatimg-p'); if (cip) { cip.style.transition = 'none'; cip.style.opacity = '0'; }
+
+    var cs2 = q('a42-codescreen2'); if (cs2) { cs2.style.transition = 'none'; cs2.style.opacity = '1'; }
+    var btn2 = q('a42-cs-btn2'); if (btn2) { btn2.style.transition = 'none'; btn2.textContent = 'Connect'; btn2.classList.remove('a42-cs-success'); }
+    var ci = q('a42-chatimg'); if (ci) { ci.style.transition = 'none'; ci.style.opacity = '0'; }
+  }
+
+  window._slide38 = {
+    enter: function () {
+      ca38(); hide38();
+
+      show('a42-left', 80);
+      at(function () {
+        var ul = q('a42-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a42-codeflow', 400, 'translateY(0)');
+      show('a42-fbbadge', 850, 'translateY(0)');
+
+      show('a42-p1', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+      show('a42-p2', 400, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+
+      show('a42-mid', 600, 'translate(0,0)');
+      show('a42-linkicon', 700, 'scale(1)', 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)');
+      show('a42-linked', 950, 'scale(1)', 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)');
+
+      // flying message bubble — appears at 1500ms, slides across at 1900ms
+      at(function () {
+        var bb = q('a42-bubble'); if (!bb) return;
+        bb.style.transition = 'none';
+        bb.style.opacity = '1';
+        bb.style.transform = 'translateX(40px) scale(0.8)';
+      }, 1500);
+      at(function () {
+        var bb = q('a42-bubble'); if (!bb) return;
+        bb.style.transition = 'transform 0.8s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease';
+        bb.style.transform = 'translateX(-40px) scale(1)';
+      }, 1700);
+      at(function () {
+        var bb = q('a42-bubble'); if (!bb) return;
+        bb.style.transition = 'opacity 0.4s ease';
+        bb.style.opacity = '0';
+      }, 2700);
+
+      // Patient: taps "Copy Code" — confirms code was shared
+      at(function () {
+        var btn = q('a42-cs-btn'); if (!btn) return;
+        btn.style.transition = 'transform 0.15s ease';
+        btn.style.transform = 'scale(0.94)';
+        btn.textContent = 'Copied ✓';
+      }, 1500);
+      at(function () {
+        var btn = q('a42-cs-btn'); if (!btn) return;
+        btn.style.transform = 'scale(1)';
+      }, 1750);
+
+      // Caregiver: enters the code → connecting → success
+      at(function () {
+        var btn2 = q('a42-cs-btn2'); if (!btn2) return;
+        btn2.style.transition = 'transform 0.15s ease';
+        btn2.style.transform = 'scale(0.94)';
+        btn2.textContent = 'Connecting...';
+      }, 1900);
+      at(function () {
+        var btn2 = q('a42-cs-btn2'); if (!btn2) return;
+        btn2.style.transform = 'scale(1)';
+        btn2.classList.add('a42-cs-success');
+        btn2.textContent = 'Connected ✓';
+      }, 2400);
+
+      // Both phones fade their code screen into the linked chat
+      at(function () {
+        var cs = q('a42-codescreen'); if (cs) { cs.style.transition = 'opacity 0.5s ease'; cs.style.opacity = '0'; }
+        var cs2 = q('a42-codescreen2'); if (cs2) { cs2.style.transition = 'opacity 0.5s ease'; cs2.style.opacity = '0'; }
+      }, 3000);
+      at(function () {
+        var cip = q('a42-chatimg-p'); if (cip) { cip.style.transition = 'opacity 0.5s ease'; cip.style.opacity = '1'; }
+        var ci = q('a42-chatimg'); if (ci) { ci.style.transition = 'opacity 0.5s ease'; ci.style.opacity = '1'; }
+      }, 3050);
+    },
+    leave: function () { ca38(); hide38(); }
+  };
+})();
+</script>
+
+
+﻿

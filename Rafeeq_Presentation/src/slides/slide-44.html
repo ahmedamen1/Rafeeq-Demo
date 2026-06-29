@@ -1,0 +1,264 @@
+﻿<!-- SLIDE 41 — AI BOT VIA TELEGRAM (n8n caregiver follow-up) -->
+<div class="slide light" id="slide-44" data-slide="44"
+     style="background:#fff;overflow:hidden;">
+
+  <!-- Top gradient bar -->
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#29a8e0,#0D1F3C);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 52px 28px;box-sizing:border-box;gap:20px;">
+
+    <!-- ── HEADER ── -->
+    <div id="n8-hdr" style="flex:0 0 auto;display:flex;align-items:flex-end;
+         justify-content:space-between;padding-bottom:18px;
+         border-bottom:1px solid rgba(13,31,60,0.08);
+         opacity:0;transform:translateY(-14px);transition:none;">
+
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.24em;text-transform:uppercase;
+                    color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:8px;
+                    display:flex;align-items:center;gap:7px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#C9992A;
+                       display:inline-block;animation:n8pulse 2s infinite;"></span>
+          Rafeeq &middot; Caregiver Follow-Up
+        </div>
+        <div style="font-size:32px;font-weight:900;color:#0D1F3C;letter-spacing:-0.025em;
+                    line-height:1.05;font-family:'Inter',sans-serif;">
+          AI Bot via <span style="color:#29a8e0;">Telegram</span>
+        </div>
+        <div id="n8-uline" style="height:3px;width:0;background:#C9992A;border-radius:2px;
+             margin-top:8px;transition:none;"></div>
+      </div>
+
+      <!-- Pills -->
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div class="n8-pill">
+          <div class="n8-pill-label">AI Model</div>
+          <div class="n8-pill-value">GPT-4o</div>
+        </div>
+        <div class="n8-pill">
+          <div class="n8-pill-label">Automation</div>
+          <div class="n8-pill-value">n8n</div>
+        </div>
+        <div class="n8-pill">
+          <div class="n8-pill-label">Channel</div>
+          <div class="n8-pill-value" style="color:#29a8e0;">Telegram</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── BODY: pipeline left + chat right ── -->
+    <div style="flex:1;min-height:0;display:flex;gap:40px;">
+
+      <!-- LEFT: 3-step pipeline -->
+      <div id="n8-pipe" style="flex:1;display:flex;flex-direction:column;justify-content:center;
+           gap:14px;opacity:0;transform:translateX(-20px);transition:none;">
+
+        <div class="n8-step">
+          <div class="n8-num">1</div>
+          <div>
+            <div class="n8-step-title">Text or Voice Input</div>
+            <div class="n8-step-sub">Voice &rarr; <strong>Whisper STT</strong> &rarr; unified text</div>
+          </div>
+        </div>
+
+        <div class="n8-step">
+          <div class="n8-num">2</div>
+          <div>
+            <div class="n8-step-title">AI Classification</div>
+            <div class="n8-step-sub"><strong>GPT-4o</strong> routes to: Vitals &middot; Appointments &middot; Reports</div>
+          </div>
+        </div>
+
+        <div class="n8-step">
+          <div class="n8-num">3</div>
+          <div>
+            <div class="n8-step-title">Fetch &amp; Reply in Arabic</div>
+            <div class="n8-step-sub"><strong>Firebase</strong> / <strong>FastAPI</strong> &rarr; Telegram message</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Telegram chat mockup -->
+      <div id="n8-chat" style="flex:1;display:flex;flex-direction:column;justify-content:center;
+           opacity:0;transform:translateX(20px);transition:none;">
+
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;margin-bottom:12px;">
+          Live Example
+        </div>
+
+        <!-- Telegram window -->
+        <div style="background:#0e1621;border-radius:14px;overflow:hidden;
+                    box-shadow:0 8px 32px rgba(13,31,60,0.18);">
+
+          <!-- Top bar -->
+          <div style="background:#17212b;padding:10px 14px;display:flex;align-items:center;
+                      gap:10px;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(59,125,232,0.25);
+                        display:flex;align-items:center;justify-content:center;font-size:16px;">&#129302;</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;">Rafeeq Assistant</div>
+              <div style="font-size:10px;color:#4ade80;font-family:'Inter',sans-serif;">&#9679; Online</div>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div style="padding:12px;display:flex;flex-direction:column;gap:8px;">
+
+            <!-- Sent -->
+            <div style="align-self:flex-end;max-width:82%;background:#2b5278;border-radius:12px 12px 3px 12px;
+                        padding:8px 12px;font-size:12px;color:#fff;font-family:'Inter',sans-serif;line-height:1.5;
+                        direction:rtl;">
+              ابعتلي درجة حرارة والدي
+              <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;text-align:left;direction:ltr;">5:32 PM &#10003;&#10003;</div>
+            </div>
+
+            <!-- Received: vitals -->
+            <div style="align-self:flex-start;max-width:82%;background:#182533;border:1px solid rgba(255,255,255,0.06);
+                        border-radius:12px 12px 12px 3px;padding:10px 12px;
+                        font-size:12px;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;direction:rtl;">
+              <div style="font-weight:700;margin-bottom:6px;">&#127973; آخر تقرير</div>
+              <div style="display:flex;gap:5px;align-items:center;font-size:11px;">
+                <span>&#10084;&#65039;</span>
+                <span style="color:#8badc4;">ضربات القلب:</span>
+                <span style="font-weight:600;">88 نبضة/د</span>
+              </div>
+              <div style="display:flex;gap:5px;align-items:center;font-size:11px;">
+                <span>&#129656;</span>
+                <span style="color:#8badc4;">الأكسجين:</span>
+                <span style="font-weight:600;">98%</span>
+              </div>
+              <div style="display:flex;gap:5px;align-items:center;font-size:11px;">
+                <span>&#127777;&#65039;</span>
+                <span style="color:#8badc4;">الحرارة:</span>
+                <span style="font-weight:600;">37°C</span>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:4px;direction:ltr;">5:32 PM</div>
+            </div>
+
+            <!-- Sent -->
+            <div style="align-self:flex-end;max-width:82%;background:#2b5278;border-radius:12px 12px 3px 12px;
+                        padding:8px 12px;font-size:12px;color:#fff;font-family:'Inter',sans-serif;line-height:1.5;
+                        direction:rtl;">
+              ابعتلي التقرير
+              <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;text-align:left;direction:ltr;">5:33 PM &#10003;&#10003;</div>
+            </div>
+
+            <!-- Received: file -->
+            <div style="align-self:flex-start;max-width:82%;background:#182533;border:1px solid rgba(255,255,255,0.06);
+                        border-radius:12px 12px 12px 3px;padding:10px 12px;
+                        font-size:12px;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;">
+              &#128206; <strong>file_44.pdf</strong> — 159 KB<br>
+              <span style="color:#8badc4;font-size:10px;">اتفضل التقرير</span>
+              <div style="font-size:9px;color:rgba(255,255,255,0.35);margin-top:4px;">5:33 PM</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <div id="n8-footer" style="flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
+         font-size:9px;color:rgba(13,31,60,0.3);font-family:'Inter',sans-serif;
+         border-top:1px solid rgba(13,31,60,0.07);padding-top:10px;
+         opacity:0;transition:none;">
+      <span>Rafeeq &mdash; AI-Powered Smart Wheelchair Retrofit Kit</span>
+      <span>GPT-4o &middot; Whisper &middot; n8n &middot; Firebase &middot; FastAPI &middot; Telegram</span>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+@keyframes n8pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.n8-pill {
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:rgba(13,31,60,0.04);border:1px solid rgba(13,31,60,0.1);
+  border-radius:10px;padding:10px 18px;
+}
+.n8-pill-label {
+  font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;
+}
+.n8-pill-value {
+  font-size:13px;font-weight:700;color:#0D1F3C;font-family:'Inter',sans-serif;
+}
+
+.n8-step {
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(13,31,60,0.03);border:1px solid rgba(13,31,60,0.08);
+  border-radius:12px;padding:16px 18px;
+}
+.n8-num {
+  width:28px;height:28px;flex-shrink:0;border-radius:50%;
+  border:1.5px solid #C9992A;background:rgba(201,153,42,0.08);
+  color:#C9992A;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Inter',sans-serif;
+}
+.n8-step-title {
+  font-size:14px;font-weight:700;color:#0D1F3C;margin-bottom:3px;font-family:'Inter',sans-serif;
+}
+.n8-step-sub {
+  font-size:11px;color:rgba(13,31,60,0.45);font-family:'Inter',sans-serif;line-height:1.5;
+}
+.n8-step-sub strong { color:#0D1F3C;font-weight:700; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var _t44=[];
+  function at(fn,ms){ _t44.push(setTimeout(fn,ms)); }
+  function ca44(){ _t44.forEach(clearTimeout); _t44=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function hide44(){
+    var els={
+      'n8-hdr':    { opacity:'0', transform:'translateY(-14px)' },
+      'n8-uline':  { width:'0' },
+      'n8-pipe':   { opacity:'0', transform:'translateX(-20px)' },
+      'n8-chat':   { opacity:'0', transform:'translateX(20px)' },
+      'n8-footer': { opacity:'0' }
+    };
+    Object.keys(els).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(els[id]).forEach(function(p){ el.style[p]=els[id][p]; });
+    });
+  }
+
+  function anim(id,delay,props,trans){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition=trans||'opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    },delay);
+  }
+
+  window._slide44={
+    enter: function(){
+      ca44(); hide44();
+      anim('n8-hdr',   80,  { opacity:'1', transform:'translateY(0)' });
+      at(function(){
+        var el=q('n8-uline'); if(!el) return;
+        el.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';
+        el.style.width='48px';
+      }, 380);
+      anim('n8-pipe',  260, { opacity:'1', transform:'translateX(0)' });
+      anim('n8-chat',  380, { opacity:'1', transform:'translateX(0)' });
+      anim('n8-footer',600, { opacity:'1' }, 'opacity 0.5s ease');
+    },
+    leave: function(){ ca44(); hide44(); }
+  };
+})();
+</script>

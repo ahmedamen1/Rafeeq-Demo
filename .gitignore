@@ -1,0 +1,8 @@
+node_modules/
+Rafeeq_Presentation/node_modules/
+
+# Videos over 100MB — GitHub cannot host these
+Rafeeq_Presentation/promovideo.mp4
+Rafeeq_Presentation/navigation_With_Arabic_speech.mp4
+Rafeeq_Presentation/motion with joyksticj.mp4
+Rafeeq_Presentation/IMG_0347.MOV

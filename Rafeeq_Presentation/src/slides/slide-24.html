@@ -1,0 +1,566 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 19 — MODEL TRAINING (auto-sim, wake-word only)
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-24" data-slide="24"
+     style="background:#f0f2f8; overflow:hidden;">
+
+  <!-- Top gold bar -->
+  <div style="position:absolute;top:0;left:0;right:0;height:5px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#E8B84B,#C9992A);"></div>
+
+  <!-- LAYOUT -->
+  <div style="position:absolute;inset:0;display:flex;align-items:stretch;
+              padding:18px 56px 24px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT INFO PANEL -->
+    <div id="sp1-left" style="flex:0 0 430px;display:flex;flex-direction:column;gap:18px;
+         opacity:0;transform:translateX(-28px);transition:none;">
+
+      <div style="font-size:64px;font-weight:900;color:rgba(201,153,42,0.08);
+                  letter-spacing:-0.05em;line-height:1;margin-bottom:-8px;user-select:none;">19</div>
+
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.28em;
+                  text-transform:uppercase;color:#C9992A;">Voice Control — Model Training</div>
+
+      <div style="font-size:38px;font-weight:900;color:#0D1F3C;
+                  line-height:1.1;letter-spacing:-0.03em;">
+        Teaching Rafeeq<br>to Understand You
+      </div>
+      <div id="sp1-uline" style="height:4px;background:#C9992A;border-radius:2px;
+                                  width:0;transition:none;"></div>
+
+      <div style="font-size:15.5px;color:rgba(13,31,60,0.6);line-height:1.75;max-width:410px;">
+        Before Rafeeq can recognize a command, it has to hear it
+        many times from a real voice. Every command is recorded
+        <strong style="color:#0D1F3C;">10 times</strong> by the user, building a personalized
+        dataset for the wake-word and command-recognition models.
+      </div>
+
+      <!-- Steps -->
+      <div style="display:flex;flex-direction:column;gap:0;margin-top:4px;">
+
+        <div class="sp1-step" id="sp1-ps0">
+          <div class="sp1-step-icon" id="sp1-pi0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+          </div>
+          <div>
+            <div class="sp1-step-lbl">Record the Wake Word</div>
+            <div class="sp1-step-sub">10 repetitions of "رفيق" — user's own voice</div>
+          </div>
+        </div>
+
+        <div class="sp1-step-arr">↓</div>
+
+        <div class="sp1-step" id="sp1-ps1">
+          <div class="sp1-step-icon" id="sp1-pi1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <div>
+            <div class="sp1-step-lbl">Label &amp; Filter Noise</div>
+            <div class="sp1-step-sub">Clean audio clips, tagged per class</div>
+          </div>
+        </div>
+
+        <div class="sp1-step-arr">↓</div>
+
+        <div class="sp1-step" id="sp1-ps2">
+          <div class="sp1-step-icon" id="sp1-pi2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="sp1-step-lbl">Train the CNN Model</div>
+            <div class="sp1-step-sub">Wake-word + command classifier on-device</div>
+          </div>
+        </div>
+
+        <div class="sp1-step-arr">↓</div>
+
+        <div class="sp1-step" id="sp1-ps3">
+          <div class="sp1-step-icon" id="sp1-pi3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="14" x2="22" y2="14"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <div>
+            <div class="sp1-step-lbl">Deploy On-Device</div>
+            <div class="sp1-step-sub">Runs fully offline on Raspberry Pi 5</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIMULATION PANEL -->
+    <div id="sp1-right" style="flex:1;display:flex;align-items:center;justify-content:center;
+         opacity:0;transform:translateX(28px);transition:none;">
+
+      <div style="background:#0D1F3C;border-radius:28px;width:100%;max-width:600px;
+                  padding:0 0 28px;overflow:hidden;
+                  box-shadow:0 32px 80px rgba(13,31,60,0.3),0 2px 12px rgba(13,31,60,0.15);">
+
+        <!-- Title bar -->
+        <div style="background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.07);
+                    padding:16px 24px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div id="sp1-rec-dot" style="width:10px;height:10px;border-radius:50%;background:#ef4444;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+            <div style="margin-left:8px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.4);
+                        letter-spacing:0.1em;">RAFEEQ · VOICE TRAINER</div>
+          </div>
+          <div id="sp1-badge" style="font-size:10px;font-weight:800;letter-spacing:0.12em;
+               text-transform:uppercase;padding:4px 14px;border-radius:20px;
+               background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+               color:rgba(255,255,255,0.35);">READY</div>
+        </div>
+
+        <!-- Wake word + counter row -->
+        <div style="padding:24px 28px 0;display:flex;align-items:center;gap:20px;">
+          <div style="flex:1;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+                        color:rgba(255,255,255,0.28);margin-bottom:6px;">Wake Word</div>
+            <div style="font-size:54px;font-weight:900;color:#C9992A;line-height:1;">رفيق</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.28);margin-top:5px;font-style:italic;">"Ra-feeq" — your personal assistant</div>
+          </div>
+          <div style="text-align:center;flex-shrink:0;min-width:80px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+                        color:rgba(255,255,255,0.28);margin-bottom:4px;">Samples</div>
+            <div id="sp1-cur" style="font-size:52px;font-weight:900;color:#fff;line-height:1;
+                 transition:color 0.4s ease;">0</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.28);font-weight:600;">/ 10</div>
+          </div>
+        </div>
+
+        <!-- Mic + rings -->
+        <div style="display:flex;flex-direction:column;align-items:center;padding:20px 28px 0;">
+          <div style="position:relative;width:130px;height:130px;
+                      display:flex;align-items:center;justify-content:center;">
+            <div id="sp1-ring1" style="position:absolute;inset:-2px;border-radius:50%;
+              border:2px solid rgba(201,153,42,0.3);opacity:0;pointer-events:none;"></div>
+            <div id="sp1-ring2" style="position:absolute;inset:-16px;border-radius:50%;
+              border:2px solid rgba(201,153,42,0.15);opacity:0;pointer-events:none;"></div>
+            <div id="sp1-mic-circle" style="width:90px;height:90px;border-radius:50%;
+                 background:rgba(201,153,42,0.1);border:2.5px solid rgba(201,153,42,0.3);
+                 display:flex;align-items:center;justify-content:center;
+                 transition:all 0.3s ease;cursor:pointer;"
+                 onclick="window.sp1RecordOne&&window.sp1RecordOne()">
+              <svg id="sp1-mic-svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
+                   stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Waveform -->
+          <div id="sp1-wave-wrap" style="width:100%;height:50px;margin-top:14px;
+               background:rgba(255,255,255,0.03);border-radius:12px;
+               border:1px solid rgba(255,255,255,0.06);
+               display:flex;align-items:center;justify-content:center;
+               overflow:hidden;padding:0 12px;box-sizing:border-box;">
+            <div id="sp1-wave-idle" style="font-size:11px;color:rgba(255,255,255,0.18);
+                 letter-spacing:0.1em;">— listening for "رفيق" —</div>
+            <div id="sp1-wave-bars" style="display:none;align-items:flex-end;gap:3px;
+                 height:100%;padding:7px 0;width:100%;justify-content:center;"></div>
+          </div>
+
+          <div id="sp1-hint" style="font-size:11.5px;color:rgba(255,255,255,0.28);
+               margin-top:10px;letter-spacing:0.04em;text-align:center;min-height:15px;">Click mic or watch the auto demo</div>
+        </div>
+
+        <!-- 10 dots -->
+        <div id="sp1-dots" style="display:flex;gap:10px;justify-content:center;
+             padding:18px 28px 0;flex-wrap:wrap;min-height:38px;"></div>
+
+        <!-- Progress -->
+        <div style="padding:14px 28px 0;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:7px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.07em;
+                        color:rgba(255,255,255,0.28);text-transform:uppercase;">Training Progress</div>
+            <div id="sp1-pct" style="font-size:11px;font-weight:800;color:#C9992A;">0%</div>
+          </div>
+          <div style="height:8px;border-radius:4px;background:rgba(255,255,255,0.07);overflow:hidden;">
+            <div id="sp1-prog-fill" style="height:100%;width:0%;border-radius:4px;
+                 background:linear-gradient(90deg,#C9992A,#E8B84B);
+                 transition:width 0.5s cubic-bezier(0.16,1,0.3,1);"></div>
+          </div>
+        </div>
+
+        <!-- Phase label -->
+        <div style="padding:12px 28px 0;display:flex;align-items:center;gap:10px;">
+          <div id="sp1-phase-dot" style="width:8px;height:8px;border-radius:50%;
+               background:rgba(255,255,255,0.18);flex-shrink:0;transition:background 0.4s;"></div>
+          <div id="sp1-phase-lbl" style="font-size:12px;color:rgba(255,255,255,0.32);
+               font-weight:600;letter-spacing:0.04em;transition:color 0.4s;">Waiting to begin…</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-24 { background:#f0f2f8; }
+
+.sp1-step {
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;border-radius:12px;
+  border:1.5px solid #e2e5ef;background:#fff;
+  box-shadow:0 2px 8px rgba(13,31,60,0.05);
+  transition:border-color 0.35s,background 0.35s,box-shadow 0.35s;
+}
+.sp1-step.sp1-active {
+  border-color:#C9992A;background:rgba(201,153,42,0.04);
+  box-shadow:0 4px 20px rgba(201,153,42,0.15);
+}
+.sp1-step.sp1-done {
+  border-color:#22c55e;background:rgba(34,197,94,0.04);
+}
+.sp1-step.sp1-blue {
+  border-color:#3B7DE8;background:rgba(59,125,232,0.04);
+  box-shadow:0 4px 20px rgba(59,125,232,0.12);
+}
+.sp1-step-icon {
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(201,153,42,0.1);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background 0.35s;
+}
+.sp1-step.sp1-done .sp1-step-icon { background:rgba(34,197,94,0.12); }
+.sp1-step.sp1-done .sp1-step-icon svg { stroke:#22c55e; }
+.sp1-step.sp1-blue .sp1-step-icon { background:rgba(59,125,232,0.12); }
+.sp1-step.sp1-blue .sp1-step-icon svg { stroke:#3B7DE8; }
+.sp1-step-lbl { font-size:14px;font-weight:700;color:#0D1F3C;line-height:1.3; }
+.sp1-step-sub { font-size:11.5px;color:#bbb;font-weight:500;margin-top:2px; }
+.sp1-step-arr { color:rgba(201,153,42,0.35);font-size:14px;text-align:center;padding:3px 16px; }
+
+.sp1-dot {
+  width:22px;height:22px;border-radius:50%;
+  border:2px solid rgba(255,255,255,0.12);
+  background:transparent;
+  transition:background 0.3s,border-color 0.3s,box-shadow 0.3s;
+  flex-shrink:0;
+}
+.sp1-dot.sp1-filled {
+  background:#22c55e;border-color:#22c55e;
+  box-shadow:0 0 10px rgba(34,197,94,0.5);
+}
+.sp1-dot.sp1-active-dot {
+  background:transparent;border-color:#C9992A;
+  animation:sp1DotPing 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes sp1DotPing {
+  from { transform:scale(1);   box-shadow:0 0 0 rgba(201,153,42,0); }
+  to   { transform:scale(1.45);box-shadow:0 0 14px rgba(201,153,42,0.8); }
+}
+@keyframes sp1Ring1 {
+  0%   { transform:scale(1);   opacity:0.8; }
+  100% { transform:scale(1.55);opacity:0; }
+}
+@keyframes sp1Ring2 {
+  0%   { transform:scale(1);   opacity:0.45; }
+  100% { transform:scale(1.85);opacity:0; }
+}
+@keyframes sp1WaveBar {
+  0%,100% { transform:scaleY(0.12);opacity:0.35; }
+  50%     { transform:scaleY(1);   opacity:1; }
+}
+@keyframes sp1RecBlink {
+  0%,100% { opacity:1; }
+  50%     { opacity:0.2; }
+}
+@keyframes sp1CheckIn {
+  0%   { transform:scale(0.6);opacity:0; }
+  65%  { transform:scale(1.15);opacity:1; }
+  100% { transform:scale(1); }
+}
+</style>
+
+<script>
+(function(){
+'use strict';
+var T=[];
+function at(fn,ms){T.push(setTimeout(fn,ms));}
+function clearAll(){T.forEach(clearTimeout);T=[];if(progIv){clearInterval(progIv);progIv=null;}}
+function q(id){return document.getElementById(id);}
+
+var sample=0;
+var phase=0; // 0=idle 1=recording 2=labelling 3=training 4=done
+var progIv=null;
+
+/* ── dots ── */
+function buildDots(){
+  var d=q('sp1-dots');if(!d)return;
+  d.innerHTML='';
+  for(var i=0;i<10;i++){
+    var el=document.createElement('div');
+    if(i<sample) el.className='sp1-dot sp1-filled';
+    else if(i===sample&&phase===1) el.className='sp1-dot sp1-active-dot';
+    else el.className='sp1-dot';
+    d.appendChild(el);
+  }
+}
+
+/* ── progress bar ── */
+function setProgress(pct){
+  var f=q('sp1-prog-fill'),p=q('sp1-pct');
+  if(f)f.style.width=pct+'%';
+  if(p)p.textContent=Math.round(pct)+'%';
+}
+
+/* ── phase label ── */
+function setPhase(txt,col){
+  var l=q('sp1-phase-lbl'),d=q('sp1-phase-dot');
+  if(l){l.textContent=txt;l.style.color=col||'rgba(255,255,255,0.32)';}
+  if(d)d.style.background=col||'rgba(255,255,255,0.18)';
+}
+
+/* ── badge ── */
+function setBadge(txt,bg,bd,col){
+  var b=q('sp1-badge');if(!b)return;
+  b.textContent=txt;b.style.background=bg;b.style.borderColor=bd;b.style.color=col;
+}
+
+/* ── pipeline steps ── */
+function setStep(idx){
+  for(var i=0;i<4;i++){
+    var s=q('sp1-ps'+i);if(!s)continue;
+    if(i<idx) s.className='sp1-step sp1-done';
+    else if(i===idx&&phase===3) s.className='sp1-step sp1-blue';
+    else if(i===idx) s.className='sp1-step sp1-active';
+    else s.className='sp1-step';
+  }
+}
+
+/* ── waveform ── */
+function startWave(accent){
+  var col=accent||'#C9992A';
+  var idle=q('sp1-wave-idle'),bars=q('sp1-wave-bars');
+  if(idle)idle.style.display='none';
+  if(bars){
+    bars.innerHTML='';bars.style.display='flex';
+    for(var i=0;i<36;i++){
+      var b=document.createElement('div');
+      var dur=(0.3+Math.random()*0.5).toFixed(2);
+      var del=(Math.random()*0.3).toFixed(2);
+      var h=Math.round(10+Math.random()*80);
+      b.style.cssText='width:5px;border-radius:3px;transform-origin:bottom;flex-shrink:0;'+
+        'background:'+col+';'+
+        'animation:sp1WaveBar '+dur+'s '+del+'s ease-in-out infinite;height:'+h+'%;';
+      bars.appendChild(b);
+    }
+  }
+}
+function stopWave(){
+  var idle=q('sp1-wave-idle'),bars=q('sp1-wave-bars');
+  if(bars)bars.style.display='none';
+  if(idle)idle.style.display='block';
+}
+
+/* ── set mic color theme ── */
+function setMicTheme(color,bgAlpha){
+  var mc=q('sp1-mic-circle'),svg=q('sp1-mic-svg');
+  if(mc){
+    mc.style.background='rgba('+hexToRgb(color)+','+bgAlpha+')';
+    mc.style.borderColor=color;
+  }
+  if(svg)svg.setAttribute('stroke',color);
+}
+function hexToRgb(hex){
+  var m=hex.replace('#','').match(/.{2}/g);
+  return parseInt(m[0],16)+','+parseInt(m[1],16)+','+parseInt(m[2],16);
+}
+
+/* ── recording start ── */
+function startRecAnim(){
+  phase=1;
+  setMicTheme('#C9992A','0.22');
+  var r1=q('sp1-ring1'),r2=q('sp1-ring2');
+  if(r1){r1.style.opacity='0.8';r1.style.animation='sp1Ring1 1s ease-out infinite';}
+  if(r2){r2.style.opacity='0.45';r2.style.animation='sp1Ring2 1s 0.22s ease-out infinite';}
+  var rd=q('sp1-rec-dot');if(rd)rd.style.animation='sp1RecBlink 0.8s ease-in-out infinite';
+  setBadge('REC ●','rgba(239,68,68,0.15)','rgba(239,68,68,0.4)','#ef4444');
+  setPhase('Recording "رفيق"…','#ef4444');
+  startWave('#C9992A');
+  buildDots();
+}
+
+/* ── recording end ── */
+function stopRecAnim(){
+  phase=0;
+  var r1=q('sp1-ring1'),r2=q('sp1-ring2');
+  if(r1){r1.style.animation='none';r1.style.opacity='0';}
+  if(r2){r2.style.animation='none';r2.style.opacity='0';}
+  var rd=q('sp1-rec-dot');if(rd)rd.style.animation='none';
+  stopWave();
+}
+
+/* ── one recording cycle ── */
+function doRecord(cb){
+  startRecAnim();
+  at(function(){
+    sample++;
+    var cur=q('sp1-cur');if(cur)cur.textContent=sample;
+    setProgress(sample*5.5); // 0→55% for 10 samples
+    stopRecAnim();
+    setMicTheme('#C9992A','0.1');
+    setBadge('SAVED ✓','rgba(34,197,94,0.12)','rgba(34,197,94,0.4)','#22c55e');
+    setPhase('Sample '+sample+' saved!','#22c55e');
+    buildDots();
+    at(function(){
+      setBadge('READY','rgba(255,255,255,0.06)','rgba(255,255,255,0.1)','rgba(255,255,255,0.35)');
+      if(sample<10) setPhase('Ready for sample '+(sample+1)+' of 10','rgba(255,255,255,0.32)');
+      else setPhase('All 10 samples collected — labelling…','rgba(255,255,255,0.32)');
+      if(cb)cb();
+    },480);
+  },1050);
+}
+
+/* ── labelling phase (step 1) ── */
+function runLabelling(onDone){
+  phase=2;
+  setStep(1);
+  setBadge('LABELLING','rgba(201,153,42,0.15)','rgba(201,153,42,0.4)','#C9992A');
+  setPhase('Labelling & filtering audio clips…','#C9992A');
+  startWave('rgba(201,153,42,0.6)');
+  setMicTheme('#C9992A','0.08');
+  // animate progress 55→68%
+  var pct=55;
+  progIv=setInterval(function(){
+    pct+=1.3;setProgress(pct);
+    if(pct>=68){clearInterval(progIv);progIv=null;stopWave();if(onDone)onDone();}
+  },60);
+}
+
+/* ── training phase (step 2) ── */
+function runTraining(onDone){
+  phase=3;
+  setStep(2);
+  setBadge('TRAINING','rgba(59,125,232,0.18)','rgba(59,125,232,0.4)','#3B7DE8');
+  setPhase('Training CNN wake-word model…','#3B7DE8');
+  var rd=q('sp1-rec-dot');if(rd){rd.style.background='#3B7DE8';rd.style.animation='sp1RecBlink 0.5s ease-in-out infinite';}
+  setMicTheme('#3B7DE8','0.1');
+  startWave('#3B7DE8');
+  // animate progress 68→96%
+  var pct=68;
+  progIv=setInterval(function(){
+    pct+=1.1;setProgress(pct);
+    if(pct>=96){clearInterval(progIv);progIv=null;stopWave();if(onDone)onDone();}
+  },70);
+}
+
+/* ── deploy phase (step 3) ── */
+function runDeploy(){
+  phase=4;
+  setStep(3);
+  setProgress(100);
+  setBadge('DEPLOYED','rgba(34,197,94,0.15)','rgba(34,197,94,0.4)','#22c55e');
+  setPhase('Model deployed on Raspberry Pi 5 — offline & ready!','#22c55e');
+  var rd=q('sp1-rec-dot');if(rd){rd.style.background='#22c55e';rd.style.animation='none';}
+  var cur=q('sp1-cur');if(cur)cur.style.color='#22c55e';
+  // Swap mic to checkmark
+  var mc=q('sp1-mic-circle');
+  if(mc){
+    mc.style.background='rgba(34,197,94,0.15)';
+    mc.style.borderColor='rgba(34,197,94,0.5)';
+    mc.style.boxShadow='0 0 32px rgba(34,197,94,0.25)';
+    mc.innerHTML='<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:sp1CheckIn 0.55s cubic-bezier(0.16,1,0.3,1) forwards"><polyline points="20 6 9 17 4 12"/></svg>';
+  }
+  var hint=q('sp1-hint');
+  if(hint){hint.textContent='✓ Rafeeq now recognizes your voice';hint.style.color='rgba(34,197,94,0.8)';}
+}
+
+/* ── full auto simulation ── */
+function runAutoSim(){
+  setStep(0);
+  setPhase('Starting recording session…','rgba(255,255,255,0.32)');
+  var BEAT=1780; // ms per sample (1050 rec + 480 pause + 250 gap)
+  for(var i=0;i<10;i++){
+    (function(idx){
+      at(function(){
+        doRecord(function(){
+          if(sample===10){
+            at(function(){
+              runLabelling(function(){
+                at(function(){
+                  runTraining(function(){
+                    at(function(){ runDeploy(); },400);
+                  });
+                },300);
+              });
+            },300);
+          }
+        });
+      }, idx*BEAT);
+    })(i);
+  }
+}
+
+/* ── manual click ── */
+window.sp1RecordOne = function(){
+  if(phase===1||sample>=10||phase>=2)return;
+  clearAll();
+  if(sample===0)setStep(0);
+  doRecord(function(){
+    if(sample===10){
+      at(function(){
+        runLabelling(function(){
+          at(function(){
+            runTraining(function(){
+              at(function(){runDeploy();},400);
+            });
+          },300);
+        });
+      },300);
+    }
+  });
+};
+
+/* ── lifecycle ── */
+function resetAll(){
+  clearAll();
+  sample=0;phase=0;
+  stopWave();
+  var d=q('sp1-dots');if(d)d.innerHTML='';
+  setProgress(0);
+  setPhase('Waiting to begin…','rgba(255,255,255,0.18)');
+  setBadge('READY','rgba(255,255,255,0.06)','rgba(255,255,255,0.1)','rgba(255,255,255,0.35)');
+  var cur=q('sp1-cur');if(cur){cur.textContent='0';cur.style.color='#fff';}
+  var mc=q('sp1-mic-circle');
+  if(mc){
+    mc.style.background='rgba(201,153,42,0.1)';mc.style.borderColor='rgba(201,153,42,0.3)';mc.style.boxShadow='';
+    mc.innerHTML='<svg id="sp1-mic-svg" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#C9992A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>';
+  }
+  var r1=q('sp1-ring1'),r2=q('sp1-ring2');
+  if(r1){r1.style.animation='none';r1.style.opacity='0';}
+  if(r2){r2.style.animation='none';r2.style.opacity='0';}
+  var rd=q('sp1-rec-dot');if(rd){rd.style.background='#ef4444';rd.style.animation='none';}
+  for(var i=0;i<4;i++){var s=q('sp1-ps'+i);if(s)s.className='sp1-step';}
+  var hint=q('sp1-hint');if(hint){hint.textContent='Click mic or watch the auto demo';hint.style.color='rgba(255,255,255,0.28)';}
+}
+
+window._slide24={
+  enter:function(){
+    resetAll();
+    at(function(){
+      var l=q('sp1-left');
+      if(l){l.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+            l.style.opacity='1';l.style.transform='translateX(0)';}
+    },0);
+    at(function(){
+      var u=q('sp1-uline');
+      if(u){u.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';u.style.width='80px';}
+    },400);
+    at(function(){
+      var r=q('sp1-right');
+      if(r){r.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+            r.style.opacity='1';r.style.transform='translateX(0)';}
+    },200);
+    buildDots();
+    at(function(){ runAutoSim(); },1000);
+  },
+  leave:function(){ resetAll(); }
+};
+})();
+</script>

@@ -1,0 +1,125 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 42 — HEALTH MONITORING SECTION TRANSITION
+     Dark navy, ghost chip "08", eyebrow, 2-line headline, gold underline, subtitle, 4 pills
+═══════════════════════════════════════════ -->
+<div class="slide" id="slide-46" data-slide="46"
+     style="background:#0D1F3C; overflow:hidden;">
+
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:36px 36px;"></div>
+
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse 70% 55% at 50% 45%,rgba(201,153,42,0.07) 0%,transparent 100%);"></div>
+
+  <div id="shm-ghost" style="
+    position:absolute;top:48px;left:8%;z-index:1;
+    font-size:80px;font-weight:900;color:rgba(201,153,42,0.12);
+    letter-spacing:-0.05em;line-height:1;font-family:'Inter',sans-serif;
+    opacity:0;transform:translateX(-20px);transition:none;">
+    08
+  </div>
+
+  <div style="position:absolute;inset:0;z-index:5;
+              display:flex;flex-direction:column;justify-content:center;
+              padding:0 12%;box-sizing:border-box;gap:0;">
+
+    <div id="shm-eyebrow" style="
+      font-size:9px;font-weight:800;letter-spacing:0.24em;text-transform:uppercase;
+      color:#C9992A;font-family:'Inter',sans-serif;
+      margin-bottom:18px;
+      opacity:0;transition:none;">
+      Methodology &amp; Implementation
+    </div>
+
+    <div id="shm-headline" style="
+      margin-bottom:24px;
+      opacity:0;transform:translateY(20px);transition:none;">
+      <div style="font-size:clamp(48px,7vw,80px);font-weight:900;color:#fff;
+                  letter-spacing:-0.04em;line-height:1.0;font-family:'Inter',sans-serif;">
+        Health
+      </div>
+      <div style="font-size:clamp(48px,7vw,80px);font-weight:900;color:#C9992A;
+                  letter-spacing:-0.04em;line-height:1.0;font-family:'Inter',sans-serif;">
+        Monitoring
+      </div>
+    </div>
+
+    <div id="shm-bar" style="height:3px;width:0;background:#C9992A;
+         margin-bottom:24px;transition:none;"></div>
+
+    <div id="shm-subtitle" style="
+      font-size:16px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;
+      max-width:520px;line-height:1.6;margin-bottom:32px;
+      opacity:0;transition:none;">
+      Passive, always-on sensing &mdash; vitals tracked, caregivers alerted
+    </div>
+
+    <div id="shm-pills" style="display:flex;gap:10px;flex-wrap:wrap;
+         opacity:0;transform:translateY(14px);transition:none;">
+      <span class="shm-pill">Heart Rate</span>
+      <span class="shm-pill">SpO&#8322;</span>
+      <span class="shm-pill">Temperature</span>
+      <span class="shm-pill">Fall Detection</span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-46 { background: #0D1F3C; }
+.shm-pill {
+  border:1px solid rgba(201,153,42,0.25);
+  background:rgba(255,255,255,0.06);
+  color:rgba(255,255,255,0.7);
+  border-radius:20px;padding:7px 16px;
+  font-size:12px;font-weight:600;font-family:'Inter',sans-serif;
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t46 = [];
+  function at(fn, ms) { _t46.push(setTimeout(fn, ms)); }
+  function ca46() { _t46.forEach(clearTimeout); _t46 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function hide46() {
+    var defs = {
+      'shm-ghost':    { opacity:'0', transform:'translateX(-20px)' },
+      'shm-eyebrow':  { opacity:'0' },
+      'shm-headline': { opacity:'0', transform:'translateY(20px)' },
+      'shm-bar':      { opacity:'1', width:'0' },
+      'shm-subtitle': { opacity:'0' },
+      'shm-pills':    { opacity:'0', transform:'translateY(14px)' }
+    };
+    Object.keys(defs).forEach(function(id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none';
+      Object.keys(defs[id]).forEach(function(p) { el.style[p] = defs[id][p]; });
+    });
+  }
+
+  function anim42(el, props, delay) {
+    at(function() {
+      if (!el) return;
+      el.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1), width 0.5s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p) { el.style[p] = props[p]; });
+    }, delay);
+  }
+
+  window._slide46 = {
+    enter: function () {
+      ca46(); hide46();
+      anim42(q('shm-ghost'),    { opacity:'1', transform:'translateX(0)' }, 0);
+      anim42(q('shm-eyebrow'),  { opacity:'1' }, 150);
+      anim42(q('shm-headline'), { opacity:'1', transform:'translateY(0)' }, 250);
+      anim42(q('shm-bar'),      { width:'80px' }, 500);
+      anim42(q('shm-subtitle'), { opacity:'1' }, 600);
+      anim42(q('shm-pills'),    { opacity:'1', transform:'translateY(0)' }, 750);
+    },
+    leave: function () { ca46(); hide46(); }
+  };
+})();
+</script>

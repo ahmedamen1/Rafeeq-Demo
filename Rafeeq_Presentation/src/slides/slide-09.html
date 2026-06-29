@@ -1,0 +1,271 @@
+﻿<div class="slide light" id="slide-8" data-slide="9">
+  <div class="sp6-inner">
+
+    <div class="sp6-header" id="sp6-header">
+      <div class="sp6-label">The Market Reality</div>
+      <div class="sp6-title">Smart wheelchairs exist.<br>Just not <em>for Egypt</em>.</div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="sp6-table" id="sp6-table">
+
+      <!-- Column headers -->
+      <div class="sp6-col sp6-col-feature">
+        <div class="sp6-col-head"></div>
+        <div class="sp6-feat">Price</div>
+        <div class="sp6-feat">Arabic Voice Control</div>
+        <div class="sp6-feat">Health Monitoring</div>
+        <div class="sp6-feat">Works Offline</div>
+        <div class="sp6-feat">Egyptian Home Ready</div>
+        <div class="sp6-feat">Retrofit (No New Chair)</div>
+      </div>
+
+      <!-- LUCI -->
+      <div class="sp6-col sp6-col-comp" data-col="0">
+        <div class="sp6-col-head">
+          <div class="sp6-prod-name">LUCI</div>
+          <div class="sp6-prod-origin">UK · Retrofit Kit</div>
+        </div>
+        <div class="sp6-cell sp6-bad">≈ 310,000 EGP</div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-partial"><i class="ti ti-minus"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-yes"><i class="ti ti-check"></i></div>
+      </div>
+
+      <!-- WHILL -->
+      <div class="sp6-col sp6-col-comp" data-col="1">
+        <div class="sp6-col-head">
+          <div class="sp6-prod-name">WHILL</div>
+          <div class="sp6-prod-origin">Japan · Full Chair</div>
+        </div>
+        <div class="sp6-cell sp6-bad">≈ 135,000 EGP</div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-partial"><i class="ti ti-minus"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+      </div>
+
+      <!-- Local Electric -->
+      <div class="sp6-col sp6-col-comp" data-col="2">
+        <div class="sp6-col-head">
+          <div class="sp6-prod-name">Local Electric</div>
+          <div class="sp6-prod-origin">Egypt · Basic</div>
+        </div>
+        <div class="sp6-cell sp6-ok">26,000–80,000 EGP</div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+        <div class="sp6-cell sp6-yes"><i class="ti ti-check"></i></div>
+        <div class="sp6-cell sp6-partial"><i class="ti ti-minus"></i></div>
+        <div class="sp6-cell sp6-no"><i class="ti ti-x"></i></div>
+      </div>
+
+      <!-- RAFEEQ -->
+      <div class="sp6-col sp6-col-rafeeq" data-col="3">
+        <div class="sp6-col-head sp6-head-rafeeq">
+          <div class="sp6-prod-name">Rafeeq</div>
+          <div class="sp6-prod-origin">Egypt · AI Retrofit</div>
+        </div>
+        <div class="sp6-cell sp6-rafeeq-val">25,000–45,000 EGP</div>
+        <div class="sp6-cell sp6-yes sp6-yes-gold"><i class="ti ti-check"></i></div>
+        <div class="sp6-cell sp6-yes sp6-yes-gold"><i class="ti ti-check"></i></div>
+        <div class="sp6-cell sp6-yes sp6-yes-gold"><i class="ti ti-check"></i></div>
+        <div class="sp6-cell sp6-yes sp6-yes-gold"><i class="ti ti-check"></i></div>
+        <div class="sp6-cell sp6-yes sp6-yes-gold"><i class="ti ti-check"></i></div>
+      </div>
+
+    </div>
+
+    <div class="sp6-source" id="sp6-source">LUCI Mobility 2024 · WHILL Inc. 2024 · Local market survey</div>
+
+  </div>
+</div>
+
+<style>
+#slide-8 { background: #ffffff; }
+
+.sp6-inner {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+  padding: 40px 60px 32px;
+  box-sizing: border-box;
+  gap: 28px;
+}
+
+/* Header */
+.sp6-header {
+  text-align: center;
+  opacity: 0; transform: translateY(20px); transition: none;
+}
+.sp6-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: #C9992A; margin-bottom: 8px;
+}
+.sp6-title {
+  font-size: 32px; font-weight: 800;
+  color: #0D1F3C; line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.sp6-title em { font-style: normal; color: #C9992A; }
+
+/* Table */
+.sp6-table {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #ececec;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+/* Feature label column */
+.sp6-col-feature {
+  flex: 0 0 200px;
+  background: #f8f8f8;
+  border-right: 1px solid #ececec;
+}
+
+/* Competitor columns */
+.sp6-col-comp {
+  flex: 1;
+  border-right: 1px solid #ececec;
+  opacity: 0; transform: translateY(18px); transition: none;
+}
+
+/* Rafeeq column */
+.sp6-col-rafeeq {
+  flex: 1;
+  background: #0D1F3C;
+  opacity: 0; transform: translateY(18px); transition: none;
+}
+
+/* Column headers */
+.sp6-col-head {
+  padding: 16px 14px 14px;
+  border-bottom: 1px solid #ececec;
+  min-height: 64px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.sp6-head-rafeeq { border-bottom-color: rgba(255,255,255,0.1); }
+
+.sp6-prod-name {
+  font-size: 15px; font-weight: 800;
+  color: #0D1F3C; letter-spacing: -0.01em;
+}
+.sp6-prod-origin {
+  font-size: 10px; font-weight: 600;
+  color: #aaa; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-top: 3px;
+}
+.sp6-col-rafeeq .sp6-prod-name   { color: #C9992A; }
+.sp6-col-rafeeq .sp6-prod-origin { color: rgba(255,255,255,0.35); }
+
+/* Feature rows */
+.sp6-feat {
+  padding: 0 14px;
+  font-size: 12px; font-weight: 600;
+  color: #555;
+  height: 44px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid #ececec;
+}
+.sp6-feat:last-child { border-bottom: none; }
+
+/* Cells */
+.sp6-cell {
+  height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  border-bottom: 1px solid #ececec;
+  letter-spacing: 0.01em;
+}
+.sp6-cell:last-child { border-bottom: none; }
+.sp6-col-rafeeq .sp6-cell { border-bottom-color: rgba(255,255,255,0.07); }
+
+/* Cell states */
+.sp6-yes  { color: #22c55e; font-size: 16px; }
+.sp6-no   { color: #ef4444; font-size: 16px; }
+.sp6-partial { color: #f59e0b; font-size: 16px; }
+.sp6-bad  { color: #ef4444; font-size: 11px; text-align: center; padding: 0 8px; line-height: 1.3; }
+.sp6-ok   { color: #888; font-size: 11px; text-align: center; padding: 0 8px; line-height: 1.3; }
+
+/* Rafeeq cells */
+.sp6-yes-gold { color: #C9992A; font-size: 18px; }
+.sp6-rafeeq-val {
+  color: #C9992A; font-size: 11px;
+  text-align: center; padding: 0 8px;
+  font-weight: 800; line-height: 1.3;
+}
+
+/* Source */
+.sp6-source {
+  font-size: 10px; color: rgba(13,31,60,0.3);
+  letter-spacing: 0.05em;
+  opacity: 0; transition: none;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(sel)  { return document.querySelector(sel); }
+  function qa(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+  function hide() {
+    var hdr = q('#sp6-header');
+    var src = q('#sp6-source');
+    if (hdr) { hdr.style.transition='none'; hdr.style.opacity='0'; hdr.style.transform='translateY(20px)'; }
+    if (src) { src.style.transition='none'; src.style.opacity='0'; }
+    qa('#slide-8 .sp6-col-comp, #slide-8 .sp6-col-rafeeq').forEach(function(col) {
+      col.style.transition='none'; col.style.opacity='0'; col.style.transform='translateY(18px)';
+    });
+  }
+
+  function runSequence() {
+    // Header
+    at(function() {
+      var hdr = q('#sp6-header');
+      if (hdr) { hdr.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'; hdr.style.opacity='1'; hdr.style.transform='translateY(0)'; }
+    }, 0);
+
+    // Competitor columns stagger in
+    qa('#slide-8 .sp6-col-comp').forEach(function(col, i) {
+      at(function() {
+        col.style.transition='opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1)';
+        col.style.opacity='1'; col.style.transform='translateY(0)';
+      }, 300 + i * 120);
+    });
+
+    // Rafeeq column last — with a slight extra pause for drama
+    at(function() {
+      var raf = q('#slide-8 .sp6-col-rafeeq');
+      if (raf) {
+        raf.style.transition='opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+        raf.style.opacity='1'; raf.style.transform='translateY(0)';
+      }
+    }, 880);
+
+    // Source
+    at(function() {
+      var src = q('#sp6-source');
+      if (src) { src.style.transition='opacity 0.4s ease'; src.style.opacity='1'; }
+    }, 1100);
+  }
+
+  window._slide09 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+﻿<!-- SLIDE 06 — STATEMENT: THE TECHNOLOGY EXISTS -->

@@ -1,0 +1,189 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 36 — APP: AI CHATBOT (RAG-POWERED)
+     Floating context labels connect to the phone; RAG pipeline on the right
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-40" data-slide="40"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B4F72,#9b59b6,#27AE60);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:60px 64px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT: info -->
+    <div id="a36-left" style="flex:1;display:flex;flex-direction:column;gap:26px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:12px;">Mobile App Walkthrough · 05</div>
+        <div style="font-size:44px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">AI Chatbot<br>(RAG-Powered)</div>
+        <div id="a36-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:16px;color:rgba(13,31,60,0.6);line-height:1.85;max-width:480px;">
+        Not a basic chatbot — <span style="color:#0D1F3C;font-weight:700;">Rafeeq</span> knows the patient's medications, appointments, mood, and vital signs. Every response is personalized, medically aware, and emotionally supportive in Arabic.
+      </div>
+
+      <div id="a36-feats" style="display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="a36-feat"><div class="a36-check">✓</div>Knows your medications &amp; schedule</div>
+        <div class="a36-feat"><div class="a36-check">✓</div>Knows your upcoming appointments</div>
+        <div class="a36-feat"><div class="a36-check">✓</div>Knows today's mood check-in</div>
+        <div class="a36-feat"><div class="a36-check">✓</div>Knows your live vital signs</div>
+        <div class="a36-feat"><div class="a36-check">✓</div>Remembers your past conversations</div>
+      </div>
+
+      <div id="a36-variants" style="display:flex;gap:12px;opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a36-badge" style="background:rgba(27,79,114,0.1);color:#1B4F72;border-color:rgba(27,79,114,0.3);">🤖 Rafeeq for Patient (Teal)</span>
+        <span class="a36-badge" style="background:rgba(39,174,96,0.1);color:#27AE60;border-color:rgba(39,174,96,0.3);">🩺 Rafeeq for Caregiver (Green)</span>
+      </div>
+    </div>
+
+    <!-- CENTER: two phones with floating context labels -->
+    <div id="a36-center" style="flex:0 0 420px;position:relative;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+
+      <!-- Patient phone -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(13,31,60,0.35);">Patient</div>
+        <div class="a36-phone">
+          <div class="a36-notch"></div>
+          <div class="a36-screen"><img src="App Slides/patient_chatbot.png" alt="Patient chatbot screen"></div>
+        </div>
+        <div id="a36-lbl-meds" class="a36-ctx-inline" style="border-color:#E74C3C;opacity:0;transform:translateY(6px);transition:none;">💊 Amlodipine 08:00</div>
+        <div id="a36-lbl-mood" class="a36-ctx-inline" style="border-color:#27AE60;opacity:0;transform:translateY(6px);transition:none;">😊 Mood: Happy</div>
+      </div>
+
+      <!-- Caregiver phone -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;">
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(13,31,60,0.35);">Caregiver</div>
+        <div class="a36-phone">
+          <div class="a36-notch"></div>
+          <div class="a36-screen"><img src="App Slides/caregiver_chatbot.png" alt="Caregiver chatbot screen"></div>
+        </div>
+        <div id="a36-lbl-appt" class="a36-ctx-inline" style="border-color:#3498DB;opacity:0;transform:translateY(6px);transition:none;">🏥 Jun 22 — Dr. Al-Shafei</div>
+        <div id="a36-lbl-vitals" class="a36-ctx-inline" style="border-color:#F39C12;opacity:0;transform:translateY(6px);transition:none;">❤️ 72 bpm · SpO₂ 97%</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: RAG pipeline -->
+    <div id="a36-right" style="flex:0 0 280px;display:flex;flex-direction:column;gap:0;opacity:0;transform:translateX(24px);transition:none;">
+      <div style="font-size:15px;font-weight:800;color:#0D1F3C;margin-bottom:14px;">RAG Pipeline</div>
+      <div class="a36-pstep"><div class="a36-pnum" style="background:#1B4F72;">1</div><div class="a36-ptxt"><strong>User Message</strong><span>Arabic text or voice</span></div></div>
+      <div class="a36-parrow">↓</div>
+      <div class="a36-pstep"><div class="a36-pnum" style="background:#2E86C1;">2</div><div class="a36-ptxt"><strong>Embedding</strong><span>text-embedding-3-small (1536-d)</span></div></div>
+      <div class="a36-parrow">↓</div>
+      <div class="a36-pstep"><div class="a36-pnum" style="background:#9b59b6;">3</div><div class="a36-ptxt"><strong>ChromaDB Search</strong><span>Top 3 of 76 medical chunks</span></div></div>
+      <div class="a36-parrow">↓</div>
+      <div class="a36-pstep"><div class="a36-pnum" style="background:#F39C12;">4</div><div class="a36-ptxt"><strong>+ Patient Data</strong><span>meds, appts, mood, vitals, history</span></div></div>
+      <div class="a36-parrow">↓</div>
+      <div class="a36-pstep"><div class="a36-pnum" style="background:#27AE60;">5</div><div class="a36-ptxt"><strong>GPT-4o-mini</strong><span>Arabic response, 4-8 sentences</span></div></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-40 { background: #F8F9FA; }
+
+.a36-feat { display:flex;align-items:center;gap:12px;font-size:14.5px;color:rgba(13,31,60,0.6);line-height:1.5; }
+.a36-check {
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:rgba(39,174,96,0.15);color:#27AE60;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;
+}
+.a36-badge { font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;border:1px solid;font-family:'Inter',sans-serif; }
+
+.a36-phone {
+  width:196px;background:#111827;border-radius:34px;padding:10px;
+  box-shadow:0 0 0 2px #374151, 0 24px 48px rgba(13,31,60,0.25), 0 0 30px rgba(155,89,182,.18);
+  position:relative;z-index:2;
+}
+.a36-notch {
+  width:64px;height:18px;background:#111827;border-radius:0 0 12px 12px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a36-screen { border-radius:24px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA; }
+.a36-screen img { width:100%;height:100%;object-fit:cover;display:block; }
+
+.a36-ctx-inline {
+  background:#fff;border:1.5px solid;border-radius:10px;
+  padding:6px 11px;font-size:10.5px;font-weight:700;color:#0D1F3C;
+  box-shadow:0 4px 16px rgba(13,31,60,0.1);white-space:nowrap;
+  font-family:'Inter',sans-serif;
+}
+
+.a36-pstep { display:flex;align-items:flex-start;gap:12px;background:#fff;border-radius:12px;padding:11px 14px;box-shadow:0 2px 10px rgba(13,31,60,0.06); }
+.a36-pnum { width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;font-family:'Inter',sans-serif; }
+.a36-ptxt { font-size:12px;color:rgba(13,31,60,0.65);line-height:1.4;padding-top:1px;font-family:'Inter',sans-serif; }
+.a36-ptxt strong { display:block;color:#0D1F3C;font-size:12.5px;margin-bottom:1px; }
+.a36-ptxt span { font-size:10.5px;color:rgba(13,31,60,0.4); }
+.a36-parrow { text-align:center;color:rgba(13,31,60,0.2);font-size:13px;padding:2px 0; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t40 = [];
+  function at(fn, ms) { _t40.push(setTimeout(fn, ms)); }
+  function ca40() { _t40.forEach(clearTimeout); _t40 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function hide40() {
+    ['a36-left', 'a36-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a36-left').style.transform = 'translateX(-24px)';
+    q('a36-right').style.transform = 'translateX(24px)';
+
+    var c = q('a36-center'); if (c) { c.style.transition = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(60px) scale(0.9)'; }
+
+    ['a36-feats', 'a36-variants'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
+    });
+
+    var ul = q('a36-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    document.querySelectorAll('#slide-40 .a36-ctx-inline').forEach(function (el) {
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)';
+    });
+  }
+
+  window._slide40 = {
+    enter: function () {
+      ca40(); hide40();
+
+      show('a36-left', 80);
+      at(function () {
+        var ul = q('a36-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a36-center', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+
+      show('a36-feats', 400, 'translateY(0)');
+      show('a36-variants', 750, 'translateY(0)');
+
+      show('a36-right', 500);
+
+      // Inline context labels pop in one by one
+      var labels = ['a36-lbl-meds', 'a36-lbl-appt', 'a36-lbl-mood', 'a36-lbl-vitals'];
+      labels.forEach(function (id, i) {
+        at(function () {
+          var el = q(id); if (!el) return;
+          el.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+          el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+        }, 900 + i * 160);
+      });
+    },
+    leave: function () { ca40(); hide40(); }
+  };
+})();
+</script>

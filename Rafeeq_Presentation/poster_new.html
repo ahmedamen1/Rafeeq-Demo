@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafeeq — Smart Wheelchair Kit — A0 Landscape Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── SCREEN ─── */
+:root {
+  --cm: 0.833vw; /* 1/120 of viewport width at 120cm */
+  --navy:  #0B1F3C;
+  --gold:  #C8941A;
+  --gold2: #E8B030;
+  --bg:    #F0F4FA;
+  --card:  #FFFFFF;
+  --bdr:   #CED9EE;
+  --text:  #1A2B45;
+  --muted: #4A6080;
+  --green: #1B7A3E;
+  --red:   #B03020;
+}
+
+/* ─── PRINT ─── */
+@page { size: 120cm 90cm landscape; margin: 0; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  :root { --cm: 0.82cm; }
+  body { width: 120cm; height: 90cm; overflow: hidden; }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  width: 100vw;
+  color: var(--text);
+  font-size: calc(0.78 * var(--cm));
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════
+   HEADER
+══════════════════════════════════ */
+.hdr {
+  background: var(--navy);
+  padding: calc(0.55*var(--cm)) calc(1.1*var(--cm));
+  display: flex;
+  align-items: center;
+  gap: calc(1*var(--cm));
+}
+.hdr-logos {
+  display: flex;
+  align-items: center;
+  gap: calc(0.6*var(--cm));
+  flex-shrink: 0;
+}
+.hdr-logos img {
+  height: calc(3.8*var(--cm));
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.hdr-logos img.rafeeq-logo {
+  filter: none;
+  border-radius: calc(0.3*var(--cm));
+  background: white;
+  padding: calc(0.15*var(--cm));
+}
+.hdr-sep { width: 1px; height: calc(3*var(--cm)); background: rgba(255,255,255,0.25); }
+.hdr-center { flex: 1; text-align: center; }
+.hdr-title {
+  font-size: calc(1.7*var(--cm));
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+.hdr-subtitle {
+  font-size: calc(0.78*var(--cm));
+  color: rgba(255,255,255,0.75);
+  margin-top: calc(0.2*var(--cm));
+}
+.hdr-gold { color: var(--gold2); }
+.hdr-team {
+  text-align: right;
+  flex-shrink: 0;
+}
+.hdr-team-label {
+  font-size: calc(0.62*var(--cm));
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: calc(0.25*var(--cm));
+}
+.hdr-team-names {
+  font-size: calc(0.68*var(--cm));
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+  font-weight: 500;
+}
+.hdr-supervisors {
+  font-size: calc(0.6*var(--cm));
+  color: rgba(255,255,255,0.55);
+  margin-top: calc(0.2*var(--cm));
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════
+   MAIN GRID
+══════════════════════════════════ */
+.main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: calc(0.55*var(--cm));
+  padding: calc(0.55*var(--cm)) calc(0.8*var(--cm)) calc(0.6*var(--cm));
+}
+
+/* ══════════════════════════════════
+   CARDS
+══════════════════════════════════ */
+.card {
+  background: var(--card);
+  border-radius: calc(0.5*var(--cm));
+  border: calc(0.07*var(--cm)) solid var(--bdr);
+  padding: calc(0.7*var(--cm)) calc(0.75*var(--cm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(0.35*var(--cm));
+}
+.card.span2 { grid-column: span 2; }
+.card.span3 { grid-column: span 3; }
+
+.stag {
+  font-size: calc(0.58*var(--cm));
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.stitle {
+  font-size: calc(0.98*var(--cm));
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.2;
+  border-bottom: calc(0.12*var(--cm)) solid var(--gold);
+  padding-bottom: calc(0.25*var(--cm));
+  flex-shrink: 0;
+}
+.sh {
+  font-size: calc(0.72*var(--cm));
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: calc(0.3*var(--cm));
+  border-left: calc(0.22*var(--cm)) solid var(--gold);
+  padding-left: calc(0.4*var(--cm));
+  flex-shrink: 0;
+}
+p {
+  font-size: calc(0.72*var(--cm));
+  color: var(--text);
+  line-height: 1.55;
+}
+
+/* ── Bullet list ── */
+.bl {
+  padding-left: calc(1*var(--cm));
+  font-size: calc(0.7*var(--cm));
+  color: var(--text);
+  line-height: 1.5;
+}
+.bl li { margin-bottom: calc(0.15*var(--cm)); }
+
+/* ── Tables ── */
+table.t {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: calc(0.66*var(--cm));
+  flex-shrink: 0;
+}
+table.t th {
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  padding: calc(0.25*var(--cm)) calc(0.4*var(--cm));
+  text-align: left;
+  font-size: calc(0.63*var(--cm));
+}
+table.t td {
+  padding: calc(0.22*var(--cm)) calc(0.4*var(--cm));
+  border-bottom: calc(0.05*var(--cm)) solid var(--bdr);
+  color: var(--text);
+  vertical-align: top;
+}
+table.t tr:nth-child(even) td { background: var(--bg); }
+
+/* ── Highlight box ── */
+.hbox {
+  background: var(--bg);
+  border-left: calc(0.25*var(--cm)) solid var(--gold);
+  border-radius: 0 calc(0.35*var(--cm)) calc(0.35*var(--cm)) 0;
+  padding: calc(0.45*var(--cm)) calc(0.65*var(--cm));
+  font-size: calc(0.69*var(--cm));
+  color: var(--text);
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+/* ── Stat chips ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(0.35*var(--cm));
+  flex-shrink: 0;
+}
+.stat {
+  background: var(--navy);
+  border-radius: calc(0.4*var(--cm));
+  padding: calc(0.45*var(--cm)) calc(0.5*var(--cm));
+  text-align: center;
+}
+.stat-val {
+  font-size: calc(1.25*var(--cm));
+  font-weight: 900;
+  color: var(--gold2);
+  line-height: 1;
+}
+.stat-lbl {
+  font-size: calc(0.58*var(--cm));
+  color: rgba(255,255,255,0.75);
+  margin-top: calc(0.15*var(--cm));
+  line-height: 1.3;
+}
+
+/* ── Abstract color blocks ── */
+.abs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: calc(0.35*var(--cm));
+  flex: 1;
+}
+.abs-block {
+  border-radius: calc(0.35*var(--cm));
+  padding: calc(0.45*var(--cm)) calc(0.55*var(--cm));
+  display: flex;
+  flex-direction: column;
+  gap: calc(0.15*var(--cm));
+}
+.abs-label {
+  font-size: calc(0.58*var(--cm));
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+.abs-text {
+  font-size: calc(0.67*var(--cm));
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* ── Phase boxes ── */
+.phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(0.35*var(--cm));
+  flex-shrink: 0;
+}
+.phase {
+  background: var(--bg);
+  border-radius: calc(0.35*var(--cm));
+  border-top: calc(0.2*var(--cm)) solid var(--navy);
+  padding: calc(0.4*var(--cm)) calc(0.45*var(--cm));
+}
+.phase-h {
+  font-size: calc(0.7*var(--cm));
+  font-weight: 800;
+  color: var(--navy);
+}
+.phase-s {
+  font-size: calc(0.6*var(--cm));
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: calc(0.2*var(--cm));
+}
+.phase ul {
+  padding-left: calc(0.8*var(--cm));
+  font-size: calc(0.62*var(--cm));
+  color: var(--muted);
+  line-height: 1.5;
+}
+.phase li { margin-bottom: calc(0.1*var(--cm)); }
+
+/* ── Result rows ── */
+.rrow {
+  display: flex;
+  gap: calc(0.5*var(--cm));
+  align-items: flex-start;
+  padding: calc(0.3*var(--cm)) 0;
+  border-bottom: calc(0.05*var(--cm)) solid var(--bdr);
+}
+.ricon {
+  background: var(--navy);
+  color: var(--gold2);
+  font-size: calc(0.7*var(--cm));
+  font-weight: 900;
+  border-radius: calc(0.3*var(--cm));
+  width: calc(1.4*var(--cm));
+  height: calc(1.4*var(--cm));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.rname {
+  font-size: calc(0.68*var(--cm));
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: calc(0.1*var(--cm));
+}
+.rval {
+  font-size: calc(0.65*var(--cm));
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* ── Feature cards ── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: calc(0.3*var(--cm));
+  flex-shrink: 0;
+}
+.fcard {
+  background: var(--bg);
+  border-radius: calc(0.35*var(--cm));
+  border-top: calc(0.18*var(--cm)) solid var(--gold);
+  padding: calc(0.4*var(--cm)) calc(0.4*var(--cm));
+  text-align: center;
+}
+.fcard-num {
+  font-size: calc(0.85*var(--cm));
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.fcard-name {
+  font-size: calc(0.62*var(--cm));
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: calc(0.15*var(--cm));
+  line-height: 1.3;
+}
+.fcard-desc {
+  font-size: calc(0.58*var(--cm));
+  color: var(--muted);
+  margin-top: calc(0.12*var(--cm));
+  line-height: 1.35;
+}
+
+/* ── Scope IS/IS NOT ── */
+.is-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(0.35*var(--cm));
+  flex-shrink: 0;
+}
+.is-box {
+  border-radius: calc(0.35*var(--cm));
+  padding: calc(0.45*var(--cm)) calc(0.55*var(--cm));
+}
+.is-box ul {
+  padding-left: calc(0.9*var(--cm));
+  font-size: calc(0.65*var(--cm));
+  line-height: 1.5;
+}
+.is-box li { margin-bottom: calc(0.15*var(--cm)); }
+.is-title {
+  font-size: calc(0.72*var(--cm));
+  font-weight: 800;
+  margin-bottom: calc(0.3*var(--cm));
+}
+
+/* ── Footer ── */
+.ftr {
+  background: var(--navy);
+  padding: calc(0.3*var(--cm)) calc(1.1*var(--cm));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ftr-url {
+  font-size: calc(0.65*var(--cm));
+  color: var(--gold2);
+  font-weight: 700;
+}
+.ftr-note {
+  font-size: calc(0.58*var(--cm));
+  color: rgba(255,255,255,0.55);
+}
+.ftr-logos {
+  display: flex;
+  align-items: center;
+  gap: calc(0.5*var(--cm));
+}
+.ftr-logos img {
+  height: calc(2.4*var(--cm));
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.ftr-logos img.isf-logo { filter: brightness(0) invert(1); }
+.ftr-qr img {
+  height: calc(3.5*var(--cm));
+  border-radius: calc(0.2*var(--cm));
+  background: white;
+  padding: calc(0.15*var(--cm));
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     HEADER
+════════════════════════════════════ -->
+<div class="hdr">
+  <div class="hdr-logos">
+    <img src="zewail.png" alt="Zewail City">
+    <div class="hdr-sep"></div>
+    <img src="isf.png" alt="ISF" class="isf-logo">
+    <div class="hdr-sep"></div>
+    <img src="Rafeeq_Logo.jfif" alt="Rafeeq" class="rafeeq-logo" style="filter:none;">
+  </div>
+  <div class="hdr-center">
+    <div class="hdr-title">Smart Wheelchair Kit <span class="hdr-gold">(Rafeeq)</span></div>
+    <div class="hdr-subtitle">Design and Implementation of a Modular Intelligent System for Self-Navigation and Health Monitoring &nbsp;·&nbsp; Zewail City of Science, Technology &amp; Innovation — 2025/2026</div>
+  </div>
+  <div class="hdr-team">
+    <div class="hdr-team-label">Team 06 · CIE Program</div>
+    <div class="hdr-team-names">
+      Ahmed Amin · Mohamed Morshedy<br>
+      Nourhan Mohamed · Omar Awad · Ziad Behairy
+    </div>
+    <div class="hdr-supervisors">
+      Supervisors: Dr. Moustafa Elshafei · Dr. Ahmed S. Abd-Rabou
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════ -->
+<div class="main">
+
+  <!-- ╔══ ROW 1 ══╗ -->
+
+  <!-- ABSTRACT (span 2) -->
+  <div class="card span2">
+    <div class="stag">Abstract</div>
+    <div class="stitle">Smart Wheelchair Kit (Rafeeq)</div>
+
+    <div class="abs-grid">
+      <div class="abs-block" style="background:#FFFBF0;border:calc(0.06*var(--cm)) solid #F0E0A0;border-left:calc(0.25*var(--cm)) solid var(--gold);">
+        <div class="abs-label" style="color:var(--gold);">Motivation</div>
+        <div class="abs-text">Over <strong>one million</strong> people in Egypt use wheelchairs and face difficulties moving independently. Imported smart wheelchairs are too expensive and do not support Arabic.</div>
+      </div>
+      <div class="abs-block" style="background:#FEF5F5;border:calc(0.06*var(--cm)) solid #F5C6C6;border-left:calc(0.25*var(--cm)) solid #C0392B;">
+        <div class="abs-label" style="color:#C0392B;">Problem</div>
+        <div class="abs-text">Most smart wheelchairs cost <strong>$5,000–$10,000</strong> — too high for most Egyptians. They rely on cloud services and offer <strong>no Arabic support</strong>.</div>
+      </div>
+      <div class="abs-block" style="background:#F0FBF4;border:calc(0.06*var(--cm)) solid #B6E8C8;border-left:calc(0.25*var(--cm)) solid #27AE60;">
+        <div class="abs-label" style="color:var(--green);">Proposed Solution</div>
+        <div class="abs-text"><strong>Rafeeq (SmartWheel KIT)</strong> — a low-cost modular kit that converts a manual wheelchair into a smart autonomous one. Target: <strong>40,000–50,000 EGP</strong>, ~70% cheaper than imports.</div>
+      </div>
+      <div class="abs-block" style="background:#EEF6FD;border:calc(0.06*var(--cm)) solid #AED6F1;border-left:calc(0.25*var(--cm)) solid #2980B9;">
+        <div class="abs-label" style="color:#1A5276;">Methods</div>
+        <div class="abs-text">Built on <strong>Raspberry Pi 5</strong> with LiDAR + Kinect 360 for autonomous navigation. Offline Arabic voice recognition. Health sensors (HR, SpO₂, temp) streamed to a <strong>Flutter caregiver app</strong> with Arabic RAG chatbot.</div>
+      </div>
+      <div class="abs-block" style="background:#F5EEF8;border:calc(0.06*var(--cm)) solid #D2B4DE;border-left:calc(0.25*var(--cm)) solid #8E44AD;">
+        <div class="abs-label" style="color:#6C3483;">Results</div>
+        <div class="abs-text">All six motion directions verified. <strong>87%</strong> offline Arabic voice accuracy, <strong>0.9 s</strong> latency. Health sensors upload confirmed. Patient and caregiver app interfaces fully operational.</div>
+      </div>
+      <div class="abs-block" style="background:#FDF8EC;border:calc(0.06*var(--cm)) solid #F0D48A;border-left:calc(0.25*var(--cm)) solid var(--gold2);">
+        <div class="abs-label" style="color:#8B6914;">Conclusion</div>
+        <div class="abs-text">Rafeeq demonstrates that advanced wheelchair technology can be <strong>affordable and adapted</strong> to local needs using modular design, offline AI, and Arabic language support.</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-val">87%</div><div class="stat-lbl">Arabic Voice Accuracy</div></div>
+      <div class="stat"><div class="stat-val">0.9s</div><div class="stat-lbl">Voice Inference Latency</div></div>
+      <div class="stat"><div class="stat-val">70%</div><div class="stat-lbl">Cost Reduction vs. Imports</div></div>
+      <div class="stat"><div class="stat-val">2.1s</div><div class="stat-lbl">Health Alert Latency</div></div>
+      <div class="stat"><div class="stat-val">1M+</div><div class="stat-lbl">Egyptian Wheelchair Users</div></div>
+      <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Integrated Subsystems</div></div>
+    </div>
+  </div>
+
+  <!-- MOTIVATION -->
+  <div class="card">
+    <div class="stag">01 · Why Rafeeq?</div>
+    <div class="stitle">Motivation &amp; Context</div>
+
+    <p>Over <strong>80 million people</strong> globally require wheelchair assistance. Egypt has approximately <strong>11–12 million citizens with disabilities</strong> and an estimated <strong>1 million active wheelchair users</strong>, yet 99.35% lack access to smart assistive technology.</p>
+
+    <div class="sh">The Critical Gap</div>
+    <ul class="bl">
+      <li><strong>Economic Exclusion:</strong> Global smart wheelchairs cost $5,000–$10,000 (157,000–315,000 EGP) — 20–50 months of median Egyptian household income</li>
+      <li><strong>Cultural Disconnect:</strong> Zero commercially available systems support Arabic; 89% of Egyptian elderly function primarily in Arabic</li>
+      <li><strong>Limited Intelligence:</strong> Existing solutions focus only on powered mobility, ignoring health monitoring and emotional support needs</li>
+    </ul>
+
+    <div class="sh">Vision</div>
+    <p>A <strong>modular AI-powered retrofit kit</strong> that transforms existing manual wheelchairs into intelligent mobility companions at <strong>60–70% lower cost</strong> than imports (25,000–45,000 EGP vs. 100,000–300,000 EGP).</p>
+
+    <table class="t" style="margin-top:calc(0.2*var(--cm));">
+      <tr><th>Challenge</th><th>Rafeeq Response</th></tr>
+      <tr><td>High cost (315K EGP imports)</td><td>25,000–45,000 EGP target — 90% reduction</td></tr>
+      <tr><td>No Arabic interface</td><td>Egyptian dialect offline voice control</td></tr>
+      <tr><td>No health monitoring</td><td>HR, SpO₂ &amp; temp sensors + caregiver app</td></tr>
+      <tr><td>Cloud dependency</td><td>100% offline Edge AI on Raspberry Pi 5</td></tr>
+      <tr><td>Caregiver strain</td><td>Autonomous navigation + remote monitoring</td></tr>
+    </table>
+  </div>
+
+  <!-- PROJECT SCOPE -->
+  <div class="card">
+    <div class="stag">02 · Project Scope</div>
+    <div class="stitle">Scope &amp; Target Users</div>
+
+    <div class="is-grid">
+      <div class="is-box" style="background:#F0FBF4;border-top:calc(0.2*var(--cm)) solid #27AE60;border-radius:calc(0.35*var(--cm));padding:calc(0.45*var(--cm));">
+        <div class="is-title" style="color:var(--green);">Rafeeq IS</div>
+        <ul>
+          <li>Modular <strong>retrofit kit</strong> — fits any manual wheelchair</li>
+          <li><strong>Indoor</strong> mobility solution (residential &amp; hospital)</li>
+          <li><strong>Privacy-first</strong> — 100% offline Edge AI</li>
+          <li>Alpha prototype with AI navigation + voice + health</li>
+          <li><strong>Affordable</strong> — 25,000–45,000 EGP target</li>
+        </ul>
+      </div>
+      <div class="is-box" style="background:#FEF5F5;border-top:calc(0.2*var(--cm)) solid #C0392B;border-radius:calc(0.35*var(--cm));padding:calc(0.45*var(--cm));">
+        <div class="is-title" style="color:var(--red);">Rafeeq IS NOT</div>
+        <ul>
+          <li>NOT a complete <strong>wheelchair replacement</strong></li>
+          <li>NOT an <strong>outdoor/GPS</strong> navigation system</li>
+          <li>NOT a <strong>medical diagnostic</strong> device</li>
+          <li>NOT <strong>cloud-dependent</strong> — fully functional offline</li>
+          <li>NOT a <strong>brain-computer interface</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sh">Target User Profile</div>
+    <table class="t">
+      <tr><th>Characteristic</th><th>Description</th></tr>
+      <tr><td><strong>Age</strong></td><td>60–85+ with mobility disabilities</td></tr>
+      <tr><td><strong>Mobility Status</strong></td><td>Partial to complete lower-limb impairment</td></tr>
+      <tr><td><strong>Language</strong></td><td>Native Arabic speakers, Egyptian dialect</td></tr>
+      <tr><td><strong>Income</strong></td><td>Middle-income (8,000–25,000 EGP/month)</td></tr>
+      <tr><td><strong>Environment</strong></td><td>Home-based or hospital care, indoor</td></tr>
+      <tr><td><strong>Cognition</strong></td><td>Capable of voice commands and basic conversation</td></tr>
+    </table>
+  </div>
+
+  <!-- ╔══ ROW 2 ══╗ -->
+
+  <!-- METHODOLOGY -->
+  <div class="card">
+    <div class="stag">03 · Methodology</div>
+    <div class="stitle">Documentation-First Agile (9 Months)</div>
+
+    <p>A <strong>modular systems engineering approach</strong> with five independent subsystems integrated through standardized ROS 2 interfaces — Topics, Actions, and TF2 — enabling fully parallel development.</p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-h">Phase 1</div>
+        <div class="phase-s">Months 1–3 · Design</div>
+        <ul>
+          <li>Requirements from medical professionals</li>
+          <li>ISO 7176 / 13482 compliance analysis</li>
+          <li>Full architecture &amp; API specification</li>
+          <li>Subsystem decomposition &amp; team roles</li>
+          <li>Component procurement</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-h">Phase 2</div>
+        <div class="phase-s">Months 4–7 · Build</div>
+        <ul>
+          <li>Parallel subsystem development</li>
+          <li>Weekly Agile sprint meetings</li>
+          <li>Continuous ROS 2 integration testing</li>
+          <li>Iterative supervisor feedback cycles</li>
+          <li>Continuous code review &amp; documentation</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-h">Phase 3</div>
+        <div class="phase-s">Months 8–9 · Integrate</div>
+        <ul>
+          <li>Full system integration on platform</li>
+          <li>Controlled lab environment testing</li>
+          <li>Safety: emergency stop validation</li>
+          <li>Performance benchmarking</li>
+          <li>Final documentation &amp; thesis</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sh">Hardware Stack</div>
+    <table class="t">
+      <tr><th>Component</th><th>Role</th><th>Specification</th></tr>
+      <tr><td>Raspberry Pi 5 (8 GB)</td><td>Main compute</td><td>Ubuntu 24.04 LTS · ROS 2 Jazzy · all AI subsystems</td></tr>
+      <tr><td>Arduino Mega</td><td>Motor control</td><td>EFeru FOC firmware · UART bridge · real-time PWM</td></tr>
+      <tr><td>2× BLDC Hub Motors</td><td>Drive</td><td>350 W each · hoverboard motors · 120 kg max load</td></tr>
+      <tr><td>RPLIDAR A1M8</td><td>2D ranging</td><td>12 m range · 360° scan · SLAM input (~$170)</td></tr>
+      <tr><td>Microsoft Kinect 360</td><td>3D depth</td><td>Voxel obstacle layer · above-floor detection</td></tr>
+      <tr><td>ESP32</td><td>Health sensing</td><td>MAX30100 HR/SpO₂ · DS18B20 temperature · MQTT</td></tr>
+      <tr><td>36V Li-ion 10S2P</td><td>Power</td><td>Samsung cells · 4.4 Ah · 4–6 hr runtime</td></tr>
+    </table>
+  </div>
+
+  <!-- IMPLEMENTATION -->
+  <div class="card span2">
+    <div class="stag">04 · Implementation</div>
+    <div class="stitle">Technical Architecture &amp; Design Decisions</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:calc(0.55*var(--cm));">
+      <div>
+        <div class="sh" style="margin-top:0;">Voice AI — Offline Arabic ASR</div>
+        <p>Offline Arabic speech recognition using <strong>faster-whisper INT8</strong> (Whisper-small) fine-tuned on user recordings. Pipeline: USB mic (16 kHz) → noise suppression → model inference → motion command dispatch. <strong>87%</strong> command recognition accuracy · <strong>0.9 s</strong> average latency · fully offline — no internet required. Cloud alternatives (Google ASR, AWS) were rejected: violate Egyptian Law 151/2020 by transmitting audio to foreign servers.</p>
+
+        <div class="sh">Autonomous Navigation — ROS 2 + Nav2</div>
+        <p>RPLIDAR A1M8 (2D, 12 m) feeds <strong>SLAM Toolbox</strong> to build and save occupancy grid maps. Microsoft Kinect 360 adds a 3D voxel layer for above-floor obstacle detection. <strong>Nav2 Behavior Tree</strong> manages path planning, localization, and recovery. A <em>scan_relay</em> ROS 2 node filters raw LiDAR noise before publishing to /scan. Operates reliably in <strong>complete darkness</strong> (LiDAR-only).</p>
+
+        <div class="sh">Mechanical — 5-Iteration Motor Mount</div>
+        <p>Converting a manual wheelchair to a powered platform required <strong>5 design iterations</strong>: single bent-plate bracket (misaligned) → box-section → independent suspension redesign → final validated mount. Supports <strong>120 kg</strong> user load with even drive-wheel contact on indoor terrain.</p>
+      </div>
+      <div>
+        <div class="sh" style="margin-top:0;">Mobile Application — Flutter + Firebase</div>
+        <p>Cross-platform app (Android/iOS) with separate <strong>Patient</strong> and <strong>Caregiver</strong> interfaces.</p>
+        <table class="t">
+          <tr><th>Feature</th><th>Detail</th></tr>
+          <tr><td>Live Health Dashboard</td><td>Real-time HR, SpO₂ &amp; temp from ESP32</td></tr>
+          <tr><td>Emergency SOS</td><td>One-tap alert to all caregivers</td></tr>
+          <tr><td>Medication Alarms</td><td>Scheduled push notifications via FCM</td></tr>
+          <tr><td>In-App Chat</td><td>Direct patient–caregiver messaging</td></tr>
+          <tr><td>PDF Health Reports</td><td>Auto-generated, exportable to physician</td></tr>
+          <tr><td>Privacy</td><td>Encrypted upload · Egyptian Law 151/2020</td></tr>
+        </table>
+
+        <div class="sh">AI Chatbot — RAG Architecture</div>
+        <p>Arabic-first conversational assistant. Pipeline: voice input (Whisper STT) → <strong>ChromaDB</strong> RAG retrieval (health data, medications, motivational content) → <strong>Gemini LLM</strong> → Arabic TTS voice output.</p>
+        <table class="t">
+          <tr><th>Feature</th><th>Detail</th></tr>
+          <tr><td>Health Q&amp;A</td><td>Answers queries from curated knowledge base</td></tr>
+          <tr><td>Medication Reminders</td><td>Proactive voice reminders via TTS</td></tr>
+          <tr><td>Emotional Support</td><td>Motivational dialogue in Egyptian Arabic</td></tr>
+          <tr><td>Voice I/O</td><td>Fully hands-free — no typing required</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="feat-grid">
+      <div class="fcard"><div class="fcard-num">01</div><div class="fcard-name">Arabic Voice Control</div><div class="fcard-desc">Offline faster-whisper · 87% accuracy · 0.9 s latency</div></div>
+      <div class="fcard"><div class="fcard-num">02</div><div class="fcard-name">Autonomous Navigation</div><div class="fcard-desc">RPLIDAR + SLAM Toolbox + Nav2 Behavior Tree</div></div>
+      <div class="fcard"><div class="fcard-num">03</div><div class="fcard-name">Health Monitoring</div><div class="fcard-desc">HR, SpO₂ &amp; temperature · 2.1 s Firebase alert</div></div>
+      <div class="fcard"><div class="fcard-num">04</div><div class="fcard-name">Caregiver App</div><div class="fcard-desc">Flutter + Firebase · SOS, alarms, live vitals, PDF</div></div>
+      <div class="fcard"><div class="fcard-num">05</div><div class="fcard-name">AI Companion</div><div class="fcard-desc">Gemini + ChromaDB RAG · Arabic voice I/O</div></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="card">
+    <div class="stag">05 · Results &amp; Impact</div>
+    <div class="stitle">Verified Outcomes — Lab Testing</div>
+
+    <div class="rrow">
+      <div class="ricon">01</div>
+      <div>
+        <div class="rname">Arabic Voice Control</div>
+        <div class="rval"><strong>87%</strong> command recognition accuracy · <strong>93%</strong> wake-word ("Rafeeq") · <strong>0.9 s</strong> average inference latency · fully offline faster-whisper INT8</div>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="ricon">02</div>
+      <div>
+        <div class="rname">Autonomous Navigation</div>
+        <div class="rval">Successfully <strong>mapped and localized</strong> in university lecture room. All <strong>6 motion directions</strong> verified. Operates in <strong>complete darkness</strong>. Dynamic obstacle avoidance confirmed.</div>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="ricon">03</div>
+      <div>
+        <div class="rname">Health Monitoring</div>
+        <div class="rval">All sensors (MAX30100 HR/SpO₂ · DS18B20 temp) operational. Firebase upload confirmed. <strong>2.1 s</strong> average caregiver alert latency. Data encrypted per Law 151/2020.</div>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="ricon">04</div>
+      <div>
+        <div class="rname">Mobile Application</div>
+        <div class="rval">Both <strong>patient and caregiver</strong> interfaces fully operational. SOS, medication alarms, live vitals, in-app chat, and PDF report generation all confirmed.</div>
+      </div>
+    </div>
+    <div class="rrow">
+      <div class="ricon">05</div>
+      <div>
+        <div class="rname">AI Chatbot</div>
+        <div class="rval">End-to-end Arabic voice pipeline verified. Health Q&amp;A, medication reminders, and emotional support dialogue functional in Egyptian Arabic.</div>
+      </div>
+    </div>
+
+    <div class="sh">Performance Summary</div>
+    <table class="t">
+      <tr><th>Metric</th><th>Result</th><th>Target</th></tr>
+      <tr><td>Voice accuracy</td><td><strong>87%</strong></td><td>≥85%</td></tr>
+      <tr><td>Wake-word accuracy</td><td><strong>93%</strong></td><td>≥90%</td></tr>
+      <tr><td>Voice inference latency</td><td><strong>0.9 s</strong></td><td>&lt;2 s</td></tr>
+      <tr><td>Health alert latency</td><td><strong>2.1 s</strong></td><td>&lt;5 s</td></tr>
+      <tr><td>System cost (projected)</td><td><strong>25–45K EGP</strong></td><td>&lt;50K EGP</td></tr>
+    </table>
+
+    <div class="hbox">
+      <strong>Economic Impact:</strong> Projected 90% cost reduction vs. imports (25,000–45,000 EGP vs. 250,000–500,000 EGP). Retrofit philosophy extends existing wheelchair lifespan — modular battery replaceable independently, reducing e-waste. Enabling independent mobility may allow family caregivers to return to the workforce.
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<div class="ftr">
+  <div>
+    <div class="ftr-url">ahmedamen1.github.io/Rafeeq-Demo</div>
+    <div class="ftr-note">Scan QR for demo video &amp; project page</div>
+  </div>
+  <div class="ftr-logos">
+    <img src="zewail.png" alt="Zewail City">
+    <img src="isf.png" alt="ISF" class="isf-logo">
+  </div>
+  <div class="ftr-qr"><img src="qr_demo.png" alt="QR Code"></div>
+</div>
+
+</body>
+</html>

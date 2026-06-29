@@ -1,0 +1,294 @@
+<!-- SLIDE 35 — TECH STACK & ARCHITECTURE -->
+<div class="slide light" id="slide-36" data-slide="36"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#3B7DE8,#22c55e,#a78bfa);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:26px 44px 20px;box-sizing:border-box;gap:16px;">
+
+    <!-- Header -->
+    <div id="ts-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-12px);transition:none;">
+      <div style="font-size:9px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                  color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:6px;">
+        Mobile Application &middot; Tech Stack &amp; Architecture
+      </div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;
+                  font-family:'Inter',sans-serif;line-height:1;">
+        Built to Scale. Built to Care.
+      </div>
+      <div id="ts-uline" style="height:3px;background:#C9992A;border-radius:2px;
+           width:0;margin-top:7px;transition:none;"></div>
+    </div>
+
+    <!-- Body: 3 columns -->
+    <div style="flex:1;min-height:0;display:flex;gap:14px;">
+
+      <!-- COL 1: Stack table -->
+      <div id="ts-col1" style="flex:1.1;display:flex;flex-direction:column;gap:8px;
+           opacity:0;transform:translateX(-18px);transition:none;">
+
+        <!-- Mobile App -->
+        <div class="ts-group">
+          <div class="ts-group-hdr" style="color:#3B7DE8;border-color:rgba(59,125,232,0.3);background:rgba(59,125,232,0.05);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            Mobile App
+          </div>
+          <div class="ts-row"><span class="ts-tech">Flutter 3.x</span><span class="ts-desc">Cross-platform UI — Arabic RTL, iOS + Android</span></div>
+          <div class="ts-row"><span class="ts-tech">Riverpod 2.x</span><span class="ts-desc">State management via AsyncNotifier</span></div>
+          <div class="ts-row"><span class="ts-tech">Firebase SDK</span><span class="ts-desc">Firestore · FCM · Realtime Database</span></div>
+        </div>
+
+        <!-- Backend -->
+        <div class="ts-group">
+          <div class="ts-group-hdr" style="color:#C9992A;border-color:rgba(201,153,42,0.3);background:rgba(201,153,42,0.05);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Backend
+          </div>
+          <div class="ts-row"><span class="ts-tech">FastAPI + Python 3.11</span><span class="ts-desc">Async REST API + WebSocket server</span></div>
+          <div class="ts-row"><span class="ts-tech">PostgreSQL + SQLAlchemy</span><span class="ts-desc">Primary DB with ORM + Alembic migrations</span></div>
+          <div class="ts-row"><span class="ts-tech">JWT (python-jose)</span><span class="ts-desc">Role-based auth — patient / caregiver</span></div>
+          <div class="ts-row"><span class="ts-tech">APScheduler</span><span class="ts-desc">Alarm scheduling · 1-min polls + midnight reset</span></div>
+        </div>
+
+        <!-- AI / RAG -->
+        <div class="ts-group">
+          <div class="ts-group-hdr" style="color:#a78bfa;border-color:rgba(167,139,250,0.3);background:rgba(167,139,250,0.05);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            AI / RAG Pipeline
+          </div>
+          <div class="ts-row"><span class="ts-tech">GPT-4o-mini</span><span class="ts-desc">Patient-aware response generation</span></div>
+          <div class="ts-row"><span class="ts-tech">Whisper-1</span><span class="ts-desc">Arabic speech-to-text (STT)</span></div>
+          <div class="ts-row"><span class="ts-tech">ElevenLabs TTS</span><span class="ts-desc">Arabic TTS — Egyptian voice</span></div>
+          <div class="ts-row"><span class="ts-tech">ChromaDB</span><span class="ts-desc">Vector DB · text-embedding-3-small</span></div>
+        </div>
+
+      </div>
+
+      <!-- COL 2: Architecture diagram -->
+      <div id="ts-col2" style="flex:0.95;display:flex;flex-direction:column;gap:8px;
+           opacity:0;transition:none;">
+
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;margin-bottom:2px;">Architecture</div>
+
+        <div style="flex:1;background:#0D1F3C;border-radius:12px;padding:16px 14px;
+                    display:flex;flex-direction:column;gap:0;position:relative;overflow:hidden;">
+
+          <!-- dot grid -->
+          <div style="position:absolute;inset:0;pointer-events:none;
+            background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+            background-size:24px 24px;border-radius:12px;"></div>
+
+          <div style="position:relative;z-index:2;display:flex;flex-direction:column;gap:5px;height:100%;justify-content:space-between;">
+
+            <!-- Flutter -->
+            <div class="ts-arch-box" style="border-color:rgba(59,125,232,0.5);background:rgba(59,125,232,0.1);">
+              <span style="color:#60a5fa;font-weight:800;">Flutter App</span>
+              <span class="ts-arch-sub">iOS · Android · Arabic RTL</span>
+            </div>
+            <div class="ts-arch-arrow">&#8597; REST API / WebSocket</div>
+
+            <!-- FastAPI -->
+            <div class="ts-arch-box" style="border-color:rgba(201,153,42,0.5);background:rgba(201,153,42,0.1);">
+              <span style="color:#fbbf24;font-weight:800;">FastAPI Backend</span>
+              <span class="ts-arch-sub">Python 3.11 · Async · JWT Auth</span>
+            </div>
+
+            <!-- Split row -->
+            <div style="display:flex;gap:6px;align-items:stretch;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+                <div class="ts-arch-arrow" style="font-size:9px;">&#8597;</div>
+                <div class="ts-arch-box ts-arch-sm" style="border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.08);">
+                  <span style="color:#4ade80;font-weight:800;">PostgreSQL</span>
+                  <span class="ts-arch-sub">pg_notify + WS</span>
+                </div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+                <div class="ts-arch-arrow" style="font-size:9px;">&#8597;</div>
+                <div class="ts-arch-box ts-arch-sm" style="border-color:rgba(167,139,250,0.4);background:rgba(167,139,250,0.08);">
+                  <span style="color:#c4b5fd;font-weight:800;">RAG Pipeline</span>
+                  <span class="ts-arch-sub">ChromaDB · GPT-4o</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ts-arch-arrow">&#8597; Realtime</div>
+
+            <!-- Firebase -->
+            <div class="ts-arch-box" style="border-color:rgba(251,146,60,0.5);background:rgba(251,146,60,0.08);">
+              <span style="color:#fb923c;font-weight:800;">Firebase</span>
+              <span class="ts-arch-sub">Firestore · FCM · RTDB</span>
+            </div>
+            <div class="ts-arch-arrow">&#8597; Every 10 s</div>
+
+            <!-- ESP32 -->
+            <div class="ts-arch-box" style="border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.04);">
+              <span style="color:rgba(255,255,255,0.8);font-weight:800;">ESP32 + Sensors</span>
+              <span class="ts-arch-sub">MAX30102 · DS18B20 · Pressure</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COL 3: Key decisions + deployment -->
+      <div id="ts-col3" style="flex:0.95;display:flex;flex-direction:column;gap:8px;
+           opacity:0;transform:translateX(18px);transition:none;">
+
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;margin-bottom:2px;">Key Decisions</div>
+
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="ts-decision">
+            <div class="ts-dec-num">1</div>
+            <div><div class="ts-dec-title">Flutter</div><div class="ts-dec-body">One codebase for iOS + Android with full Arabic RTL support</div></div>
+          </div>
+          <div class="ts-decision">
+            <div class="ts-dec-num">2</div>
+            <div><div class="ts-dec-title">FastAPI async</div><div class="ts-dec-body">Handles slow AI calls without blocking other requests</div></div>
+          </div>
+          <div class="ts-decision">
+            <div class="ts-dec-num">3</div>
+            <div><div class="ts-dec-title">RAG Pipeline</div><div class="ts-dec-body">AI answers from the patient's real data, not generic knowledge</div></div>
+          </div>
+          <div class="ts-decision">
+            <div class="ts-dec-num">4</div>
+            <div><div class="ts-dec-title">Firebase RTDB</div><div class="ts-dec-body">Sub-second sensor streaming without polling</div></div>
+          </div>
+          <div class="ts-decision">
+            <div class="ts-dec-num">5</div>
+            <div><div class="ts-dec-title">ChromaDB</div><div class="ts-dec-body">Semantic search over medical documents for accurate AI answers</div></div>
+          </div>
+          <div class="ts-decision">
+            <div class="ts-dec-num">6</div>
+            <div><div class="ts-dec-title">pg_notify + WebSocket</div><div class="ts-dec-body">Instant in-app alerts without client-side polling</div></div>
+          </div>
+        </div>
+
+        <!-- Deployment -->
+        <div style="margin-top:auto;padding-top:8px;border-top:1px solid rgba(13,31,60,0.08);">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+                      color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;margin-bottom:7px;">Deployment</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;">
+            <div class="ts-dep-pill">&#127968; Hostinger VPS (Ubuntu)</div>
+            <div class="ts-dep-pill">&#128196; GitHub Pages (Demo)</div>
+            <div class="ts-dep-pill">&#129302; n8n Telegram Bot</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+#slide-36 { background: #F8F9FA; }
+
+.ts-group { display:flex;flex-direction:column;gap:3px; }
+.ts-group-hdr {
+  display:flex;align-items:center;gap:5px;
+  font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  font-family:'Inter',sans-serif;padding:4px 8px;border-radius:6px;border:1px solid;
+  margin-bottom:2px;
+}
+.ts-row {
+  display:flex;align-items:baseline;gap:6px;
+  padding:3px 8px;border-radius:5px;
+  font-family:'Inter',sans-serif;
+}
+.ts-row:hover { background:rgba(13,31,60,0.03); }
+.ts-tech {
+  font-size:10.5px;font-weight:700;color:#0D1F3C;white-space:nowrap;flex-shrink:0;min-width:120px;
+}
+.ts-desc {
+  font-size:10px;color:rgba(13,31,60,0.48);line-height:1.4;
+}
+
+.ts-arch-box {
+  border:1px solid;border-radius:8px;padding:6px 10px;
+  display:flex;flex-direction:column;gap:1px;font-family:'Inter',sans-serif;
+}
+.ts-arch-sm { padding:5px 8px; }
+.ts-arch-sub { font-size:9px;color:rgba(255,255,255,0.35); }
+.ts-arch-arrow {
+  font-size:10px;color:rgba(255,255,255,0.2);text-align:center;
+  font-family:'Inter',sans-serif;font-weight:600;letter-spacing:0.04em;
+  padding:1px 0;
+}
+
+.ts-decision {
+  display:flex;gap:10px;align-items:flex-start;
+  padding:7px 10px;background:#fff;border-radius:8px;
+  border:1px solid rgba(13,31,60,0.07);
+  box-shadow:0 1px 4px rgba(13,31,60,0.04);
+}
+.ts-dec-num {
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  background:rgba(201,153,42,0.1);border:1.5px solid rgba(201,153,42,0.4);
+  color:#C9992A;font-size:10px;font-weight:800;font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+.ts-dec-title { font-size:11px;font-weight:800;color:#0D1F3C;font-family:'Inter',sans-serif;margin-bottom:1px; }
+.ts-dec-body  { font-size:10px;color:rgba(13,31,60,0.5);font-family:'Inter',sans-serif;line-height:1.4; }
+
+.ts-dep-pill {
+  font-size:10px;font-weight:600;color:rgba(13,31,60,0.55);
+  background:#fff;border:1px solid rgba(13,31,60,0.1);
+  border-radius:20px;padding:4px 10px;font-family:'Inter',sans-serif;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var _t36=[];
+  function at(fn,ms){ _t36.push(setTimeout(fn,ms)); }
+  function ca36(){ _t36.forEach(clearTimeout); _t36=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function hide36(){
+    var els={
+      'ts-hdr':  { opacity:'0', transform:'translateY(-12px)' },
+      'ts-uline':{ width:'0' },
+      'ts-col1': { opacity:'0', transform:'translateX(-18px)' },
+      'ts-col2': { opacity:'0' },
+      'ts-col3': { opacity:'0', transform:'translateX(18px)' }
+    };
+    Object.keys(els).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(els[id]).forEach(function(p){ el.style[p]=els[id][p]; });
+    });
+  }
+
+  function anim(id,delay,props,trans){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition=trans||'opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    },delay);
+  }
+
+  window._slide36={
+    enter: function(){
+      ca36(); hide36();
+      anim('ts-hdr',  80,  { opacity:'1', transform:'translateY(0)' });
+      at(function(){
+        var el=q('ts-uline'); if(!el) return;
+        el.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';
+        el.style.width='48px';
+      }, 360);
+      anim('ts-col1', 200, { opacity:'1', transform:'translateX(0)' });
+      anim('ts-col2', 320, { opacity:'1' }, 'opacity 0.6s ease');
+      anim('ts-col3', 440, { opacity:'1', transform:'translateX(0)' });
+    },
+    leave: function(){ ca36(); hide36(); }
+  };
+})();
+</script>

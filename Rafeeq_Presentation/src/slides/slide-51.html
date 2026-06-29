@@ -1,0 +1,109 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 35 — HEALTH: CALIBRATION & CLOUD
+     hm_calibration.jpeg + hm_firebase.jpeg
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-51" data-slide="51"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 48px 30px;box-sizing:border-box;gap:18px;">
+
+    <!-- Header -->
+    <div id="hm5-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;margin-bottom:5px;">Health Monitoring · Validation</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Live Data — Firebase Realtime Database</div>
+      <div id="hm5-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body: Firebase only -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- Firebase image — full width -->
+      <div id="hm5-left" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateY(20px);transition:none;">
+
+        <div style="flex:1;min-height:0;border-radius:16px;overflow:hidden;position:relative;border:1px solid rgba(13,31,60,0.1);">
+          <img src="hm_firebase.jpeg" alt="Firebase Realtime Database"
+               style="width:100%;height:100%;object-fit:cover;object-position:top;">
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,31,60,0.85) 0%,transparent 50%);"></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;">
+            <div style="font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#f97316;margin-bottom:8px;">Firebase Realtime DB — Live Snapshot</div>
+            <div style="font-family:monospace;font-size:12px;color:rgba(255,255,255,0.8);line-height:2;background:rgba(0,0,0,0.45);border-radius:10px;padding:12px 16px;display:inline-block;">
+              fingerPlaced: <span style="color:#22c55e;">true</span><br>
+              heartRate: <span style="color:#C94040;">85</span><br>
+              sp02: <span style="color:#3B7DE8;">99</span><br>
+              temperature: <span style="color:#C9992A;">36.69</span><br>
+              patientPresent: <span style="color:#22c55e;">true</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Firebase bullets -->
+        <div style="display:flex;gap:12px;">
+          <div class="hm5-bul" style="border-color:rgba(249,115,22,0.25);flex:1;">
+            <div class="hm5-bul-dot" style="background:#f97316;"></div>
+            <div>Data path: /sensor_data/SmartWheel_01/&lt;timestamp&gt; — every reading timestamped via NTP</div>
+          </div>
+          <div class="hm5-bul" style="border-color:rgba(201,153,42,0.25);flex:1;">
+            <div class="hm5-bul-dot" style="background:#C9992A;"></div>
+            <div>Token-authenticated upload — only the registered ESP32 device can write to this path</div>
+          </div>
+          <div class="hm5-bul" style="border-color:rgba(34,197,94,0.25);flex:1;">
+            <div class="hm5-bul-dot" style="background:#22c55e;"></div>
+            <div>Real-time sync — app subscribes to this path and updates within milliseconds of upload</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hm5-bul {
+  display:flex;gap:10px;align-items:flex-start;
+  background:#fff;border:1px solid;
+  border-radius:10px;padding:10px 13px;
+  font-size:11px;color:rgba(13,31,60,0.65);line-height:1.55;
+}
+.hm5-bul-dot { flex:0 0 7px;height:7px;border-radius:50%;margin-top:4px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.65s ease,transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+  function enter(){
+    show('hm5-hdr',80);
+    at(function(){
+      var ul=q('hm5-uline'); if(!ul)return;
+      ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='52px';
+    },340);
+    show('hm5-left',220);
+  }
+  function leave(){
+    clearAll();
+    ['hm5-hdr','hm5-left'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+    var ul=q('hm5-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+  window._slide51={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

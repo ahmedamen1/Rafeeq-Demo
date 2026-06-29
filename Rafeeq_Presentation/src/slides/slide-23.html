@@ -1,0 +1,127 @@
+<!-- SLIDE 22 — SPEECH SUBSYSTEM SECTION TRANSITION -->
+<div class="slide" id="slide-23" data-slide="23"
+     style="background:#0D1F3C;overflow:hidden;">
+
+  <!-- Dot-grid -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:36px 36px;"></div>
+
+  <!-- Ambient glow -->
+  <div style="position:absolute;top:-60px;right:-60px;width:500px;height:500px;
+    border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,rgba(201,153,42,0.08) 0%,transparent 70%);"></div>
+
+  <!-- Ghost chip number -->
+  <div style="position:absolute;bottom:-30px;left:-20px;z-index:1;
+    font-size:280px;font-weight:900;color:rgba(255,255,255,0.025);
+    letter-spacing:-0.06em;line-height:1;font-family:'Inter',sans-serif;
+    user-select:none;pointer-events:none;">06</div>
+
+  <!-- Content -->
+  <div style="position:absolute;inset:0;z-index:5;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 80px;box-sizing:border-box;">
+
+    <!-- Eyebrow -->
+    <div id="ssp-eyebrow" style="
+      font-size:10px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;
+      color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:20px;
+      opacity:0;transform:translateY(12px);transition:none;">
+      Methodology &amp; Implementation
+    </div>
+
+    <!-- Headline -->
+    <div id="ssp-title" style="
+      font-size:clamp(48px,7vw,80px);font-weight:900;line-height:1.05;
+      font-family:'Inter',sans-serif;margin-bottom:20px;
+      opacity:0;transform:translateY(20px);transition:none;">
+      <span style="color:#fff;">Speech</span><br>
+      <span style="color:#C9992A;">Subsystem</span>
+    </div>
+
+    <!-- Gold bar -->
+    <div id="ssp-bar" style="height:3px;width:0;background:#C9992A;
+         border-radius:2px;margin-bottom:28px;transition:none;"></div>
+
+    <!-- Subtitle -->
+    <div id="ssp-sub" style="
+      font-size:16px;color:rgba(255,255,255,0.45);font-family:'Inter',sans-serif;
+      font-weight:400;max-width:520px;line-height:1.7;margin-bottom:40px;
+      opacity:0;transition:none;">
+      How Rafeeq hears, understands, and responds &mdash;<br>
+      Arabic voice commands, classification, and text-to-speech.
+    </div>
+
+    <!-- Pills -->
+    <div id="ssp-pills" style="display:flex;gap:10px;flex-wrap:wrap;
+         opacity:0;transform:translateY(12px);transition:none;">
+      <div class="ssp-pill">Arabic ASR</div>
+      <div class="ssp-pill">CNN Classifier</div>
+      <div class="ssp-pill">Whisper STT</div>
+      <div class="ssp-pill">ElevenLabs TTS</div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+#slide-23 { background: #0D1F3C; }
+.ssp-pill {
+  padding:8px 18px;border-radius:100px;
+  border:1px solid rgba(201,153,42,0.35);
+  background:rgba(201,153,42,0.07);
+  font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);
+  font-family:'Inter',sans-serif;letter-spacing:0.04em;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var _t23=[];
+  function at(fn,ms){ _t23.push(setTimeout(fn,ms)); }
+  function ca23(){ _t23.forEach(clearTimeout); _t23=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function hide23(){
+    var els={
+      'ssp-eyebrow': { opacity:'0', transform:'translateY(12px)' },
+      'ssp-title':   { opacity:'0', transform:'translateY(20px)' },
+      'ssp-bar':     { width:'0' },
+      'ssp-sub':     { opacity:'0' },
+      'ssp-pills':   { opacity:'0', transform:'translateY(12px)' }
+    };
+    Object.keys(els).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(els[id]).forEach(function(p){ el.style[p]=els[id][p]; });
+    });
+  }
+
+  function anim(id,delay,props,trans){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition=trans||'opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    },delay);
+  }
+
+  window._slide23={
+    enter: function(){
+      ca23(); hide23();
+      anim('ssp-eyebrow', 80,  { opacity:'1', transform:'translateY(0)' });
+      anim('ssp-title',   180, { opacity:'1', transform:'translateY(0)' });
+      at(function(){
+        var el=q('ssp-bar'); if(!el) return;
+        el.style.transition='width 0.55s cubic-bezier(0.16,1,0.3,1)';
+        el.style.width='64px';
+      }, 440);
+      anim('ssp-sub',   500, { opacity:'1' }, 'opacity 0.6s ease');
+      anim('ssp-pills', 650, { opacity:'1', transform:'translateY(0)' });
+    },
+    leave: function(){ ca23(); hide23(); }
+  };
+})();
+</script>

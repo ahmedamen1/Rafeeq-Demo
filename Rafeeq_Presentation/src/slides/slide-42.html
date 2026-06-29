@@ -1,0 +1,410 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 38 — APP: SOS EMERGENCY SYSTEM
+     Two phones: patient SOS button cycles standby→countdown→sent,
+     caregiver phone shows red overlay alert in sync
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-42" data-slide="42"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#E74C3C,#F39C12,#27AE60);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+              padding:40px 56px;box-sizing:border-box;gap:40px;">
+
+    <!-- LEFT: info -->
+    <div id="a38-left" style="flex:0 0 360px;display:flex;flex-direction:column;gap:24px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#E74C3C;margin-bottom:12px;">Mobile App Walkthrough · 07</div>
+        <div style="font-size:38px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">One Button<br>Saves a Life</div>
+        <div id="a38-uline" style="height:3px;background:#E74C3C;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:15px;color:rgba(13,31,60,0.6);line-height:1.85;">
+        One long press on the SOS button — every linked caregiver instantly gets a phone call, a WhatsApp message, and an in-app alert. No internet drama, no searching for a phone. Just help, immediately.
+      </div>
+
+      <div id="a38-flow" style="display:flex;flex-direction:column;gap:0;">
+        <div class="a38-fstep"><div class="a38-fnum" style="background:#E74C3C;">1</div><div class="a38-ftxt"><strong>Automatic Phone Call</strong><span>Twilio voice call to all caregivers</span></div></div>
+        <div class="a38-farrow">↓</div>
+        <div class="a38-fstep"><div class="a38-fnum" style="background:#27AE60;">2</div><div class="a38-ftxt"><strong>Instant WhatsApp Message</strong><span>Sent to all linked caregivers</span></div></div>
+        <div class="a38-farrow">↓</div>
+        <div class="a38-fstep"><div class="a38-fnum" style="background:#3498DB;">3</div><div class="a38-ftxt"><strong>In-App Alert</strong><span>FCM push + red overlay dialog</span></div></div>
+        <div class="a38-farrow">↓</div>
+        <div class="a38-fstep"><div class="a38-fnum" style="background:#1B4F72;">4</div><div class="a38-ftxt"><strong>Logged to Database</strong><span>Timestamp &amp; location recorded</span></div></div>
+      </div>
+
+      <div id="a38-sensors" style="opacity:0;transform:translateY(10px);transition:none;
+           border-right:3px solid #E74C3C;background:rgba(231,76,60,0.06);
+           border-radius:8px;padding:14px 18px;font-size:12.5px;color:#0D1F3C;line-height:1.9;">
+        <strong style="display:block;margin-bottom:4px;">Auto-Sensor Monitoring (every 2 min)</strong>
+        SpO₂ &lt; 90% → <span style="color:#E74C3C;font-weight:800;">Critical</span> &nbsp;·&nbsp;
+        HR &gt; 105 / &lt; 55 → <span style="color:#E74C3C;font-weight:800;">Critical</span> &nbsp;·&nbsp;
+        Temp &gt; 38.5°C → <span style="color:#F39C12;font-weight:800;">Warning</span><br>
+        <span style="color:rgba(13,31,60,0.45);">Debounce: 10 minutes per alert type</span>
+      </div>
+    </div>
+
+    <!-- CENTER: Patient phone -->
+    <div id="a38-p1" style="flex:0 0 250px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a38-plabel" style="color:#E74C3C;">Patient</div>
+      <div class="a38-phone">
+        <div class="a38-notch"></div>
+        <div class="a38-screen">
+          <div class="a38-appbar">SOS Emergency</div>
+
+          <!-- STANDBY / COUNTDOWN view -->
+          <div id="a38-standby" class="a38-standby">
+            <div class="a38-instr">Hold the button to send an emergency alert</div>
+            <div id="a38-sosbtn" class="a38-sosbtn">
+              <div id="a38-sosring" class="a38-sosring"></div>
+              <div id="a38-sosinner" class="a38-sosinner">
+                <span id="a38-sosicon">🚨</span>
+                <span id="a38-soslabel">SOS</span>
+              </div>
+            </div>
+            <div class="a38-cglist">
+              <div class="a38-cgtitle">Linked caregivers:</div>
+              <div class="a38-cgrow"><span>👤</span><div><div class="a38-cgname">Sara (Daughter)</div><div class="a38-cgsub">Will receive a call</div></div></div>
+            </div>
+          </div>
+
+          <!-- SENT view -->
+          <div id="a38-sent" class="a38-sent">
+            <div class="a38-sentcircle">✓</div>
+            <div class="a38-senttitle">SOS Alert Sent!</div>
+            <div class="a38-sentbody">Help is on the way</div>
+            <div class="a38-sentbadge">🔔 Caregivers notified</div>
+            <div class="a38-sentclose">Dismiss alert (received)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WAVE arrows -->
+    <div id="a38-waves" style="flex:0 0 60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;transition:none;">
+      <div class="a38-wavearrow" data-i="0">📞</div>
+      <div class="a38-wavearrow" data-i="1">💬</div>
+      <div class="a38-wavearrow" data-i="2">🔔</div>
+    </div>
+
+    <!-- Caregiver phone -->
+    <div id="a38-p2" style="flex:0 0 250px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a38-plabel" style="color:#27AE60;">Caregiver</div>
+      <div class="a38-phone">
+        <div class="a38-notch"></div>
+        <div class="a38-screen a38-screen-cg">
+          <div id="a38-cgnormal" class="a38-cgnormal">
+            <div class="a38-cgnormal-title">Rafeeq</div>
+            <div class="a38-cgnormal-sub">Everything is fine ✓</div>
+          </div>
+          <div id="a38-cgoverlay" class="a38-cgoverlay">
+            <div class="a38-cgdialog">
+              <div class="a38-cgicon">🚨</div>
+              <div class="a38-cgalert">Emergency SOS!</div>
+              <div class="a38-cgmsg">Ahmed needs immediate help</div>
+              <div class="a38-cgbtn">Dismiss (received)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REAL PROOF: actual WhatsApp messages received -->
+    <div id="a38-proof" style="flex:0 0 230px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateX(24px);transition:none;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#27AE60;font-family:'Inter',sans-serif;text-align:center;">
+        Real WhatsApp Proof
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="a38-proof-shot">
+          <img src="sos1 (1).jpeg" alt="WhatsApp SOS alert proof 1">
+        </div>
+        <div class="a38-proof-shot">
+          <img src="sos2.jpeg" alt="WhatsApp SOS alert proof 2 — multiple alerts to multiple caregivers">
+        </div>
+      </div>
+      <div style="font-size:11px;color:rgba(13,31,60,0.5);line-height:1.5;font-family:'Inter',sans-serif;text-align:center;">
+        One press &rarr; real alerts delivered to <strong style="color:#0D1F3C;">multiple caregivers</strong> on WhatsApp, automatically
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-42 { background: #F8F9FA; }
+
+.a38-fstep { display:flex;align-items:flex-start;gap:12px;background:#fff;border-radius:12px;padding:9px 14px;box-shadow:0 2px 10px rgba(13,31,60,0.06); }
+.a38-fnum { width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900;font-family:'Inter',sans-serif; }
+.a38-ftxt { font-size:12px;color:rgba(13,31,60,0.65);line-height:1.4;padding-top:1px;font-family:'Inter',sans-serif; }
+.a38-ftxt strong { display:block;color:#0D1F3C;font-size:13px;margin-bottom:1px;font-family:'Cairo',sans-serif; }
+.a38-ftxt span { font-size:10.5px;color:rgba(13,31,60,0.4); }
+.a38-farrow { text-align:center;color:rgba(13,31,60,0.2);font-size:12px;padding:2px 0; }
+
+.a38-plabel { font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;font-family:'Inter',sans-serif; }
+
+.a38-phone {
+  width:230px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(231,76,60,.15);
+  position:relative;
+}
+.a38-notch {
+  width:80px;height:20px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a38-screen {
+  border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#1A0A0A;
+  position:relative;padding:42px 14px 14px;box-sizing:border-box;
+  display:flex;flex-direction:column;align-items:center;
+}
+.a38-appbar { color:#fff;font-weight:800;font-size:13px;font-family:'Cairo',sans-serif;margin-bottom:18px; }
+.a38-instr { color:rgba(255,255,255,0.7);font-size:10.5px;text-align:center;line-height:1.5;font-family:'Cairo',sans-serif;margin-bottom:24px;padding:0 8px; }
+
+/* SOS BUTTON */
+.a38-sosbtn { position:relative;width:140px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:24px; }
+.a38-sosring {
+  position:absolute;inset:0;border-radius:50%;
+  border:6px solid rgba(255,255,255,0.12);
+  border-top-color:#F39C12;
+  opacity:0;transform:rotate(-90deg);
+  transition:none;
+}
+.a38-sosinner {
+  width:128px;height:128px;border-radius:50%;
+  background:#E74C3C;box-shadow:0 0 30px rgba(231,76,60,0.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  animation:a38pulse 0.9s ease-in-out infinite;
+  transition:background 0.3s ease, box-shadow 0.3s ease, animation 0.3s ease;
+}
+.a38-sosinner.countdown { animation:none;background:#F39C12;box-shadow:0 0 30px rgba(243,156,18,0.6); }
+.a38-sosinner.hidden { opacity:0;transform:scale(0.7); transition: opacity 0.3s ease, transform 0.3s ease; }
+@keyframes a38pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+#a38-sosicon { font-size:32px; }
+#a38-soslabel { font-size:14px;font-weight:800;color:#fff;letter-spacing:2px;font-family:'Cairo',sans-serif; }
+
+.a38-cglist { width:100%;margin-top:auto; }
+.a38-cgtitle { font-size:11px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Cairo',sans-serif; }
+.a38-cgrow { display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border-radius:12px;padding:10px 12px; }
+.a38-cgname { font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);font-family:'Cairo',sans-serif; }
+.a38-cgsub { font-size:10px;color:rgba(255,255,255,0.38);font-family:'Cairo',sans-serif; }
+
+/* SENT VIEW */
+.a38-standby, .a38-sent { width:100%;height:100%;display:flex;flex-direction:column;align-items:center;transition:opacity 0.3s ease;position:absolute;top:0;left:0;padding:42px 14px 14px;box-sizing:border-box; }
+.a38-standby { position:relative;opacity:1; }
+.a38-sent { opacity:0;pointer-events:none;justify-content:center; }
+.a38-sent.active { opacity:1; }
+.a38-standby.hidden { opacity:0; }
+
+.a38-sentcircle {
+  width:70px;height:70px;border-radius:50%;background:rgba(39,174,96,0.15);
+  display:flex;align-items:center;justify-content:center;font-size:36px;color:#27AE60;
+  margin-bottom:16px;transform:scale(0.6);opacity:0;transition:none;
+}
+.a38-sentcircle.show { opacity:1;transform:scale(1);transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease; }
+.a38-senttitle { font-size:16px;font-weight:800;color:#fff;text-align:center;margin-bottom:10px;font-family:'Cairo',sans-serif;opacity:0;transform:translateY(10px);transition:none; }
+.a38-senttitle.show { opacity:1;transform:translateY(0);transition:opacity 0.4s ease, transform 0.4s ease; }
+.a38-sentbody { font-size:11px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:14px;font-family:'Cairo',sans-serif;opacity:0;transition:none; }
+.a38-sentbody.show { opacity:1;transition:opacity 0.3s ease; }
+.a38-sentbadge { font-size:10.5px;color:rgba(255,255,255,0.7);background:rgba(231,76,60,0.15);border-radius:100px;padding:6px 14px;margin-bottom:18px;font-family:'Cairo',sans-serif;opacity:0;transform:translateY(8px);transition:none; }
+.a38-sentbadge.show { opacity:1;transform:translateY(0);transition:opacity 0.3s ease, transform 0.3s ease; }
+.a38-sentclose { width:100%;background:#fff;color:#0D1F3C;font-size:11px;font-weight:700;text-align:center;border-radius:12px;padding:12px;font-family:'Cairo',sans-serif;opacity:0;transform:translateY(8px);transition:none; }
+.a38-sentclose.show { opacity:1;transform:translateY(0);transition:opacity 0.3s ease, transform 0.3s ease; }
+
+/* WAVE icons */
+.a38-wavearrow { font-size:22px;opacity:0.15;transition:opacity 0.3s ease, transform 0.3s ease;transform:scale(0.8); }
+.a38-wavearrow.active { opacity:1;transform:scale(1.25); }
+
+/* CAREGIVER PHONE */
+.a38-screen-cg { background:#F8F9FA;padding:0; }
+.a38-cgnormal { width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:opacity 0.3s ease; }
+.a38-cgnormal.hidden { opacity:0; }
+.a38-cgnormal-title { font-size:18px;font-weight:900;color:#1B4F72;font-family:'Cairo',sans-serif; }
+.a38-cgnormal-sub { font-size:12px;color:rgba(13,31,60,0.4);font-family:'Cairo',sans-serif; }
+
+.a38-cgoverlay {
+  position:absolute;inset:0;background:rgba(231,76,60,0);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.3s ease;pointer-events:none;
+}
+.a38-cgoverlay.active { background:rgba(231,76,60,0.85); }
+.a38-cgdialog {
+  width:84%;background:#fff;border-radius:20px;padding:20px 16px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  box-shadow:0 20px 50px rgba(231,76,60,0.5);
+  opacity:0;transform:scale(0.7);transition:none;
+}
+.a38-cgdialog.show { opacity:1;transform:scale(1);transition:opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+.a38-cgicon {
+  width:56px;height:56px;border-radius:50%;background:rgba(231,76,60,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:10px;
+}
+.a38-cgalert { font-size:16px;font-weight:900;color:#E74C3C;margin-bottom:8px;font-family:'Cairo',sans-serif; }
+.a38-cgmsg { font-size:11px;color:#0D1F3C;line-height:1.6;margin-bottom:14px;font-family:'Cairo',sans-serif; }
+.a38-cgbtn { width:100%;background:#E74C3C;color:#fff;font-size:11px;font-weight:700;text-align:center;border-radius:10px;padding:10px;font-family:'Cairo',sans-serif; }
+
+.a38-proof-shot {
+  flex:1;border-radius:14px;overflow:hidden;
+  border:1px solid rgba(13,31,60,0.1);
+  box-shadow:0 8px 24px rgba(13,31,60,0.12);
+  aspect-ratio:9/19;background:#000;
+}
+.a38-proof-shot img { width:100%;height:100%;object-fit:cover;object-position:top;display:block; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t42 = [];
+  function at(fn, ms) { _t42.push(setTimeout(fn, ms)); }
+  function ca42() { _t42.forEach(clearTimeout); _t42 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var cycleTimers = [];
+  function clearCycle() { cycleTimers.forEach(clearTimeout); cycleTimers = []; }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function setRing(progress) {
+    var ring = q('a38-sosring');
+    if (!ring) return;
+    // conic-gradient style progress using border trick: use transform rotate + clip via simple opacity ramp
+    ring.style.background = 'conic-gradient(#F39C12 ' + (progress * 360) + 'deg, rgba(255,255,255,0.12) 0deg)';
+    ring.style.borderRadius = '50%';
+    ring.style.border = 'none';
+    ring.style.webkitMask = 'radial-gradient(farthest-side, transparent calc(100% - 6px), #fff calc(100% - 6px))';
+    ring.style.mask = 'radial-gradient(farthest-side, transparent calc(100% - 6px), #fff calc(100% - 6px))';
+  }
+
+  function resetPhoneState() {
+    var standby = q('a38-standby'), sent = q('a38-sent');
+    var inner = q('a38-sosinner'), ring = q('a38-sosring'), icon = q('a38-sosicon'), label = q('a38-soslabel');
+
+    standby.classList.remove('hidden');
+    sent.classList.remove('active');
+    inner.classList.remove('countdown', 'hidden');
+    ring.style.opacity = '0';
+    icon.textContent = '🚨';
+    label.textContent = 'SOS';
+
+    ['a38-sentcircle', 'a38-senttitle', 'a38-sentbody', 'a38-sentbadge', 'a38-sentclose'].forEach(function (cls) {
+      var el = document.querySelector('#slide-42 .' + cls);
+      if (el) el.classList.remove('show');
+    });
+
+    q('a38-cgnormal').classList.remove('hidden');
+    q('a38-cgoverlay').classList.remove('active');
+    document.querySelector('#slide-42 .a38-cgdialog').classList.remove('show');
+
+    document.querySelectorAll('#slide-42 .a38-wavearrow').forEach(function (el) { el.classList.remove('active'); });
+  }
+
+  function runCycle() {
+    clearCycle();
+    resetPhoneState();
+
+    var inner = q('a38-sosinner'), ring = q('a38-sosring'), icon = q('a38-sosicon'), label = q('a38-soslabel');
+
+    // Phase A (0s): standby idle pulsing — hold for 1.4s
+    // Phase B (1.4s): start countdown
+    cycleTimers.push(setTimeout(function () {
+      inner.classList.add('countdown');
+      icon.textContent = '3';
+      ring.style.opacity = '1';
+      setRing(0);
+      // animate ring 0 -> 1 over 2.4s, with number ticking 3,2,1
+      var start = Date.now();
+      var dur = 2400;
+      function tick() {
+        var p = Math.min(1, (Date.now() - start) / dur);
+        setRing(p);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      cycleTimers.push(setTimeout(function () { icon.textContent = '2'; }, 800));
+      cycleTimers.push(setTimeout(function () { icon.textContent = '1'; }, 1600));
+    }, 1400));
+
+    // Phase C (1.4+2.4=3.8s): sent
+    cycleTimers.push(setTimeout(function () {
+      inner.classList.add('hidden');
+      q('a38-standby').classList.add('hidden');
+      q('a38-sent').classList.add('active');
+
+      document.querySelector('#slide-42 .a38-sentcircle').classList.add('show');
+      cycleTimers.push(setTimeout(function () { document.querySelector('#slide-42 .a38-senttitle').classList.add('show'); }, 200));
+      cycleTimers.push(setTimeout(function () { document.querySelector('#slide-42 .a38-sentbody').classList.add('show'); }, 500));
+      cycleTimers.push(setTimeout(function () { document.querySelector('#slide-42 .a38-sentbadge').classList.add('show'); }, 700));
+      cycleTimers.push(setTimeout(function () { document.querySelector('#slide-42 .a38-sentclose').classList.add('show'); }, 900));
+
+      // wave icons travel
+      document.querySelectorAll('#slide-42 .a38-wavearrow').forEach(function (el, i) {
+        cycleTimers.push(setTimeout(function () { el.classList.add('active'); }, 200 + i * 250));
+      });
+
+      // caregiver overlay
+      cycleTimers.push(setTimeout(function () {
+        q('a38-cgnormal').classList.add('hidden');
+        q('a38-cgoverlay').classList.add('active');
+        cycleTimers.push(setTimeout(function () {
+          document.querySelector('#slide-42 .a38-cgdialog').classList.add('show');
+        }, 150));
+      }, 900));
+    }, 3800));
+
+    // Phase D (3.8+4=7.8s): reset and repeat
+    cycleTimers.push(setTimeout(function () {
+      runCycle();
+    }, 7800));
+  }
+
+  function hide42() {
+    ['a38-left'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateX(-24px)';
+    });
+
+    ['a38-p1', 'a38-p2'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(60px) scale(0.9)';
+    });
+
+    var w = q('a38-waves'); if (w) { w.style.transition = 'none'; w.style.opacity = '0'; }
+
+    var pf = q('a38-proof'); if (pf) { pf.style.transition = 'none'; pf.style.opacity = '0'; pf.style.transform = 'translateX(24px)'; }
+
+    var sn = q('a38-sensors'); if (sn) { sn.style.transition = 'none'; sn.style.opacity = '0'; sn.style.transform = 'translateY(10px)'; }
+
+    var ul = q('a38-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    clearCycle();
+    resetPhoneState();
+  }
+
+  window._slide42 = {
+    enter: function () {
+      ca42(); hide42();
+
+      show('a38-left', 80);
+      at(function () {
+        var ul = q('a38-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a38-sensors', 700, 'translateY(0)');
+
+      show('a38-p1', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+      show('a38-p2', 400, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+      show('a38-waves', 600, null, 'opacity 0.5s ease');
+      show('a38-proof', 550, 'translateX(0)');
+
+      at(function () { runCycle(); }, 1000);
+    },
+    leave: function () { ca42(); hide42(); }
+  };
+})();
+</script>

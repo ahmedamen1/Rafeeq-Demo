@@ -1,0 +1,221 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 41 — APP: REPORTS, PDF & ANALYTICS
+     Phone shows real reports screen; right side is animated PDF mockup
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-45" data-slide="45"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B4F72,#27AE60,#F39C12);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:60px 64px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT: info -->
+    <div id="a41-left" style="flex:1;display:flex;flex-direction:column;gap:26px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:12px;">Mobile App Walkthrough · 10</div>
+        <div style="font-size:42px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">Medical Reports<br>Ready to Print</div>
+        <div id="a41-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:16px;color:rgba(13,31,60,0.6);line-height:1.85;max-width:480px;">
+        Rafeeq turns daily data into a real, shareable medical document — printable, doctor-ready, and generated entirely by AI. One sentence to Rafeeq and the PDF is in your hands.
+      </div>
+
+      <div id="a41-feats" style="display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateY(14px);transition:none;">
+        <div style="font-size:13px;font-weight:800;color:#0D1F3C;margin-bottom:-4px;">What's inside the report</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>Patient personal data</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>Medication list</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>Alarm compliance history</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>Mood indicators</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>Upcoming appointments</div>
+        <div class="a41-feat"><div class="a41-check">✓</div>AI-generated Arabic medical summary</div>
+      </div>
+
+      <div id="a41-ask" style="opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a41-badge">💬 "Give me my medical report PDF" — one sentence is all it takes</span>
+      </div>
+    </div>
+
+    <!-- CENTER: phone with real reports screenshot -->
+    <div id="a41-center" style="flex:0 0 280px;display:flex;justify-content:center;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a41-phone">
+        <div class="a41-notch"></div>
+        <div class="a41-screen"><img src="App Slides/reports_screen.png" alt="Reports screen"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: animated PDF mockup -->
+    <div id="a41-right" style="flex:0 0 280px;display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateX(24px);transition:none;">
+      <div class="a41-pdf">
+        <div class="a41-pdf-head">
+          <span style="font-size:20px;">🏥</span>
+          <div>
+            <div class="a41-pdf-title">RAFEEQ</div>
+            <div class="a41-pdf-sub">Medical Report</div>
+          </div>
+        </div>
+
+        <div class="a41-pdf-row"><span>👤</span> Ahmed Mohamed</div>
+        <div class="a41-pdf-row"><span>🩸</span> A+</div>
+        <div class="a41-pdf-row"><span>💊</span> 2 Medications</div>
+        <div class="a41-pdf-row"><span>📅</span> 2 Appointments</div>
+
+        <div class="a41-pdf-compliance">
+          <div class="a41-pdf-clabel">Weekly Compliance</div>
+          <div class="a41-pdf-cpct"><span id="a41-pdfnum">0</span>%</div>
+          <div class="a41-pdf-cbar-wrap"><div id="a41-pdf-cbar" class="a41-pdf-cbar"></div></div>
+        </div>
+
+        <div class="a41-pdf-ai">
+          <div class="a41-pdf-ailabel">🤖 AI Summary</div>
+          <div class="a41-pdf-aitext">Excellent performance this week, keep it up! 🎉</div>
+        </div>
+      </div>
+
+      <div id="a41-dlcard" class="a41-dlcard">
+        <span style="font-size:18px;">📄</span> Download Medical Report PDF
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-45 { background: #F8F9FA; }
+
+.a41-feat { display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(13,31,60,0.6);line-height:1.5; }
+.a41-check {
+  width:21px;height:21px;border-radius:50%;flex-shrink:0;
+  background:rgba(39,174,96,0.15);color:#27AE60;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;
+}
+
+.a41-badge {
+  display:inline-block;font-size:13px;font-weight:700;padding:10px 18px;border-radius:100px;
+  background:rgba(27,79,114,0.08);color:#1B4F72;border:1px solid rgba(27,79,114,0.2);
+  font-family:'Inter',sans-serif;
+}
+
+.a41-phone {
+  width:264px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(27,79,114,.15);
+  position:relative;
+}
+.a41-notch {
+  width:84px;height:22px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a41-screen { border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA; }
+.a41-screen img { width:100%;height:100%;object-fit:cover;display:block; }
+
+.a41-pdf {
+  width:230px;background:#fff;border-radius:14px;padding:18px;
+  box-shadow:0 10px 40px rgba(13,31,60,0.12);
+  display:flex;flex-direction:column;gap:9px;
+  font-family:'Inter',sans-serif;
+}
+.a41-pdf-head { display:flex;align-items:center;gap:10px;border-bottom:2px solid #1B4F72;padding-bottom:10px;margin-bottom:4px; }
+.a41-pdf-title { font-size:14px;font-weight:900;color:#1B4F72;letter-spacing:0.06em; }
+.a41-pdf-sub { font-size:11px;color:rgba(13,31,60,0.5);font-family:'Cairo',sans-serif; }
+
+.a41-pdf-row { display:flex;align-items:center;gap:8px;font-size:12.5px;color:#0D1F3C;font-family:'Cairo',sans-serif;font-weight:600; }
+
+.a41-pdf-compliance { margin-top:6px;padding-top:12px;border-top:1px solid rgba(13,31,60,0.08); }
+.a41-pdf-clabel { font-size:11px;color:rgba(13,31,60,0.5);font-family:'Cairo',sans-serif;margin-bottom:4px; }
+.a41-pdf-cpct { font-size:24px;font-weight:900;color:#27AE60;margin-bottom:6px; }
+.a41-pdf-cbar-wrap { width:100%;height:8px;background:rgba(13,31,60,0.06);border-radius:4px;overflow:hidden; }
+.a41-pdf-cbar { height:100%;border-radius:4px;width:0%;background:linear-gradient(90deg,#27AE60,#229954);transition:width 0.9s cubic-bezier(0.16,1,0.3,1); }
+
+.a41-pdf-ai { margin-top:6px;padding-top:12px;border-top:1px solid rgba(13,31,60,0.08); }
+.a41-pdf-ailabel { font-size:11px;font-weight:800;color:#0D1F3C;margin-bottom:4px; }
+.a41-pdf-aitext { font-size:11.5px;color:rgba(13,31,60,0.55);font-family:'Cairo',sans-serif;line-height:1.5; }
+
+.a41-dlcard {
+  margin-top:16px;width:230px;background:#1B4F72;color:#fff;border-radius:12px;padding:13px 16px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:13px;font-weight:700;font-family:'Cairo',sans-serif;
+  box-shadow:0 8px 24px rgba(27,79,114,0.3);
+  opacity:0;transform:translateY(16px);transition:none;
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t45 = [];
+  function at(fn, ms) { _t45.push(setTimeout(fn, ms)); }
+  function ca45() { _t45.forEach(clearTimeout); _t45 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function countUp(id, target, delay) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      var steps = 18, cur = 0, step = target / steps;
+      var iv = setInterval(function () {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(iv); }
+        el.textContent = Math.round(cur);
+      }, 35);
+    }, delay);
+  }
+
+  function hide45() {
+    ['a41-left', 'a41-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a41-left').style.transform = 'translateX(-24px)';
+    q('a41-right').style.transform = 'translateX(24px)';
+
+    var c = q('a41-center'); if (c) { c.style.transition = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(60px) scale(0.9)'; }
+
+    ['a41-feats', 'a41-ask'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
+    });
+
+    var ul = q('a41-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    var bar = q('a41-pdf-cbar'); if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
+    var num = q('a41-pdfnum'); if (num) num.textContent = '0';
+
+    var dl = q('a41-dlcard'); if (dl) { dl.style.transition = 'none'; dl.style.opacity = '0'; dl.style.transform = 'translateY(16px)'; }
+  }
+
+  window._slide45 = {
+    enter: function () {
+      ca45(); hide45();
+
+      show('a41-left', 80);
+      at(function () {
+        var ul = q('a41-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a41-center', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+
+      show('a41-feats', 400, 'translateY(0)');
+      show('a41-ask', 850, 'translateY(0)');
+
+      show('a41-right', 500);
+
+      at(function () {
+        var bar = q('a41-pdf-cbar'); if (bar) { bar.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)'; bar.style.width = '78%'; }
+      }, 1000);
+      countUp('a41-pdfnum', 78, 1000);
+
+      show('a41-dlcard', 1500, 'translateY(0)');
+    },
+    leave: function () { ca45(); hide45(); }
+  };
+})();
+</script>

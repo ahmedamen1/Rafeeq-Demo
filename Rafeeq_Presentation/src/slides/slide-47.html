@@ -1,0 +1,133 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 30 — HEALTH MONITORING: THE WHY
+     Empowering Patients & Caregivers
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-47" data-slide="47"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e);"></div>
+
+  <!-- Animated background pulse rings -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:0.4;">
+    <div class="hm0-ring" style="animation-delay:0s;"></div>
+    <div class="hm0-ring" style="animation-delay:0.8s;"></div>
+    <div class="hm0-ring" style="animation-delay:1.6s;"></div>
+  </div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+              padding:48px;box-sizing:border-box;z-index:2;">
+    <div style="max-width:820px;width:100%;text-align:center;">
+
+      <!-- Eyebrow -->
+      <div id="hm0-ey" style="opacity:0;transform:translateY(-20px);transition:none;
+           font-size:10px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+           color:#C94040;margin-bottom:18px;">
+        Health Monitoring System
+      </div>
+
+      <!-- Main headline -->
+      <div id="hm0-h1" style="opacity:0;transform:translateY(24px);transition:none;
+           font-size:52px;font-weight:900;color:#0D1F3C;letter-spacing:-0.03em;line-height:1.05;margin-bottom:10px;">
+        It Watches Over You
+      </div>
+      <div id="hm0-h2" style="opacity:0;transform:translateY(24px);transition:none;
+           font-size:20px;font-weight:400;color:rgba(13,31,60,0.5);margin-bottom:48px;">
+        Continuous vitals — directly from the chair, always on, zero friction
+      </div>
+
+      <!-- Problem vs Solution cards -->
+      <div id="hm0-cards" style="opacity:0;transform:translateY(28px);transition:none;
+           display:flex;gap:20px;justify-content:center;">
+
+        <div class="hm0-card" style="border-color:rgba(201,64,64,0.35);background:rgba(201,64,64,0.05);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#C94040;margin-bottom:12px;">The Problem</div>
+          <div class="hm0-point">Traditional monitoring restricts movement to a bed or clinic</div>
+          <div class="hm0-point">Caregivers must be physically present to check vitals</div>
+          <div class="hm0-point">Patients lose independence — health becomes a barrier</div>
+        </div>
+
+        <div style="display:flex;align-items:center;color:rgba(13,31,60,0.2);font-size:28px;">&#8594;</div>
+
+        <div class="hm0-card" style="border-color:rgba(34,197,94,0.35);background:rgba(34,197,94,0.05);">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#22c55e;margin-bottom:12px;">The Solution</div>
+          <div class="hm0-point">Continuous non-invasive vitals from the wheelchair itself</div>
+          <div class="hm0-point">Live data streams to caregiver's phone over Wi-Fi + Firebase</div>
+          <div class="hm0-point">Patient moves freely — health monitoring moves with them</div>
+        </div>
+      </div>
+
+      <!-- Bottom stat strip -->
+      <div id="hm0-stats" style="opacity:0;transform:translateY(16px);transition:none;
+           display:flex;gap:0;justify-content:center;margin-top:36px;">
+        <div class="hm0-stat"><div class="hm0-sv" style="color:#C94040;">3</div><div class="hm0-sl">Sensors</div></div>
+        <div class="hm0-div"></div>
+        <div class="hm0-stat"><div class="hm0-sv" style="color:#C9992A;">Real-time</div><div class="hm0-sl">Cloud Sync</div></div>
+        <div class="hm0-div"></div>
+        <div class="hm0-stat"><div class="hm0-sv" style="color:#22c55e;">24 / 7</div><div class="hm0-sl">Monitoring</div></div>
+        <div class="hm0-div"></div>
+        <div class="hm0-stat"><div class="hm0-sv" style="color:#3B7DE8;">Zero</div><div class="hm0-sl">User Action Needed</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+.hm0-ring {
+  position:absolute;width:400px;height:400px;border-radius:50%;
+  border:1px solid rgba(201,64,64,0.12);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:hm0pulse 3.5s ease-out infinite;
+}
+@keyframes hm0pulse {
+  0%  { transform:translate(-50%,-50%) scale(0.4); opacity:0.6; }
+  100%{ transform:translate(-50%,-50%) scale(2.2); opacity:0; }
+}
+.hm0-card {
+  flex:1;max-width:320px;border:1.5px solid;border-radius:18px;
+  padding:22px 24px;text-align:left;
+}
+.hm0-point {
+  font-size:12px;color:rgba(13,31,60,0.65);line-height:1.6;
+  padding:5px 0;border-bottom:1px solid rgba(13,31,60,0.08);
+}
+.hm0-point:last-child { border-bottom:none; }
+.hm0-stat { text-align:center;padding:0 28px; }
+.hm0-sv   { font-size:22px;font-weight:900;letter-spacing:-0.02em;margin-bottom:3px; }
+.hm0-sl   { font-size:10px;font-weight:600;color:rgba(13,31,60,0.4);letter-spacing:0.08em;text-transform:uppercase; }
+.hm0-div  { width:1px;background:rgba(13,31,60,0.1);margin:6px 0; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.65s ease,transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+  function enter(){
+    show('hm0-ey',100); show('hm0-h1',220); show('hm0-h2',340);
+    show('hm0-cards',480); show('hm0-stats',680);
+  }
+  function leave(){
+    clearAll();
+    ['hm0-ey','hm0-h1','hm0-h2','hm0-cards','hm0-stats'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+  }
+  window._slide47={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

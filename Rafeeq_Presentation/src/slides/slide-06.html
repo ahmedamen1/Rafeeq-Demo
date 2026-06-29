@@ -1,0 +1,207 @@
+﻿<!-- ════════════════════════════════
+     SLIDE 05 — SHOT 2: "WAITING"
+     Left half: video  |  Right half: clock + text
+════════════════════════════════ -->
+<div class="slide" id="slide-5" data-slide="6"
+     style="background:#080b10; overflow:hidden;">
+
+  <!-- ── LEFT: video panel ── -->
+  <div style="position:absolute; left:0; top:0; width:50%; height:100%; z-index:2; overflow:hidden;">
+    <video id="s4b-video" muted playsinline loop
+      style="width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:none;">
+      <source src="shot2.mp4" type="video/mp4">
+    </video>
+    <!-- Blend right edge into dark bg -->
+    <div style="position:absolute; inset:0; pointer-events:none;
+                background:linear-gradient(to right, transparent 55%, #080b10 100%);"></div>
+  </div>
+
+  <!-- ── RIGHT: content panel ── -->
+  <div style="position:absolute; right:0; top:0; width:52%; height:100%; z-index:5;
+              display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+              padding:52px 64px 52px 40px; box-sizing:border-box; gap:20px;">
+
+    <!-- CCTV chip -->
+    <div id="s4b-ts" style="
+      font-family:'Courier New',monospace; font-size:11px; font-weight:700;
+      letter-spacing:0.12em; color:rgba(255,255,255,0.4);
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08);
+      padding:5px 10px; border-radius:4px; display:flex; align-items:center; gap:7px;
+      opacity:0; transition:none;
+    ">
+      <span style="display:inline-block;width:6px;height:6px;background:#C94040;border-radius:50%;
+                   animation:cctvBlink 1.1s ease-in-out infinite;"></span>
+      REC &nbsp; 09:47:18 &nbsp; CAM-02
+    </div>
+
+    <!-- Clock — smaller, left-aligned -->
+    <div id="s4b-clock" style="opacity:0; transition:none; transform:translateY(16px);">
+      <svg width="150" height="150" viewBox="0 0 220 220" fill="none">
+        <circle cx="110" cy="110" r="100" fill="#0f1117" stroke="rgba(201,153,42,0.35)" stroke-width="3"/>
+        <circle cx="110" cy="110" r="94" fill="none" stroke="rgba(201,153,42,0.08)" stroke-width="1"/>
+        <!-- Hour marks -->
+        <line x1="110" y1="18" x2="110" y2="34" stroke="rgba(255,255,255,0.3)" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="110" y1="186" x2="110" y2="202" stroke="rgba(255,255,255,0.3)" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="18" y1="110" x2="34" y2="110" stroke="rgba(255,255,255,0.3)" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="186" y1="110" x2="202" y2="110" stroke="rgba(255,255,255,0.3)" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(30 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(60 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(120 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(150 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(210 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(240 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(300 110 110)"/>
+        <line x1="110" y1="20" x2="110" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="2" stroke-linecap="round" transform="rotate(330 110 110)"/>
+        <!-- Hour hand (stuck ~9) -->
+        <line x1="110" y1="110" x2="44" y2="110" stroke="rgba(255,255,255,0.7)" stroke-width="5" stroke-linecap="round"/>
+        <!-- Minute hand -->
+        <g id="s4b-min-group" style="transform-origin:110px 110px; transform:rotate(0deg);">
+          <line x1="110" y1="110" x2="110" y2="28" stroke="#C9992A" stroke-width="3.5" stroke-linecap="round"/>
+        </g>
+        <circle cx="110" cy="110" r="7" fill="#C9992A"/>
+        <circle cx="110" cy="110" r="3" fill="#0f1117"/>
+      </svg>
+    </div>
+
+    <!-- Counter -->
+    <div id="s4b-counter" style="opacity:0; transition:none; transform:translateY(12px);">
+      <div style="font-size:56px; font-weight:900; color:#ffffff;
+                  letter-spacing:-0.04em; line-height:1; font-family:'Inter',sans-serif;">
+        <span id="s4b-hrs">0</span>h &nbsp;<span id="s4b-min">00</span>m
+      </div>
+      <div style="font-size:10px; font-weight:700; letter-spacing:0.25em; text-transform:uppercase;
+                  color:#C9992A; margin-top:8px; font-family:'Inter',sans-serif;">
+        time elapsed · still waiting
+      </div>
+    </div>
+
+    <!-- Gold rule -->
+    <div id="s4b-rule" style="
+      width:0; height:3px; background:linear-gradient(90deg,#C9992A,#E8B84B);
+      border-radius:2px; transition:none;
+    "></div>
+
+    <!-- Text block -->
+    <div id="s4b-caption" style="opacity:0; transition:none; transform:translateY(12px);">
+      <div style="font-size:10px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase;
+                  color:rgba(201,153,42,0.7); margin-bottom:10px; font-family:'Inter',sans-serif;">
+        3 Hours Later · Same Room · No Help Arrived
+      </div>
+      <div style="font-size:34px; font-weight:900; color:#ffffff; letter-spacing:-0.03em;
+                  line-height:1.05; margin-bottom:14px; font-family:'Inter',sans-serif;">
+        Waiting.
+      </div>
+      <div style="font-size:14px; font-weight:400; color:rgba(255,255,255,0.5);
+                  line-height:1.7; font-family:'Inter',sans-serif; max-width:360px;">
+        After the crash, he stopped trying to move.<br>
+        Now he depends on others for everything —<br>
+        <span style="color:rgba(255,255,255,0.85); font-weight:600;">losing dignity one hour at a time.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Shot badge -->
+  <div class="shot-badge" id="s4b-badge">SHOT 2 / 4</div>
+
+</div>
+
+<style>
+#slide-5 { background: #080b10; }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  var rafId = null;
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() {
+    timers.forEach(clearTimeout); timers = [];
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+  function q(id) { return document.getElementById(id); }
+
+  var minDeg = 0;
+  function spinClock() {
+    minDeg += 1.8;
+    var mg = q('s4b-min-group');
+    if (mg) mg.style.transform = 'rotate(' + minDeg + 'deg)';
+    rafId = requestAnimationFrame(spinClock);
+  }
+
+  function countTime() {
+    var endSecs = 10800;
+    var duration = 3200;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(2, -10 * p);
+      var totalSecs = Math.floor(eased * endSecs);
+      var hel = q('s4b-hrs'); if (hel) hel.textContent = Math.floor(totalSecs / 3600);
+      var mel = q('s4b-min'); if (mel) mel.textContent = String(Math.floor((totalSecs % 3600) / 60)).padStart(2, '0');
+      if (p < 1) rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  function hide() {
+    var vid = q('s4b-video');
+    if (vid) { vid.style.transition='none'; vid.style.opacity='0'; vid.pause(); vid.currentTime=0; }
+    ['s4b-ts','s4b-badge'].forEach(function(id) {
+      var el=q(id); if(el){el.style.transition='none';el.style.opacity='0';}
+    });
+    var clk=q('s4b-clock'); if(clk){clk.style.transition='none';clk.style.opacity='0';clk.style.transform='translateY(16px)';}
+    var cnt=q('s4b-counter'); if(cnt){cnt.style.transition='none';cnt.style.opacity='0';cnt.style.transform='translateY(12px)';}
+    var rule=q('s4b-rule'); if(rule){rule.style.transition='none';rule.style.width='0';}
+    var cap=q('s4b-caption'); if(cap){cap.style.transition='none';cap.style.opacity='0';cap.style.transform='translateY(12px)';}
+    var hel=q('s4b-hrs'); if(hel) hel.textContent='0';
+    var mel=q('s4b-min'); if(mel) mel.textContent='00';
+    minDeg = 0;
+  }
+
+  function runSequence() {
+    // Video
+    at(function() {
+      var vid=q('s4b-video');
+      if(vid){vid.currentTime=0;vid.play().catch(function(){});vid.style.transition='opacity 1s ease';vid.style.opacity='1';}
+    }, 0);
+    // CCTV + badge
+    at(function() {
+      var t=q('s4b-ts'); if(t){t.style.transition='opacity 0.4s ease';t.style.opacity='1';}
+      var b=q('s4b-badge'); if(b){b.style.transition='opacity 0.4s ease';b.style.opacity='1';}
+    }, 200);
+    // Clock
+    at(function() {
+      var el=q('s4b-clock');
+      if(el){el.style.transition='opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';el.style.opacity='1';el.style.transform='translateY(0)';}
+      spinClock();
+    }, 350);
+    // Counter
+    at(function() {
+      var cnt=q('s4b-counter');
+      if(cnt){cnt.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';cnt.style.opacity='1';cnt.style.transform='translateY(0)';}
+      countTime();
+    }, 650);
+    // Rule
+    at(function() {
+      var rule=q('s4b-rule');
+      if(rule){rule.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';rule.style.width='48px';}
+    }, 950);
+    // Caption
+    at(function() {
+      var cap=q('s4b-caption');
+      if(cap){cap.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';cap.style.opacity='1';cap.style.transform='translateY(0)';}
+    }, 1050);
+  }
+
+  window._slide06 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+﻿

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAFEEQ — Autonomous Navigation · Slide Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --navy: #0D1F3C;
+    --gold: #C9992A;
+    --gold-light: #E8B84B;
+    --red: #C94040;
+    --green: #2E7D52;
+    --amber: #D97706;
+    --gray: #6B7280;
+    --light-gray: #F3F4F6;
+    --border: #E5E7EB;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #1F2937;
+    background: #F9FAFB;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--navy);
+    color: white;
+    padding: 48px 48px 40px;
+  }
+  .cover-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .cover-subtitle {
+    font-size: 14px;
+    color: #94A3B8;
+    margin-bottom: 32px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+  }
+  .cover-meta-item { }
+  .cover-meta-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748B;
+    margin-bottom: 4px;
+  }
+  .cover-meta-value {
+    font-size: 12px;
+    color: #CBD5E1;
+  }
+
+  /* Body */
+  .body { padding: 0 48px 64px; }
+
+  /* Section header */
+  .section-header {
+    border-top: 3px solid var(--navy);
+    padding: 24px 0 16px;
+    margin-top: 40px;
+  }
+  .section-number {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* Slide block */
+  .slide-block {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .slide-header {
+    background: var(--navy);
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .slide-num {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .slide-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+  }
+  .slide-time {
+    margin-left: auto;
+    font-size: 11px;
+    color: #94A3B8;
+    white-space: nowrap;
+  }
+
+  .slide-body { padding: 20px; }
+
+  /* Row layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Sub-section label */
+  .sub-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Info box */
+  .info-box {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .info-box p {
+    font-size: 12px;
+    color: #374151;
+    margin-bottom: 6px;
+    line-height: 1.55;
+  }
+  .info-box p:last-child { margin-bottom: 0; }
+  .info-box strong { font-weight: 600; color: var(--navy); }
+
+  /* Asset card */
+  .asset-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .asset-card-header {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .asset-card-body {
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #4B5563;
+    line-height: 1.55;
+  }
+  .asset-card-body code {
+    font-family: monospace;
+    background: #F3F4F6;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    color: var(--navy);
+  }
+
+  /* Tag types */
+  .tag-have { background: #D1FAE5; }
+  .tag-have .asset-card-header { background: #ECFDF5; color: #065F46; }
+  .tag-capture { background: #FEF3C7; }
+  .tag-capture .asset-card-header { background: #FFFBEB; color: #92400E; }
+  .tag-made { background: #EDE9FE; }
+  .tag-made .asset-card-header { background: #F5F3FF; color: #4C1D95; }
+  .tag-video { background: #FEE2E2; }
+  .tag-video .asset-card-header { background: #FFF1F2; color: #9F1239; }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .badge-have { background: #D1FAE5; color: #065F46; }
+  .badge-capture { background: #FEF3C7; color: #92400E; }
+  .badge-made { background: #EDE9FE; color: #4C1D95; }
+  .badge-video { background: #FEE2E2; color: #9F1239; }
+
+  /* Layout diagram */
+  .layout-diagram {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .layout-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 8px;
+  }
+  .layout-row:last-child { margin-bottom: 0; }
+  .layout-zone {
+    border: 1.5px dashed #D1D5DB;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 11px;
+    color: #374151;
+    line-height: 1.4;
+    flex: 1;
+  }
+  .layout-zone.highlight {
+    border-color: var(--gold);
+    background: #FFFBEB;
+  }
+  .layout-zone .zone-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray);
+    margin-bottom: 3px;
+  }
+  .layout-zone .zone-file {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* Animation table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  th {
+    background: var(--light-gray);
+    font-weight: 600;
+    text-align: left;
+    padding: 6px 10px;
+    color: var(--navy);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #F3F4F6;
+    vertical-align: top;
+    color: #374151;
+  }
+  tr:last-child td { border-bottom: none; }
+  td code {
+    font-family: monospace;
+    background: #F3F4F6;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+  }
+
+  /* Note box */
+  .note {
+    background: #EFF6FF;
+    border-left: 3px solid #3B82F6;
+    border-radius: 0 4px 4px 0;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #1E40AF;
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+  .warn {
+    background: #FFFBEB;
+    border-left: 3px solid var(--amber);
+    border-radius: 0 4px 4px 0;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: #92400E;
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+
+  /* Asset master list */
+  .asset-row {
+    display: grid;
+    grid-template-columns: 200px 80px 100px 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 11px;
+    align-items: start;
+  }
+  .asset-row:last-child { border-bottom: none; }
+  .asset-row-header {
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gray);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .asset-filename {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--navy);
+    font-weight: 600;
+    word-break: break-all;
+  }
+
+  /* TOC */
+  .toc { padding: 24px 0; }
+  .toc-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    padding: 5px 0;
+    border-bottom: 1px dotted #E5E7EB;
+  }
+  .toc-num { font-weight: 600; color: var(--gold); width: 80px; font-size: 12px; flex-shrink: 0; }
+  .toc-name { font-size: 12px; color: var(--navy); flex: 1; }
+  .toc-slides { font-size: 11px; color: var(--gray); white-space: nowrap; }
+
+  /* Divider */
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  /* Footer */
+  .footer {
+    background: var(--navy);
+    color: #64748B;
+    font-size: 10px;
+    padding: 14px 48px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-eyebrow">Autonomous Navigation Subsystem · Slide Brief · Internal</div>
+    <div class="cover-title">RAFEEQ SmartWheel</div>
+    <div class="cover-subtitle">Autonomous Navigation — Presentation Slide Brief · Complete Edition</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Prepared for</div>
+        <div class="cover-meta-value">Presentation Developer / HTML Engineer</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Course</div>
+        <div class="cover-meta-value">CIE 598/599 · Team 06 · Zewail City</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Slides covered</div>
+        <div class="cover-meta-value">6 slides · Slides 1–6 of Nav Section</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Stack</div>
+        <div class="cover-meta-value">ROS2 Jazzy · Nav2 · SLAM Toolbox · Gazebo</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Presenter</div>
+        <div class="cover-meta-value">Navigation subsystem owner</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Est. section time</div>
+        <div class="cover-meta-value">8–10 minutes total</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- CONTENTS -->
+    <div class="section-header">
+      <div class="section-number">Contents</div>
+      <div class="section-title">Section Map</div>
+    </div>
+    <div class="toc">
+      <div class="toc-row"><span class="toc-num">Slide 1</span><span class="toc-name">System Overview — Full ROS2 Architecture</span><span class="toc-slides">~1 min</span></div>
+      <div class="toc-row"><span class="toc-num">Slide 2</span><span class="toc-name">SLAM — Mapping the Environment</span><span class="toc-slides">~1.5 min</span></div>
+      <div class="toc-row"><span class="toc-num">Slide 3</span><span class="toc-name">Navigation Stack — Sensors, Costmaps, Planner</span><span class="toc-slides">~2 min</span></div>
+      <div class="toc-row"><span class="toc-num">Slide 4</span><span class="toc-name">TF Tree — Coordinate Transforms</span><span class="toc-slides">~1 min</span></div>
+      <div class="toc-row"><span class="toc-num">Slide 5</span><span class="toc-name">Demo 1 — Goal-Based Navigation (video)</span><span class="toc-slides">~1.5 min</span></div>
+      <div class="toc-row"><span class="toc-num">Slide 6</span><span class="toc-name">Demo 2 — Speech-Commanded Navigation (video)</span><span class="toc-slides">~1.5 min</span></div>
+    </div>
+
+    <div class="note" style="margin-top:0;">
+      <strong>How to use this document:</strong> Read sections in order. Asset status tags are colour-coded: <span style="background:#D1FAE5;color:#065F46;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">HAVE</span> = file exists and ready · <span style="background:#FEF3C7;color:#92400E;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">CAPTURE</span> = still needs to be taken · <span style="background:#EDE9FE;color:#4C1D95;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">DESIGNER</span> = slide designer makes this · <span style="background:#FEE2E2;color:#9F1239;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700;">VIDEO</span> = screen recording needed
+    </div>
+
+    <!-- SLIDE 1 -->
+    <div class="section-header">
+      <div class="section-number">Section 1</div>
+      <div class="section-title">Slide 1 — System Overview</div>
+      <div class="section-desc">Sets the context for everything that follows. One clean diagram showing the full system.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 1</span>
+        <span class="slide-name">System Overview — Full ROS2 Architecture</span>
+        <span class="slide-time">~1 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Show the committee the <strong>full ROS2 node graph</strong> — all subsystems, how they communicate, and how the navigation stack sits at the centre connecting SLAM, sensors, serial comms, and the speech node. This is the "big picture" before any deep dives.</p>
+        </div>
+
+        <div class="sub-label">Exact slide text</div>
+        <table>
+          <tr><th>Element</th><th>Text</th><th>Style</th></tr>
+          <tr><td>Eyebrow</td><td>Autonomous Navigation Subsystem</td><td>Gold, all-caps, letter-spaced, centred</td></tr>
+          <tr><td>Headline</td><td>System Architecture</td><td>White or navy, 40–48px bold</td></tr>
+          <tr><td>Subline</td><td>ROS2 Jazzy · Nav2 · SLAM Toolbox · Gazebo Harmonic</td><td>Muted, 13px, centred below headline</td></tr>
+        </table>
+
+        <div class="sub-label">Layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:3;">
+              <div class="zone-label">Full slide (centred)</div>
+              RQT node graph screenshot — full width, cleaned up. All major nodes visible: <code>/slam_toolbox</code>, <code>/amcl</code>, <code>/bt_navigator</code>, <code>/controller_server</code>, <code>/planner_server</code>, <code>/collision_monitor</code>, <code>/speech_node</code>, <code>/serial_node</code>. Arrows show topic connections.
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-zone highlight" style="flex:1;">
+              <div class="zone-label">Bottom strip (optional)</div>
+              Small legend: colour-coded node groups — Nav2 core / Sensing / Speech / Serial
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets needed</div>
+        <div class="two-col">
+          <div class="asset-card tag-capture">
+            <div class="asset-card-header"><span class="badge badge-capture">Capture</span> RQT Node Graph</div>
+            <div class="asset-card-body">
+              <code>nav_rqt_graph.png</code><br><br>
+              Launch full system (SLAM + Nav2 + speech + serial nodes). Run:<br>
+              <code>ros2 run rqt_graph rqt_graph</code><br><br>
+              Set view to <strong>"Nodes/Topics (all)"</strong>. Hide dead/disconnected nodes. Screenshot at full resolution. This is the only asset needed for this slide.
+            </div>
+          </div>
+          <div class="asset-card tag-made">
+            <div class="asset-card-header"><span class="badge badge-made">Designer</span> Node group colour overlay</div>
+            <div class="asset-card-body">
+              Optional: designer overlays coloured halos or labels on top of the RQT screenshot to group nodes by category (Nav2 / Sensing / Speech / Serial). Provide the RQT screenshot — designer handles the rest.
+            </div>
+          </div>
+        </div>
+
+        <div class="note"><strong>Presenter note:</strong> "This is the full software architecture of Rafeeq. Each box is a ROS2 node. The navigation stack — Nav2 — sits at the centre, receiving sensor data from the LiDAR and depth camera, a map from SLAM Toolbox, and commands from the speech node, then publishing velocity commands to the serial node which drives the motors."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="section-header">
+      <div class="section-number">Section 2</div>
+      <div class="section-title">Slide 2 — SLAM: Mapping the Environment</div>
+      <div class="section-desc">Visual-first slide. Show the map being built, then the finished result. You have strong assets for this.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 2</span>
+        <span class="slide-name">SLAM — Mapping the Environment</span>
+        <span class="slide-time">~1.5 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Show that the robot <strong>first builds a map</strong> of the indoor environment using 2D LiDAR before navigation begins. Two images side by side: mapping in progress (dynamic) vs. finished map (output). SLAM Toolbox on ROS2 Jazzy with Ceres solver and loop closure.</p>
+        </div>
+
+        <div class="sub-label">Exact slide text</div>
+        <table>
+          <tr><th>Element</th><th>Text</th><th>Style</th></tr>
+          <tr><td>Eyebrow</td><td>Step 1 — Build the Map</td><td>Gold, all-caps, letter-spaced</td></tr>
+          <tr><td>Headline</td><td>SLAM Toolbox: Simultaneous Localisation and Mapping</td><td>Bold, 36–40px</td></tr>
+          <tr><td>Bullet 1</td><td>Input: 2D LiDAR scan on <code>/scan</code> + odometry from <code>/odometry/filtered</code></td><td>Body, 13px</td></tr>
+          <tr><td>Bullet 2</td><td>Algorithm: SLAM Toolbox (Ceres solver · Levenberg–Marquardt) — ROS2 recommended SLAM package</td><td>Body, 13px</td></tr>
+          <tr><td>Bullet 3</td><td>Loop closure enabled — corrects drift when the robot revisits areas</td><td>Body, 13px</td></tr>
+          <tr><td>Bullet 4</td><td>Output: 5 cm/cell occupancy grid saved via <code>map_saver</code></td><td>Body, 13px</td></tr>
+          <tr><td>Caption left</td><td>Mapping in progress — partial occupancy grid + live LiDAR scan</td><td>Small, muted, below image</td></tr>
+          <tr><td>Caption right</td><td>Finished map — saved and ready for navigation</td><td>Small, muted, below image</td></tr>
+        </table>
+
+        <div class="sub-label">Layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Left panel (50%)</div>
+              <span class="zone-file">mapping.png</span><br>
+              Mid-mapping top-down RViz view. Partial grey occupancy grid, teal unknown space, red LiDAR scan rays active. Robot visible centre-left. Shows the process is live and dynamic.
+            </div>
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Right panel (50%)</div>
+              <span class="zone-file">mapping2.png</span><br>
+              Angled RViz view of a more complete map. Larger explored area visible. Can also use the <code>indoor_map.pgm</code> exported file shown as a clean flat overhead image.
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-zone highlight" style="flex:1; text-align:center;">
+              <div class="zone-label">Below images — input/output flow (designer makes)</div>
+              LiDAR /scan → [ SLAM Toolbox ] → Occupancy Grid Map
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets — what you have</div>
+        <div class="two-col">
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> mapping.png</div>
+            <div class="asset-card-body">
+              Top-down RViz view. Partial map with live red LiDAR scan rays. Robot visible. <strong>Use as LEFT panel</strong> — perfect mid-mapping shot showing the process dynamically.
+            </div>
+          </div>
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> mapping2.png</div>
+            <div class="asset-card-body">
+              Angled 3D RViz view. More complete map visible. Red scan rays still active. <strong>Use as RIGHT panel</strong> — shows larger mapped area and robot position.
+            </div>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top:12px;">
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> indoor_map.pgm</div>
+            <div class="asset-card-body">
+              Exported occupancy grid file. Convert to PNG for display: <code>convert indoor_map.pgm indoor_map.png</code>. Use as a clean static map image if needed as a third asset or alternative to mapping2.png.
+            </div>
+          </div>
+          <div class="asset-card tag-made">
+            <div class="asset-card-header"><span class="badge badge-made">Designer</span> I/O flow arrow</div>
+            <div class="asset-card-body">
+              Simple inline diagram: <strong>LiDAR /scan</strong> → box labelled <strong>SLAM Toolbox</strong> → <strong>Occupancy Grid</strong>. Small, sits below or between the two screenshots.
+            </div>
+          </div>
+        </div>
+
+        <div class="note"><strong>Presenter note:</strong> "Before the robot can navigate anywhere, it needs to know where it is. SLAM Toolbox builds this occupancy grid map in real time using the 2D LiDAR. White cells are free space, black cells are walls and obstacles, grey is unknown. This map is then saved and loaded for all subsequent navigation sessions."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="section-header">
+      <div class="section-number">Section 3</div>
+      <div class="section-title">Slide 3 — Navigation Stack</div>
+      <div class="section-desc">Your most technically rich slide. Lead with the costmap visuals — you have excellent assets here.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 3</span>
+        <span class="slide-name">Autonomous Navigation Stack — Sensors, Costmaps, Planner</span>
+        <span class="slide-time">~2 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Show how Nav2 takes the saved map + live sensor data and drives the robot to a goal. The key story is the <strong>two-sensor fusion</strong>: 2D LiDAR for the obstacle layer + Kinect/depth camera for the voxel layer (catches table-height obstacles the LiDAR misses). MPPI controller, NavFn global planner, AMCL localisation.</p>
+        </div>
+
+        <div class="sub-label">Exact slide text</div>
+        <table>
+          <tr><th>Element</th><th>Text</th><th>Style</th></tr>
+          <tr><td>Eyebrow</td><td>Step 2 — Navigate</td><td>Gold, all-caps</td></tr>
+          <tr><td>Headline</td><td>Nav2 Navigation Stack</td><td>Bold, 36–40px</td></tr>
+          <tr><td>Localisation</td><td><strong>AMCL</strong> — particle filter localisation within the saved map (500–2000 particles)</td><td>Body 13px</td></tr>
+          <tr><td>Global planner</td><td><strong>NavFn (Dijkstra)</strong> — computes the global path from current pose to goal</td><td>Body 13px</td></tr>
+          <tr><td>Local controller</td><td><strong>MPPI Controller</strong> — samples 10,000 trajectories in real time, selects optimal path around dynamic obstacles</td><td>Body 13px</td></tr>
+          <tr><td>Key callout</td><td>Two obstacle layers: LiDAR catches walls · Depth camera catches what LiDAR misses (tables, raised objects)</td><td>Gold accent box or highlighted bullet</td></tr>
+          <tr><td>Safety</td><td>Collision monitor: stops robot if obstacle enters 1.2 s collision time zone</td><td>Body 13px, smaller</td></tr>
+        </table>
+
+        <div class="sub-label">Layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Left column (55%) — main visual</div>
+              <span class="zone-file">voxel_layer.png</span><br>
+              Full-height costmap view. Cyan = LiDAR obstacle layer. Magenta/pink = depth camera voxel layer. Purple glow = inflation radius. Robot model centre. Green path arrow visible. This is the hero image for this slide.
+            </div>
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Right column (45%) — text + layer stack diagram</div>
+              Bullet points (see text above) + a small costmap layer stack diagram made by designer:<br><br>
+              ① Static layer (map)<br>
+              ② Obstacle layer (LiDAR /scan)<br>
+              ③ Voxel layer (Kinect /camera/points_fixed)<br>
+              ④ Inflation layer (0.4 m radius)
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-zone highlight" style="flex:1;">
+              <div class="zone-label">Bottom strip — optional second image</div>
+              <span class="zone-file">rviz1.png</span> — global costmap with planned path (green curve). Shows the planner output. Use as secondary visual or in a smaller panel below the main image.
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets — what you have</div>
+        <div class="two-col">
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> voxel_layer.png</div>
+            <div class="asset-card-body">
+              <strong>Hero image for this slide.</strong> Shows full local costmap — cyan voxel obstacles (depth camera), magenta LiDAR obstacles, purple inflation gradient. Robot wheelchair model visible. Green goal arrow top-right. Perfectly demonstrates the two-layer fusion story.
+            </div>
+          </div>
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> rviz1.png</div>
+            <div class="asset-card-body">
+              Global costmap view with green planned path curve. Robot navigating through corridor. Shows the MPPI planner output — path hugging walls with proper clearance. <strong>Use as secondary image</strong> or bottom strip.
+            </div>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top:12px;">
+          <div class="asset-card tag-made">
+            <div class="asset-card-header"><span class="badge badge-made">Designer</span> Costmap layer stack diagram</div>
+            <div class="asset-card-body">
+              Vertical stack of 4 labelled boxes showing layer order: Static (grey) → Obstacle/LiDAR (cyan) → Voxel/Kinect (magenta) → Inflation (purple gradient). Small, sits in right column alongside bullets.
+            </div>
+          </div>
+          <div class="asset-card tag-made">
+            <div class="asset-card-header"><span class="badge badge-made">Designer</span> Sensor fusion callout box</div>
+            <div class="asset-card-body">
+              Gold-bordered callout box highlighting the two-sensor story: "LiDAR detects walls and floor-level obstacles · Depth camera detects raised obstacles (tables, chairs) — covering the full 0–2 m height range the LiDAR misses."
+            </div>
+          </div>
+        </div>
+
+        <div class="note"><strong>Presenter note:</strong> "Once the map is saved, Nav2 takes over. AMCL localises the robot on the map using the live LiDAR. The global planner finds a path, and the MPPI controller executes it in real time, sampling 10,000 candidate trajectories every cycle. The key design decision here is the two-layer costmap: the LiDAR handles walls and floor-level obstacles, and the depth camera covers everything above that — specifically to handle indoor furniture like tables that the 2D LiDAR scan plane completely misses."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="section-header">
+      <div class="section-number">Section 4</div>
+      <div class="section-title">Slide 4 — TF Tree</div>
+      <div class="section-desc">Technical context slide. Keep compact. One image + a short explanation.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 4</span>
+        <span class="slide-name">TF Tree — Coordinate Frame Transforms</span>
+        <span class="slide-time">~1 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Show the TF2 transform tree and explain that it ties every sensor frame to a common reference so the navigation stack can reason about the robot's position in space. Key frames: <strong>map → odom → base_footprint → sensor frames</strong>.</p>
+        </div>
+
+        <div class="sub-label">Exact slide text</div>
+        <table>
+          <tr><th>Element</th><th>Text</th><th>Style</th></tr>
+          <tr><td>Eyebrow</td><td>Coordinate Transforms</td><td>Gold, all-caps</td></tr>
+          <tr><td>Headline</td><td>TF2 Transform Tree</td><td>Bold, 36–40px</td></tr>
+          <tr><td>Bullet 1</td><td><code>map</code> → <code>odom</code> — published by AMCL (corrects for drift)</td><td>Body 13px, monospace frame names</td></tr>
+          <tr><td>Bullet 2</td><td><code>odom</code> → <code>base_footprint</code> — published by odometry/filtered (EKF)</td><td>Body 13px</td></tr>
+          <tr><td>Bullet 3</td><td><code>base_footprint</code> → laser / camera frames — static transforms from URDF</td><td>Body 13px</td></tr>
+          <tr><td>Key line</td><td>"Every sensor reading is transformed into the map frame before the navigation stack uses it."</td><td>Gold italic, centred, 13px</td></tr>
+        </table>
+
+        <div class="sub-label">Layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Left (50%) — TF tree screenshot</div>
+              <span class="zone-file">nav_tf_tree.png</span> (still to capture)<br>
+              rqt_tf_tree output showing the full chain. Minimum required: map → odom → base_footprint → laser_frame and camera_frame visible.
+            </div>
+            <div class="layout-zone" style="flex:1;">
+              <div class="zone-label">Right (50%) — bullets + key line</div>
+              Bullet list explaining each transform hop + gold italic closing line at bottom.
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets needed</div>
+        <div class="asset-card tag-capture" style="margin-bottom:12px;">
+          <div class="asset-card-header"><span class="badge badge-capture">Capture</span> nav_tf_tree.png</div>
+          <div class="asset-card-body">
+            With the full system running, run: <code>ros2 run rqt_tf_tree rqt_tf_tree</code><br>
+            Screenshot the full tree. Make sure these frames are all visible: <code>map</code> · <code>odom</code> · <code>base_footprint</code> · <code>laser_frame</code> (or equivalent) · <code>camera_link</code> (or equivalent).<br>
+            Resize the rqt window so the full tree fits without scrolling before screenshotting.
+          </div>
+        </div>
+
+        <div class="warn"><strong>Nothing from your current uploads works here</strong> — this is the only slide where you have zero assets yet. It's a quick capture: 5 minutes with the system running.</div>
+        <div class="note"><strong>Presenter note:</strong> "The TF tree is what allows Nav2 to combine data from sensors that are physically in different positions on the robot. Every scan from the LiDAR and every point cloud from the depth camera is automatically transformed into the map frame, so the planner always works in a single consistent coordinate space."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="section-header">
+      <div class="section-number">Section 5</div>
+      <div class="section-title">Slide 5 — Demo 1: Goal-Based Navigation</div>
+      <div class="section-desc">Video slide. Pre-record. Do not run live. You have good Gazebo environment screenshots to use as a still thumbnail before play.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 5</span>
+        <span class="slide-name">Demo 1 — Goal-Based Navigation</span>
+        <span class="slide-time">~1.5 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Prove the navigation stack works end-to-end: set a 2D Nav Goal → robot plans a path → executes it → avoids obstacles → reaches the goal. Split-screen: <strong>RViz left, Gazebo right</strong>. Pre-recorded video. Gold play button overlay. Do not attempt live demo.</p>
+        </div>
+
+        <div class="sub-label">Video specs</div>
+        <table>
+          <tr><th>Property</th><th>Value</th></tr>
+          <tr><td>File name</td><td><code>demo_goal_nav.mp4</code></td></tr>
+          <tr><td>Duration</td><td>60–90 seconds. Trim any boot/loading time at the start.</td></tr>
+          <tr><td>Layout</td><td>Split-screen: RViz (left half) + Gazebo (right half). Record at 1920×1080.</td></tr>
+          <tr><td>Autoplay</td><td>NO. Gold play button overlay. Presenter clicks when ready.</td></tr>
+          <tr><td>What to show</td><td>① Set 2D Nav Goal in RViz → ② global path appears (green) → ③ robot starts moving in Gazebo → ④ robot navigates around an obstacle if possible → ⑤ reaches goal. Both windows moving simultaneously.</td></tr>
+          <tr><td>Text overlay</td><td>Bottom-left corner: white text "<code>2D Nav Goal set via RViz</code>" when you click the goal. Helps committee follow along.</td></tr>
+          <tr><td>Tool</td><td>OBS Studio or <code>kazam</code> on Ubuntu. Set capture region to both windows.</td></tr>
+        </table>
+
+        <div class="sub-label">Slide layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:3;">
+              <div class="zone-label">Full slide — video player (with thumbnail)</div>
+              Video player centred, ~85% slide width. Before play: show thumbnail still (use <code>gazebo_2.png</code> or <code>rviz2.png</code> as poster frame). Gold play button overlay centred. Navy border 1.5px, rounded corners 12px.
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-zone highlight" style="flex:1; text-align:center;">
+              <div class="zone-label">Below video — two caption labels</div>
+              Left: "RViz — costmap + planned path" · Right: "Gazebo — 3D simulation"
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets you have (for thumbnail/poster frame)</div>
+        <div class="two-col">
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> rviz2.png</div>
+            <div class="asset-card-body">
+              Split RViz + Gazebo screenshot (Jun 14, 19:57). Shows full setup — RViz left with particle cloud and Gazebo right with wheelchair in indoor room. <strong>Use as poster/thumbnail frame</strong> for this video slide before the user presses play.
+            </div>
+          </div>
+          <div class="asset-card tag-have">
+            <div class="asset-card-header"><span class="badge badge-have">Have</span> gazebo_2.png</div>
+            <div class="asset-card-body">
+              Top-down Gazebo view of the full indoor environment — rooms, furniture (sofa, table, beds), wheelchair robot in hallway. Good as an establishing shot thumbnail showing the simulation environment before the demo.
+            </div>
+          </div>
+        </div>
+        <div class="asset-card tag-video" style="margin-top:12px;">
+          <div class="asset-card-header"><span class="badge badge-video">Video needed</span> demo_goal_nav.mp4</div>
+          <div class="asset-card-body">
+            <strong>Still needs to be recorded.</strong> Launch full nav stack in Gazebo. Open RViz alongside. Use OBS to record both windows. Set a 2D Nav Goal and let the robot navigate to it. Trim to 60–90 sec. Export as MP4 H.264.
+          </div>
+        </div>
+
+        <div class="note"><strong>Presenter note:</strong> "This is a live demonstration of the full navigation pipeline. I'm setting a goal position on the map — the global planner generates a path in green, and the MPPI controller executes it in real time. On the right you can see the robot moving through the Gazebo simulation. The costmap is updating as the robot moves, and the controller is constantly re-sampling trajectories to follow the path while staying clear of obstacles."</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="section-header">
+      <div class="section-number">Section 6</div>
+      <div class="section-title">Slide 6 — Demo 2: Speech-Commanded Navigation</div>
+      <div class="section-desc">Most impressive slide. Shows full system integration. Voice → waypoint → autonomous navigation.</div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-header">
+        <span class="slide-num">SLIDE 6</span>
+        <span class="slide-name">Demo 2 — Speech-Commanded Navigation</span>
+        <span class="slide-time">~1.5 min</span>
+      </div>
+      <div class="slide-body">
+
+        <div class="sub-label">Purpose</div>
+        <div class="info-box" style="margin-bottom:16px;">
+          <p>Show full system integration: voice command → speech node → waypoint lookup → Nav2 goal → autonomous navigation. This slide is the payoff of the entire section — everything working together. Same split-screen setup as Demo 1 but speech-triggered.</p>
+        </div>
+
+        <div class="sub-label">Video specs</div>
+        <table>
+          <tr><th>Property</th><th>Value</th></tr>
+          <tr><td>File name</td><td><code>demo_speech_nav.mp4</code></td></tr>
+          <tr><td>Duration</td><td>60–90 seconds.</td></tr>
+          <tr><td>Layout</td><td>Split-screen: RViz (left) + Gazebo (right). Same as Demo 1.</td></tr>
+          <tr><td>Autoplay</td><td>NO. Gold play button overlay.</td></tr>
+          <tr><td>Critical overlay</td><td><strong>Subtitle text overlay</strong> showing the spoken command — e.g. <code>"Hey Rafi, go to the kitchen"</code> — displayed as white text in a semi-transparent navy bar at the bottom of the video for ~3 seconds after the command. This is essential so the committee can read it even without clear audio.</td></tr>
+          <tr><td>What to show</td><td>① Speak command → ② subtitle appears → ③ Nav2 receives waypoint goal → ④ green path appears in RViz → ⑤ robot navigates to waypoint in Gazebo → ⑥ robot arrives and stops.</td></tr>
+        </table>
+
+        <div class="sub-label">Slide layout</div>
+        <div class="layout-diagram">
+          <div class="layout-row">
+            <div class="layout-zone" style="flex:3;">
+              <div class="zone-label">Full slide — video player</div>
+              Same video player style as Demo 1. Use <code>gazebo.png</code> as poster/thumbnail frame (close-up of wheelchair in indoor environment — good establishing shot).
+            </div>
+          </div>
+          <div class="layout-row">
+            <div class="layout-zone highlight" style="flex:1; text-align:center;">
+              <div class="zone-label">Below video — integration chain (designer makes)</div>
+              Small inline diagram: 🎙 Voice → Speech Node → Waypoint DB → Nav2 Goal → Robot
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-label">Assets you have (for thumbnail/poster)</div>
+        <div class="asset-card tag-have" style="margin-bottom:12px;">
+          <div class="asset-card-header"><span class="badge badge-have">Have</span> gazebo.png</div>
+          <div class="asset-card-body">
+            Close-up Gazebo view of wheelchair robot in indoor room with sofa and furniture. Good establishing/thumbnail image for the speech demo slide. Shows the indoor environment the robot is navigating.
+          </div>
+        </div>
+        <div class="asset-card tag-video">
+          <div class="asset-card-header"><span class="badge badge-video">Video needed</span> demo_speech_nav.mp4</div>
+          <div class="asset-card-body">
+            <strong>Still needs to be recorded.</strong> Same OBS setup as Demo 1. Speak the wake word and command, make sure the subtitle overlay is visible. Export as MP4 H.264. Add the subtitle overlay in a video editor (DaVinci Resolve free, or even kdenlive on Ubuntu) — don't rely on the system printing it on screen.
+          </div>
+        </div>
+
+        <div class="note"><strong>Presenter note:</strong> "This is the full pipeline. I say 'Hey Rafi, go to the kitchen' — the speech node recognises the command, looks up the kitchen waypoint from the waypoint database, and sends it as a Nav2 goal. The navigation stack then plans a path and drives the robot there autonomously. The user doesn't interact with any interface — just speaks."</div>
+      </div>
+    </div>
+
+    <!-- ASSET MASTER LIST -->
+    <div class="section-header">
+      <div class="section-number">Section 7</div>
+      <div class="section-title">Asset Master List</div>
+      <div class="section-desc">All files needed for the navigation section. Folder: <code>assets/nav/</code></div>
+    </div>
+
+    <div style="border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:28px;">
+      <div style="padding:14px 16px; background:var(--light-gray);">
+        <div class="asset-row asset-row-header">
+          <div>File name</div>
+          <div>Status</div>
+          <div>Used in</div>
+          <div>Notes</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">mapping.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 2 · Left</div>
+          <div>Mid-mapping top-down view with red LiDAR rays</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">mapping2.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 2 · Right</div>
+          <div>Angled view with larger mapped area</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">indoor_map.pgm → indoor_map.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 2 · Optional</div>
+          <div>Convert to PNG: <code>convert indoor_map.pgm indoor_map.png</code></div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">voxel_layer.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 3 · Hero</div>
+          <div>Two-layer costmap — cyan + magenta. Main visual for nav stack slide.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">rviz1.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 3 · Secondary</div>
+          <div>Global costmap + green planned path. Use as supporting image.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">rviz2.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 5 · Thumbnail</div>
+          <div>Split RViz+Gazebo screenshot. Use as poster frame for Demo 1 video.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">gazebo.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 6 · Thumbnail</div>
+          <div>Close-up Gazebo indoor room. Use as poster frame for Demo 2 video.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">gazebo_2.png</div>
+          <div><span class="badge badge-have">Have</span></div>
+          <div>Slide 5 · Alt thumbnail</div>
+          <div>Top-down full environment view. Alternative poster frame for Demo 1.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">nav_rqt_graph.png</div>
+          <div><span class="badge badge-capture">Capture</span></div>
+          <div>Slide 1</div>
+          <div>Run <code>rqt_graph</code> with full system live. Nodes/Topics (all) view.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">nav_tf_tree.png</div>
+          <div><span class="badge badge-capture">Capture</span></div>
+          <div>Slide 4</div>
+          <div>Run <code>rqt_tf_tree</code> with full system live. Show map→odom→base_footprint→sensors.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">demo_goal_nav.mp4</div>
+          <div><span class="badge badge-video">Record</span></div>
+          <div>Slide 5</div>
+          <div>60–90 sec. Split-screen RViz+Gazebo. 2D Nav Goal → robot navigates. OBS.</div>
+        </div>
+        <div class="asset-row">
+          <div class="asset-filename">demo_speech_nav.mp4</div>
+          <div><span class="badge badge-video">Record</span></div>
+          <div>Slide 6</div>
+          <div>60–90 sec. Same split-screen. Voice command with subtitle overlay. OBS.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>Still needed before handoff to HTML developer:</strong><br>
+      2 screenshots to capture (<code>nav_rqt_graph.png</code> and <code>nav_tf_tree.png</code>) + 2 videos to record (<code>demo_goal_nav.mp4</code> and <code>demo_speech_nav.mp4</code>). Everything else is already in hand.
+    </div>
+
+  </div><!-- /body -->
+
+  <div class="footer">
+    RAFEEQ SmartWheel · Team 06 · Zewail City of Science and Technology · CIE 598/599 · 2025/2026 &nbsp;·&nbsp; <span>Autonomous Navigation Section</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

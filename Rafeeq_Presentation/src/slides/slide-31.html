@@ -1,0 +1,150 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 26 — NAV 3: NAVIGATION STACK
+     voxel_layer.png hero + rviz1.png secondary + layer stack
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-31" data-slide="31"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#3B7DE8,#22c55e);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:36px 48px 30px;box-sizing:border-box;gap:18px;">
+
+    <!-- Header -->
+    <div id="n3-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;margin-bottom:5px;">Autonomous Navigation · Step 2 — Navigate</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Nav2 Navigation Stack — Sensors, Costmaps &amp; Planner</div>
+      <div id="n3-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body -->
+    <div style="flex:1;min-height:0;display:flex;gap:24px;">
+
+      <!-- LEFT: hero image -->
+      <div id="n3-left" style="flex:0 0 48%;display:flex;flex-direction:column;opacity:0;transform:translateX(-24px);transition:none;">
+        <div style="flex:1;min-height:0;background:#0D1F3C;border-radius:16px;overflow:hidden;position:relative;">
+          <img src="nav_voxel.png" alt="Costmap voxel layer"
+               style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 18px;
+            background:linear-gradient(0deg,rgba(13,31,60,0.92),transparent);">
+            <div style="font-size:10px;font-weight:700;color:#C9992A;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:5px;">Live Local Costmap</div>
+            <div style="display:flex;gap:14px;flex-wrap:wrap;">
+              <span style="font-size:11px;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:5px;">
+                <span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#00bcd4;"></span>LiDAR obstacle layer
+              </span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:5px;">
+                <span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#e91e8c;"></span>Depth camera voxel layer
+              </span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.75);display:flex;align-items:center;gap:5px;">
+                <span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#7b1fa2;"></span>Inflation radius
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: bullets + layer stack -->
+      <div id="n3-right" style="flex:1;display:flex;flex-direction:column;gap:14px;opacity:0;transform:translateX(24px);transition:none;">
+
+        <!-- Components -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="n3-row">
+            <div class="n3-row-label" style="color:#22c55e;">AMCL</div>
+            <div class="n3-row-body">Particle filter localisation within the saved map — 500 to 2000 particles adapting to motion uncertainty</div>
+          </div>
+          <div class="n3-row">
+            <div class="n3-row-label" style="color:#3B7DE8;">Global Planner</div>
+            <div class="n3-row-body">Dijkstra-based global planner — computes optimal path from current pose to navigation goal on the costmap</div>
+          </div>
+          <div class="n3-row">
+            <div class="n3-row-label" style="color:#C9992A;">MPPI</div>
+            <div class="n3-row-body">Model Predictive Path Integral controller — samples 10,000 trajectories per cycle, selects the minimum-cost path in real time</div>
+          </div>
+          <div class="n3-row">
+            <div class="n3-row-label" style="color:#C94040;">Safety</div>
+            <div class="n3-row-body">Collision monitor halts robot if any obstacle enters the 1.2-second collision time zone — independent of the planner</div>
+          </div>
+        </div>
+
+        <!-- Sensor fusion callout -->
+        <div id="n3-callout" style="background:#FFF8E7;border:1.5px solid rgba(201,153,42,0.4);border-radius:14px;padding:16px 18px;opacity:0;transform:translateY(12px);transition:none;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#C9992A;margin-bottom:8px;">Two-Sensor Fusion — Key Design Decision</div>
+          <div style="font-size:12px;color:#0D1F3C;line-height:1.65;">
+            <strong>LiDAR</strong> detects walls and floor-level obstacles across the 2D scan plane.<br>
+            <strong>Depth camera</strong> fills the gap — catching raised obstacles like tables and chairs that sit <em>above</em> the LiDAR scan plane and would otherwise be invisible to the navigation stack.
+          </div>
+        </div>
+
+        <!-- Layer stack -->
+        <div id="n3-layers" style="opacity:0;transform:translateY(12px);transition:none;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(13,31,60,0.4);margin-bottom:8px;">Costmap Layer Stack</div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div class="n3-layer" style="background:#E8F5E9;border-color:#4CAF5044;color:#2E7D32;">① Static layer — saved occupancy grid map</div>
+            <div class="n3-layer" style="background:#E0F7FA;border-color:#00bcd444;color:#00696f;">② Obstacle layer — 2D LiDAR /scan</div>
+            <div class="n3-layer" style="background:#FCE4EC;border-color:#e91e8c44;color:#880e4f;">③ Voxel layer — Kinect /camera/points_fixed</div>
+            <div class="n3-layer" style="background:#EDE7F6;border-color:#7b1fa244;color:#4a148c;">④ Inflation layer — 0.4 m safety radius</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.n3-row {
+  display:flex;gap:12px;align-items:flex-start;
+  background:#fafafa;border:1.5px solid #ececec;border-radius:10px;
+  padding:10px 14px;
+}
+.n3-row-label { flex:0 0 52px;font-size:11px;font-weight:900;letter-spacing:0.04em; }
+.n3-row-body  { font-size:11px;color:rgba(13,31,60,0.62);line-height:1.55; }
+.n3-layer {
+  font-size:11px;font-weight:600;border:1.5px solid;border-radius:8px;
+  padding:7px 12px;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+
+  function enter(){
+    show('n3-hdr',80);
+    at(function(){
+      var ul=q('n3-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='52px';}
+    },360);
+    show('n3-left',200);
+    show('n3-right',340);
+    show('n3-callout',520);
+    show('n3-layers',660);
+  }
+
+  function leave(){
+    clearAll();
+    ['n3-hdr','n3-left','n3-right','n3-callout','n3-layers'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none';el.style.opacity='0';
+    });
+    var ul=q('n3-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  window._slide31={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

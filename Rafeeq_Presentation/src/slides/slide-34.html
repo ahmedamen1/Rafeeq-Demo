@@ -1,0 +1,137 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 28 — NAV 5: DEMO 1 — GOAL-BASED NAVIGATION
+     Video player with rviz2.png thumbnail + gazebo2.png
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-34" data-slide="34"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#3B7DE8,#22c55e);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 48px 28px;box-sizing:border-box;gap:16px;">
+
+    <!-- Header -->
+    <div id="n5-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;">Autonomous Navigation · Demo 2 of 2</div>
+        <div style="background:#22c55e;color:#fff;font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;">Live Simulation</div>
+      </div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Speech-to-Navigation Pipeline</div>
+      <div id="n5-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body: video + sidebar -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- Video player -->
+      <div id="n5-video" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:0;opacity:0;transform:translateY(20px);transition:none;">
+        <div style="flex:1;min-height:0;background:#000;border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.1);position:relative;">
+
+          <!-- Video element with poster -->
+          <video id="n5-vid"
+                 style="width:100%;height:100%;object-fit:contain;display:block;"
+                 preload="metadata"
+                 controls>
+            <source src="navigation slides/livingrooom_edited.mp4" type="video/mp4">
+          </video>
+
+          <!-- Play overlay (shown before first play) -->
+          <div id="n5-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(13,31,60,0.55);cursor:pointer;transition:opacity 0.3s ease;" onclick="document.getElementById('n5-vid').play();this.style.display='none';">
+            <div style="width:72px;height:72px;background:#C9992A;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(201,153,42,0.2);margin-bottom:14px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.04em;">Play Demo</div>
+          </div>
+        </div>
+
+        <!-- Caption strip -->
+        <div style="display:flex;gap:0;margin-top:10px;">
+          <div style="flex:1;text-align:center;padding:8px;border-right:1px solid rgba(13,31,60,0.1);">
+            <div style="font-size:10px;font-weight:700;color:#3B7DE8;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">RViz View</div>
+            <div style="font-size:10px;color:rgba(13,31,60,0.45);">Costmap + planned path (left half)</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;font-weight:700;color:#22c55e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">Gazebo View</div>
+            <div style="font-size:10px;color:rgba(13,31,60,0.45);">3D simulation — robot in motion (right half)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: steps + thumbnail -->
+      <div id="n5-side" style="flex:0 0 240px;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateX(20px);transition:none;">
+
+        <!-- Thumbnail -->
+        <div style="flex:0 0 130px;background:#000;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.1);">
+          <img src="nav_gazebo2.png" alt="Gazebo environment"
+               style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:7px 10px;background:linear-gradient(0deg,rgba(13,31,60,0.9),transparent);">
+            <div style="font-size:9px;color:rgba(255,255,255,0.6);">Gazebo indoor environment</div>
+          </div>
+        </div>
+
+        <!-- Demo steps -->
+        <div style="flex:1;background:#fff;border:1px solid rgba(13,31,60,0.1);border-radius:14px;padding:14px 16px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9992A;margin-bottom:12px;">Demo Sequence</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="n5-step"><span class="n5-num" style="background:#C9992A;">1</span><div class="n5-stxt">Set 2D Nav Goal in RViz</div></div>
+            <div class="n5-step"><span class="n5-num" style="background:#3B7DE8;">2</span><div class="n5-stxt">Global path generated — green curve appears</div></div>
+            <div class="n5-step"><span class="n5-num" style="background:#22c55e;">3</span><div class="n5-stxt">Robot begins moving in Gazebo simulation</div></div>
+            <div class="n5-step"><span class="n5-num" style="background:#7c3aed;">4</span><div class="n5-stxt">MPPI controller avoids obstacles in real time</div></div>
+            <div class="n5-step"><span class="n5-num" style="background:#C9992A;">5</span><div class="n5-stxt">Robot reaches goal and stops</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.n5-step { display:flex;gap:10px;align-items:flex-start; }
+.n5-num  { flex:0 0 20px;height:20px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center; }
+.n5-stxt { font-size:11px;color:rgba(13,31,60,0.65);line-height:1.55;padding-top:1px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+
+  function enter(){
+    show('n5-hdr',80);
+    at(function(){
+      var ul=q('n5-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='52px';}
+    },360);
+    show('n5-video',200);
+    show('n5-side',360);
+  }
+
+  function leave(){
+    clearAll();
+    var vid=q('n5-vid'); if(vid){vid.pause();vid.currentTime=0;}
+    var ov=q('n5-overlay'); if(ov)ov.style.display='flex';
+    ['n5-hdr','n5-video','n5-side'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none';el.style.opacity='0';
+    });
+    var ul=q('n5-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  window._slide34={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

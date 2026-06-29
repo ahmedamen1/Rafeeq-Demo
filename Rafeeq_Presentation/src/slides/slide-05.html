@@ -1,0 +1,292 @@
+﻿<!-- ═══════════════════════════════════════════════════════════
+     SLIDES 04–07 — CINEMATIC PROBLEM SHOTS
+     Shared styles injected once here (before slide-04 div).
+═══════════════════════════════════════════════════════════ -->
+<style>
+/* ── CCTV timestamp chip ── */
+.cctv-ts {
+  position: absolute; top: 28px; left: 32px; z-index: 10;
+  font-family: 'Courier New', monospace;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.55);
+  background: rgba(0,0,0,0.45);
+  padding: 5px 10px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  opacity: 0; transition: none;
+}
+.cctv-ts .cctv-dot {
+  display: inline-block; width: 7px; height: 7px;
+  background: #C94040; border-radius: 50%;
+  margin-right: 7px; vertical-align: middle;
+  animation: cctvBlink 1.1s ease-in-out infinite;
+}
+@keyframes cctvBlink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+/* ── Shot badge top-right ── */
+.shot-badge {
+  position: absolute; top: 28px; right: 32px; z-index: 10;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+  color: rgba(201,153,42,0.8); text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  opacity: 0; transition: none;
+}
+
+/* ── Bottom caption gradient band ── */
+.shot-caption {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+  background: linear-gradient(transparent, rgba(0,0,0,0.88) 28%);
+  padding: 60px 56px 48px;
+  opacity: 0; transform: translateY(20px); transition: none;
+}
+.shot-caption-eye {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: #C9992A; margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+}
+.shot-caption-headline {
+  font-size: 42px; font-weight: 900; color: #ffffff;
+  letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+}
+.shot-caption-sub {
+  font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.65);
+  line-height: 1.6; max-width: 580px; font-family: 'Inter', sans-serif;
+}
+.shot-caption-sub strong { color: #ffffff; font-weight: 700; }
+
+/* ── Scanline overlay ── */
+.film-scanlines {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+  );
+}
+
+/* ── Vignette overlay ── */
+.film-vignette {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%,
+    transparent 48%, rgba(0,0,0,0.6) 100%);
+}
+
+/* ── Hand tremor ── */
+@keyframes tremor {
+  0%,100%{ transform: translate(0,0) rotate(0deg); }
+  10%{ transform: translate(-2px,1px) rotate(-0.5deg); }
+  20%{ transform: translate(2px,-1px) rotate(0.4deg); }
+  30%{ transform: translate(-1px,2px) rotate(-0.3deg); }
+  40%{ transform: translate(3px,-1px) rotate(0.6deg); }
+  50%{ transform: translate(-2px,0px) rotate(-0.4deg); }
+  60%{ transform: translate(1px,2px) rotate(0.3deg); }
+  70%{ transform: translate(-3px,-1px) rotate(-0.5deg); }
+  80%{ transform: translate(2px,1px) rotate(0.4deg); }
+  90%{ transform: translate(-1px,-2px) rotate(-0.3deg); }
+}
+.tremor-anim { animation: tremor 0.18s linear infinite; }
+</style>
+
+<!-- ════════════════════════════════
+     SLIDE 04 — SHOT 1: "THE MORNING STRUGGLE"
+     Video plays → ends → profile card cross-fades in
+════════════════════════════════ -->
+<div class="slide" id="slide-4" data-slide="5"
+     style="background:#0a0e18; overflow:hidden;">
+
+  <!-- Full-bleed background video (plays once, no loop) -->
+  <video id="s4a-video" muted playsinline
+    style="position:absolute; inset:0; width:100%; height:100%;
+           object-fit:cover; z-index:0; opacity:0; transition:none;">
+    <source src="shot1.mp4" type="video/mp4">
+  </video>
+
+  <!-- Dark overlay -->
+  <div style="position:absolute; inset:0; z-index:1;
+              background:rgba(0,0,0,0.40); pointer-events:none;"></div>
+
+  <div class="film-scanlines"></div>
+  <div class="film-vignette"></div>
+
+  <!-- ── Profile card — fades in when video ends ── -->
+  <div id="s4a-profile" style="
+    position:absolute; inset:0; z-index:8;
+    display:flex; align-items:center; justify-content:center;
+    gap:56px; padding:0 80px;
+    opacity:0; transition:none; pointer-events:none;
+  ">
+    <!-- Photo -->
+    <div style="flex:0 0 auto; position:relative;">
+      <img src="Am_Mahmoud.png" alt="AM Mahmoud"
+        style="width:260px; height:320px; object-fit:cover; object-position:center top;
+               border-radius:16px; display:block;
+               box-shadow:0 24px 60px rgba(0,0,0,0.6);
+               border:2px solid rgba(201,153,42,0.3);"
+        onerror="this.style.display='none'">
+      <!-- Name badge over photo -->
+      <div style="
+        position:absolute; bottom:0; left:0; right:0;
+        background:linear-gradient(transparent, rgba(13,31,60,0.92) 60%);
+        border-radius:0 0 16px 16px;
+        padding:32px 20px 18px;
+      ">
+        <div style="font-size:10px; font-weight:700; letter-spacing:0.22em;
+                    text-transform:uppercase; color:#C9992A; margin-bottom:4px;
+                    font-family:'Inter',sans-serif;">User Story</div>
+        <div style="font-size:26px; font-weight:900; color:#fff;
+                    letter-spacing:-0.02em; font-family:'Inter',sans-serif;">AM Mahmoud</div>
+      </div>
+    </div>
+
+    <!-- Info cards -->
+    <div style="flex:1; display:flex; flex-direction:column; gap:16px; max-width:480px;">
+
+      <div style="
+        background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+        border-radius:14px; padding:18px 22px;
+        display:flex; align-items:flex-start; gap:14px;
+      ">
+        <i class="ti ti-user-circle" style="font-size:26px; color:rgba(255,255,255,0.6); flex-shrink:0; margin-top:2px;"></i>
+        <div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+                      color:rgba(255,255,255,0.35); margin-bottom:5px; font-family:'Inter',sans-serif;">Profile</div>
+          <div style="font-size:14px; font-weight:500; color:rgba(255,255,255,0.85); line-height:1.55;
+                      font-family:'Inter',sans-serif;">
+            68-year-old retired teacher from Giza,<br>stroke survivor with hand tremors
+          </div>
+        </div>
+      </div>
+
+      <div style="
+        background:rgba(201,153,42,0.07); border-left:3px solid #C9992A;
+        border-radius:0 14px 14px 0; padding:18px 22px;
+        display:flex; align-items:flex-start; gap:14px;
+      ">
+        <i class="ti ti-alert-triangle" style="font-size:26px; color:#C9992A; flex-shrink:0; margin-top:2px;"></i>
+        <div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+                      color:#C9992A; margin-bottom:5px; font-family:'Inter',sans-serif;">The Incident</div>
+          <div style="font-size:14px; font-weight:500; color:rgba(255,255,255,0.85); line-height:1.55;
+                      font-family:'Inter',sans-serif;">
+            His hand tremors made the joystick uncontrollable.<br>The wheelchair crashed trying to reach the balcony.
+          </div>
+        </div>
+      </div>
+
+      <div style="
+        background:rgba(201,64,64,0.07); border-left:3px solid #C94040;
+        border-radius:0 14px 14px 0; padding:18px 22px;
+        display:flex; align-items:flex-start; gap:14px;
+      ">
+        <i class="ti ti-heart-broken" style="font-size:26px; color:#C94040; flex-shrink:0; margin-top:2px;"></i>
+        <div>
+          <div style="font-size:10px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+                      color:#C94040; margin-bottom:5px; font-family:'Inter',sans-serif;">The Impact</div>
+          <div style="font-size:14px; font-weight:500; color:rgba(255,255,255,0.85); line-height:1.55;
+                      font-family:'Inter',sans-serif;">
+            Loss of dignity — now waits <strong style="color:#fff; font-weight:800;">hours</strong>
+            for help rather than moving independently.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CCTV + badge always visible during video -->
+  <div class="cctv-ts" id="s4a-ts">
+    <span class="cctv-dot"></span>REC &nbsp; 06:14:32 &nbsp; CAM-01
+  </div>
+  <div class="shot-badge" id="s4a-badge">SHOT 1 / 4</div>
+
+  <!-- Caption shown during video -->
+  <div class="shot-caption" id="s4a-caption">
+    <div class="shot-caption-eye">User Story · AM Mahmoud · Giza, Egypt</div>
+    <div class="shot-caption-headline">The Morning Struggle</div>
+    <div class="shot-caption-sub">
+      A 68-year-old stroke survivor. Hand tremors make the joystick
+      <strong>uncontrollable</strong>. He just wants to reach the balcony.
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-4 { background: #0a0e18; }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function showProfile() {
+    // Hide caption, fade in profile card
+    var cap = q('s4a-caption');
+    if (cap) { cap.style.transition='opacity 0.6s ease'; cap.style.opacity='0'; }
+    var ts = q('s4a-ts');
+    if (ts) { ts.style.transition='opacity 0.4s ease'; ts.style.opacity='0'; }
+    var badge = q('s4a-badge');
+    if (badge) { badge.style.transition='opacity 0.4s ease'; badge.style.opacity='0'; }
+    setTimeout(function() {
+      var vid = q('s4a-video');
+      if (vid) { vid.style.transition='opacity 1s ease'; vid.style.opacity='0.15'; }
+      var prof = q('s4a-profile');
+      if (prof) {
+        prof.style.transition='opacity 0.8s ease';
+        prof.style.opacity='1';
+        prof.style.pointerEvents='auto';
+      }
+    }, 400);
+  }
+
+  function hide() {
+    var vid = q('s4a-video');
+    if (vid) {
+      vid.style.transition='none'; vid.style.opacity='0';
+      vid.pause(); vid.currentTime=0;
+      vid.removeEventListener('ended', showProfile);
+    }
+    var ts = q('s4a-ts');
+    if (ts) { ts.style.transition='none'; ts.style.opacity='0'; }
+    var bg = q('s4a-badge');
+    if (bg) { bg.style.transition='none'; bg.style.opacity='0'; }
+    var cap = q('s4a-caption');
+    if (cap) { cap.style.transition='none'; cap.style.opacity='0'; cap.style.transform='translateY(20px)'; }
+    var prof = q('s4a-profile');
+    if (prof) { prof.style.transition='none'; prof.style.opacity='0'; prof.style.pointerEvents='none'; }
+  }
+
+  function runSequence() {
+    var vid = q('s4a-video');
+    if (vid) {
+      vid.currentTime = 0;
+      vid.addEventListener('ended', showProfile);
+      vid.play().catch(function(){});
+      vid.style.transition='opacity 1.2s ease';
+      vid.style.opacity='1';
+    }
+    at(function() {
+      var t=q('s4a-ts'); if(t){t.style.transition='opacity 0.4s ease';t.style.opacity='1';}
+      var b=q('s4a-badge'); if(b){b.style.transition='opacity 0.4s ease';b.style.opacity='1';}
+    }, 400);
+    at(function() {
+      var cap = q('s4a-caption');
+      if (cap) {
+        cap.style.transition='opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+        cap.style.opacity='1'; cap.style.transform='translateY(0)';
+      }
+    }, 800);
+  }
+
+  window._slide05 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+﻿

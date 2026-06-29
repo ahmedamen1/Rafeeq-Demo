@@ -1,0 +1,315 @@
+﻿<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     SLIDE 16 â€” ELECTRICAL: POWER METRICS & BATTERY LIFECYCLE
+     Dashboard: motor draw left, comparison table center, charging strip bottom
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div class="slide light" id="slide-20" data-slide="20"
+     style="background:#F8F9FA; overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B5FA6,#C9992A,#C94040);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:28px 44px 22px;box-sizing:border-box;gap:16px;">
+
+    <!-- Header -->
+    <div id="pm-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-14px);transition:none;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                  color:#C9992A;margin-bottom:4px;font-family:'Inter',sans-serif;">
+        Electrical System &middot; Power Architecture
+      </div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;
+                  font-family:'Inter',sans-serif;">
+        Power Metrics &amp; Battery Lifecycle Analysis
+      </div>
+      <div id="pm-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:7px;transition:none;"></div>
+    </div>
+
+    <!-- Body: left column + center table -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- LEFT: Motor Power Draw -->
+      <div id="pm-left" style="flex:0 0 230px;display:flex;flex-direction:column;gap:10px;
+           opacity:0;transform:translateX(-20px);transition:none;">
+
+        <div style="font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.4);margin-bottom:2px;font-family:'Inter',sans-serif;">
+          Dynamic Motor Power Draw
+        </div>
+
+        <!-- Light Cruising -->
+        <div class="pm-draw-card" style="border-color:rgba(34,197,94,0.35);background:rgba(34,197,94,0.05);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:18px;"></span>
+            <div>
+              <div style="font-size:22px;font-weight:900;color:#15803d;letter-spacing:-0.03em;line-height:1;font-family:'Inter',sans-serif;">2.0 A <span style="font-size:14px;font-weight:700;">/ 72W</span></div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#0D1F3C;margin-bottom:2px;">Light Cruising</div>
+          <div style="font-size:10px;color:rgba(13,31,60,0.45);">Smooth, clear corridors</div>
+          <div class="pm-bar-wrap"><div class="pm-bar" style="width:25%;background:#22c55e;"></div></div>
+        </div>
+
+        <!-- Normal Mixed -->
+        <div class="pm-draw-card" style="border-color:rgba(234,179,8,0.35);background:rgba(234,179,8,0.05);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:18px;"></span>
+            <div>
+              <div style="font-size:22px;font-weight:900;color:#a16207;letter-spacing:-0.03em;line-height:1;font-family:'Inter',sans-serif;">3.5 A <span style="font-size:14px;font-weight:700;">/ 126W</span></div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#0D1F3C;margin-bottom:2px;">Normal Mixed Use</div>
+          <div style="font-size:10px;color:rgba(13,31,60,0.45);">Daily driving &amp; turning</div>
+          <div class="pm-bar-wrap"><div class="pm-bar" style="width:44%;background:#eab308;"></div></div>
+        </div>
+
+        <!-- Heavy Load -->
+        <div class="pm-draw-card" style="border-color:rgba(201,64,64,0.35);background:rgba(201,64,64,0.05);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style=”display:inline-block;width:16px;height:16px;border-radius:50%;background:#C94040;flex-shrink:0;”></span>
+            <div>
+              <div style="font-size:22px;font-weight:900;color:#b91c1c;letter-spacing:-0.03em;line-height:1;font-family:'Inter',sans-serif;">8.0 A <span style="font-size:14px;font-weight:700;">/ 288W</span></div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#0D1F3C;margin-bottom:2px;">Heavy Load Peak</div>
+          <div style="font-size:10px;color:rgba(13,31,60,0.45);">Traversing steep ramps</div>
+          <div class="pm-bar-wrap"><div class="pm-bar" style="width:100%;background:#C94040;"></div></div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Table + image + charging strip stacked -->
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:12px;">
+
+        <!-- Comparison Table -->
+        <div id="pm-table" style="flex:0 0 auto;display:flex;flex-direction:column;
+             opacity:0;transform:translateY(16px);transition:none;">
+
+          <!-- Table header -->
+          <div class="pm-trow pm-thead">
+            <div class="pm-tcell pm-tlabel" style="font-weight:900;color:#0D1F3C;">Power Configuration</div>
+            <div class="pm-tcell pm-tbefore">
+              <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6;margin-bottom:2px;">Before</div>
+              Single Pack
+            </div>
+            <div class="pm-tcell pm-tafter">
+              <div style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.8;margin-bottom:2px;">After</div>
+              Dual Pack &#9733;
+            </div>
+            <div class="pm-tcell pm-timpact">Real-World Impact</div>
+          </div>
+
+          <!-- Row 1: Energy -->
+          <div class="pm-trow">
+            <div class="pm-tcell pm-tlabel">Total Available Energy</div>
+            <div class="pm-tcell pm-tbefore pm-num-before">158.4 Wh</div>
+            <div class="pm-tcell pm-tafter pm-num-after">316.8 Wh</div>
+            <div class="pm-tcell pm-timpact"><span class="pm-badge pm-badge-gold">&#9889; Capacity Doubled</span></div>
+          </div>
+
+          <!-- Row 2: Resistance -->
+          <div class="pm-trow">
+            <div class="pm-tcell pm-tlabel">Internal Resistance</div>
+            <div class="pm-tcell pm-tbefore" style="font-family:serif;font-style:italic;font-size:13px;color:rgba(13,31,60,0.5);justify-content:center;">R<sub>pack</sub></div>
+            <div class="pm-tcell pm-tafter pm-num-after" style="font-family:serif;font-style:italic;font-size:13px;">R<sub>pack</sub> / 2</div>
+            <div class="pm-tcell pm-timpact"><span class="pm-badge pm-badge-green">&#10003; Voltage Drops Eliminated</span></div>
+          </div>
+
+          <!-- Row 3: Light cruising -->
+          <div class="pm-trow">
+            <div class="pm-tcell pm-tlabel">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:6px;flex-shrink:0;"></span>
+              Light Cruising Runtime
+            </div>
+            <div class="pm-tcell pm-tbefore pm-num-before">2.26 hrs</div>
+            <div class="pm-tcell pm-tafter pm-num-after">4.40 hrs</div>
+            <div class="pm-tcell pm-timpact"><span class="pm-badge pm-badge-green">Half-day continuous</span></div>
+          </div>
+
+          <!-- Row 4: Normal mixed -->
+          <div class="pm-trow">
+            <div class="pm-tcell pm-tlabel">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#eab308;margin-right:6px;flex-shrink:0;"></span>
+              Normal Mixed Runtime
+            </div>
+            <div class="pm-tcell pm-tbefore pm-num-before">1.26 hrs</div>
+            <div class="pm-tcell pm-tafter pm-num-after">2.51 hrs</div>
+            <div class="pm-tcell pm-timpact"><span class="pm-badge pm-badge-blue">Daily viability threshold</span></div>
+          </div>
+
+          <!-- Row 5: Heavy ramp -->
+          <div class="pm-trow" style="border-bottom:none;">
+            <div class="pm-tcell pm-tlabel">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#C94040;margin-right:6px;flex-shrink:0;"></span>
+              Heavy Ramp Runtime
+            </div>
+            <div class="pm-tcell pm-tbefore pm-num-before">0.55 hrs</div>
+            <div class="pm-tcell pm-tafter pm-num-after">1.10 hrs</div>
+            <div class="pm-tcell pm-timpact"><span class="pm-badge pm-badge-red">Worst-case stress time</span></div>
+          </div>
+
+        </div>
+
+        <!-- Battery image + Charging strip side by side -->
+        <div id="pm-bottom" style="flex:1;min-height:0;display:flex;gap:14px;align-items:center;
+             opacity:0;transform:translateY(16px);transition:none;">
+
+          <!-- Battery image -->
+          <div style="flex:0 0 38%;height:100%;border-radius:14px;overflow:hidden;
+                      border:1px solid rgba(13,31,60,0.08);box-shadow:0 4px 20px rgba(13,31,60,0.08);">
+            <img src="Electrical Slides/battery_victa.jpg" alt="Battery"
+                 style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+
+          <!-- Charging cards centered -->
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+
+            <div style="font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;
+                        color:rgba(13,31,60,0.35);font-family:'Inter',sans-serif;text-align:center;">
+              Charging Lifecycles
+            </div>
+
+            <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+
+              <div class="pm-charge-card">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                            color:rgba(13,31,60,0.4);margin-bottom:4px;text-align:center;">Standard Setup</div>
+                <div style="font-size:30px;font-weight:900;color:#C9992A;letter-spacing:-0.03em;line-height:1;
+                            font-family:'Inter',sans-serif;text-align:center;">
+                  2.4 <span style="font-size:16px;font-weight:700;">hrs</span>
+                </div>
+                <div style="font-size:10px;color:rgba(13,31,60,0.5);margin-top:4px;text-align:center;">2&times; 2A chargers simultaneously</div>
+              </div>
+
+              <div style="color:rgba(13,31,60,0.25);font-size:22px;">&#8594;</div>
+
+              <div class="pm-charge-card" style="border-color:rgba(34,197,94,0.35);background:rgba(34,197,94,0.04);">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                            color:rgba(39,174,96,0.7);margin-bottom:4px;text-align:center;">Fast Setup</div>
+                <div style="font-size:30px;font-weight:900;color:#15803d;letter-spacing:-0.03em;line-height:1;
+                            font-family:'Inter',sans-serif;text-align:center;">
+                  1.2 <span style="font-size:16px;font-weight:700;">hrs</span>
+                </div>
+                <div style="font-size:10px;color:rgba(13,31,60,0.5);margin-top:4px;text-align:center;">2&times; 4A fast chargers simultaneously</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-20 { background: #F8F9FA; }
+
+.pm-draw-card {
+  flex:1;border:1.5px solid;border-radius:12px;padding:12px 14px;
+  background:#fff;font-family:'Inter',sans-serif;
+}
+.pm-bar-wrap {
+  height:5px;background:rgba(13,31,60,0.07);border-radius:3px;overflow:hidden;margin-top:10px;
+}
+.pm-bar { height:100%;border-radius:3px; }
+
+/* Table */
+.pm-trow {
+  display:grid;
+  grid-template-columns:1.8fr 1fr 1fr 1.6fr;
+  border-bottom:1px solid rgba(13,31,60,0.07);
+  align-items:center;
+  min-height:38px;
+}
+.pm-thead {
+  border-bottom:2px solid rgba(13,31,60,0.1);
+  background:rgba(13,31,60,0.02);
+  border-radius:10px 10px 0 0;
+  min-height:44px;
+}
+.pm-tcell {
+  padding:6px 10px;font-family:'Inter',sans-serif;font-size:12px;color:rgba(13,31,60,0.6);
+  display:flex;align-items:center;
+}
+.pm-tlabel { font-size:12px;font-weight:600;color:#0D1F3C; }
+.pm-tbefore {
+  font-size:11px;font-weight:700;color:rgba(13,31,60,0.45);
+  justify-content:center;text-align:center;border-left:1px solid rgba(13,31,60,0.06);
+}
+.pm-tafter {
+  font-size:13px;font-weight:800;color:#0D1F3C;
+  justify-content:center;text-align:center;
+  background:rgba(201,153,42,0.05);border-left:1px solid rgba(201,153,42,0.15);
+  border-right:1px solid rgba(201,153,42,0.15);
+}
+.pm-thead .pm-tbefore { font-size:13px;font-weight:800;color:rgba(13,31,60,0.5); }
+.pm-thead .pm-tafter  { font-size:13px;font-weight:900;color:#C9992A; }
+.pm-num-before { font-size:14px;font-weight:800;color:rgba(13,31,60,0.4); }
+.pm-num-after  { font-size:15px;font-weight:900;color:#0D1F3C; }
+.pm-timpact { padding-left:14px; }
+
+.pm-badge {
+  font-size:10px;font-weight:700;border-radius:20px;padding:3px 10px;border:1px solid;
+  white-space:nowrap;
+}
+.pm-badge-gold  { color:#a16207;border-color:rgba(201,153,42,0.4);background:rgba(201,153,42,0.08); }
+.pm-badge-green { color:#15803d;border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.08); }
+.pm-badge-blue  { color:#1B5FA6;border-color:rgba(27,95,166,0.4);background:rgba(27,95,166,0.08); }
+.pm-badge-red   { color:#b91c1c;border-color:rgba(201,64,64,0.35);background:rgba(201,64,64,0.06); }
+
+.pm-charge-card {
+  padding:10px 18px;background:#fff;border:1.5px solid rgba(13,31,60,0.1);
+  border-radius:12px;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id, delay, fromX, fromY){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    }, delay);
+  }
+
+  function hide(){
+    var snap = {
+      'pm-hdr':    { opacity:'0', transform:'translateY(-14px)' },
+      'pm-left':   { opacity:'0', transform:'translateX(-20px)' },
+      'pm-table':  { opacity:'0', transform:'translateY(16px)' },
+      'pm-bottom': { opacity:'0', transform:'translateY(16px)' }
+    };
+    Object.keys(snap).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(snap[id]).forEach(function(p){ el.style[p]=snap[id][p]; });
+    });
+    var ul=q('pm-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  window._slide20={
+    enter: function(){
+      clearAll(); hide();
+      show('pm-hdr', 60);
+      at(function(){
+        var ul=q('pm-uline'); if(!ul) return;
+        ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='52px';
+      }, 320);
+      show('pm-left',   200);
+      show('pm-table',  350);
+      show('pm-bottom', 550);
+    },
+    leave: function(){ clearAll(); hide(); }
+  };
+})();
+</script>
+

@@ -1,0 +1,427 @@
+﻿<div class="slide light" id="slide-53" data-slide="53">
+  <div class="sp13-layout">
+
+    <!-- LEFT: info -->
+    <div class="sp13-left" id="sp13-left">
+      <div class="sp13-num">03</div>
+      <div class="sp13-tag">Health Monitoring</div>
+      <div class="sp13-title">It Watches<br>Over You</div>
+      <div class="sp13-uline" id="sp13-uline"></div>
+      <div class="sp13-desc">
+        Continuous, passive monitoring — always on.
+        Automatic caregiver alert when it matters.
+      </div>
+
+      <!-- Sensor list — no fall detection -->
+      <div class="sp13-sensors">
+        <div class="sp13-sensor" id="sp13-s0">
+          <div class="sp13-sensor-icon" style="background:rgba(239,68,68,0.1);color:#ef4444"><i class="ti ti-heart-rate-monitor"></i></div>
+          <div><div class="sp13-sensor-name">Heart Rate</div><div class="sp13-sensor-chip">MAX30102</div></div>
+        </div>
+        <div class="sp13-sensor" id="sp13-s1">
+          <div class="sp13-sensor-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6"><i class="ti ti-lungs"></i></div>
+          <div><div class="sp13-sensor-name">SpO₂</div><div class="sp13-sensor-chip">MAX30102</div></div>
+        </div>
+        <div class="sp13-sensor" id="sp13-s2">
+          <div class="sp13-sensor-icon" style="background:rgba(245,158,11,0.1);color:#f59e0b"><i class="ti ti-thermometer"></i></div>
+          <div><div class="sp13-sensor-name">Temperature</div><div class="sp13-sensor-chip">MLX90614</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: live vitals dashboard -->
+    <div class="sp13-right" id="sp13-right">
+      <div class="sp13-dash">
+        <div class="sp13-dash-head">
+          <i class="ti ti-activity-heartbeat"></i>
+          Live Health Dashboard
+          <div class="sp13-live-dot" id="sp13-live-dot"></div>
+          <span class="sp13-live-txt" id="sp13-live-txt">LIVE</span>
+        </div>
+
+        <!-- Vitals grid: 3 vitals + alert status -->
+        <div class="sp13-vitals">
+
+          <!-- Heart rate -->
+          <div class="sp13-vital sp13-vital-hr">
+            <div class="sp13-vital-label"><i class="ti ti-heart"></i>Heart Rate</div>
+            <div class="sp13-vital-val"><span id="sp13-hr">72</span><span class="sp13-unit">bpm</span></div>
+            <div class="sp13-bar-track"><div class="sp13-bar-fill sp13-bar-hr" id="sp13-hr-bar" style="width:60%"></div></div>
+            <div class="sp13-vital-range">Normal: 60–100 bpm</div>
+          </div>
+
+          <!-- SpO2 -->
+          <div class="sp13-vital sp13-vital-spo2">
+            <div class="sp13-vital-label"><i class="ti ti-lungs"></i>SpO₂</div>
+            <div class="sp13-vital-val"><span id="sp13-spo2">98</span><span class="sp13-unit">%</span></div>
+            <div class="sp13-bar-track"><div class="sp13-bar-fill sp13-bar-spo2" id="sp13-spo2-bar" style="width:98%"></div></div>
+            <div class="sp13-vital-range">Normal: 95–100%</div>
+          </div>
+
+          <!-- Temperature -->
+          <div class="sp13-vital sp13-vital-temp">
+            <div class="sp13-vital-label"><i class="ti ti-thermometer"></i>Temperature</div>
+            <div class="sp13-vital-val"><span id="sp13-temp">36.8</span><span class="sp13-unit">°C</span></div>
+            <div class="sp13-bar-track"><div class="sp13-bar-fill sp13-bar-temp" id="sp13-temp-bar" style="width:70%"></div></div>
+            <div class="sp13-vital-range">Normal: 36.1–37.2°C</div>
+          </div>
+
+          <!-- Alert status card -->
+          <div class="sp13-vital sp13-vital-alert" id="sp13-alert-card">
+            <div class="sp13-vital-label"><i class="ti ti-bell"></i>Alert Status</div>
+            <div id="sp13-alert-ok" class="sp13-alert-ok"><i class="ti ti-check"></i>All Normal</div>
+            <div id="sp13-alert-active" class="sp13-alert-active" style="display:none"><i class="ti ti-bell-ringing"></i>ALERTING</div>
+            <div class="sp13-vital-range" id="sp13-alert-sub">Monitoring threshold conditions</div>
+          </div>
+        </div>
+
+        <!-- Simulate Alert button -->
+        <button class="sp13-sim-btn" id="sp13-sim-btn">
+          <i class="ti ti-bell-ringing"></i>Simulate Alert Sequence
+        </button>
+
+        <!-- Alert steps strip -->
+        <div class="sp13-steps" id="sp13-steps">
+          <div class="sp13-step" id="sp13-step0">
+            <div class="sp13-step-icon sp13-step-icon-call"><i class="ti ti-phone-call"></i></div>
+            <div class="sp13-step-body">
+              <div class="sp13-step-title">Calling Caregivers</div>
+              <div class="sp13-step-sub">Twilio auto-call to all linked numbers</div>
+            </div>
+            <div class="sp13-step-badge" id="sp13-badge0">...</div>
+          </div>
+          <div class="sp13-step" id="sp13-step1">
+            <div class="sp13-step-icon sp13-step-icon-ok"><i class="ti ti-phone-check"></i></div>
+            <div class="sp13-step-body">
+              <div class="sp13-step-title">Call Connected</div>
+              <div class="sp13-step-sub">Sara (Daughter) answered</div>
+            </div>
+            <div class="sp13-step-badge sp13-badge-green" id="sp13-badge1">✓ Done</div>
+          </div>
+          <div class="sp13-step" id="sp13-step2">
+            <div class="sp13-step-icon sp13-step-icon-wa"><i class="ti ti-brand-whatsapp"></i></div>
+            <div class="sp13-step-body">
+              <div class="sp13-step-title">WhatsApp Sent</div>
+              <div class="sp13-step-sub">Message + location to all caregivers</div>
+            </div>
+            <div class="sp13-step-badge sp13-badge-green" id="sp13-badge2">✓ Done</div>
+          </div>
+          <div class="sp13-step" id="sp13-step3">
+            <div class="sp13-step-icon sp13-step-icon-app"><i class="ti ti-device-mobile"></i></div>
+            <div class="sp13-step-body">
+              <div class="sp13-step-title">App Push Notification</div>
+              <div class="sp13-step-sub">FCM alert — red overlay in Rafeeq app</div>
+            </div>
+            <div class="sp13-step-badge sp13-badge-green" id="sp13-badge3">✓ Done</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-53 { background: #F8F9FA; overflow: hidden; }
+
+.sp13-layout {
+  display: flex; width: 100%; height: 100%;
+  padding: 36px 48px 32px; box-sizing: border-box; gap: 40px;
+}
+
+/* LEFT */
+.sp13-left {
+  flex: 0 0 300px; display: flex; flex-direction: column; gap: 14px;
+  opacity: 0; transform: translateX(-24px); transition: none;
+}
+.sp13-num { font-size: 72px; font-weight: 900; color: rgba(201,153,42,0.12); letter-spacing: -0.05em; line-height: 1; margin-bottom: -8px; }
+.sp13-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #C9992A; }
+.sp13-title { font-size: 30px; font-weight: 900; color: #0D1F3C; line-height: 1.15; letter-spacing: -0.02em; }
+.sp13-uline { height: 3px; background: #C9992A; border-radius: 2px; width: 0; transition: none; }
+.sp13-desc { font-size: 13px; color: rgba(13,31,60,0.6); line-height: 1.6; }
+.sp13-sensors { display: flex; flex-direction: column; gap: 8px; }
+.sp13-sensor {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 12px; border-radius: 10px;
+  background: #fafafa; border: 1px solid #ececec;
+}
+.sp13-sensor-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.sp13-sensor-name { font-size: 12px; font-weight: 700; color: #0D1F3C; }
+.sp13-sensor-chip { font-size: 10px; color: #aaa; font-weight: 600; letter-spacing: 0.06em; }
+
+/* RIGHT */
+.sp13-right {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateX(24px); transition: none;
+}
+.sp13-dash {
+  background: #0D1F3C; border-radius: 20px;
+  width: 100%; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.2);
+}
+.sp13-dash-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.sp13-dash-head i { color: #C9992A; font-size: 16px; }
+.sp13-live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+  animation: sp13Ping 1.4s ease-in-out infinite; margin-left: auto;
+}
+@keyframes sp13Ping { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.6);opacity:0.4} }
+.sp13-live-txt { font-size: 10px; color: #22c55e; letter-spacing: 0.1em; }
+
+/* Vitals grid */
+.sp13-vitals { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sp13-vital {
+  background: rgba(255,255,255,0.05); border-radius: 12px;
+  padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+  border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.3s, background 0.3s;
+}
+.sp13-vital-label {
+  font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px;
+}
+.sp13-vital-label i { font-size: 13px; }
+.sp13-vital-hr   .sp13-vital-label i { color: #ef4444; }
+.sp13-vital-spo2 .sp13-vital-label i { color: #3b82f6; }
+.sp13-vital-temp .sp13-vital-label i { color: #f59e0b; }
+.sp13-vital-alert .sp13-vital-label i { color: #C9992A; }
+.sp13-vital-val { font-size: 30px; font-weight: 900; color: #fff; letter-spacing: -0.03em; display: flex; align-items: flex-end; gap: 3px; }
+.sp13-unit { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+.sp13-bar-track { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+.sp13-bar-fill  { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+.sp13-bar-hr   { background: #ef4444; }
+.sp13-bar-spo2 { background: #3b82f6; }
+.sp13-bar-temp { background: #f59e0b; }
+.sp13-vital-range { font-size: 10px; color: rgba(255,255,255,0.25); }
+
+/* Alert status card */
+.sp13-alert-ok {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 18px; font-weight: 800; color: #22c55e; min-height: 32px;
+}
+.sp13-alert-active {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 900; color: #ef4444; min-height: 32px;
+  animation: sp13AlertPulse 0.7s ease infinite alternate;
+}
+@keyframes sp13AlertPulse { to { opacity: 0.4; } }
+.sp13-vital-alert.alarm { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.08); }
+
+/* Simulate button */
+.sp13-sim-btn {
+  background: rgba(201,153,42,0.12); border: 1px solid rgba(201,153,42,0.4);
+  border-radius: 10px; color: #C9992A; font-size: 13px; font-weight: 700;
+  padding: 10px; cursor: pointer; width: 100%;
+  font-family: inherit; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  letter-spacing: 0.03em;
+}
+.sp13-sim-btn:hover { background: rgba(201,153,42,0.2); }
+.sp13-sim-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Alert steps */
+.sp13-steps {
+  display: flex; flex-direction: column; gap: 7px;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.sp13-steps.show { opacity: 1; }
+
+.sp13-step {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 9px 12px;
+  opacity: 0; transform: translateX(16px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
+}
+.sp13-step.show { opacity: 1; transform: translateX(0); }
+.sp13-step.done { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.05); }
+
+.sp13-step-icon {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.sp13-step-icon-call { background: rgba(239,68,68,0.15); color: #ef4444; }
+.sp13-step-icon-ok   { background: rgba(34,197,94,0.15); color: #22c55e; }
+.sp13-step-icon-wa   { background: rgba(37,211,102,0.15); color: #25d366; }
+.sp13-step-icon-app  { background: rgba(59,130,246,0.15); color: #3b82f6; }
+
+.sp13-step-body { flex: 1; min-width: 0; }
+.sp13-step-title { font-size: 12px; font-weight: 800; color: #fff; }
+.sp13-step-sub   { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+
+.sp13-step-badge {
+  font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 20px;
+  padding: 3px 9px; white-space: nowrap; flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.sp13-badge-green { color: #22c55e; border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.08); }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var vitalInterval = null;
+  var simActive = false;
+
+  function rnd(min, max) { return Math.random()*(max-min)+min; }
+
+  function updateVitals() {
+    if (simActive) return;
+    var hrVal   = Math.round(rnd(68, 82));
+    var spo2Val = Math.round(rnd(96, 99));
+    var tempVal = rnd(36.5, 37.1).toFixed(1);
+    var hrEl=q('sp13-hr'), hrBar=q('sp13-hr-bar');
+    if (hrEl) hrEl.textContent=hrVal;
+    if (hrBar) hrBar.style.width=((hrVal-40)/100*100)+'%';
+    var spo2El=q('sp13-spo2'), spo2Bar=q('sp13-spo2-bar');
+    if (spo2El) spo2El.textContent=spo2Val;
+    if (spo2Bar) spo2Bar.style.width=spo2Val+'%';
+    var tempEl=q('sp13-temp'), tempBar=q('sp13-temp-bar');
+    if (tempEl) tempEl.textContent=tempVal;
+    if (tempBar) tempBar.style.width=((parseFloat(tempVal)-35)/3*100)+'%';
+  }
+
+  function resetSteps() {
+    [0,1,2,3].forEach(function(i) {
+      var s=q('sp13-step'+i); if(s){s.classList.remove('show','done');}
+      var b=q('sp13-badge'+i); if(b&&i>0){b.style.opacity='0';}
+    });
+    var steps=q('sp13-steps'); if(steps) steps.classList.remove('show');
+  }
+
+  function showStep(i, delay, done) {
+    at(function() {
+      var s=q('sp13-step'+i); if(s) s.classList.add('show');
+    }, delay);
+    if (done) {
+      at(function() {
+        var s=q('sp13-step'+i); if(s) s.classList.add('done');
+        var b=q('sp13-badge'+i); if(b){b.style.opacity='1';}
+      }, delay+600);
+    }
+  }
+
+  function runSim() {
+    if (simActive) return;
+    simActive = true;
+    var btn=q('sp13-sim-btn'); if(btn) btn.disabled=true;
+
+    // spike vitals — high HR, low SpO2
+    var hrEl=q('sp13-hr'), hrBar=q('sp13-hr-bar');
+    var spo2El=q('sp13-spo2'), spo2Bar=q('sp13-spo2-bar');
+    var tempEl=q('sp13-temp'), tempBar=q('sp13-temp-bar');
+    if (hrEl) hrEl.textContent='118';
+    if (hrBar) hrBar.style.width='78%';
+    if (spo2El) spo2El.textContent='88';
+    if (spo2Bar) spo2Bar.style.width='88%';
+    if (tempEl) tempEl.textContent='38.7';
+    if (tempBar) tempBar.style.width='92%';
+
+    // flip alert card
+    var ok=q('sp13-alert-ok'), active=q('sp13-alert-active'), card=q('sp13-alert-card');
+    if (ok) ok.style.display='none';
+    if (active) active.style.display='flex';
+    if (card) card.classList.add('alarm');
+
+    // flip live dot to red
+    var dot=q('sp13-live-dot'), txt=q('sp13-live-txt');
+    if (dot) dot.style.background='#ef4444';
+    if (txt) { txt.style.color='#ef4444'; txt.textContent='ALERT'; }
+
+    // show steps strip
+    at(function() {
+      var steps=q('sp13-steps'); if(steps) steps.classList.add('show');
+    }, 200);
+
+    // badge 0 starts as "Dialing..."
+    at(function() {
+      var b=q('sp13-badge0'); if(b){b.textContent='Dialing…';b.style.color='#f59e0b';b.style.borderColor='rgba(245,158,11,0.4)';}
+    }, 200);
+
+    showStep(0, 300, false);        // Calling — no done yet
+    at(function() {                  // call connected 1.4s later
+      var b=q('sp13-badge0');
+      if(b){b.textContent='✓ Connected';b.style.color='#22c55e';b.style.borderColor='rgba(34,197,94,0.4)';}
+      var s=q('sp13-step0'); if(s){s.classList.add('done');}
+    }, 1700);
+    showStep(1, 1800, true);         // Call connected
+    showStep(2, 3000, true);         // WhatsApp
+    showStep(3, 4200, true);         // App notification
+
+    // auto-reset after 8s
+    at(function() {
+      simActive=false;
+      if (ok) ok.style.display='flex';
+      if (active) active.style.display='none';
+      if (card) card.classList.remove('alarm');
+      if (dot) dot.style.background='#22c55e';
+      if (txt) { txt.style.color='#22c55e'; txt.textContent='LIVE'; }
+      var b=q('sp13-badge0'); if(b){b.textContent='…';b.style.color='';b.style.borderColor='';}
+      resetSteps();
+      if (btn) btn.disabled=false;
+    }, 8000);
+  }
+
+  function hide() {
+    var left=q('sp13-left'), right=q('sp13-right'), ul=q('sp13-uline');
+    if (left)  { left.style.transition='none'; left.style.opacity='0'; left.style.transform='translateX(-24px)'; }
+    if (right) { right.style.transition='none'; right.style.opacity='0'; right.style.transform='translateX(24px)'; }
+    if (ul)    { ul.style.transition='none'; ul.style.width='0'; }
+    simActive=false;
+    if (vitalInterval) { clearInterval(vitalInterval); vitalInterval=null; }
+    var ok=q('sp13-alert-ok'), active=q('sp13-alert-active'), card=q('sp13-alert-card');
+    if (ok) ok.style.display='flex';
+    if (active) active.style.display='none';
+    if (card) card.classList.remove('alarm');
+    var dot=q('sp13-live-dot'), txt=q('sp13-live-txt');
+    if (dot) dot.style.background='#22c55e';
+    if (txt) { txt.style.color='#22c55e'; txt.textContent='LIVE'; }
+    var btn=q('sp13-sim-btn'); if(btn) btn.disabled=false;
+    resetSteps();
+  }
+
+  window._slide53 = {
+    enter: function() {
+      clearAll(); hide();
+      at(function(){
+        var left=q('sp13-left');
+        if (left){left.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';left.style.opacity='1';left.style.transform='translateX(0)';}
+      },0);
+      at(function(){
+        var ul=q('sp13-uline');
+        if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='56px';}
+      },350);
+      at(function(){
+        var right=q('sp13-right');
+        if(right){right.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';right.style.opacity='1';right.style.transform='translateX(0)';}
+      },200);
+      at(function(){
+        updateVitals();
+        vitalInterval=setInterval(updateVitals,1800);
+        var btn=q('sp13-sim-btn');
+        if(btn) btn.onclick=runSim;
+      },800);
+    },
+    leave: function() {
+      clearAll();
+      if (vitalInterval){clearInterval(vitalInterval);vitalInterval=null;}
+      hide();
+    }
+  };
+})();
+</script>

@@ -1,0 +1,190 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 35 — APP: ALARMS, MEDICATIONS & APPOINTMENTS
+     Phone auto-cycles through 4 screens every 3s
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-39" data-slide="39"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#E74C3C,#3498DB,#27AE60);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:50px 64px;box-sizing:border-box;gap:48px;">
+
+    <!-- LEFT: info -->
+    <div id="a35-left" style="flex:1;display:flex;flex-direction:column;gap:22px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:10px;">Mobile App Walkthrough · 04</div>
+        <div style="font-size:34px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:10px;">Alarms, Medications<br>&amp; Appointments</div>
+        <div id="a35-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:14.5px;color:rgba(13,31,60,0.6);line-height:1.8;max-width:460px;">
+        The backbone of daily compliance — three reminder types, smart scheduling, and real-time push notifications to both patient and caregiver.
+      </div>
+
+      <div id="a35-types" style="display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="a35-type"><div class="a35-ic" style="background:rgba(231,76,60,0.12);color:#E74C3C;">💊</div><div><div class="a35-ttl">Medication</div><div class="a35-sub">Recurring reminders, daily / weekly / once</div></div></div>
+        <div class="a35-type"><div class="a35-ic" style="background:rgba(52,152,219,0.12);color:#3498DB;">🏥</div><div><div class="a35-ttl">Appointment</div><div class="a35-sub">Doctor, location, date &amp; time scheduling</div></div></div>
+        <div class="a35-type"><div class="a35-ic" style="background:rgba(39,174,96,0.12);color:#27AE60;">✓</div><div><div class="a35-ttl">Task</div><div class="a35-sub">General daily reminders &amp; to-dos</div></div></div>
+      </div>
+
+      <div id="a35-status" style="display:flex;gap:10px;opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a35-badge" style="background:rgba(39,174,96,0.1);color:#27AE60;border-color:rgba(39,174,96,0.3);">✓ Taken</span>
+        <span class="a35-badge" style="background:rgba(243,156,18,0.1);color:#F39C12;border-color:rgba(243,156,18,0.3);">⏳ Pending</span>
+        <span class="a35-badge" style="background:rgba(231,76,60,0.1);color:#E74C3C;border-color:rgba(231,76,60,0.3);">✗ Missed</span>
+      </div>
+    </div>
+
+    <!-- CENTER: auto-cycling phone -->
+    <div id="a35-center" style="flex:0 0 280px;display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a35-phone">
+        <div class="a35-notch"></div>
+        <div class="a35-screen">
+          <img class="a35-img active" data-idx="0" src="App Slides/alarm_list.png" alt="Alarm list">
+          <img class="a35-img" data-idx="1" src="App Slides/alarm_create.png" alt="Add alarm">
+          <img class="a35-img" data-idx="2" src="App Slides/medications_screen.png" alt="Medications list">
+          <img class="a35-img" data-idx="3" src="App Slides/appointments_screen.png" alt="Appointments list">
+        </div>
+      </div>
+      <div id="a35-dots" style="display:flex;gap:6px;">
+        <div class="a35-cdot active" data-idx="0"></div>
+        <div class="a35-cdot" data-idx="1"></div>
+        <div class="a35-cdot" data-idx="2"></div>
+        <div class="a35-cdot" data-idx="3"></div>
+      </div>
+      <div id="a35-cyclabel" style="font-size:11px;font-weight:700;color:rgba(13,31,60,0.4);letter-spacing:0.08em;text-transform:uppercase;">Alarm List</div>
+    </div>
+
+    <!-- RIGHT: flow diagram -->
+    <div id="a35-right" style="flex:0 0 320px;display:flex;flex-direction:column;gap:0;opacity:0;transform:translateX(24px);transition:none;">
+      <div style="font-size:15px;font-weight:800;color:#0D1F3C;margin-bottom:14px;">Scheduling &amp; Notification Flow</div>
+      <div class="a35-flow-step"><div class="a35-fnum" style="background:#1B4F72;">1</div><div class="a35-ftxt">Patient creates alarm — type, time, repeat, optional image</div></div>
+      <div class="a35-flow-arrow">↓</div>
+      <div class="a35-flow-step"><div class="a35-fnum" style="background:#2E86C1;">2</div><div class="a35-ftxt">APScheduler checks the schedule every minute</div></div>
+      <div class="a35-flow-arrow">↓</div>
+      <div class="a35-flow-step"><div class="a35-fnum" style="background:#F39C12;">3</div><div class="a35-ftxt">pg_notify → WebSocket → FCM Push triggered</div></div>
+      <div class="a35-flow-arrow">↓</div>
+      <div class="a35-flow-step"><div class="a35-fnum" style="background:#27AE60;">4</div><div class="a35-ftxt">Patient &amp; caregiver both notified instantly</div></div>
+      <div class="a35-flow-arrow">↓</div>
+      <div class="a35-flow-step"><div class="a35-fnum" style="background:#E74C3C;">5</div><div class="a35-ftxt">Patient marks "Taken" — caregiver sees compliance update live</div></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-39 { background: #F8F9FA; }
+
+.a35-type { display:flex;align-items:center;gap:14px; }
+.a35-ic { width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+.a35-ttl { font-size:14px;font-weight:800;color:#0D1F3C;font-family:'Inter',sans-serif; }
+.a35-sub { font-size:11.5px;color:rgba(13,31,60,0.45);margin-top:2px; }
+
+.a35-badge { font-size:11px;font-weight:700;padding:6px 12px;border-radius:100px;border:1px solid;font-family:'Inter',sans-serif; }
+
+.a35-phone {
+  width:264px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(27,79,114,.15);
+  position:relative;
+}
+.a35-notch {
+  width:84px;height:22px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a35-screen { border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA;position:relative; }
+.a35-img {
+  position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;
+  opacity:0;transition:opacity 0.5s ease;
+}
+.a35-img.active { opacity:1; }
+
+.a35-cdot { width:7px;height:7px;border-radius:50%;background:rgba(13,31,60,0.15);transition:.3s; }
+.a35-cdot.active { background:#1B4F72;width:20px;border-radius:4px; }
+
+.a35-flow-step { display:flex;align-items:flex-start;gap:12px;background:#fff;border-radius:12px;padding:11px 14px;box-shadow:0 2px 10px rgba(13,31,60,0.06); }
+.a35-fnum { width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;font-family:'Inter',sans-serif; }
+.a35-ftxt { font-size:12px;color:rgba(13,31,60,0.65);line-height:1.5;padding-top:3px;font-family:'Inter',sans-serif; }
+.a35-flow-arrow { text-align:center;color:rgba(13,31,60,0.2);font-size:13px;padding:3px 0; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t39 = [];
+  function at(fn, ms) { _t39.push(setTimeout(fn, ms)); }
+  function ca39() { _t39.forEach(clearTimeout); _t39 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var cycleNames = ['Alarm List', 'Add Alarm', 'Medications', 'Appointments'];
+  var cycleIv = null;
+  var cycleIdx = 0;
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function setCycle(idx) {
+    cycleIdx = idx;
+    document.querySelectorAll('#slide-39 .a35-img').forEach(function (el) {
+      el.classList.toggle('active', +el.getAttribute('data-idx') === idx);
+    });
+    document.querySelectorAll('#slide-39 .a35-cdot').forEach(function (el) {
+      el.classList.toggle('active', +el.getAttribute('data-idx') === idx);
+    });
+    var lbl = q('a35-cyclabel'); if (lbl) lbl.textContent = cycleNames[idx];
+  }
+
+  function startCycle() {
+    cycleIv = setInterval(function () {
+      setCycle((cycleIdx + 1) % 4);
+    }, 3000);
+  }
+
+  function hide39() {
+    ['a35-left', 'a35-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a35-left').style.transform = 'translateX(-24px)';
+    q('a35-right').style.transform = 'translateX(24px)';
+
+    var c = q('a35-center'); if (c) { c.style.transition = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(60px) scale(0.9)'; }
+
+    ['a35-types', 'a35-status'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
+    });
+
+    var ul = q('a35-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    setCycle(0);
+    if (cycleIv) { clearInterval(cycleIv); cycleIv = null; }
+  }
+
+  window._slide39 = {
+    enter: function () {
+      ca39(); hide39();
+
+      show('a35-left', 80);
+      at(function () {
+        var ul = q('a35-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a35-center', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+
+      show('a35-types', 400, 'translateY(0)');
+      show('a35-status', 650, 'translateY(0)');
+
+      show('a35-right', 500);
+
+      at(function () { startCycle(); }, 1000);
+    },
+    leave: function () { ca39(); hide39(); }
+  };
+})();
+</script>

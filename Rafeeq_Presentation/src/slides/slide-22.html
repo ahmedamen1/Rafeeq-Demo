@@ -1,0 +1,301 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 20 — CTRL-3: ANIMATED PIPELINE + VIDEO
+     Top: control_pipeline.mp4 (~80% height)
+     Bottom: CSS animated pipeline strip (cmd + feedback)
+═══════════════════════════════════════════ -->
+<div class="slide" id="slide-22" data-slide="22"
+     style="background:#0D1F3C; overflow:hidden;">
+
+  <!-- Dot-grid texture -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:36px 36px;"></div>
+
+  <!-- Header -->
+  <div id="s20-hdr" style="
+    position:absolute;top:10px;left:0;right:0;z-index:8;
+    display:flex;flex-direction:column;align-items:center;
+    opacity:0;transform:translateY(-12px);transition:none;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;
+                color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:3px;">
+      Methodology &amp; Implementation &middot; Control Subsystem
+    </div>
+    <div style="font-size:17px;font-weight:900;color:#fff;letter-spacing:-0.03em;
+                font-family:'Inter',sans-serif;margin-bottom:4px;">
+      The Signal Pipeline &mdash; Command Down, Feedback Up
+    </div>
+    <div id="s20-uline" style="height:3px;width:0;background:#C9992A;border-radius:2px;transition:none;"></div>
+  </div>
+
+  <!-- Content column -->
+  <div style="position:absolute;top:54px;left:20px;right:20px;bottom:6px;z-index:4;
+              display:flex;flex-direction:column;gap:6px;">
+
+    <!-- VIDEO ZONE 80% -->
+    <div id="s20-video-zone" style="flex:0 0 80%;min-height:0;opacity:0;transition:none;position:relative;">
+      <video autoplay muted loop playsinline
+        style="width:100%;height:100%;object-fit:contain;display:block;border-radius:10px;
+               box-shadow:0 8px 32px rgba(13,31,60,0.15);">
+        <source src="Control Slides/control_pipeline.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- PIPELINE STRIP — remaining height -->
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:4px;">
+
+      <!-- Command path -->
+      <div style="flex:1;display:flex;align-items:center;gap:4px;min-height:0;">
+
+        <!-- Block 0: RPi5 -->
+        <div id="s20-b0" class="s20-block" style="opacity:0;transform:translateY(10px);transition:none;">
+          <img src="Control Slides/rpi5.png" alt="Raspberry Pi 5" class="s20-block-img">
+          <div class="s20-block-txt">
+            <div class="s20-block-lbl">Raspberry Pi 5</div>
+            <div class="s20-block-sub">ROS2 Jazzy &middot; Nav2</div>
+            <div class="s20-badge s20-badge-blue">/cmd_vel</div>
+          </div>
+        </div>
+
+        <div class="s20-wire">
+          <div class="s20-wire-lbl">Serial Bridge</div>
+          <div class="s20-wire-track">
+            <div class="s20-particle s20-particle-blue" style="animation-delay:0s;"></div>
+          </div>
+        </div>
+
+        <!-- Block 1: Arduino Mega -->
+        <div id="s20-b1" class="s20-block" style="opacity:0;transform:translateY(10px);transition:none;">
+          <img src="Control Slides/arduino_mega.png" alt="Arduino Mega" class="s20-block-img">
+          <div class="s20-block-txt">
+            <div class="s20-block-lbl">Arduino Mega</div>
+            <div class="s20-block-sub">Serial1 &middot; 50Hz</div>
+            <div class="s20-badge s20-badge-gold">V,W\n</div>
+          </div>
+        </div>
+
+        <div class="s20-wire">
+          <div class="s20-wire-lbl">Binary Frame</div>
+          <div class="s20-wire-track">
+            <div class="s20-particle s20-particle-blue" style="animation-delay:0.4s;"></div>
+          </div>
+        </div>
+
+        <!-- Block 2: STM32 -->
+        <div id="s20-b2" class="s20-block s20-block-star" style="opacity:0;transform:translateY(10px);transition:none;">
+          <img src="Control Slides/STM32 FOC Motor Driver.png" alt="STM32" class="s20-block-img" style="object-fit:cover;object-position:center;">
+          <div class="s20-block-txt">
+            <div class="s20-block-lbl">STM32 Driver</div>
+            <div class="s20-block-sub">FOC 20kHz</div>
+            <div class="s20-badge s20-badge-blue">0xABCD</div>
+          </div>
+        </div>
+
+        <!-- Y-split -->
+        <div id="s20-ysplit" style="opacity:0;transition:none;display:flex;flex-direction:column;align-items:center;gap:3px;flex:0 0 auto;">
+          <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;letter-spacing:0.1em;">SPLIT</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
+            <div style="width:14px;height:1px;background:#3B7DE8;"></div>
+            <div style="width:14px;height:1px;background:#27AE60;"></div>
+          </div>
+        </div>
+
+        <!-- Motors -->
+        <div style="display:flex;flex-direction:column;gap:4px;flex:0 0 auto;">
+          <div id="s20-motorL" class="s20-motor" style="opacity:0;transition:none;">
+            <svg class="s20-wheel s20-wheel-blue" viewBox="0 0 40 40" width="26" height="26">
+              <circle cx="20" cy="20" r="17" fill="none" stroke="#3B7DE8" stroke-width="2.5"/>
+              <g stroke="#3B7DE8" stroke-width="2.5">
+                <line x1="20" y1="3" x2="20" y2="37"/><line x1="3" y1="20" x2="37" y2="20"/>
+                <line x1="7" y1="7" x2="33" y2="33"/><line x1="33" y1="7" x2="7" y2="33"/>
+              </g>
+            </svg>
+            <div class="s20-motor-lbl">Left<br><span>350W BLDC</span></div>
+          </div>
+          <div id="s20-motorR" class="s20-motor" style="opacity:0;transition:none;">
+            <svg class="s20-wheel s20-wheel-green" viewBox="0 0 40 40" width="26" height="26">
+              <circle cx="20" cy="20" r="17" fill="none" stroke="#27AE60" stroke-width="2.5"/>
+              <g stroke="#27AE60" stroke-width="2.5">
+                <line x1="20" y1="3" x2="20" y2="37"/><line x1="3" y1="20" x2="37" y2="20"/>
+                <line x1="7" y1="7" x2="33" y2="33"/><line x1="33" y1="7" x2="7" y2="33"/>
+              </g>
+            </svg>
+            <div class="s20-motor-lbl">Right<br><span>350W BLDC</span></div>
+          </div>
+        </div>
+
+      </div><!-- /command path -->
+
+      <!-- Feedback path -->
+      <div id="s20-feedback-row" style="
+        flex:1;min-height:0;opacity:0;transform:translateY(10px);transition:none;
+        display:flex;flex-direction:row-reverse;align-items:center;gap:4px;
+        background:rgba(201,153,42,0.05);border:1px solid rgba(201,153,42,0.2);
+        border-radius:8px;padding:4px 8px;">
+
+        <div style="display:flex;flex-direction:column;gap:2px;flex:0 0 auto;">
+          <div class="s20-sensor-chip">Hall RPM</div>
+          <div class="s20-sensor-chip">Battery V</div>
+          <div class="s20-sensor-chip">IMU</div>
+        </div>
+
+        <div class="s20-wire">
+          <div class="s20-wire-track">
+            <div class="s20-particle s20-particle-gold" style="animation-delay:0.2s;"></div>
+          </div>
+        </div>
+
+        <div class="s20-fb-node">
+          <div class="s20-fb-node-lbl">Arduino</div>
+          <div class="s20-fb-node-sub">Parses &amp; re-encodes</div>
+        </div>
+
+        <div class="s20-wire">
+          <div class="s20-wire-track">
+            <div class="s20-particle s20-particle-gold" style="animation-delay:0.6s;"></div>
+          </div>
+        </div>
+
+        <div class="s20-fb-node" style="background:rgba(59,125,232,0.08);border-color:rgba(59,125,232,0.25);">
+          <div class="s20-fb-node-lbl" style="color:#3B7DE8;">/odom &rarr; EKF &rarr; Nav2</div>
+          <div class="s20-fb-node-sub">Pose updated @ 20Hz</div>
+        </div>
+
+      </div><!-- /feedback path -->
+
+    </div><!-- /pipeline strip -->
+
+  </div><!-- /content column -->
+
+</div>
+
+<style>
+#slide-22 { background: #0D1F3C; }
+
+.s20-block {
+  flex:1;min-width:0;height:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);border-radius:8px;
+  padding:5px 7px;display:flex;align-items:center;gap:7px;box-sizing:border-box;
+}
+.s20-block-star { border:1.5px solid rgba(201,153,42,0.4); }
+.s20-block-img { flex:0 0 40px;width:40px;height:40px;object-fit:contain;border-radius:5px;background:rgba(255,255,255,0.9); }
+.s20-block-txt { display:flex;flex-direction:column;gap:2px;align-items:flex-start;min-width:0; }
+.s20-block-lbl { font-size:10px;font-weight:800;color:#fff;font-family:'Inter',sans-serif; }
+.s20-block-sub { font-size:8px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif; }
+.s20-badge {
+  font-size:7.5px;font-weight:700;border-radius:6px;padding:1px 6px;
+  font-family:'Inter',sans-serif;margin-top:1px;
+}
+.s20-badge-blue { background:rgba(59,125,232,0.12);color:#3B7DE8; }
+.s20-badge-gold { background:rgba(201,153,42,0.12);color:#C9992A; }
+
+.s20-wire { flex:0 0 28px;display:flex;flex-direction:column;align-items:center;gap:2px;justify-content:center; }
+.s20-wire-lbl {
+  font-size:6px;font-weight:700;color:rgba(255,255,255,0.35);
+  font-family:'Inter',sans-serif;letter-spacing:0.04em;text-align:center;white-space:nowrap;
+}
+.s20-wire-track { position:relative;width:28px;height:2px;background:rgba(255,255,255,0.1);border-radius:1px; }
+.s20-particle {
+  position:absolute;top:50%;width:7px;height:7px;border-radius:50%;
+  transform:translateY(-50%);
+}
+.s20-particle-blue { background:#3B7DE8;box-shadow:0 0 6px #3B7DE8; left:-5%;opacity:0; animation:sct3FlowRight 1.4s ease infinite; }
+.s20-particle-gold { background:#C9992A;box-shadow:0 0 6px #C9992A; right:-5%;opacity:0; animation:sct3FlowLeft 1.6s ease infinite; }
+
+@keyframes sct3FlowRight {
+  0%   { left:-5%;  opacity:0; }
+  10%  { opacity:1; }
+  90%  { opacity:1; }
+  100% { left:105%; opacity:0; }
+}
+@keyframes sct3FlowLeft {
+  0%   { right:-5%;  opacity:0; }
+  10%  { opacity:1; }
+  90%  { opacity:1; }
+  100% { right:105%; opacity:0; }
+}
+
+.s20-motor {
+  display:flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;padding:2px 6px;
+}
+.s20-motor-lbl { font-size:8px;font-weight:700;color:#fff;font-family:'Inter',sans-serif;line-height:1.3; }
+.s20-motor-lbl span { font-size:7px;color:rgba(255,255,255,0.4);font-weight:500; }
+.s20-wheel { animation: s20Spin 0.8s linear infinite; transform-origin:50% 50%; }
+@keyframes s20Spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+.s20-sensor-chip {
+  font-size:7px;font-weight:700;color:#C9992A;
+  background:rgba(201,153,42,0.1);border:1px solid rgba(201,153,42,0.25);
+  border-radius:5px;padding:1px 6px;font-family:'Inter',sans-serif;white-space:nowrap;
+}
+.s20-fb-node {
+  flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:7px;padding:3px 10px;text-align:center;
+}
+.s20-fb-node-lbl { font-size:9px;font-weight:800;color:#fff;font-family:'Inter',sans-serif; }
+.s20-fb-node-sub { font-size:7px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif; }
+
+body:has(#slide-19.active) #slide-counter { display:none; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t22 = [];
+  function at(fn, ms) { _t22.push(setTimeout(fn, ms)); }
+  function ca22() { _t22.forEach(clearTimeout); _t22 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function hide22() {
+    var defs = {
+      's20-hdr':          { opacity:'0', transform:'translateY(-12px)' },
+      's20-uline':        { width:'0' },
+      's20-video-zone':   { opacity:'0' },
+      's20-b0':           { opacity:'0', transform:'translateY(10px)' },
+      's20-b1':           { opacity:'0', transform:'translateY(10px)' },
+      's20-b2':           { opacity:'0', transform:'translateY(10px)' },
+      's20-ysplit':       { opacity:'0' },
+      's20-motorL':       { opacity:'0' },
+      's20-motorR':       { opacity:'0' },
+      's20-feedback-row': { opacity:'0', transform:'translateY(10px)' }
+    };
+    Object.keys(defs).forEach(function(id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none';
+      Object.keys(defs[id]).forEach(function(p) { el.style[p] = defs[id][p]; });
+    });
+    var v = document.querySelector('#s20-video-zone video');
+    if (v) { v.pause(); v.currentTime = 0; }
+  }
+
+  function anim20(el, props, delay) {
+    at(function() {
+      if (!el) return;
+      el.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1), width 0.5s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p) { el.style[p] = props[p]; });
+    }, delay);
+  }
+
+  window._slide22 = {
+    enter: function () {
+      ca22(); hide22();
+      anim20(q('s20-hdr'),        { opacity:'1', transform:'translateY(0)' }, 0);
+      anim20(q('s20-uline'),      { width:'56px' }, 360);
+      anim20(q('s20-video-zone'), { opacity:'1' }, 0);
+      at(function(){
+        var v = document.querySelector('#s20-video-zone video');
+        if (v) { v.currentTime = 0; v.play().catch(function(){}); }
+      }, 0);
+      anim20(q('s20-b0'), { opacity:'1', transform:'translateY(0)' }, 400);
+      anim20(q('s20-b1'), { opacity:'1', transform:'translateY(0)' }, 600);
+      anim20(q('s20-b2'), { opacity:'1', transform:'translateY(0)' }, 800);
+      anim20(q('s20-ysplit'), { opacity:'1' }, 1050);
+      anim20(q('s20-motorL'), { opacity:'1' }, 1150);
+      anim20(q('s20-motorR'), { opacity:'1' }, 1300);
+      anim20(q('s20-feedback-row'), { opacity:'1', transform:'translateY(0)' }, 1700);
+    },
+    leave: function () { ca22(); hide22(); }
+  };
+})();
+</script>

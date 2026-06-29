@@ -1,0 +1,442 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 22 — SYSTEM FLOW (wake-word state machine, click-through)
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-25" data-slide="25"
+     style="background:#F8F9FA; overflow:hidden;">
+
+  <!-- Header -->
+  <div id="sf-hdr" style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;
+       opacity:0;transform:translateY(-10px);transition:none;">
+    <div style="font-size:11px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                color:#C9992A;font-family:'Inter',sans-serif;">Voice Control — System Flow</div>
+    <div style="font-size:34px;font-weight:900;color:#0D1F3C;letter-spacing:-0.03em;
+                font-family:'Inter',sans-serif;line-height:1.1;margin-top:4px;">
+      From Sleep to Action
+    </div>
+    <div id="sf-uline" style="height:3px;width:0;background:#C9992A;border-radius:2px;
+                               margin:7px auto 0;transition:none;"></div>
+  </div>
+
+  <!-- Progress label -->
+  <div id="sf-prog" style="position:absolute;bottom:14px;left:0;right:0;text-align:center;
+       font-size:12px;font-weight:600;color:rgba(13,31,60,0.4);font-family:'Inter',sans-serif;
+       z-index:5;">
+    Press <strong style="color:#C9992A;">→</strong> to step through
+  </div>
+
+  <!-- SVG canvas for connectors + feedback arrows -->
+  <svg id="sf-svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;" overflow="visible">
+    <defs>
+      <marker id="sf-arr-fwd" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+        <polygon points="0 0,7 3.5,0 7" fill="rgba(13,31,60,0.2)"/>
+      </marker>
+      <marker id="sf-arr-fwd-active" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+        <polygon points="0 0,7 3.5,0 7" fill="#C9992A"/>
+      </marker>
+      <marker id="sf-arr-back" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+        <polygon points="0 0,7 3.5,0 7" fill="#C94040"/>
+      </marker>
+      <marker id="sf-arr-done" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+        <polygon points="0 0,7 3.5,0 7" fill="#22c55e"/>
+      </marker>
+    </defs>
+    <!-- forward connector lines drawn by JS -->
+    <g id="sf-lines"></g>
+    <!-- feedback loop lines drawn by JS -->
+    <g id="sf-loops"></g>
+  </svg>
+
+  <!-- Flow nodes container -->
+  <div id="sf-nodes" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
+
+</div>
+
+<style>
+#slide-25 { background:#F8F9FA; }
+
+.sf-node {
+  position:absolute;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:0 20px;
+  border-radius:12px;
+  border:1.5px solid rgba(13,31,60,0.1);
+  background:#fff;
+  box-shadow:0 2px 8px rgba(13,31,60,0.06);
+  opacity:0;
+  transform:scale(0.94);
+  transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1),
+             transform 0.4s cubic-bezier(0.16,1,0.3,1),
+             border-color 0.35s ease,
+             background 0.35s ease,
+             box-shadow 0.35s ease;
+  box-sizing:border-box;
+  pointer-events:none;
+  font-family:'Inter',sans-serif;
+}
+.sf-node.visible {
+  opacity:1; transform:scale(1);
+}
+.sf-node.active {
+  border-color:#C9992A;
+  background:rgba(201,153,42,0.07);
+  box-shadow:0 6px 24px rgba(201,153,42,0.18);
+}
+.sf-node.done {
+  opacity:0.75;
+  border-color:rgba(34,197,94,0.45);
+  background:rgba(34,197,94,0.05);
+}
+.sf-node.decision {
+  border-style:solid;
+  border-radius:14px;
+}
+.sf-node-icon {
+  width:42px;height:42px;border-radius:10px;flex-shrink:0;
+  background:rgba(13,31,60,0.06);
+  display:flex;align-items:center;justify-content:center;
+  font-size:21px;
+  transition:background 0.3s,color 0.3s;
+}
+.sf-node.active .sf-node-icon { background:#C9992A; }
+.sf-node.done   .sf-node-icon { background:rgba(34,197,94,0.18); }
+.sf-node-lbl { font-size:15px;font-weight:800;color:#0D1F3C;line-height:1.2;text-align:center; }
+.sf-node-sub { font-size:12px;color:rgba(13,31,60,0.45);margin-top:2px;line-height:1.3;text-align:center; }
+
+/* feedback bubble */
+.sf-fb {
+  position:absolute;
+  display:flex;align-items:center;gap:6px;
+  font-size:10.5px;font-weight:700;color:#C94040;
+  background:rgba(201,64,64,0.07);
+  border:1.5px dashed rgba(201,64,64,0.35);
+  border-radius:8px;padding:5px 10px;
+  opacity:0;
+  transition:opacity 0.35s ease;
+  pointer-events:none;
+  font-family:'Inter',sans-serif;
+  white-space:nowrap;
+  z-index:4;
+}
+.sf-fb.show { opacity:1; }
+
+/* speaker wave anim */
+@keyframes sfWave {
+  0%,100%{transform:scaleY(0.4);}
+  50%{transform:scaleY(1);}
+}
+.sf-wave-bar {
+  display:inline-block;width:3px;border-radius:2px;background:#C9992A;
+  animation:sfWave 0.6s ease-in-out infinite;
+}
+
+body:has(#slide-21.active) #slide-counter{display:none;}
+</style>
+
+<script>
+(function(){
+'use strict';
+
+/* ── layout constants ── */
+var COL_X    = 0.5;   // centre of nodes as fraction of slide width
+var NODE_W   = 0.72;  // node width as fraction
+var NODE_H   = 62;    // px height of each node
+var TOP_OFF  = 88;    // px from top where first node starts
+var GAP      = 8;     // px between nodes
+var LOOP_X_R = 0.90;  // x of right feedback loop spine (fraction)
+var LOOP_X_L = 0.10;  // x of left feedback loop spine
+
+/* ── node definitions ── */
+var NODES = [
+  { icon:'🌙', lbl:'Sleep Mode',                sub:'Listening passively for wake word',      decision:false },
+  { icon:'🎙️', lbl:'Microphone Captures Audio', sub:'Continuous 1-second windows @ 16 kHz',  decision:false },
+  { icon:'🔉', lbl:'Filter Background Noise',   sub:'Cleans the audio signal before analysis',decision:false },
+  { icon:'👂', lbl:'"Rafeeq" Detected?',         sub:'Wake-word check — local CNN model',      decision:true  },
+  { icon:'⏱️', lbl:'5-Second Command Window',   sub:'System is ACTIVE, waiting for command',  decision:false },
+  { icon:'〰️', lbl:'Command Detected?',          sub:'Local CNN model within the window',      decision:true  },
+  { icon:'🔊', lbl:'Confirm Command Aloud',      sub:'System speaks the command back',         decision:false },
+  { icon:'⏹️', lbl:'Is Command "Stop"?',         sub:'Safety check before acting',             decision:true  },
+  { icon:'📡', lbl:'Publish Command to ROS 2',  sub:'Wheelchair executes navigation/motion',  decision:false },
+  { icon:'🔄', lbl:'Return to Sleep',            sub:'State resets — loop back to step 1',    decision:false }
+];
+
+/* feedback loops: [fromNodeIdx, toNodeIdx, label, side ('L'|'R')] */
+var LOOPS = [
+  { from:3, to:1, lbl:'NO → keep listening', side:'R' },
+  { from:5, to:9, lbl:'NO (timeout) → sleep', side:'R' },
+  { from:7, to:9, lbl:'YES "Stop" → sleep',   side:'L' }
+];
+
+var LABELS = [
+  'Step 1 / 10 — Sleep Mode',
+  'Step 2 / 10 — Capturing Audio',
+  'Step 3 / 10 — Filtering Noise',
+  'Step 4 / 10 — Wake-Word Check',
+  'Step 5 / 10 — Command Window Open',
+  'Step 6 / 10 — Command Detected?',
+  'Step 7 / 10 — Confirm Aloud',
+  'Step 8 / 10 — "Stop" Check',
+  'Step 9 / 10 — Published to ROS 2',
+  'Step 10 / 10 — Return to Sleep'
+];
+
+var stepIdx = -1;
+var nodeEls = [];
+var fbEls   = {};
+var built   = false;
+var T22     = [];
+
+function at(fn,ms){ T22.push(setTimeout(fn,ms)); }
+function clearT(){ T22.forEach(clearTimeout); T22=[]; }
+
+/* ── geometry helpers ── */
+function slideW(){ return document.getElementById('slide-21').offsetWidth  || window.innerWidth; }
+function slideH(){ return document.getElementById('slide-21').offsetHeight || window.innerHeight; }
+
+function nodeRect(i){
+  var W = slideW(), H = slideH();
+  var totalH = NODES.length * NODE_H + (NODES.length-1) * GAP;
+  var startY = (H - totalH) / 2 + 10; // slight bias upward
+  var nw = Math.round(W * NODE_W);
+  var nx = Math.round(W * COL_X - nw/2);
+  var ny = Math.round(startY + i*(NODE_H+GAP));
+  return { x:nx, y:ny, w:nw, h:NODE_H, cx:Math.round(W*COL_X), cy:Math.round(ny+NODE_H/2) };
+}
+
+/* ── build DOM (once) ── */
+function build(){
+  if(built) return;
+  built=true;
+  var container = document.getElementById('sf-nodes');
+  container.innerHTML='';
+
+  NODES.forEach(function(n,i){
+    var el=document.createElement('div');
+    el.className='sf-node'+(n.decision?' decision':'');
+    el.id='sf-n'+i;
+    var r=nodeRect(i);
+    el.style.left=r.x+'px';
+    el.style.top=r.y+'px';
+    el.style.width=r.w+'px';
+    el.style.height=r.h+'px';
+    el.innerHTML=
+      '<div class="sf-node-icon">'+n.icon+'</div>'+
+      '<div><div class="sf-node-lbl">'+n.lbl+'</div>'+
+      '<div class="sf-node-sub">'+n.sub+'</div></div>';
+    container.appendChild(el);
+    nodeEls.push(el);
+  });
+
+  /* feedback bubbles */
+  LOOPS.forEach(function(lp,li){
+    var fb=document.createElement('div');
+    fb.className='sf-fb';
+    fb.id='sf-fb'+li;
+    fb.textContent=lp.lbl;
+    container.appendChild(fb);
+    fbEls[li]=fb;
+  });
+
+  drawConnectors();
+}
+
+/* ── draw SVG connectors ── */
+function drawConnectors(){
+  var linesG = document.getElementById('sf-lines');
+  var loopsG = document.getElementById('sf-loops');
+  if(!linesG||!loopsG) return;
+  linesG.innerHTML=''; loopsG.innerHTML='';
+
+  var W=slideW();
+
+  /* forward lines between nodes */
+  for(var i=0;i<NODES.length-1;i++){
+    var ra=nodeRect(i), rb=nodeRect(i+1);
+    var x=ra.cx, y1=ra.y+ra.h, y2=rb.y;
+    var line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('id','sf-ln'+i);
+    line.setAttribute('x1',x); line.setAttribute('y1',y1);
+    line.setAttribute('x2',x); line.setAttribute('y2',y2-4);
+    line.setAttribute('stroke','rgba(13,31,60,0.15)');
+    line.setAttribute('stroke-width','1.5');
+    line.setAttribute('marker-end','url(#sf-arr-fwd)');
+    linesG.appendChild(line);
+  }
+
+  /* feedback loop paths */
+  LOOPS.forEach(function(lp,li){
+    var rf=nodeRect(lp.from), rt=nodeRect(lp.to);
+    var spineX = lp.side==='R' ? Math.round(W*LOOP_X_R) : Math.round(W*LOOP_X_L);
+    var fromX  = lp.side==='R' ? rf.x+rf.w : rf.x;
+    var toX    = lp.side==='R' ? rt.x+rt.w : rt.x;
+    var fromY  = rf.cy, toY = rt.cy;
+
+    /* Position feedback label */
+    var fb=fbEls[li];
+    if(fb){
+      var fbY=Math.round((fromY+toY)/2)-12;
+      fb.style.top=fbY+'px';
+      if(lp.side==='R'){
+        fb.style.left=(spineX+10)+'px';
+        fb.style.right='auto';
+      } else {
+        fb.style.right=(W-spineX+10)+'px';
+        fb.style.left='auto';
+      }
+    }
+
+    /* SVG path: horizontal out → vertical → horizontal back in */
+    var d='M '+fromX+' '+fromY+
+          ' H '+spineX+
+          ' V '+toY+
+          ' H '+(lp.side==='R'?toX+2:toX-2);
+    var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('id','sf-lp'+li);
+    path.setAttribute('d',d);
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke','rgba(201,64,64,0.25)');
+    path.setAttribute('stroke-width','1.5');
+    path.setAttribute('stroke-dasharray','4 3');
+    path.setAttribute('marker-end','url(#sf-arr-back)');
+    loopsG.appendChild(path);
+  });
+}
+
+/* ── play confirmation audio ── */
+var _sfAudio=null;
+function speak(){
+  if(_sfAudio){ _sfAudio.pause(); _sfAudio.currentTime=0; }
+  _sfAudio=new Audio('go_to_livingroom.mp3');
+  _sfAudio.play().catch(function(){});
+}
+
+/* ── render step ── */
+function render(){
+  nodeEls.forEach(function(el,i){
+    el.classList.remove('active','done');
+    if(i<stepIdx)  el.classList.add('done');
+    if(i===stepIdx) el.classList.add('active');
+  });
+
+  /* show/hide feedback loops */
+  LOOPS.forEach(function(lp,li){
+    var show = lp.from===stepIdx;
+    var fb=fbEls[li];
+    if(fb) fb.classList.toggle('show',show);
+    var path=document.getElementById('sf-lp'+li);
+    if(path) path.setAttribute('stroke', show ? 'rgba(201,64,64,0.65)' : 'rgba(201,64,64,0.25)');
+  });
+
+  /* forward line colours */
+  for(var i=0;i<NODES.length-1;i++){
+    var ln=document.getElementById('sf-ln'+i);
+    if(!ln) continue;
+    if(i<stepIdx){
+      ln.setAttribute('stroke','rgba(34,197,94,0.5)');
+      ln.setAttribute('marker-end','url(#sf-arr-done)');
+    } else if(i===stepIdx){
+      ln.setAttribute('stroke','#C9992A');
+      ln.setAttribute('marker-end','url(#sf-arr-fwd-active)');
+    } else {
+      ln.setAttribute('stroke','rgba(13,31,60,0.15)');
+      ln.setAttribute('marker-end','url(#sf-arr-fwd)');
+    }
+  }
+
+  /* progress label */
+  var prog=document.getElementById('sf-prog');
+  if(prog){
+    if(stepIdx<0){
+      prog.innerHTML='Press <strong style="color:#C9992A;">→</strong> to step through';
+    } else if(stepIdx===6){
+      /* speaking step — show wave animation */
+      prog.innerHTML=LABELS[stepIdx]+
+        ' &nbsp;<span style="display:inline-flex;gap:2px;align-items:center;vertical-align:middle;">'+
+        '<span class="sf-wave-bar" style="height:10px;animation-delay:0s"></span>'+
+        '<span class="sf-wave-bar" style="height:14px;animation-delay:0.1s"></span>'+
+        '<span class="sf-wave-bar" style="height:9px;animation-delay:0.2s"></span>'+
+        '<span class="sf-wave-bar" style="height:13px;animation-delay:0.05s"></span>'+
+        '</span>';
+    } else {
+      prog.innerHTML=LABELS[stepIdx];
+    }
+  }
+
+  /* auto-speak on "Confirm Command Aloud" step */
+  if(stepIdx===6){
+    at(function(){ speak(); }, 300);
+  }
+}
+
+/* ── reveal all nodes silently on enter ── */
+function revealNodes(){
+  nodeEls.forEach(function(el,i){
+    at(function(){ el.classList.add('visible'); }, i*40);
+  });
+}
+
+function hide25(){
+  clearT();
+  if(_sfAudio){ _sfAudio.pause(); _sfAudio.currentTime=0; }
+  stepIdx=-1;
+  nodeEls.forEach(function(el){
+    el.classList.remove('active','done','visible');
+  });
+  Object.keys(fbEls).forEach(function(k){ fbEls[k].classList.remove('show'); });
+  for(var i=0;i<NODES.length-1;i++){
+    var ln=document.getElementById('sf-ln'+i);
+    if(ln){
+      ln.setAttribute('stroke','rgba(13,31,60,0.15)');
+      ln.setAttribute('marker-end','url(#sf-arr-fwd)');
+    }
+  }
+  LOOPS.forEach(function(lp,li){
+    var path=document.getElementById('sf-lp'+li);
+    if(path) path.setAttribute('stroke','rgba(201,64,64,0.25)');
+  });
+  var prog=document.getElementById('sf-prog');
+  if(prog) prog.innerHTML='Press <strong style="color:#C9992A;">→</strong> to step through';
+  var hdr=document.getElementById('sf-hdr');
+  if(hdr){ hdr.style.transition='none'; hdr.style.opacity='0'; hdr.style.transform='translateY(-10px)'; }
+  var ul=document.getElementById('sf-uline');
+  if(ul){ ul.style.transition='none'; ul.style.width='0'; }
+}
+
+function enter22(){
+  build();
+  hide25();
+  at(function(){
+    var hdr=document.getElementById('sf-hdr');
+    if(hdr){
+      hdr.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      hdr.style.opacity='1'; hdr.style.transform='translateY(0)';
+    }
+  },0);
+  at(function(){
+    var ul=document.getElementById('sf-uline');
+    if(ul){ ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='56px'; }
+  },300);
+  at(function(){ revealNodes(); },150);
+}
+
+window._slide25={
+  enter: function(){ enter22(); },
+  leave: function(){ hide25(); },
+  onNext: function(){
+    if(stepIdx<NODES.length-1){ stepIdx++; render(); return true; }
+    return false;
+  }
+};
+
+/* rebuild on resize */
+window.addEventListener('resize',function(){
+  if(!built) return;
+  nodeEls.forEach(function(el,i){
+    var r=nodeRect(i);
+    el.style.left=r.x+'px'; el.style.top=r.y+'px';
+    el.style.width=r.w+'px'; el.style.height=r.h+'px';
+  });
+  drawConnectors();
+});
+
+})();
+</script>

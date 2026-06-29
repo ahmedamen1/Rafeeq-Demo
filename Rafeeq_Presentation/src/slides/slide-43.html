@@ -1,0 +1,193 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 40 — APP: CAREGIVER DASHBOARD & PATIENT MANAGEMENT
+     Phone shows real caregiver dashboard; right side shows 5 patient
+     tiles with mood + compliance bars animating in
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-43" data-slide="43"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#27AE60,#1B4F72,#3498DB);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;align-items:center;
+              padding:60px 64px;box-sizing:border-box;gap:44px;">
+
+    <!-- LEFT: info -->
+    <div id="a40-left" style="flex:1;display:flex;flex-direction:column;gap:26px;opacity:0;transform:translateX(-24px);transition:none;">
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#27AE60;margin-bottom:12px;">Mobile App Walkthrough · 09</div>
+        <div style="font-size:40px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.15;margin-bottom:12px;">The Caregiver Controls<br>Everything From One Place</div>
+        <div id="a40-uline" style="height:3px;background:#27AE60;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+      <div style="font-size:16px;color:rgba(13,31,60,0.6);line-height:1.85;max-width:480px;">
+        Up to 5 patients in one dashboard — compliance, mood, alarms, and reports at a glance. The caregiver can assign reminders remotely and chat with an AI that knows every patient's situation.
+      </div>
+
+      <div id="a40-feats" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="a40-feat"><div class="a40-check">✓</div>Assign alarms remotely to any linked patient</div>
+        <div class="a40-feat"><div class="a40-check">✓</div>View any patient's reports instantly</div>
+        <div class="a40-feat"><div class="a40-check">✓</div>Chat with AI about any patient's status</div>
+        <div class="a40-feat"><div class="a40-check">✓</div>Receive SOS alerts instantly — full-screen overlay</div>
+      </div>
+
+      <div id="a40-badges" style="display:flex;flex-wrap:wrap;gap:10px;opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a40-badge" style="background:rgba(39,174,96,0.1);color:#27AE60;border-color:rgba(39,174,96,0.3);">✓ 13 Completed</span>
+        <span class="a40-badge" style="background:rgba(231,76,60,0.1);color:#E74C3C;border-color:rgba(231,76,60,0.3);">✗ 5 Missed</span>
+        <span class="a40-badge" style="background:rgba(243,156,18,0.1);color:#F39C12;border-color:rgba(243,156,18,0.3);">⏳ 8 Pending</span>
+      </div>
+    </div>
+
+    <!-- CENTER: phone with real caregiver dashboard screenshot -->
+    <div id="a40-center" style="flex:0 0 280px;display:flex;justify-content:center;opacity:0;transform:translateY(60px) scale(0.9);transition:none;">
+      <div class="a40-phone">
+        <div class="a40-notch"></div>
+        <div class="a40-screen"><img src="App Slides/caregiver_dashboard.png" alt="Caregiver dashboard screen"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: patient tiles -->
+    <div id="a40-right" style="flex:0 0 320px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateX(24px);transition:none;">
+      <div style="font-size:15px;font-weight:800;color:#0D1F3C;margin-bottom:4px;">My Patients · 5</div>
+
+      <div class="a40-ptile" data-mood="😊" data-name="Ahmed Mohamed" data-pct="78" data-color="#27AE60"></div>
+      <div class="a40-ptile" data-mood="😐" data-name="Khaled Youssef" data-pct="65" data-color="#F39C12"></div>
+      <div class="a40-ptile" data-mood="😊" data-name="Mona Ali" data-pct="90" data-color="#27AE60"></div>
+      <div class="a40-ptile" data-mood="😔" data-name="Omar Hassan" data-pct="45" data-color="#E74C3C"></div>
+      <div class="a40-ptile" data-mood="😊" data-name="Fatima Ibrahim" data-pct="82" data-color="#27AE60"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-43 { background: #F8F9FA; }
+
+.a40-feat { display:flex;align-items:center;gap:12px;font-size:14.5px;color:rgba(13,31,60,0.6);line-height:1.5; }
+.a40-check {
+  width:22px;height:22px;border-radius:50%;flex-shrink:0;
+  background:rgba(39,174,96,0.15);color:#27AE60;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;
+}
+
+.a40-badge { font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:100px;border:1px solid;font-family:'Inter',sans-serif; }
+
+.a40-phone {
+  width:264px;background:#111827;border-radius:40px;padding:12px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(13,31,60,0.25), 0 0 40px rgba(39,174,96,.15);
+  position:relative;
+}
+.a40-notch {
+  width:84px;height:22px;background:#111827;border-radius:0 0 14px 14px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a40-screen { border-radius:30px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA; }
+.a40-screen img { width:100%;height:100%;object-fit:cover;display:block; }
+
+.a40-ptile {
+  background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 2px 10px rgba(13,31,60,0.06);
+  display:flex;flex-direction:column;gap:8px;
+  opacity:0;transform:translateX(20px);transition:none;
+}
+.a40-ptile-head { display:flex;align-items:center;gap:10px;justify-content:space-between; }
+.a40-ptile-name { display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:800;color:#0D1F3C;font-family:'Cairo',sans-serif; }
+.a40-ptile-mood { font-size:18px; }
+.a40-ptile-pct { font-size:13px;font-weight:900;font-family:'Inter',sans-serif; }
+.a40-ptile-bar-wrap { width:100%;height:7px;background:rgba(13,31,60,0.06);border-radius:4px;overflow:hidden; }
+.a40-ptile-bar { height:100%;border-radius:4px;width:0%;transition:width 0.8s cubic-bezier(0.16,1,0.3,1); }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t43 = [];
+  function at(fn, ms) { _t43.push(setTimeout(fn, ms)); }
+  function ca43() { _t43.forEach(clearTimeout); _t43 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function buildTiles() {
+    document.querySelectorAll('#slide-43 .a40-ptile').forEach(function (el) {
+      if (el.dataset.built) return;
+      el.dataset.built = '1';
+      var mood = el.getAttribute('data-mood');
+      var name = el.getAttribute('data-name');
+      var pct = el.getAttribute('data-pct');
+      var color = el.getAttribute('data-color');
+      el.innerHTML =
+        '<div class="a40-ptile-head"><div class="a40-ptile-name"><span class="a40-ptile-mood">' + mood + '</span>' + name + '</div>' +
+        '<div class="a40-ptile-pct" style="color:' + color + ';"><span class="a40-pctnum" data-target="' + pct + '">0</span>%</div></div>' +
+        '<div class="a40-ptile-bar-wrap"><div class="a40-ptile-bar" style="background:' + color + ';" data-target="' + pct + '"></div></div>';
+    });
+  }
+
+  function countUp(el, target, delay) {
+    at(function () {
+      var steps = 16, cur = 0, step = target / steps;
+      var iv = setInterval(function () {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(iv); }
+        el.textContent = Math.round(cur);
+      }, 35);
+    }, delay);
+  }
+
+  function hide43() {
+    ['a40-left', 'a40-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a40-left').style.transform = 'translateX(-24px)';
+    q('a40-right').style.transform = 'translateX(24px)';
+
+    var c = q('a40-center'); if (c) { c.style.transition = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(60px) scale(0.9)'; }
+
+    var bd = q('a40-badges'); if (bd) { bd.style.transition = 'none'; bd.style.opacity = '0'; bd.style.transform = 'translateY(10px)'; }
+
+    var ul = q('a40-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    document.querySelectorAll('#slide-43 .a40-ptile').forEach(function (el) {
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateX(20px)';
+      var bar = el.querySelector('.a40-ptile-bar'); if (bar) bar.style.width = '0%';
+      var num = el.querySelector('.a40-pctnum'); if (num) num.textContent = '0';
+    });
+  }
+
+  window._slide43 = {
+    enter: function () {
+      ca43(); hide43();
+      buildTiles();
+
+      show('a40-left', 80);
+      at(function () {
+        var ul = q('a40-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+
+      show('a40-center', 250, 'translateY(0) scale(1)', 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)');
+      show('a40-badges', 700, 'translateY(0)');
+
+      show('a40-right', 400);
+
+      document.querySelectorAll('#slide-43 .a40-ptile').forEach(function (el, i) {
+        at(function () {
+          el.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+          el.style.opacity = '1'; el.style.transform = 'translateX(0)';
+          var target = parseFloat(el.getAttribute('data-pct'));
+          var bar = el.querySelector('.a40-ptile-bar');
+          var num = el.querySelector('.a40-pctnum');
+          at(function () { bar.style.width = target + '%'; }, 200);
+          countUp(num, target, 200);
+        }, 550 + i * 150);
+      });
+    },
+    leave: function () { ca43(); hide43(); }
+  };
+})();
+</script>

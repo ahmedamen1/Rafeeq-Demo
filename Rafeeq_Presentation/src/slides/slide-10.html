@@ -1,0 +1,97 @@
+﻿<div class="slide light" id="slide-9" data-slide="10">
+  <div class="sp7-inner">
+
+    <!-- Three sentences revealed one by one -->
+    <div class="sp7-line" id="sp7-l1">The technology exists.</div>
+    <div class="sp7-line sp7-line-muted" id="sp7-l2">Nobody brought it to Egypt.</div>
+    <div class="sp7-line sp7-line-gold" id="sp7-l3">Until now.</div>
+
+    <div class="sp7-uline" id="sp7-uline"></div>
+
+  </div>
+</div>
+
+<style>
+#slide-9 { background: #ffffff; }
+
+.sp7-inner {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 18px; text-align: center;
+  width: 100%; height: 100%; padding: 60px;
+  box-sizing: border-box;
+}
+
+.sp7-line {
+  font-size: 54px; font-weight: 800;
+  color: #0D1F3C; line-height: 1.1;
+  letter-spacing: -0.03em;
+  opacity: 0; transform: translateY(28px);
+  transition: none;
+}
+
+.sp7-line-muted {
+  color: #8899aa;
+  font-weight: 700;
+}
+
+.sp7-line-gold {
+  color: #C9992A;
+  font-size: 72px;
+  font-weight: 900;
+}
+
+.sp7-uline {
+  height: 4px; width: 80px; margin-top: 8px;
+  background: linear-gradient(90deg, #C9992A, #E8B84B);
+  border-radius: 2px;
+  transform: scaleX(0); transform-origin: center;
+  transition: none;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(sel) { return document.querySelector(sel); }
+
+  function hide() {
+    ['#sp7-l1','#sp7-l2','#sp7-l3'].forEach(function(s) {
+      var el = q(s);
+      if (el) { el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateY(28px)'; }
+    });
+    var ul = q('#sp7-uline');
+    if (ul) { ul.style.transition='none'; ul.style.transform='scaleX(0)'; }
+  }
+
+  function reveal(sel, delay) {
+    at(function() {
+      var el = q(sel);
+      if (el) {
+        el.style.transition = 'opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
+    }, delay);
+  }
+
+  window._slide10 = {
+    enter: function() {
+      hide();
+      reveal('#sp7-l1', 100);
+      reveal('#sp7-l2', 500);
+      reveal('#sp7-l3', 1000);
+      at(function() {
+        var ul = q('#sp7-uline');
+        if (ul) { ul.style.transition='transform 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.transform='scaleX(1)'; }
+      }, 1400);
+    },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+﻿<!-- SLIDE 09 — TRANSITION: METHODOLOGY -->

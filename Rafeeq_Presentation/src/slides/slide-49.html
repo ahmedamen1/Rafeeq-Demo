@@ -1,0 +1,169 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 32 — HEALTH: HARDWARE COMPONENTS
+     ESP32 · MAX30100 · MLX90614 · Limit Switch
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-49" data-slide="49"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 48px 30px;box-sizing:border-box;gap:20px;">
+
+    <!-- Header -->
+    <div id="hm2-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C94040;margin-bottom:5px;">Health Monitoring · Hardware</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">The Cast of Characters</div>
+      <div id="hm2-uline" style="height:3px;background:#C94040;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- 4 component cards -->
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:18px;">
+
+      <!-- ESP32 -->
+      <div id="hm2-c1" style="opacity:0;transform:translateX(-24px) translateY(0px);transition:none;">
+        <div class="hm2-card">
+          <div class="hm2-img-wrap" style="border-color:rgba(201,153,42,0.3);">
+            <img src="hm_esp32.jpeg" alt="ESP32" style="width:100%;height:100%;object-fit:contain;border-radius:12px;padding:6px;box-sizing:border-box;">
+            <div class="hm2-img-badge" style="background:#C9992A;">The Brain</div>
+          </div>
+          <div class="hm2-info">
+            <div class="hm2-tag" style="color:#C9992A;border-color:rgba(201,153,42,0.35);">ESP32-WROOM</div>
+            <div class="hm2-name">Microcontroller &amp; Wi-Fi</div>
+            <div class="hm2-desc">Dual-core 240 MHz MCU with built-in Wi-Fi. Handles all sensor reading, data processing, filtering, timestamping, and Firebase upload on a single chip.</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+              <span class="hm2-chip">I2C Bus 0 &amp; 1</span>
+              <span class="hm2-chip">GPIO 18</span>
+              <span class="hm2-chip">NTP Sync</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAX30100 -->
+      <div id="hm2-c2" style="opacity:0;transform:translateX(24px) translateY(0px);transition:none;">
+        <div class="hm2-card">
+          <div class="hm2-img-wrap" style="border-color:rgba(124,58,237,0.3);">
+            <img src="hm_max30100.jpeg" alt="MAX30100" style="width:100%;height:100%;object-fit:contain;border-radius:12px;padding:6px;box-sizing:border-box;">
+            <div class="hm2-img-badge" style="background:#7c3aed;">SpO2 + HR</div>
+          </div>
+          <div class="hm2-info">
+            <div class="hm2-tag" style="color:#7c3aed;border-color:rgba(124,58,237,0.35);">MAX30100 / GY-MAX30100</div>
+            <div class="hm2-name">Pulse Oximeter &amp; Heart Rate</div>
+            <div class="hm2-desc">Optical sensor using IR and Red LEDs to measure blood oxygen saturation (SpO₂) and heart rate. Reads 100 samples, computes average IR, runs HR/SpO₂ algorithm on-chip.</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+              <span class="hm2-chip">I2C Bus 0</span>
+              <span class="hm2-chip">IR + Red LED</span>
+              <span class="hm2-chip">SpO₂ + BPM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MLX90614 -->
+      <div id="hm2-c3" style="opacity:0;transform:translateX(-24px) translateY(0px);transition:none;">
+        <div class="hm2-card">
+          <div class="hm2-img-wrap" style="border-color:rgba(59,125,232,0.3);">
+            <img src="hm_mlx90614.jpeg" alt="MLX90614" style="width:100%;height:100%;object-fit:contain;border-radius:12px;padding:6px;box-sizing:border-box;">
+            <div class="hm2-img-badge" style="background:#3B7DE8;">No-Touch Temp</div>
+          </div>
+          <div class="hm2-info">
+            <div class="hm2-tag" style="color:#3B7DE8;border-color:rgba(59,125,232,0.35);">MLX90614</div>
+            <div class="hm2-name">Infrared Thermometer</div>
+            <div class="hm2-desc">Non-contact infrared temperature sensor. Measures body temperature without physical touch — reads object temperature remotely, filtered with a 9-point median filter for accuracy.</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+              <span class="hm2-chip">I2C Bus 1</span>
+              <span class="hm2-chip">Non-contact</span>
+              <span class="hm2-chip">Median filter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limit Switch -->
+      <div id="hm2-c4" style="opacity:0;transform:translateX(24px) translateY(0px);transition:none;">
+        <div class="hm2-card">
+          <div class="hm2-img-wrap" style="border-color:rgba(201,64,64,0.3);">
+            <img src="hm_limitswitch.jpeg" alt="Limit Switch" style="width:100%;height:100%;object-fit:contain;border-radius:12px;padding:6px;box-sizing:border-box;">
+            <div class="hm2-img-badge" style="background:#C94040;">Occupancy</div>
+          </div>
+          <div class="hm2-info">
+            <div class="hm2-tag" style="color:#C94040;border-color:rgba(201,64,64,0.35);">Limit Switch</div>
+            <div class="hm2-name">Chair Occupancy Detection</div>
+            <div class="hm2-desc">Mechanical switch pressed by the patient's weight. Detects whether the chair is occupied — enables the system to gate health monitoring on patient presence and report status to caregiver.</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+              <span class="hm2-chip">GPIO 18</span>
+              <span class="hm2-chip">Digital read</span>
+              <span class="hm2-chip">Debounced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hm2-card {
+  height:100%;display:flex;gap:16px;align-items:stretch;
+  background:#fff;border:1px solid rgba(13,31,60,0.1);
+  border-radius:16px;padding:16px;box-sizing:border-box;
+}
+.hm2-img-wrap {
+  flex:0 0 130px;height:auto;border:1.5px solid;border-radius:14px;
+  overflow:hidden;position:relative;align-self:stretch;
+  background:#f5f5f5;display:flex;align-items:center;justify-content:center;
+}
+.hm2-img-badge {
+  position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  font-size:8px;font-weight:800;color:#fff;padding:2px 8px;border-radius:20px;
+  white-space:nowrap;letter-spacing:0.06em;text-transform:uppercase;
+}
+.hm2-info { flex:1;display:flex;flex-direction:column; }
+.hm2-tag  { font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+             border:1px solid;border-radius:4px;padding:2px 8px;display:inline-block;
+             margin-bottom:6px;align-self:flex-start; }
+.hm2-name { font-size:13px;font-weight:800;color:#0D1F3C;margin-bottom:5px; }
+.hm2-desc { font-size:10.5px;color:rgba(13,31,60,0.55);line-height:1.6;flex:1; }
+.hm2-chip { font-size:9px;font-weight:700;border:1px solid rgba(13,31,60,0.15);
+             border-radius:20px;padding:2px 8px;color:rgba(13,31,60,0.55); }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.65s ease,transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translateX(0) translateY(0)';
+    },delay);
+  }
+  function enter(){
+    show('hm2-hdr',80);
+    at(function(){
+      var ul=q('hm2-uline'); if(!ul)return;
+      ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='48px';
+    },340);
+    show('hm2-c1',220); show('hm2-c2',320); show('hm2-c3',420); show('hm2-c4',520);
+  }
+  function leave(){
+    clearAll();
+    ['hm2-hdr','hm2-c1','hm2-c2','hm2-c3','hm2-c4'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+    var ul=q('hm2-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+  window._slide49={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

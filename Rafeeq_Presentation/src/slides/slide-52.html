@@ -1,0 +1,149 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 36 — HEALTH: CAREGIVER DASHBOARD
+     hm_dashboard.jpeg — the Arabic app UI
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-52" data-slide="52"
+     style="background:#f0f4f8;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;gap:0;padding:0;box-sizing:border-box;">
+
+    <!-- LEFT: info -->
+    <div id="hm6-left" style="flex:1;display:flex;flex-direction:column;justify-content:center;
+         padding:44px 44px 44px 52px;gap:22px;opacity:0;transform:translateX(-24px);transition:none;">
+
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C94040;margin-bottom:8px;">Health Monitoring · The End Result</div>
+        <div style="font-size:30px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.1;margin-bottom:8px;">The Caregiver Dashboard</div>
+        <div id="hm6-uline" style="height:3px;background:#C94040;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+
+      <div style="font-size:13px;color:rgba(13,31,60,0.6);line-height:1.75;">
+        Complex hardware and firmware logic — distilled into a <span style="color:#0D1F3C;font-weight:700;">clean, intuitive Arabic interface</span> the caregiver reads at a glance.
+      </div>
+
+      <!-- Vital cards -->
+      <div id="hm6-vitals" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;opacity:0;transform:translateY(16px);transition:none;">
+        <div class="hm6-vital" style="border-top:3px solid #3B7DE8;">
+          <div class="hm6-vval" style="color:#3B7DE8;">98<span style="font-size:16px;">%</span></div>
+          <div class="hm6-vlbl">SpO₂ — Blood Oxygen</div>
+          <div class="hm6-vstatus" style="background:#D1FAE5;color:#065F46;">Excellent</div>
+        </div>
+        <div class="hm6-vital" style="border-top:3px solid #C94040;">
+          <div class="hm6-vval" style="color:#C94040;">78<span style="font-size:16px;">bpm</span></div>
+          <div class="hm6-vlbl">Heart Rate</div>
+          <div class="hm6-vstatus" style="background:#D1FAE5;color:#065F46;">Normal</div>
+        </div>
+        <div class="hm6-vital" style="border-top:3px solid #22c55e;">
+          <div class="hm6-vval" style="color:#22c55e;font-size:20px;">Connected</div>
+          <div class="hm6-vlbl">Patient Presence</div>
+          <div class="hm6-vstatus" style="background:#D1FAE5;color:#065F46;">On Chair</div>
+        </div>
+        <div class="hm6-vital" style="border-top:3px solid #C9992A;">
+          <div class="hm6-vval" style="color:#C9992A;">36.8<span style="font-size:16px;">°C</span></div>
+          <div class="hm6-vlbl">Body Temperature</div>
+          <div class="hm6-vstatus" style="background:#D1FAE5;color:#065F46;">Normal</div>
+        </div>
+      </div>
+
+      <!-- Key features -->
+      <div id="hm6-feats" style="display:flex;flex-direction:column;gap:9px;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="hm6-feat">
+          <div class="hm6-feat-dot" style="background:#C94040;"></div>
+          <div>Color-coded status labels — caregiver understands health state instantly, no medical knowledge required</div>
+        </div>
+        <div class="hm6-feat">
+          <div class="hm6-feat-dot" style="background:#C9992A;"></div>
+          <div>Live data — refreshes continuously via Firebase real-time subscription, zero manual refresh</div>
+        </div>
+        <div class="hm6-feat">
+          <div class="hm6-feat-dot" style="background:#3B7DE8;"></div>
+          <div>Also feeds the AI chatbot — contextual health data available to the assistant for smarter responses</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: phone mockup with dashboard -->
+    <div id="hm6-right" style="flex:0 0 42%;display:flex;align-items:center;justify-content:center;
+         padding:28px 36px;opacity:0;transform:translateX(28px);transition:none;">
+      <div style="position:relative;max-width:260px;width:100%;">
+        <!-- Phone frame -->
+        <div style="background:#0D1F3C;border-radius:40px;padding:12px;
+             box-shadow:0 32px 80px rgba(13,31,60,0.25),0 0 0 1px rgba(13,31,60,0.08);">
+          <div style="background:#000;border-radius:30px;overflow:hidden;aspect-ratio:9/19;position:relative;">
+            <img src="hm_dashboard.jpeg" alt="Caregiver Dashboard Arabic UI"
+                 style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;">
+          </div>
+        </div>
+        <!-- Live badge -->
+        <div id="hm6-livebadge" style="position:absolute;top:-12px;right:-8px;
+             background:#C94040;color:#fff;font-size:10px;font-weight:800;
+             padding:6px 14px;border-radius:20px;letter-spacing:0.1em;text-transform:uppercase;
+             box-shadow:0 4px 16px rgba(201,64,64,0.4);
+             opacity:0;transform:scale(0.7);transition:none;">
+          LIVE
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hm6-vital {
+  background:#fff;border-radius:14px;padding:14px 16px;
+  box-shadow:0 2px 12px rgba(13,31,60,0.07);
+}
+.hm6-vval   { font-size:26px;font-weight:900;letter-spacing:-0.03em;line-height:1;margin-bottom:4px; }
+.hm6-vlbl   { font-size:10px;color:rgba(13,31,60,0.45);margin-bottom:7px;font-weight:600; }
+.hm6-vstatus{ display:inline-block;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px; }
+.hm6-feat {
+  display:flex;gap:10px;align-items:flex-start;
+  background:#fff;border-radius:10px;padding:10px 13px;
+  font-size:11px;color:rgba(13,31,60,0.55);line-height:1.55;
+  box-shadow:0 1px 6px rgba(13,31,60,0.05);
+}
+.hm6-feat-dot { flex:0 0 8px;height:8px;border-radius:50%;margin-top:4px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay,tr){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition=tr||'opacity 0.65s ease,transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0) scale(1)';
+    },delay);
+  }
+  function enter(){
+    show('hm6-left',80);
+    at(function(){
+      var ul=q('hm6-uline'); if(!ul)return;
+      ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='48px';
+    },280);
+    show('hm6-right',240);
+    show('hm6-vitals',380);
+    show('hm6-feats',560);
+    show('hm6-livebadge',700,'opacity 0.4s ease,transform 0.5s cubic-bezier(0.34,1.56,0.64,1)');
+  }
+  function leave(){
+    clearAll();
+    ['hm6-left','hm6-right','hm6-vitals','hm6-feats','hm6-livebadge'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+    var ul=q('hm6-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+  window._slide52={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿<!-- SLIDE 13 — HEALTH MONITORING (LIVE VITALS DEMO) -->

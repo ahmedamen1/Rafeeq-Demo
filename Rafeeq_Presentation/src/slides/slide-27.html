@@ -1,0 +1,127 @@
+<!-- SLIDE 26 — NAVIGATION SUBSYSTEM SECTION TRANSITION -->
+<div class="slide" id="slide-27" data-slide="27"
+     style="background:#0D1F3C;overflow:hidden;">
+
+  <!-- Dot-grid -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:36px 36px;"></div>
+
+  <!-- Ambient glow -->
+  <div style="position:absolute;top:-60px;right:-60px;width:500px;height:500px;
+    border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,rgba(59,125,232,0.09) 0%,transparent 70%);"></div>
+
+  <!-- Ghost chip number -->
+  <div style="position:absolute;bottom:-30px;left:-20px;z-index:1;
+    font-size:280px;font-weight:900;color:rgba(255,255,255,0.025);
+    letter-spacing:-0.06em;line-height:1;font-family:'Inter',sans-serif;
+    user-select:none;pointer-events:none;">07</div>
+
+  <!-- Content -->
+  <div style="position:absolute;inset:0;z-index:5;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 80px;box-sizing:border-box;">
+
+    <!-- Eyebrow -->
+    <div id="snv-eyebrow" style="
+      font-size:10px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;
+      color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:20px;
+      opacity:0;transform:translateY(12px);transition:none;">
+      Methodology &amp; Implementation
+    </div>
+
+    <!-- Headline -->
+    <div id="snv-title" style="
+      font-size:clamp(48px,7vw,80px);font-weight:900;line-height:1.05;
+      font-family:'Inter',sans-serif;margin-bottom:20px;
+      opacity:0;transform:translateY(20px);transition:none;">
+      <span style="color:#fff;">Navigation</span><br>
+      <span style="color:#C9992A;">Subsystem</span>
+    </div>
+
+    <!-- Gold bar -->
+    <div id="snv-bar" style="height:3px;width:0;background:#C9992A;
+         border-radius:2px;margin-bottom:28px;transition:none;"></div>
+
+    <!-- Subtitle -->
+    <div id="snv-sub" style="
+      font-size:16px;color:rgba(255,255,255,0.45);font-family:'Inter',sans-serif;
+      font-weight:400;max-width:520px;line-height:1.7;margin-bottom:40px;
+      opacity:0;transition:none;">
+      How Rafeeq maps its environment, plans a path,<br>
+      and navigates autonomously to any room.
+    </div>
+
+    <!-- Pills -->
+    <div id="snv-pills" style="display:flex;gap:10px;flex-wrap:wrap;
+         opacity:0;transform:translateY(12px);transition:none;">
+      <div class="snv-pill">ROS 2 Jazzy</div>
+      <div class="snv-pill">SLAM Toolbox</div>
+      <div class="snv-pill">Nav2 Stack</div>
+      <div class="snv-pill">MPPI Controller</div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+#slide-27 { background: #0D1F3C; }
+.snv-pill {
+  padding:8px 18px;border-radius:100px;
+  border:1px solid rgba(201,153,42,0.35);
+  background:rgba(201,153,42,0.07);
+  font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);
+  font-family:'Inter',sans-serif;letter-spacing:0.04em;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var _t27=[];
+  function at(fn,ms){ _t27.push(setTimeout(fn,ms)); }
+  function ca27(){ _t27.forEach(clearTimeout); _t27=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function hide27(){
+    var els={
+      'snv-eyebrow': { opacity:'0', transform:'translateY(12px)' },
+      'snv-title':   { opacity:'0', transform:'translateY(20px)' },
+      'snv-bar':     { width:'0' },
+      'snv-sub':     { opacity:'0' },
+      'snv-pills':   { opacity:'0', transform:'translateY(12px)' }
+    };
+    Object.keys(els).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(els[id]).forEach(function(p){ el.style[p]=els[id][p]; });
+    });
+  }
+
+  function anim(id,delay,props,trans){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition=trans||'opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    },delay);
+  }
+
+  window._slide27={
+    enter: function(){
+      ca27(); hide27();
+      anim('snv-eyebrow', 80,  { opacity:'1', transform:'translateY(0)' });
+      anim('snv-title',   180, { opacity:'1', transform:'translateY(0)' });
+      at(function(){
+        var el=q('snv-bar'); if(!el) return;
+        el.style.transition='width 0.55s cubic-bezier(0.16,1,0.3,1)';
+        el.style.width='64px';
+      }, 440);
+      anim('snv-sub',   500, { opacity:'1' }, 'opacity 0.6s ease');
+      anim('snv-pills', 650, { opacity:'1', transform:'translateY(0)' });
+    },
+    leave: function(){ ca27(); hide27(); }
+  };
+})();
+</script>

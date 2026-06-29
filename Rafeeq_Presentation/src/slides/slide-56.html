@@ -1,0 +1,181 @@
+<!-- SLIDE 56 — DEMO RESULTS: JOYSTICK MOTION + ARABIC VOICE NAVIGATION -->
+<div class="slide light" id="slide-56" data-slide="56"
+     style="background:#F8F9FA;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#3B7DE8,#22c55e);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 48px 28px;box-sizing:border-box;gap:18px;">
+
+    <!-- Header -->
+    <div id="dr-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-14px);transition:none;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.26em;text-transform:uppercase;
+                  color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:6px;">
+        Results &amp; Discussion &middot; Demo Footage
+      </div>
+      <div style="font-size:28px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;
+                  font-family:'Inter',sans-serif;line-height:1;">
+        Real Demos — Joystick Drive &amp; Arabic Voice Navigation
+      </div>
+      <div id="dr-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body: two video panels -->
+    <div style="flex:1;min-height:0;display:flex;gap:24px;">
+
+      <!-- LEFT: Joystick motion demo -->
+      <div id="dr-left" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;
+           opacity:0;transform:translateX(-20px);transition:none;">
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#3B7DE8;flex-shrink:0;"></span>
+          <span style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+                       color:#3B7DE8;font-family:'Inter',sans-serif;">Manual Drive — Joystick Control</span>
+        </div>
+
+        <div style="flex:1;min-height:0;background:#000;border-radius:16px;overflow:hidden;
+                    border:1.5px solid rgba(13,31,60,0.12);position:relative;">
+          <video id="dr-vid-joy"
+                 style="width:100%;height:100%;object-fit:contain;display:block;"
+                 preload="metadata"
+                 playsinline>
+            <source src="motion with joyksticj.mp4" type="video/mp4">
+          </video>
+
+          <div id="dr-overlay-joy" style="position:absolute;inset:0;display:flex;flex-direction:column;
+               align-items:center;justify-content:center;background:rgba(13,31,60,0.45);cursor:pointer;
+               transition:opacity 0.3s ease;">
+            <div style="width:64px;height:64px;background:#3B7DE8;border-radius:50%;display:flex;
+                        align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(59,125,232,0.2);
+                        margin-bottom:12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div style="font-size:12px;font-weight:700;color:#fff;letter-spacing:0.03em;font-family:'Inter',sans-serif;">
+              Play Joystick Demo
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:11.5px;color:rgba(13,31,60,0.5);line-height:1.5;font-family:'Inter',sans-serif;">
+          Direct manual control — joystick input mapped to wheel velocity in real time.
+        </div>
+      </div>
+
+      <!-- RIGHT: Arabic voice navigation demo -->
+      <div id="dr-right" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;
+           opacity:0;transform:translateX(20px);transition:none;">
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#C9992A;flex-shrink:0;"></span>
+          <span style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+                       color:#C9992A;font-family:'Inter',sans-serif;">Autonomous Navigation — Egyptian Arabic Voice</span>
+        </div>
+
+        <div style="flex:1;min-height:0;background:#000;border-radius:16px;overflow:hidden;
+                    border:1.5px solid rgba(13,31,60,0.12);position:relative;">
+          <video id="dr-vid-voice"
+                 style="width:100%;height:100%;object-fit:contain;display:block;"
+                 preload="metadata"
+                 playsinline>
+            <source src="navigation_With_Arabic_speech.mp4" type="video/mp4">
+          </video>
+
+          <div id="dr-overlay-voice" style="position:absolute;inset:0;display:flex;flex-direction:column;
+               align-items:center;justify-content:center;background:rgba(13,31,60,0.45);cursor:pointer;
+               transition:opacity 0.3s ease;">
+            <div style="width:64px;height:64px;background:#C9992A;border-radius:50%;display:flex;
+                        align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(201,153,42,0.2);
+                        margin-bottom:12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div style="font-size:12px;font-weight:700;color:#fff;letter-spacing:0.03em;font-family:'Inter',sans-serif;">
+              Play Voice Navigation Demo
+            </div>
+            <div style="margin-top:14px;background:rgba(13,31,60,0.7);border:1px solid rgba(255,255,255,0.15);
+                        border-radius:8px;padding:7px 16px;">
+              <div style="font-size:10.5px;color:rgba(255,255,255,0.5);text-align:center;letter-spacing:0.03em;">
+                "رفيق، روح للمطبخ"
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:11.5px;color:rgba(13,31,60,0.5);line-height:1.5;font-family:'Inter',sans-serif;">
+          Spoken Arabic command &rarr; speech classification &rarr; Nav2 goal &rarr; autonomous drive.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var _t56 = [];
+  function at(fn, ms) { _t56.push(setTimeout(fn, ms)); }
+  function ca56() { _t56.forEach(clearTimeout); _t56 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, props) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function (p) { el.style[p] = props[p]; });
+    }, delay);
+  }
+
+  function attachPlay(vidId, overlayId) {
+    var ov = q(overlayId);
+    if (ov && !ov.dataset.bound) {
+      ov.dataset.bound = '1';
+      ov.addEventListener('click', function () {
+        var vid = q(vidId);
+        if (vid) vid.play();
+        ov.style.display = 'none';
+      });
+    }
+  }
+
+  function resetVideos() {
+    ['dr-vid-joy', 'dr-vid-voice'].forEach(function (id) {
+      var v = q(id); if (v) { v.pause(); v.currentTime = 0; }
+    });
+    ['dr-overlay-joy', 'dr-overlay-voice'].forEach(function (id) {
+      var ov = q(id); if (ov) ov.style.display = 'flex';
+    });
+  }
+
+  function hide56() {
+    var snap = {
+      'dr-hdr':   { opacity: '0', transform: 'translateY(-14px)' },
+      'dr-left':  { opacity: '0', transform: 'translateX(-20px)' },
+      'dr-right': { opacity: '0', transform: 'translateX(20px)' }
+    };
+    Object.keys(snap).forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none';
+      Object.keys(snap[id]).forEach(function (p) { el.style[p] = snap[id][p]; });
+    });
+    var ul = q('dr-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+    resetVideos();
+  }
+
+  window._slide56 = {
+    enter: function () {
+      ca56(); hide56();
+      show('dr-hdr', 80, { opacity: '1', transform: 'translateY(0)' });
+      at(function () {
+        var ul = q('dr-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 360);
+      show('dr-left', 220, { opacity: '1', transform: 'translateX(0)' });
+      show('dr-right', 340, { opacity: '1', transform: 'translateX(0)' });
+      attachPlay('dr-vid-joy', 'dr-overlay-joy');
+      attachPlay('dr-vid-voice', 'dr-overlay-voice');
+    },
+    leave: function () { ca56(); hide56(); }
+  };
+})();
+</script>

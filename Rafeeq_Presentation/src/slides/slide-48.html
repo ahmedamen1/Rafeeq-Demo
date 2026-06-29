@@ -1,0 +1,110 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 31 — HEALTH: SYSTEM ARCHITECTURE PIPELINE
+     hm_pipeline.jpeg full visual
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-48" data-slide="48"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 44px 28px;box-sizing:border-box;gap:16px;">
+
+    <!-- Header -->
+    <div id="hm1-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C94040;margin-bottom:5px;">Health Monitoring · System Design</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Full Architecture Pipeline</div>
+      <div id="hm1-uline" style="height:3px;background:#C94040;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Pipeline image — hero -->
+    <div id="hm1-img" style="flex:1;min-height:0;border-radius:16px;overflow:hidden;
+         border:1.5px solid #ececec;opacity:0;transform:scale(0.97);transition:none;position:relative;">
+      <img src="hm_pipeline.jpeg" alt="Health Monitoring Architecture Pipeline"
+           style="width:100%;height:100%;object-fit:contain;object-position:center;background:#f8f8f8;">
+    </div>
+
+    <!-- Stage strip -->
+    <div id="hm1-strip" style="flex:0 0 auto;display:flex;gap:10px;opacity:0;transform:translateY(14px);transition:none;">
+      <div class="hm1-stage" style="border-color:rgba(201,64,64,0.3);background:rgba(201,64,64,0.05);">
+        <div class="hm1-snum" style="color:#C94040;">01</div>
+        <div class="hm1-stitle" style="color:#C94040;">Data Acquisition</div>
+        <div class="hm1-sbody">MAX30100 · MLX90614 · Limit Switch via I2C &amp; GPIO</div>
+      </div>
+      <div class="hm1-arr">&#8594;</div>
+      <div class="hm1-stage" style="border-color:rgba(201,153,42,0.3);background:rgba(201,153,42,0.05);">
+        <div class="hm1-snum" style="color:#C9992A;">02</div>
+        <div class="hm1-stitle" style="color:#C9992A;">Edge Processing</div>
+        <div class="hm1-sbody">ESP32 — filter, validate, timestamp, build JSON packet</div>
+      </div>
+      <div class="hm1-arr">&#8594;</div>
+      <div class="hm1-stage" style="border-color:rgba(59,125,232,0.3);background:rgba(59,125,232,0.05);">
+        <div class="hm1-snum" style="color:#3B7DE8;">03</div>
+        <div class="hm1-stitle" style="color:#3B7DE8;">Network Comm</div>
+        <div class="hm1-sbody">Wi-Fi · SSID: Bits · Secure token authentication</div>
+      </div>
+      <div class="hm1-arr">&#8594;</div>
+      <div class="hm1-stage" style="border-color:rgba(251,146,60,0.3);background:rgba(251,146,60,0.05);">
+        <div class="hm1-snum" style="color:#f97316;">04</div>
+        <div class="hm1-stitle" style="color:#f97316;">Cloud Platform</div>
+        <div class="hm1-sbody">Firebase Realtime DB · /sensor_data/SmartWheel_01/</div>
+      </div>
+      <div class="hm1-arr">&#8594;</div>
+      <div class="hm1-stage" style="border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.05);">
+        <div class="hm1-snum" style="color:#22c55e;">05</div>
+        <div class="hm1-stitle" style="color:#22c55e;">Mobile App</div>
+        <div class="hm1-sbody">Live caregiver dashboard — Arabic UI, color-coded status</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hm1-stage {
+  flex:1;border:1.5px solid;border-radius:12px;padding:11px 13px;
+}
+.hm1-snum   { font-size:20px;font-weight:900;line-height:1;margin-bottom:3px; }
+.hm1-stitle { font-size:11px;font-weight:800;margin-bottom:4px; }
+.hm1-sbody  { font-size:10px;color:rgba(13,31,60,0.5);line-height:1.5; }
+.hm1-arr    { display:flex;align-items:center;color:rgba(13,31,60,0.2);font-size:18px;padding:0 2px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay,tr){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition=tr||'opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0) scale(1)';
+    },delay);
+  }
+  function enter(){
+    show('hm1-hdr',80);
+    at(function(){
+      var ul=q('hm1-uline'); if(!ul)return;
+      ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='52px';
+    },360);
+    show('hm1-img',200,'opacity 0.7s ease,transform 0.7s cubic-bezier(0.16,1,0.3,1)');
+    show('hm1-strip',500);
+  }
+  function leave(){
+    clearAll();
+    ['hm1-hdr','hm1-img','hm1-strip'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+    var ul=q('hm1-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+  window._slide48={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

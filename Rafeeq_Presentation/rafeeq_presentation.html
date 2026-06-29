@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafeeq — AI-Powered Smart Wheelchair Retrofit Kit</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f2744;
+    --teal: #1D9E75;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --coral: #D85A30;
+    --amber: #F59E0B;
+    --blue: #3B82F6;
+    --purple: #8B5CF6;
+    --muted: rgba(255,255,255,0.4);
+    --transition: 400ms ease-in-out;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--navy);
+  }
+
+  /* Progress bar */
+  #progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 3px; background: var(--teal);
+    transition: width 0.4s ease-in-out;
+    z-index: 100;
+  }
+
+  /* Slide container */
+  #slides-wrapper {
+    width: 100%; height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%; height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 0; left: 0;
+    will-change: transform;
+  }
+
+  .slide.dark { background: var(--navy); }
+  .slide.light { background: var(--white); }
+
+  /* Navigation */
+  #nav {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 16px; z-index: 100;
+  }
+
+  .nav-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    background: transparent;
+    color: var(--teal);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-btn:hover { background: var(--teal); color: var(--white); }
+
+  #slide-counter {
+    position: fixed; bottom: 24px; right: 32px;
+    font-size: 13px; color: var(--muted);
+    font-weight: 500; z-index: 100;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1);   opacity: 0.6; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.08); }
+  }
+  @keyframes sound-wave {
+    0%, 100% { transform: scaleY(0.3); }
+    50%       { transform: scaleY(1); }
+  }
+  @keyframes underline-draw {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+  @keyframes count-up {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes clockwise-pop {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .anim-fade-up   { opacity: 0; }
+  .anim-fade-in   { opacity: 0; }
+
+  .slide.active .anim-fade-up  { animation: fadeUp 0.6s ease forwards; }
+  .slide.active .anim-fade-in  { animation: fadeIn 0.6s ease forwards; }
+
+  /* ===== SLIDE 1 — COVER ===== */
+  #slide-1 { position: relative; overflow: hidden; }
+
+  .cover-pulse {
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  .slide.active .cover-pulse:nth-child(1) { animation: pulse-ring 2.4s ease-out 0.2s infinite; }
+  .slide.active .cover-pulse:nth-child(2) { animation: pulse-ring 2.4s ease-out 0.9s infinite; }
+  .slide.active .cover-pulse:nth-child(3) { animation: pulse-ring 2.4s ease-out 1.6s infinite; }
+
+  .cover-content { position: relative; text-align: center; z-index: 2; }
+
+  .cover-title-row {
+    display: flex; align-items: baseline;
+    justify-content: center; gap: 20px;
+  }
+
+  .cover-en {
+    font-size: 72px; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+
+  .cover-ar {
+    font-size: 48px; font-weight: 700;
+    color: var(--teal);
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+  }
+
+  .cover-sub {
+    font-size: 18px; color: var(--teal);
+    margin-top: 16px; letter-spacing: 0.02em;
+  }
+
+  .cover-meta {
+    font-size: 13px; color: var(--muted);
+    margin-top: 32px;
+  }
+
+  /* ===== SLIDE 2 — PROBLEM ===== */
+  #slide-2 { text-align: center; }
+
+  .stat-number {
+    font-size: 96px; font-weight: 900;
+    color: var(--navy); line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 20px; color: var(--gray);
+    margin-top: 16px;
+  }
+
+  .stat-bottom {
+    font-size: 16px; color: var(--teal);
+    font-style: italic;
+    margin-top: 48px;
+  }
+
+  /* ===== SLIDE 3 — WHY FAIL ===== */
+  #slide-3 .icon-row {
+    display: flex; gap: 80px;
+    align-items: flex-start; justify-content: center;
+  }
+
+  .icon-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 16px;
+    opacity: 0;
+  }
+
+  .icon-item i {
+    font-size: 64px; color: var(--teal);
+  }
+
+  .icon-item span {
+    font-size: 16px; color: var(--white);
+    font-weight: 500;
+  }
+
+  .slide.active .icon-item:nth-child(1) { animation: fadeUp 0.6s ease 0.1s forwards; }
+  .slide.active .icon-item:nth-child(2) { animation: fadeUp 0.6s ease 0.3s forwards; }
+  .slide.active .icon-item:nth-child(3) { animation: fadeUp 0.6s ease 0.5s forwards; }
+
+  /* ===== SLIDE 4 — INTRODUCING RAFEEQ ===== */
+  #slide-4 { position: relative; }
+
+  .intro-center {
+    font-size: 72px; font-weight: 900;
+    color: var(--navy); position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-container {
+    position: relative;
+    width: 520px; height: 520px;
+  }
+
+  .orbit-item {
+    position: absolute;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    opacity: 0;
+    width: 90px; text-align: center;
+  }
+
+  .orbit-item i { font-size: 32px; color: var(--teal); }
+  .orbit-item span { font-size: 12px; color: var(--navy); font-weight: 600; line-height: 1.3; }
+
+  /* 6 positions clockwise from top */
+  .orbit-item:nth-child(1) { top: 10px;  left: 50%; transform: translateX(-50%); }
+  .orbit-item:nth-child(2) { top: 90px;  right: 10px; }
+  .orbit-item:nth-child(3) { bottom: 90px; right: 10px; }
+  .orbit-item:nth-child(4) { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .orbit-item:nth-child(5) { bottom: 90px; left: 10px; }
+  .orbit-item:nth-child(6) { top: 90px;  left: 10px; }
+
+  .slide.active .orbit-item:nth-child(1) { animation: clockwise-pop 0.4s ease 0.1s forwards; }
+  .slide.active .orbit-item:nth-child(2) { animation: clockwise-pop 0.4s ease 0.3s forwards; }
+  .slide.active .orbit-item:nth-child(3) { animation: clockwise-pop 0.4s ease 0.5s forwards; }
+  .slide.active .orbit-item:nth-child(4) { animation: clockwise-pop 0.4s ease 0.7s forwards; }
+  .slide.active .orbit-item:nth-child(5) { animation: clockwise-pop 0.4s ease 0.9s forwards; }
+  .slide.active .orbit-item:nth-child(6) { animation: clockwise-pop 0.4s ease 1.1s forwards; }
+
+  /* ===== SLIDE 5 — COMPETITORS ===== */
+  #slide-5 { flex-direction: column; gap: 0; padding: 60px; }
+
+  .comp-table {
+    width: 760px;
+    border-collapse: collapse;
+  }
+
+  .comp-table th {
+    font-size: 18px; font-weight: 700;
+    color: var(--white); padding: 12px 24px;
+    text-align: center; border-bottom: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .comp-table th:first-child { text-align: left; }
+
+  .comp-table th.highlight { color: var(--teal); }
+
+  .comp-table td {
+    padding: 12px 24px; text-align: center;
+    font-size: 15px; color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    opacity: 0;
+  }
+
+  .comp-table td:first-child { text-align: left; color: var(--white); font-weight: 500; }
+
+  .comp-table i.ti-check { color: var(--teal); font-size: 20px; }
+  .comp-table i.ti-x     { color: var(--coral); font-size: 20px; }
+
+  .slide.active .comp-table tr:nth-child(1) td { animation: slide-in-left 0.4s ease 0.1s forwards; }
+  .slide.active .comp-table tr:nth-child(2) td { animation: slide-in-left 0.4s ease 0.25s forwards; }
+  .slide.active .comp-table tr:nth-child(3) td { animation: slide-in-left 0.4s ease 0.4s forwards; }
+  .slide.active .comp-table tr:nth-child(4) td { animation: slide-in-left 0.4s ease 0.55s forwards; }
+  .slide.active .comp-table tr:nth-child(5) td { animation: slide-in-left 0.4s ease 0.7s forwards; }
+
+  /* ===== SLIDE 6 — THE GAP ===== */
+  #slide-6 { text-align: center; }
+
+  .gap-text {
+    font-size: 42px; font-weight: 800;
+    color: var(--white); max-width: 680px;
+    line-height: 1.2; position: relative;
+    display: inline-block;
+  }
+
+  .gap-underline {
+    height: 4px; background: var(--teal);
+    width: 0; margin-top: 12px;
+    transition: width 0s;
+  }
+
+  .slide.active .gap-underline {
+    animation: underline-draw 0.6s ease 0.8s forwards;
+  }
+
+  /* ===== SLIDE 7 — ARCHITECTURE ===== */
+  #slide-7 { padding: 48px 64px; }
+
+  .arch-container {
+    display: flex; flex-direction: column;
+    gap: 24px; width: 100%; max-width: 900px;
+  }
+
+  .arch-layer {
+    display: flex; align-items: center; gap: 20px;
+    opacity: 0;
+  }
+
+  .slide.active .arch-layer:nth-child(1) { animation: fadeUp 0.5s ease 0.1s forwards; }
+  .slide.active .arch-layer:nth-child(2) { animation: fadeUp 0.5s ease 0.4s forwards; }
+  .slide.active .arch-layer:nth-child(3) { animation: fadeUp 0.5s ease 0.7s forwards; }
+  .slide.active .arch-layer:nth-child(4) { animation: fadeUp 0.5s ease 1.0s forwards; }
+
+  .arch-label {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--navy); width: 76px; flex-shrink: 0;
+    text-align: right;
+  }
+
+  .arch-boxes {
+    display: flex; gap: 12px; flex: 1;
+  }
+
+  .arch-box {
+    flex: 1; padding: 12px 8px;
+    border: 2px solid var(--teal);
+    border-radius: 8px;
+    background: var(--white);
+    text-align: center;
+    font-size: 12px; font-weight: 600;
+    color: var(--navy); line-height: 1.3;
+  }
+
+  .arch-arrow {
+    width: 76px; display: flex;
+    align-items: center; justify-content: flex-end;
+  }
+
+  .arch-arrow svg { width: 24px; height: 24px; }
+
+  /* SVG arrows between layers */
+  .layer-connector {
+    width: 100%; display: flex;
+    justify-content: center; margin: -12px 0;
+    z-index: 1; opacity: 0;
+  }
+
+  .slide.active .layer-connector:nth-child(2) { animation: fadeIn 0.4s ease 0.55s forwards; }
+  .slide.active .layer-connector:nth-child(4) { animation: fadeIn 0.4s ease 0.85s forwards; }
+  .slide.active .layer-connector:nth-child(6) { animation: fadeIn 0.4s ease 1.15s forwards; }
+
+  .slide.active .layer-connector:nth-child(2) .dash-arrow { animation: dash-draw 0.5s ease 0.55s forwards; }
+  .slide.active .layer-connector:nth-child(4) .dash-arrow { animation: dash-draw 0.5s ease 0.85s forwards; }
+  .slide.active .layer-connector:nth-child(6) .dash-arrow { animation: dash-draw 0.5s ease 1.15s forwards; }
+
+  @keyframes dash-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* ===== SLIDE 8 — VOICE ===== */
+  #slide-8 { text-align: center; gap: 0; }
+
+  .voice-icon-wrap {
+    position: relative;
+    width: 120px; height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+  }
+
+  .voice-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    width: 100%; height: 100%;
+    opacity: 0;
+  }
+
+  .slide.active .voice-ring:nth-child(1) { animation: pulse-ring 2s ease-out 0.3s infinite; }
+  .slide.active .voice-ring:nth-child(2) { animation: pulse-ring 2s ease-out 0.9s infinite; }
+
+  .voice-icon-wrap i { font-size: 80px; color: var(--teal); position: relative; z-index: 2; }
+
+  .voice-title { font-size: 48px; font-weight: 800; color: var(--white); }
+  .voice-sub { font-size: 16px; color: var(--teal); margin-top: 12px; letter-spacing: 0.04em; }
+
+  .sound-wave {
+    display: flex; align-items: center;
+    gap: 5px; margin-top: 32px; height: 48px;
+  }
+
+  .wave-bar {
+    width: 5px; border-radius: 3px;
+    background: var(--teal);
+    opacity: 0.7;
+  }
+
+  .slide.active .wave-bar { animation: sound-wave 1s ease-in-out infinite; }
+
+  .wave-bar:nth-child(1) { height: 16px; animation-delay: 0.0s !important; }
+  .wave-bar:nth-child(2) { height: 32px; animation-delay: 0.1s !important; }
+  .wave-bar:nth-child(3) { height: 48px; animation-delay: 0.2s !important; }
+  .wave-bar:nth-child(4) { height: 24px; animation-delay: 0.3s !important; }
+  .wave-bar:nth-child(5) { height: 40px; animation-delay: 0.15s !important; }
+  .wave-bar:nth-child(6) { height: 48px; animation-delay: 0.25s !important; }
+  .wave-bar:nth-child(7) { height: 32px; animation-delay: 0.05s !important; }
+  .wave-bar:nth-child(8) { height: 20px; animation-delay: 0.35s !important; }
+  .wave-bar:nth-child(9) { height: 36px; animation-delay: 0.1s !important; }
+
+  /* ===== SLIDE 9 — NAVIGATION ===== */
+  #slide-9 { position: relative; overflow: hidden; }
+
+  .lidar-label {
+    position: absolute; bottom: 48px;
+    font-size: 16px; color: var(--navy); font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  /* ===== SLIDE 10 — HEALTH ===== */
+  #slide-10 .metric-row {
+    display: flex; gap: 32px;
+  }
+
+  .metric-card {
+    width: 200px; padding: 32px 24px;
+    background: var(--white); border-radius: 16px;
+    text-align: center; opacity: 0;
+  }
+
+  .metric-card i { font-size: 40px; color: var(--teal); }
+  .metric-card .m-label { font-size: 14px; color: var(--gray); margin-top: 12px; }
+  .metric-card .m-value { font-size: 36px; font-weight: 800; color: var(--navy); margin-top: 4px; }
+
+  .slide.active .metric-card:nth-child(1) { animation: fadeUp 0.5s ease 0.1s forwards; }
+  .slide.active .metric-card:nth-child(2) { animation: fadeUp 0.5s ease 0.3s forwards; }
+  .slide.active .metric-card:nth-child(3) { animation: fadeUp 0.5s ease 0.5s forwards; }
+
+  /* ===== SLIDE 11 — APP ===== */
+  #slide-11 { gap: 24px; }
+
+  .phone-frame {
+    width: 240px; height: 480px;
+    border: 8px solid var(--navy);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    background: #f0f4f8;
+  }
+
+  .phone-screen {
+    position: absolute; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .phone-screen.screen-1 { background: var(--navy); }
+  .phone-screen.screen-2 { background: #f8fafc; transform: translateX(100%); }
+  .phone-screen.screen-3 { background: #f8fafc; transform: translateX(200%); }
+
+  .phone-header {
+    background: var(--navy); color: var(--white);
+    padding: 16px; font-size: 16px; font-weight: 700;
+  }
+
+  .phone-icons {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; padding: 16px;
+  }
+
+  .phone-icon-btn {
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    padding: 10px; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+
+  .phone-icon-btn i { font-size: 20px; color: var(--teal); }
+  .phone-icon-btn span { font-size: 8px; color: rgba(255,255,255,0.7); }
+
+  .health-screen-header {
+    background: var(--teal); color: white;
+    padding: 16px; font-size: 14px; font-weight: 700;
+  }
+
+  .health-metrics {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; padding: 12px;
+  }
+
+  .health-metric-box {
+    background: white; border-radius: 8px;
+    padding: 10px; text-align: center;
+    border: 1px solid rgba(29,158,117,0.2);
+  }
+
+  .health-metric-box .hm-val {
+    font-size: 18px; font-weight: 800; color: var(--navy);
+  }
+
+  .health-metric-box .hm-lbl {
+    font-size: 9px; color: var(--gray); margin-top: 2px;
+  }
+
+  .health-metric-box .hm-icon { font-size: 16px; color: var(--teal); }
+
+  .chat-screen-header {
+    background: var(--navy); color: white;
+    padding: 16px; font-size: 14px; font-weight: 700;
+  }
+
+  .chat-body { padding: 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+  .chat-bubble {
+    padding: 8px 12px; border-radius: 12px;
+    font-size: 10px; max-width: 80%;
+  }
+
+  .bubble-user { background: var(--teal); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+  .bubble-bot  { background: #e5e7eb; color: var(--navy); align-self: flex-start; border-bottom-left-radius: 2px; }
+
+  .app-caption { font-size: 14px; color: var(--gray); }
+
+  /* ===== SLIDE 12 — DEMO ===== */
+  #slide-12 { text-align: center; gap: 0; }
+
+  .demo-play-wrap {
+    position: relative;
+    width: 140px; height: 140px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 32px;
+  }
+
+  .demo-ring {
+    position: absolute; border-radius: 50%;
+    border: 2px solid var(--teal);
+    width: 100%; height: 100%; opacity: 0;
+  }
+
+  .slide.active .demo-ring:nth-child(1) { animation: pulse-ring 2s ease-out 0s infinite; }
+  .slide.active .demo-ring:nth-child(2) { animation: pulse-ring 2s ease-out 0.7s infinite; }
+
+  .demo-play-wrap i { font-size: 96px; color: var(--teal); position: relative; z-index: 2; }
+
+  .demo-title { font-size: 32px; font-weight: 700; color: var(--white); }
+  .demo-sub { font-size: 16px; color: var(--teal); margin-top: 12px; }
+  .demo-note { font-size: 13px; color: var(--muted); margin-top: 48px; font-style: italic; }
+
+  /* ===== SLIDE 13 — STATUS ===== */
+  #slide-13 { align-items: flex-start; padding: 64px; }
+
+  .status-title {
+    font-size: 32px; font-weight: 800; color: var(--navy);
+    margin-bottom: 32px;
+  }
+
+  .status-table { width: 100%; max-width: 820px; border-collapse: collapse; }
+
+  .status-table th {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gray);
+    padding: 8px 16px; text-align: left;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .status-row { opacity: 0; }
+
+  .status-row td {
+    padding: 14px 16px; font-size: 15px; color: var(--navy);
+    border-bottom: 1px solid #f0f0f0; vertical-align: middle;
+  }
+
+  .badge {
+    display: inline-block; padding: 3px 10px;
+    border-radius: 20px; font-size: 12px; font-weight: 600;
+  }
+
+  .badge-progress { background: rgba(29,158,117,0.12); color: var(--teal); }
+  .badge-design   { background: rgba(245,158,11,0.12);  color: var(--amber); }
+
+  .next-step { font-size: 13px; color: var(--gray); }
+
+  .slide.active .status-row:nth-child(1) { animation: slide-in-left 0.4s ease 0.1s forwards; }
+  .slide.active .status-row:nth-child(2) { animation: slide-in-left 0.4s ease 0.25s forwards; }
+  .slide.active .status-row:nth-child(3) { animation: slide-in-left 0.4s ease 0.4s forwards; }
+  .slide.active .status-row:nth-child(4) { animation: slide-in-left 0.4s ease 0.55s forwards; }
+  .slide.active .status-row:nth-child(5) { animation: slide-in-left 0.4s ease 0.7s forwards; }
+  .slide.active .status-row:nth-child(6) { animation: slide-in-left 0.4s ease 0.85s forwards; }
+
+  /* ===== SLIDE 14 — CONCLUSION ===== */
+  #slide-14 { text-align: center; gap: 0; }
+
+  .conclusion-icons {
+    display: flex; gap: 80px; margin-bottom: 48px;
+  }
+
+  .conc-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 16px; opacity: 0;
+  }
+
+  .conc-item i { font-size: 48px; color: var(--teal); }
+  .conc-item span { font-size: 15px; color: var(--white); font-weight: 600; }
+
+  .slide.active .conc-item:nth-child(1) { animation: fadeUp 0.5s ease 0.1s forwards; }
+  .slide.active .conc-item:nth-child(2) { animation: fadeUp 0.5s ease 0.3s forwards; }
+  .slide.active .conc-item:nth-child(3) { animation: fadeUp 0.5s ease 0.5s forwards; }
+
+  .conc-line {
+    width: 320px; height: 2px; background: var(--teal);
+    margin: 0 auto 32px; opacity: 0;
+  }
+
+  .slide.active .conc-line { animation: fadeIn 0.4s ease 0.8s forwards; }
+
+  .conc-quote {
+    font-size: 18px; color: var(--white);
+    line-height: 1.6; max-width: 560px; opacity: 0;
+  }
+
+  .slide.active .conc-quote { animation: fadeUp 0.5s ease 1.0s forwards; }
+
+  /* ===== SLIDE 15 — TEAM ===== */
+  #slide-15 { gap: 0; align-items: flex-start; padding: 64px; }
+
+  .team-title { font-size: 36px; font-weight: 800; color: var(--navy); margin-bottom: 40px; }
+
+  .team-row { display: flex; gap: 40px; }
+
+  .team-member {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 12px; opacity: 0;
+  }
+
+  .avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 800; color: var(--white);
+  }
+
+  .member-name { font-size: 13px; font-weight: 700; color: var(--navy); text-align: center; }
+  .member-role { font-size: 11px; color: var(--gray); text-align: center; }
+
+  .slide.active .team-member:nth-child(1) { animation: fadeUp 0.4s ease 0.1s forwards; }
+  .slide.active .team-member:nth-child(2) { animation: fadeUp 0.4s ease 0.2s forwards; }
+  .slide.active .team-member:nth-child(3) { animation: fadeUp 0.4s ease 0.3s forwards; }
+  .slide.active .team-member:nth-child(4) { animation: fadeUp 0.4s ease 0.4s forwards; }
+  .slide.active .team-member:nth-child(5) { animation: fadeUp 0.4s ease 0.5s forwards; }
+
+  .supervisor-line {
+    font-size: 13px; color: var(--gray); margin-top: 48px; opacity: 0;
+  }
+
+  .funded-line {
+    font-size: 13px; color: var(--teal); margin-top: 8px; opacity: 0;
+  }
+
+  .slide.active .supervisor-line { animation: fadeIn 0.4s ease 0.8s forwards; }
+  .slide.active .funded-line     { animation: fadeIn 0.4s ease 1.0s forwards; }
+
+  /* Misc helpers */
+  .delay-100 { animation-delay: 0.1s !important; }
+  .delay-200 { animation-delay: 0.2s !important; }
+  .delay-300 { animation-delay: 0.3s !important; }
+  .delay-400 { animation-delay: 0.4s !important; }
+  .delay-600 { animation-delay: 0.6s !important; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:6.67%"></div>
+
+<div id="slides-wrapper">
+
+  <!-- SLIDE 1 — COVER -->
+  <div class="slide dark active" id="slide-1">
+    <div class="cover-pulse"></div>
+    <div class="cover-pulse"></div>
+    <div class="cover-pulse"></div>
+    <div class="cover-content">
+      <div class="cover-title-row anim-fade-up">
+        <span class="cover-en">Rafeeq</span>
+        <span class="cover-ar">رفيق</span>
+      </div>
+      <div class="cover-sub anim-fade-up delay-200">AI-Powered Smart Wheelchair Retrofit Kit</div>
+      <div class="cover-meta anim-fade-up delay-400">Team DT_GP_133 &nbsp;·&nbsp; Zewail City of Science and Technology</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — THE PROBLEM -->
+  <div class="slide light" id="slide-2">
+    <div class="stat-number anim-fade-up">7,000,000+</div>
+    <div class="stat-label anim-fade-up delay-200">Egyptians living with mobility disabilities</div>
+    <div class="stat-bottom anim-fade-up delay-400">"Most wheelchairs today are just chairs."</div>
+  </div>
+
+  <!-- SLIDE 3 — WHY CURRENT WHEELCHAIRS FAIL -->
+  <div class="slide dark" id="slide-3">
+    <div class="icon-row">
+      <div class="icon-item">
+        <i class="ti ti-microphone-off"></i>
+        <span>No voice control</span>
+      </div>
+      <div class="icon-item">
+        <i class="ti ti-navigation-off"></i>
+        <span>No autonomy</span>
+      </div>
+      <div class="icon-item">
+        <i class="ti ti-users-off"></i>
+        <span>No caregiver link</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — INTRODUCING RAFEEQ -->
+  <div class="slide light" id="slide-4">
+    <div class="orbit-container">
+      <div class="intro-center anim-fade-in" style="animation-delay:0s">Rafeeq</div>
+      <div class="orbit-item">
+        <i class="ti ti-microphone"></i>
+        <span>Egyptian Arabic NLP</span>
+      </div>
+      <div class="orbit-item">
+        <i class="ti ti-route"></i>
+        <span>Autonomous Navigation</span>
+      </div>
+      <div class="orbit-item">
+        <i class="ti ti-heart-rate-monitor"></i>
+        <span>Health Monitoring</span>
+      </div>
+      <div class="orbit-item">
+        <i class="ti ti-device-mobile"></i>
+        <span>Companion App</span>
+      </div>
+      <div class="orbit-item">
+        <i class="ti ti-brain"></i>
+        <span>Emotion-Aware AI</span>
+      </div>
+      <div class="orbit-item">
+        <i class="ti ti-tool"></i>
+        <span>Retrofit Kit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — COMPETITORS -->
+  <div class="slide dark" id="slide-5">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="width:200px">Feature</th>
+          <th>LUCI</th>
+          <th>Other Smart Chairs</th>
+          <th class="highlight">Rafeeq</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Collision avoidance</td>
+          <td><i class="ti ti-check"></i></td>
+          <td><i class="ti ti-check"></i></td>
+          <td><i class="ti ti-check"></i></td>
+        </tr>
+        <tr>
+          <td>Voice control</td>
+          <td><i class="ti ti-check"></i></td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-check"></i></td>
+        </tr>
+        <tr>
+          <td>Egyptian Arabic</td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-check"></i></td>
+        </tr>
+        <tr>
+          <td>Caregiver app</td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-check"></i></td>
+        </tr>
+        <tr>
+          <td>Retrofit</td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-x"></i></td>
+          <td><i class="ti ti-check"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SLIDE 6 — THE GAP -->
+  <div class="slide dark" id="slide-6">
+    <div style="text-align:center">
+      <span class="gap-text anim-fade-up">None of them speak Egyptian Arabic.</span>
+      <div class="gap-underline"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — SYSTEM ARCHITECTURE -->
+  <div class="slide light" id="slide-7">
+    <div class="arch-container">
+
+      <div class="arch-layer">
+        <div class="arch-label">Hardware</div>
+        <div class="arch-boxes">
+          <div class="arch-box">LiDAR</div>
+          <div class="arch-box">Depth Camera</div>
+          <div class="arch-box">ESP32</div>
+          <div class="arch-box">Arduino</div>
+        </div>
+      </div>
+
+      <div class="layer-connector">
+        <svg width="600" height="28" viewBox="0 0 600 28">
+          <defs>
+            <marker id="arrowhead1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#1D9E75"/>
+            </marker>
+          </defs>
+          <line x1="300" y1="0" x2="300" y2="20"
+            stroke="#1D9E75" stroke-width="2" marker-end="url(#arrowhead1)"
+            class="dash-arrow" stroke-dasharray="28" stroke-dashoffset="28"/>
+        </svg>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-label">Processing</div>
+        <div class="arch-boxes">
+          <div class="arch-box">Raspberry Pi / ROS</div>
+          <div class="arch-box">Whisper NLP</div>
+          <div class="arch-box">TFLite Emotion</div>
+        </div>
+      </div>
+
+      <div class="layer-connector">
+        <svg width="600" height="28" viewBox="0 0 600 28">
+          <defs>
+            <marker id="arrowhead2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#1D9E75"/>
+            </marker>
+          </defs>
+          <line x1="300" y1="0" x2="300" y2="20"
+            stroke="#1D9E75" stroke-width="2" marker-end="url(#arrowhead2)"
+            class="dash-arrow" stroke-dasharray="28" stroke-dashoffset="28"/>
+        </svg>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-label">Application</div>
+        <div class="arch-boxes">
+          <div class="arch-box">Flutter App</div>
+          <div class="arch-box">FastAPI Backend</div>
+          <div class="arch-box">RAG Chatbot</div>
+        </div>
+      </div>
+
+      <div class="layer-connector">
+        <svg width="600" height="28" viewBox="0 0 600 28">
+          <defs>
+            <marker id="arrowhead3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#1D9E75"/>
+            </marker>
+          </defs>
+          <line x1="300" y1="0" x2="300" y2="20"
+            stroke="#1D9E75" stroke-width="2" marker-end="url(#arrowhead3)"
+            class="dash-arrow" stroke-dasharray="28" stroke-dashoffset="28"/>
+        </svg>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-label">Cloud</div>
+        <div class="arch-boxes">
+          <div class="arch-box">PostgreSQL</div>
+          <div class="arch-box">Firebase / Supabase</div>
+          <div class="arch-box">AWS Lightsail</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — VOICE CONTROL -->
+  <div class="slide dark" id="slide-8">
+    <div class="voice-icon-wrap anim-fade-in">
+      <div class="voice-ring"></div>
+      <div class="voice-ring"></div>
+      <i class="ti ti-microphone"></i>
+    </div>
+    <div class="voice-title anim-fade-up delay-200">Ya Rafeeq</div>
+    <div class="voice-sub anim-fade-up delay-300">Offline &nbsp;·&nbsp; Egyptian Arabic &nbsp;·&nbsp; Whisper fine-tuned</div>
+    <div class="sound-wave anim-fade-in delay-400">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 — NAVIGATION -->
+  <div class="slide light" id="slide-9">
+    <svg id="lidar-svg" width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" style="position:absolute;top:0;left:0">
+      <!-- Dot grid -->
+      <g id="dot-grid" opacity="0.18">
+      </g>
+      <!-- LiDAR path -->
+      <path id="lidar-path"
+        d="M 100 300 C 150 200, 200 180, 280 200 L 380 200 C 440 200, 460 160, 520 150 L 620 150 C 680 150, 700 200, 760 220 L 860 220 C 900 230, 920 280, 900 320 L 860 360 C 820 380, 780 370, 740 360 L 640 360 C 580 360, 560 400, 500 420 L 400 420 C 340 420, 300 380, 240 360 L 160 350 C 120 340, 100 320, 100 300 Z"
+        fill="none"
+        stroke="#1D9E75"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <!-- Wheelchair icon approximation -->
+      <circle cx="500" cy="290" r="12" fill="#1D9E75"/>
+      <line x1="500" y1="302" x2="500" y2="330" stroke="#1D9E75" stroke-width="3"/>
+      <line x1="485" y1="315" x2="515" y2="315" stroke="#1D9E75" stroke-width="3"/>
+      <circle cx="500" cy="345" r="10" fill="none" stroke="#1D9E75" stroke-width="3"/>
+      <circle cx="480" cy="340" r="8"  fill="none" stroke="#1D9E75" stroke-width="2"/>
+      <circle cx="520" cy="340" r="8"  fill="none" stroke="#1D9E75" stroke-width="2"/>
+    </svg>
+    <div class="lidar-label anim-fade-up delay-400">ROS &nbsp;·&nbsp; SLAM &nbsp;·&nbsp; LiDAR + Depth Camera</div>
+  </div>
+
+  <!-- SLIDE 10 — HEALTH MONITORING -->
+  <div class="slide dark" id="slide-10">
+    <div class="metric-row">
+      <div class="metric-card">
+        <i class="ti ti-heart"></i>
+        <div class="m-label">Heart Rate</div>
+        <div class="m-value" data-target="72" data-suffix=" BPM">0</div>
+      </div>
+      <div class="metric-card">
+        <i class="ti ti-activity"></i>
+        <div class="m-label">SpO2</div>
+        <div class="m-value" data-target="98" data-suffix="%">0</div>
+      </div>
+      <div class="metric-card">
+        <i class="ti ti-thermometer"></i>
+        <div class="m-label">Temp</div>
+        <div class="m-value" data-target="36" data-decimal=".8" data-suffix="°C">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11 — MOBILE APP -->
+  <div class="slide light" id="slide-11">
+    <div class="phone-frame" id="phone-frame">
+      <!-- Screen 1 -->
+      <div class="phone-screen screen-1" id="app-screen-1">
+        <div class="phone-header">Rafeeq</div>
+        <div class="phone-icons">
+          <div class="phone-icon-btn"><i class="ti ti-microphone"></i><span>Voice</span></div>
+          <div class="phone-icon-btn"><i class="ti ti-route"></i><span>Navigate</span></div>
+          <div class="phone-icon-btn"><i class="ti ti-heart-rate-monitor"></i><span>Health</span></div>
+          <div class="phone-icon-btn"><i class="ti ti-message-circle"></i><span>Chat</span></div>
+          <div class="phone-icon-btn"><i class="ti ti-bell"></i><span>Alerts</span></div>
+          <div class="phone-icon-btn"><i class="ti ti-settings"></i><span>Settings</span></div>
+        </div>
+      </div>
+      <!-- Screen 2 -->
+      <div class="phone-screen screen-2" id="app-screen-2">
+        <div class="health-screen-header">Health Dashboard</div>
+        <div class="health-metrics">
+          <div class="health-metric-box">
+            <div class="hm-icon"><i class="ti ti-heart"></i></div>
+            <div class="hm-val">72</div>
+            <div class="hm-lbl">Heart Rate BPM</div>
+          </div>
+          <div class="health-metric-box">
+            <div class="hm-icon"><i class="ti ti-activity"></i></div>
+            <div class="hm-val">98%</div>
+            <div class="hm-lbl">SpO2</div>
+          </div>
+          <div class="health-metric-box">
+            <div class="hm-icon"><i class="ti ti-thermometer"></i></div>
+            <div class="hm-val">36.8°</div>
+            <div class="hm-lbl">Temperature</div>
+          </div>
+          <div class="health-metric-box" style="background:rgba(29,158,117,0.08)">
+            <div class="hm-icon"><i class="ti ti-shield-check" style="color:var(--teal)"></i></div>
+            <div class="hm-val" style="color:var(--teal);font-size:12px">All Good</div>
+            <div class="hm-lbl">Status</div>
+          </div>
+        </div>
+      </div>
+      <!-- Screen 3 -->
+      <div class="phone-screen screen-3" id="app-screen-3">
+        <div class="chat-screen-header">Chat with Rafeeq</div>
+        <div class="chat-body">
+          <div class="chat-bubble bubble-user">Ya Rafeeq...</div>
+          <div class="chat-bubble bubble-bot">مرحباً! كيف أقدر أساعدك؟</div>
+          <div class="chat-bubble bubble-user">روحني للمطبخ</div>
+          <div class="chat-bubble bubble-bot">حاضر، بشتغل دلوقتي ✓</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-caption anim-fade-up delay-300">Flutter &nbsp;·&nbsp; iOS &amp; Android &nbsp;·&nbsp; Real-time caregiver sync</div>
+  </div>
+
+  <!-- SLIDE 12 — DEMO -->
+  <div class="slide dark" id="slide-12">
+    <div class="demo-play-wrap anim-fade-in">
+      <div class="demo-ring"></div>
+      <div class="demo-ring"></div>
+      <i class="ti ti-player-play"></i>
+    </div>
+    <div class="demo-title anim-fade-up delay-200">Live Demo</div>
+    <div class="demo-sub anim-fade-up delay-300">Voice &nbsp;·&nbsp; Navigation &nbsp;·&nbsp; App</div>
+    <div class="demo-note anim-fade-up delay-400">[ Replace this slide with your actual demo video ]</div>
+  </div>
+
+  <!-- SLIDE 13 — MODULE STATUS -->
+  <div class="slide light" id="slide-13">
+    <div class="status-title anim-fade-up">Where we are</div>
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Status</th>
+          <th>Next Step</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="status-row">
+          <td>NLP / Voice Control</td>
+          <td><span class="badge badge-progress">In Progress</span></td>
+          <td class="next-step">Formal testing</td>
+        </tr>
+        <tr class="status-row">
+          <td>Autonomous Navigation</td>
+          <td><span class="badge badge-design">Design Phase</span></td>
+          <td class="next-step">ROS implementation</td>
+        </tr>
+        <tr class="status-row">
+          <td>Motor Drive System</td>
+          <td><span class="badge badge-design">Design Phase</span></td>
+          <td class="next-step">Arduino integration</td>
+        </tr>
+        <tr class="status-row">
+          <td>Health Monitoring</td>
+          <td><span class="badge badge-progress">In Progress</span></td>
+          <td class="next-step">Sensor calibration</td>
+        </tr>
+        <tr class="status-row">
+          <td>Mobile App</td>
+          <td><span class="badge badge-progress">In Progress</span></td>
+          <td class="next-step">Backend integration</td>
+        </tr>
+        <tr class="status-row">
+          <td>RAG Chatbot</td>
+          <td><span class="badge badge-progress">In Progress</span></td>
+          <td class="next-step">Knowledge base expansion</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SLIDE 14 — CONCLUSION -->
+  <div class="slide dark" id="slide-14">
+    <div class="conclusion-icons">
+      <div class="conc-item">
+        <i class="ti ti-microphone"></i>
+        <span>Voice-first for Egypt</span>
+      </div>
+      <div class="conc-item">
+        <i class="ti ti-shield-check"></i>
+        <span>Honest engineering</span>
+      </div>
+      <div class="conc-item">
+        <i class="ti ti-rocket"></i>
+        <span>Built to scale</span>
+      </div>
+    </div>
+    <div class="conc-line"></div>
+    <div class="conc-quote">"Rafeeq is not just a wheelchair. It is independence."</div>
+  </div>
+
+  <!-- SLIDE 15 — TEAM -->
+  <div class="slide light" id="slide-15">
+    <div class="team-title anim-fade-up">The Team</div>
+    <div class="team-row">
+      <div class="team-member">
+        <div class="avatar" style="background:var(--teal)">AA</div>
+        <div class="member-name">Ahmed A.</div>
+        <div class="member-role">Team Lead / NLP</div>
+      </div>
+      <div class="team-member">
+        <div class="avatar" style="background:var(--blue)">OA</div>
+        <div class="member-name">Omar A.</div>
+        <div class="member-role">Hardware / ROS</div>
+      </div>
+      <div class="team-member">
+        <div class="avatar" style="background:var(--purple)">NM</div>
+        <div class="member-name">Nour M.</div>
+        <div class="member-role">Mobile App</div>
+      </div>
+      <div class="team-member">
+        <div class="avatar" style="background:var(--coral)">MM</div>
+        <div class="member-name">Mohamed M.</div>
+        <div class="member-role">Backend / Cloud</div>
+      </div>
+      <div class="team-member">
+        <div class="avatar" style="background:var(--amber)">ZB</div>
+        <div class="member-name">Ziad B.</div>
+        <div class="member-role">AI / Emotion</div>
+      </div>
+    </div>
+    <div class="supervisor-line">
+      Supervised by <strong>Prof. Moustafa Elshafei</strong> &nbsp;·&nbsp; <strong>Dr. Ahmed Sayed Abd-Rabou</strong>
+    </div>
+    <div class="funded-line">Funded by the Innovation Support Fund (ISF)</div>
+  </div>
+
+</div><!-- end slides-wrapper -->
+
+<!-- Navigation -->
+<div id="nav">
+  <button class="nav-btn" id="btn-prev" aria-label="Previous slide">
+    <i class="ti ti-chevron-left"></i>
+  </button>
+  <button class="nav-btn" id="btn-next" aria-label="Next slide">
+    <i class="ti ti-chevron-right"></i>
+  </button>
+</div>
+
+<div id="slide-counter">01 / 15</div>
+
+<script>
+(function() {
+  const TOTAL = 15;
+  let current = 0;
+  let transitioning = false;
+
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('slide-counter');
+  const progressBar = document.getElementById('progress-bar');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  // ---- Phone auto-slide ----
+  let phoneTimer = null;
+  let phoneIndex = 0;
+  const phoneScreens = [
+    document.getElementById('app-screen-1'),
+    document.getElementById('app-screen-2'),
+    document.getElementById('app-screen-3'),
+  ];
+
+  function setPhoneScreen(idx) {
+    phoneScreens.forEach((s, i) => {
+      s.style.transform = `translateX(${(i - idx) * 100}%)`;
+    });
+  }
+
+  function startPhoneSlider() {
+    phoneIndex = 0;
+    setPhoneScreen(0);
+    phoneTimer = setInterval(() => {
+      phoneIndex = (phoneIndex + 1) % phoneScreens.length;
+      setPhoneScreen(phoneIndex);
+    }, 2000);
+  }
+
+  function stopPhoneSlider() {
+    clearInterval(phoneTimer);
+    phoneTimer = null;
+  }
+
+  // ---- Metric count-up ----
+  function startCountUp(slideEl) {
+    const values = slideEl.querySelectorAll('[data-target]');
+    values.forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const decimal = el.dataset.decimal || '';
+      const suffix = el.dataset.suffix || '';
+      let start = 0;
+      const step = Math.ceil(target / 40);
+      const interval = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = start + decimal + suffix;
+        if (start >= target) clearInterval(interval);
+      }, 30);
+    });
+  }
+
+  // ---- LiDAR dot grid + path animation ----
+  function initLidar() {
+    const grid = document.getElementById('dot-grid');
+    if (!grid || grid.children.length > 0) return;
+    for (let x = 40; x < 1000; x += 40) {
+      for (let y = 30; y < 600; y += 30) {
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', x);
+        c.setAttribute('cy', y);
+        c.setAttribute('r', '2');
+        c.setAttribute('fill', '#0f2744');
+        grid.appendChild(c);
+      }
+    }
+  }
+
+  function animateLidarPath() {
+    const path = document.getElementById('lidar-path');
+    if (!path) return;
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    path.style.transition = 'none';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        path.style.transition = 'stroke-dashoffset 2s ease-in-out 0.3s';
+        path.style.strokeDashoffset = '0';
+      });
+    });
+  }
+
+  // ---- Slide transition ----
+  function goTo(idx, dir) {
+    if (transitioning || idx === current) return;
+    if (idx < 0 || idx >= TOTAL) return;
+    transitioning = true;
+
+    // Stop phone slider if leaving slide 11 (index 10)
+    if (current === 10) stopPhoneSlider();
+
+    const prevSlide = slides[current];
+    const nextSlide = slides[idx];
+
+    // Reset animations so they replay on next visit
+    const animEls = prevSlide.querySelectorAll('.anim-fade-up, .anim-fade-in, .icon-item, .orbit-item, .conc-item, .team-member, .status-row, .arch-layer, .layer-connector, .metric-card');
+    animEls.forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    });
+
+    // Also reset gap underline and teal underline
+    const underline = prevSlide.querySelector('.gap-underline');
+    if (underline) { underline.style.animation = 'none'; underline.offsetHeight; underline.style.animation = ''; }
+
+    // Position incoming slide off-screen
+    nextSlide.style.transition = 'none';
+    nextSlide.style.transform = dir > 0 ? 'translateX(100%)' : 'translateX(-100%)';
+    nextSlide.classList.remove('active');
+
+    // Force reflow so the transform takes effect before transition is re-enabled
+    nextSlide.offsetHeight;
+
+    // Slide both
+    prevSlide.style.transition = 'transform 400ms ease-in-out';
+    nextSlide.style.transition = 'transform 400ms ease-in-out';
+
+    prevSlide.style.transform = dir > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+    nextSlide.style.transform = 'translateX(0)';
+
+    nextSlide.classList.add('active');
+    prevSlide.classList.remove('active');
+
+    current = idx;
+    updateUI();
+
+    // Slide-specific triggers (0-indexed: slide 9 = index 8, slide 10 = index 9, slide 11 = index 10)
+    if (current === 8) {
+      initLidar();
+      animateLidarPath();
+    }
+    if (current === 9) {
+      // Reset metric values then count up
+      const cards = nextSlide.querySelectorAll('[data-target]');
+      cards.forEach(el => { el.textContent = '0'; });
+      setTimeout(() => startCountUp(nextSlide), 300);
+    }
+    if (current === 10) startPhoneSlider();
+
+    setTimeout(() => { transitioning = false; }, 450);
+  }
+
+  function updateUI() {
+    const n = current + 1;
+    counter.textContent = String(n).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+    progressBar.style.width = ((n / TOTAL) * 100).toFixed(2) + '%';
+  }
+
+  // ---- Input handling ----
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1, 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1, -1);
+  });
+
+  btnNext.addEventListener('click', () => goTo(current + 1, 1));
+  btnPrev.addEventListener('click', () => goTo(current - 1, -1));
+
+  // Touch/swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  }, {passive: true});
+
+  // ---- Init ----
+  slides.forEach((s, i) => {
+    s.style.transition = 'none';
+    if (i === 0) {
+      s.style.transform = 'translateX(0)';
+      s.classList.add('active');
+    } else {
+      s.style.transform = 'translateX(100%)';
+      s.classList.remove('active');
+    }
+  });
+
+  // Init LiDAR dots eagerly (hidden until slide 9)
+  initLidar();
+
+  // Initialize phone screen positions
+  setPhoneScreen(0);
+
+  updateUI();
+})();
+</script>
+</body>
+</html>

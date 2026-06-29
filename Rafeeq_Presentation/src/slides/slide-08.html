@@ -1,0 +1,227 @@
+﻿<!-- ════════════════════════════════
+     SLIDE 07 — SHOT 4: "ONE OF MILLIONS"
+     Typographic stat reveal: counter → bar → breakdown
+════════════════════════════════ -->
+<div class="slide light" id="slide-7" data-slide="8"
+     style="background:#F8F9FA; overflow:hidden;">
+
+  <!-- Subtle ambient glow -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:radial-gradient(ellipse 70% 60% at 50% 45%, rgba(201,153,42,0.07) 0%, transparent 100%);"></div>
+
+  <!-- ── CENTRE STAGE ── -->
+  <div style="position:absolute;inset:0;z-index:5;
+              display:flex;flex-direction:column;align-items:center;justify-content:center;
+              gap:0; padding:0 80px; box-sizing:border-box;">
+
+    <!-- Eyebrow -->
+    <div id="s4d-eye" style="
+      font-size:11px; font-weight:700; letter-spacing:0.26em; text-transform:uppercase;
+      color:rgba(201,153,42,0.75); margin-bottom:20px;
+      font-family:'Inter',sans-serif;
+      opacity:0; transform:translateY(10px); transition:none;
+    ">AM Mahmoud is not just a case</div>
+
+    <!-- Giant counter -->
+    <div id="s4d-counter" style="
+      font-size:110px; font-weight:900; color:#0D1F3C;
+      letter-spacing:-0.05em; line-height:1; font-family:'Inter',sans-serif;
+      opacity:0; transform:scale(0.92); transition:none;
+    ">
+      <span id="s4d-num">0</span>
+    </div>
+
+    <!-- Subtitle under number -->
+    <div id="s4d-label" style="
+      font-size:15px; font-weight:500; letter-spacing:0.06em; text-transform:uppercase;
+      color:rgba(13,31,60,0.45); margin-top:10px; font-family:'Inter',sans-serif;
+      opacity:0; transition:none;
+    ">wheelchair users in Egypt</div>
+
+    <!-- Gold bar -->
+    <div id="s4d-bar-wrap" style="
+      width:600px; max-width:90vw; margin-top:36px;
+      opacity:0; transition:none;
+    ">
+      <!-- Track -->
+      <div style="width:100%; height:6px; background:rgba(13,31,60,0.1); border-radius:3px; position:relative; overflow:hidden;">
+        <!-- Served fill (very small) -->
+        <div id="s4d-bar-served" style="
+          position:absolute; left:0; top:0; height:100%; width:0;
+          background:#C9992A; border-radius:3px;
+          transition:none;
+          box-shadow:0 0 10px rgba(201,153,42,0.6);
+        "></div>
+      </div>
+      <!-- Bar labels -->
+      <div style="display:flex; justify-content:space-between; margin-top:9px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                    color:#C9992A;font-family:'Inter',sans-serif;">
+          0.65% with smart tech
+        </div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.45);font-family:'Inter',sans-serif;">
+          99.35% unserved
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat trio -->
+    <div id="s4d-stats" style="
+      display:flex; gap:28px; margin-top:44px;
+      opacity:0; transform:translateY(14px); transition:none;
+    ">
+
+      <div style="text-align:center; padding:22px 28px;
+                  background:rgba(13,31,60,0.04); border:1px solid rgba(13,31,60,0.1);
+                  border-radius:16px; min-width:150px;">
+        <div style="font-size:36px;font-weight:900;color:#C9992A;letter-spacing:-0.03em;
+                    line-height:1;font-family:'Inter',sans-serif;">1M+</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.45);margin-top:8px;font-family:'Inter',sans-serif;">
+          Wheelchair users
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:22px 28px;
+                  background:rgba(201,153,42,0.08); border:1px solid rgba(201,153,42,0.2);
+                  border-radius:16px; min-width:150px;">
+        <div style="font-size:36px;font-weight:900;color:#0D1F3C;letter-spacing:-0.03em;
+                    line-height:1;font-family:'Inter',sans-serif;">6,500</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.45);margin-top:8px;font-family:'Inter',sans-serif;">
+          Have smart access
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:22px 28px;
+                  background:rgba(201,64,64,0.07); border:1px solid rgba(201,64,64,0.2);
+                  border-radius:16px; min-width:150px;">
+        <div style="font-size:36px;font-weight:900;color:#C94040;letter-spacing:-0.03em;
+                    line-height:1;font-family:'Inter',sans-serif;">99.35%</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+                    color:rgba(13,31,60,0.45);margin-top:8px;font-family:'Inter',sans-serif;">
+          Unserved market
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CCTV + badge -->
+  <div class="cctv-ts" id="s4d-ts">
+    <span class="cctv-dot"></span>REC &nbsp; COMPOSITE &nbsp; CAM-00
+  </div>
+  <div class="shot-badge" id="s4d-badge">SHOT 4 / 4</div>
+
+</div>
+
+<style>
+#slide-7 { background: #F8F9FA; }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  var rafId = null;
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() {
+    timers.forEach(clearTimeout); timers = [];
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+  function q(id) { return document.getElementById(id); }
+
+  function formatNum(n) {
+    if (n >= 1000000) return '1,000,000';
+    return n.toLocaleString('en-US');
+  }
+
+  function countUp(targetEl, endVal, durationMs) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / durationMs, 1);
+      // ease out expo
+      var eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      var cur = Math.floor(eased * endVal);
+      if (targetEl) targetEl.textContent = formatNum(cur);
+      if (p < 1) rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  function animateBar(el, targetPct, durationMs) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / durationMs, 1);
+      var eased = 1 - Math.pow(2, -10 * p);
+      if (el) el.style.width = (eased * targetPct) + '%';
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function hide() {
+    ['s4d-ts','s4d-badge'].forEach(function(id) {
+      var el=q(id); if(el){el.style.transition='none';el.style.opacity='0';}
+    });
+    var eye=q('s4d-eye'); if(eye){eye.style.transition='none';eye.style.opacity='0';eye.style.transform='translateY(10px)';}
+    var ctr=q('s4d-counter'); if(ctr){ctr.style.transition='none';ctr.style.opacity='0';ctr.style.transform='scale(0.92)';}
+    var lbl=q('s4d-label'); if(lbl){lbl.style.transition='none';lbl.style.opacity='0';}
+    var bw=q('s4d-bar-wrap'); if(bw){bw.style.transition='none';bw.style.opacity='0';}
+    var bs=q('s4d-bar-served'); if(bs){bs.style.transition='none';bs.style.width='0';}
+    var st=q('s4d-stats'); if(st){st.style.transition='none';st.style.opacity='0';st.style.transform='translateY(14px)';}
+    var nm=q('s4d-num'); if(nm) nm.textContent='0';
+  }
+
+  function runSequence() {
+    hide();
+
+    // CCTV + badge
+    at(function() {
+      var t=q('s4d-ts'); if(t){t.style.transition='opacity 0.4s ease';t.style.opacity='1';}
+      var b=q('s4d-badge'); if(b){b.style.transition='opacity 0.4s ease';b.style.opacity='1';}
+    }, 100);
+
+    // Eyebrow
+    at(function() {
+      var e=q('s4d-eye');
+      if(e){e.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}
+    }, 250);
+
+    // Counter appears + counts up
+    at(function() {
+      var c=q('s4d-counter');
+      if(c){c.style.transition='opacity 0.5s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';c.style.opacity='1';c.style.transform='scale(1)';}
+      var lbl=q('s4d-label');
+      if(lbl){lbl.style.transition='opacity 0.5s ease';lbl.style.opacity='1';}
+      countUp(q('s4d-num'), 1000000, 2400);
+    }, 450);
+
+    // Bar appears + fills
+    at(function() {
+      var bw=q('s4d-bar-wrap');
+      if(bw){bw.style.transition='opacity 0.5s ease';bw.style.opacity='1';}
+      // 0.65% of 100% bar width = tiny gold sliver
+      animateBar(q('s4d-bar-served'), 0.65, 1800);
+    }, 1600);
+
+    // Stats
+    at(function() {
+      var s=q('s4d-stats');
+      if(s){s.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';s.style.opacity='1';s.style.transform='translateY(0)';}
+    }, 2200);
+  }
+
+  window._slide08 = {
+    enter: function() { clearAll(); runSequence(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+﻿<!-- SLIDE 06 — WHAT ALREADY EXISTS: COMPETITOR COMPARISON -->

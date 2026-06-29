@@ -1,0 +1,172 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 29 — NAV 6: DEMO 2 — SPEECH-COMMANDED NAVIGATION
+     Voice → waypoint → Nav2 — the full pipeline payoff
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-33" data-slide="33"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#3B7DE8,#22c55e);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:32px 48px 28px;box-sizing:border-box;gap:16px;">
+
+    <!-- Header -->
+    <div id="n6-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;">Autonomous Navigation · Demo 1 of 2</div>
+        <div style="background:#C9992A;color:#fff;font-size:9px;font-weight:800;padding:2px 10px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;">Full System Integration</div>
+      </div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">Speech-to-Navigation Pipeline</div>
+      <div id="n6-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Pipeline chain -->
+    <div id="n6-chain" style="flex:0 0 auto;display:flex;align-items:center;gap:0;background:#0D1F3C;border-radius:14px;padding:14px 24px;opacity:0;transform:translateY(-10px);transition:none;">
+      <div class="n6-chain-node" style="color:#a78bfa;">
+        <div class="n6-chain-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+        </div>
+        <div class="n6-chain-lbl">Voice Command</div>
+        <div class="n6-chain-sub">"go to kitchen"</div>
+      </div>
+      <div class="n6-chain-arr">&#8594;</div>
+      <div class="n6-chain-node" style="color:#C9992A;">
+        <div class="n6-chain-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83"/></svg>
+        </div>
+        <div class="n6-chain-lbl">Speech Node</div>
+        <div class="n6-chain-sub">CNN classify</div>
+      </div>
+      <div class="n6-chain-arr">&#8594;</div>
+      <div class="n6-chain-node" style="color:#22c55e;">
+        <div class="n6-chain-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="n6-chain-lbl">Waypoint DB</div>
+        <div class="n6-chain-sub">x, y, z coordinates</div>
+      </div>
+      <div class="n6-chain-arr">&#8594;</div>
+      <div class="n6-chain-node" style="color:#3B7DE8;">
+        <div class="n6-chain-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="n6-chain-lbl">Nav2 Goal</div>
+        <div class="n6-chain-sub">plan + execute</div>
+      </div>
+      <div class="n6-chain-arr">&#8594;</div>
+      <div class="n6-chain-node" style="color:#f97316;">
+        <div class="n6-chain-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <div class="n6-chain-lbl">Robot Moves</div>
+        <div class="n6-chain-sub">autonomous drive</div>
+      </div>
+    </div>
+
+    <!-- Body: video + sidebar -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- Video player -->
+      <div id="n6-video" style="flex:1;min-width:0;opacity:0;transform:translateY(20px);transition:none;">
+        <div style="height:100%;background:#000;border-radius:16px;overflow:hidden;border:1.5px solid rgba(13,31,60,0.12);position:relative;">
+          <video id="n6-vid"
+                 style="width:100%;height:100%;object-fit:contain;display:block;"
+                 preload="metadata"
+                 controls>
+            <source src="navigation slides/navigaiton.mp4" type="video/mp4">
+          </video>
+
+          <!-- Play overlay -->
+          <div id="n6-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(13,31,60,0.45);cursor:pointer;transition:opacity 0.3s ease;" onclick="document.getElementById('n6-vid').play();this.style.display='none';">
+            <div style="width:72px;height:72px;background:#C9992A;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(201,153,42,0.2);margin-bottom:14px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.04em;">Play Speech Demo</div>
+            <!-- Subtitle example -->
+            <div style="margin-top:16px;background:rgba(13,31,60,0.7);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:8px 18px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;letter-spacing:0.04em;">"Rafeeq, go to the kitchen"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="n6-side" style="flex:0 0 240px;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateX(20px);transition:none;">
+
+        <!-- Demo steps -->
+        <div style="flex:1;background:#fafafa;border:1.5px solid #ececec;border-radius:14px;padding:14px 16px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9992A;margin-bottom:12px;">Demo Sequence</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="n6-step"><span class="n6-num" style="background:#a78bfa;">1</span><div class="n6-stxt">Speak wake word + command to Rafeeq</div></div>
+            <div class="n6-step"><span class="n6-num" style="background:#C9992A;">2</span><div class="n6-stxt">Subtitle overlay confirms recognition</div></div>
+            <div class="n6-step"><span class="n6-num" style="background:#22c55e;">3</span><div class="n6-stxt">Nav2 receives waypoint goal automatically</div></div>
+            <div class="n6-step"><span class="n6-num" style="background:#3B7DE8;">4</span><div class="n6-stxt">Green path appears — robot begins moving</div></div>
+            <div class="n6-step"><span class="n6-num" style="background:#f97316;">5</span><div class="n6-stxt">Robot arrives at room, stops — zero UI interaction</div></div>
+          </div>
+        </div>
+
+        <!-- Key point -->
+        <div style="background:#FFF8E7;border:1.5px solid rgba(201,153,42,0.35);border-radius:12px;padding:12px 14px;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C9992A;margin-bottom:5px;">No UI Required</div>
+          <div style="font-size:11px;color:rgba(13,31,60,0.65);line-height:1.6;">The user speaks. The robot goes. No touchscreen, no app, no button — designed for users with full motor impairment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.n6-chain-node { display:flex;flex-direction:column;align-items:center;gap:4px;flex:1; }
+.n6-chain-icon {
+  width:36px;height:36px;background:rgba(255,255,255,0.07);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.n6-chain-lbl { font-size:10px;font-weight:800;color:#fff;text-align:center; }
+.n6-chain-sub { font-size:9px;color:rgba(255,255,255,0.35);text-align:center; }
+.n6-chain-arr { font-size:18px;color:rgba(255,255,255,0.2);padding:0 4px; }
+.n6-step { display:flex;gap:10px;align-items:flex-start; }
+.n6-num  { flex:0 0 20px;height:20px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center; }
+.n6-stxt { font-size:11px;color:rgba(13,31,60,0.6);line-height:1.55;padding-top:1px; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+
+  function enter(){
+    show('n6-hdr',80);
+    at(function(){
+      var ul=q('n6-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='52px';}
+    },360);
+    show('n6-chain',200);
+    show('n6-video',340);
+    show('n6-side',480);
+  }
+
+  function leave(){
+    clearAll();
+    var vid=q('n6-vid'); if(vid){vid.pause();vid.currentTime=0;}
+    var ov=q('n6-overlay'); if(ov)ov.style.display='flex';
+    ['n6-hdr','n6-chain','n6-video','n6-side'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none';el.style.opacity='0';
+    });
+    var ul=q('n6-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  window._slide33={ enter:enter, leave:leave };
+})();
+</script>

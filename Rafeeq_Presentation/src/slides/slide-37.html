@@ -1,0 +1,197 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 33 — APP: SPLASH, LOGIN & REGISTER
+     Section opener for the mobile app feature walkthrough
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-37" data-slide="37"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#1B4F72,#2E86C1,#27AE60);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;gap:0;padding:0;box-sizing:border-box;">
+
+    <!-- LEFT: info -->
+    <div id="a33-left" style="flex:1;display:flex;flex-direction:column;justify-content:center;
+         padding:44px 36px 44px 56px;gap:20px;opacity:0;transform:translateX(-24px);transition:none;">
+
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#1B4F72;margin-bottom:8px;">Mobile App Walkthrough · 01</div>
+        <div style="font-size:30px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;line-height:1.1;margin-bottom:8px;">Splash, Login &amp; Register</div>
+        <div id="a33-uline" style="height:3px;background:#1B4F72;border-radius:2px;width:0;transition:none;"></div>
+      </div>
+
+      <div style="font-size:13px;color:rgba(13,31,60,0.6);line-height:1.75;max-width:440px;">
+        First impressions matter. A branded splash animation, a simple role-based login (patient or caregiver), and a quick registration flow that issues a <span style="color:#0D1F3C;font-weight:700;">link code</span> connecting patient and caregiver accounts.
+      </div>
+
+      <!-- Flow steps -->
+      <div id="a33-flow" style="display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="a33-step">
+          <div class="a33-num" style="background:#1B4F72;">1</div>
+          <div><div class="a33-title">Splash Screen</div><div class="a33-sub">Gradient brand moment — logo scales in with an elastic bounce, then auto-navigates after 2s</div></div>
+        </div>
+        <div class="a33-step">
+          <div class="a33-num" style="background:#2E86C1;">2</div>
+          <div><div class="a33-title">Login</div><div class="a33-sub">Role chips — "Patient" or "Caregiver" — tint the entire screen on selection</div></div>
+        </div>
+        <div class="a33-step">
+          <div class="a33-num" style="background:#27AE60;">3</div>
+          <div><div class="a33-title">Register</div><div class="a33-sub">Quick signup form; patients receive a unique link code to share with their caregiver</div></div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div id="a33-badges" style="display:flex;flex-wrap:wrap;gap:8px;opacity:0;transform:translateY(10px);transition:none;">
+        <span class="a33-badge" style="background:rgba(27,79,114,0.08);color:#1B4F72;border-color:rgba(27,79,114,0.25);">JWT Secured</span>
+        <span class="a33-badge" style="background:rgba(52,152,219,0.08);color:#2E86C1;border-color:rgba(52,152,219,0.25);">Role-based Routing</span>
+        <span class="a33-badge" style="background:rgba(39,174,96,0.08);color:#27AE60;border-color:rgba(39,174,96,0.25);">Flutter · Cairo Font · RTL</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: 3-phone stack -->
+    <div id="a33-right" style="flex:0 0 46%;position:relative;display:flex;align-items:center;justify-content:center;
+         padding:28px 36px;opacity:0;transform:translateX(28px);transition:none;background:#0D1F3C;">
+
+      <div style="position:relative;width:220px;height:476px;">
+
+        <!-- Register phone (back right) -->
+        <div id="a33-p-register" style="position:absolute;top:20px;left:40px;z-index:1;opacity:0;transform:translate(120px,0) scale(0.82) rotate(12deg);transition:none;">
+          <div class="a33-plabel">Register</div>
+          <div class="a33-phone">
+            <div class="a33-notch"></div>
+            <div class="a33-screen"><img src="App Slides/register_screen.png" alt="Register screen"></div>
+          </div>
+        </div>
+
+        <!-- Login phone (back left) -->
+        <div id="a33-p-login" style="position:absolute;top:20px;left:-40px;z-index:1;opacity:0;transform:translate(-120px,0) scale(0.82) rotate(-12deg);transition:none;">
+          <div class="a33-plabel">Login</div>
+          <div class="a33-phone">
+            <div class="a33-notch"></div>
+            <div class="a33-screen"><img src="App Slides/login_screen.png" alt="Login screen"></div>
+          </div>
+        </div>
+
+        <!-- Splash phone (front center) -->
+        <div id="a33-p-splash" style="position:absolute;top:0;left:0;z-index:2;opacity:0;transform:translateY(-110px) scale(1.05);transition:none;">
+          <div class="a33-plabel">Splash</div>
+          <div class="a33-phone">
+            <div class="a33-notch"></div>
+            <div class="a33-screen"><img src="App Slides/splash_screen.png" alt="Splash screen"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#slide-37 { background: #ffffff; }
+
+.a33-step { display:flex; align-items:flex-start; gap:14px; }
+.a33-num {
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:13px;font-weight:900;font-family:'Inter',sans-serif;
+}
+.a33-title { font-size:14px;font-weight:800;color:#0D1F3C;font-family:'Inter',sans-serif; }
+.a33-sub { font-size:11.5px;color:rgba(13,31,60,0.5);line-height:1.55;font-family:'Inter',sans-serif;margin-top:2px; }
+
+.a33-badge {
+  font-size:11px;font-weight:700;padding:6px 14px;border-radius:100px;
+  border:1px solid;font-family:'Inter',sans-serif;
+}
+
+.a33-phone {
+  width:220px;background:#111827;border-radius:36px;padding:10px;
+  box-shadow:0 0 0 2px #374151, 0 30px 60px rgba(0,0,0,.85), 0 0 40px rgba(46,134,193,.2);
+  position:relative;
+}
+.a33-notch {
+  width:70px;height:18px;background:#111827;border-radius:0 0 12px 12px;
+  position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:2;
+}
+.a33-screen { border-radius:26px;overflow:hidden;aspect-ratio:9/19;background:#F8F9FA; }
+.a33-screen img { width:100%;height:100%;object-fit:cover;display:block; }
+
+.a33-plabel {
+  position:absolute;top:-26px;left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:800;color:rgba(255,255,255,0.45);
+  letter-spacing:0.16em;text-transform:uppercase;white-space:nowrap;
+  font-family:'Inter',sans-serif;
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t37 = [];
+  function at(fn, ms) { _t37.push(setTimeout(fn, ms)); }
+  function ca37() { _t37.forEach(clearTimeout); _t37 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function show(id, delay, transform, transition) {
+    at(function () {
+      var el = q(id); if (!el) return;
+      el.style.transition = transition || 'opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = transform || 'translate(0,0) scale(1)';
+    }, delay);
+  }
+
+  function hide37() {
+    ['a33-left', 'a33-right'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0';
+    });
+    q('a33-left').style.transform = 'translateX(-24px)';
+    q('a33-right').style.transform = 'translateX(28px)';
+
+    ['a33-flow', 'a33-badges'].forEach(function (id) {
+      var el = q(id); if (!el) return;
+      el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
+    });
+
+    var ul = q('a33-uline'); if (ul) { ul.style.transition = 'none'; ul.style.width = '0'; }
+
+    var reg = q('a33-p-register'); if (reg) { reg.style.transition = 'none'; reg.style.opacity = '0'; reg.style.transform = 'translate(120px,0) scale(0.82) rotate(12deg)'; }
+    var log = q('a33-p-login'); if (log) { log.style.transition = 'none'; log.style.opacity = '0'; log.style.transform = 'translate(-120px,0) scale(0.82) rotate(-12deg)'; }
+    var spl = q('a33-p-splash'); if (spl) { spl.style.transition = 'none'; spl.style.opacity = '0'; spl.style.transform = 'translateY(-110px) scale(1.05)'; }
+  }
+
+  window._slide37 = {
+    enter: function () {
+      ca37(); hide37();
+
+      show('a33-left', 80);
+      at(function () {
+        var ul = q('a33-uline'); if (!ul) return;
+        ul.style.transition = 'width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width = '48px';
+      }, 280);
+      show('a33-right', 100);
+
+      show('a33-flow', 380, 'translateY(0)');
+      show('a33-badges', 600, 'translateY(0)');
+
+      // Phones — splash drops in with bounce, login/register slide in from sides
+      at(function () {
+        var spl = q('a33-p-splash'); if (!spl) return;
+        spl.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1)';
+        spl.style.opacity = '1'; spl.style.transform = 'translateY(0) scale(1)';
+      }, 250);
+      at(function () {
+        var log = q('a33-p-login'); if (!log) return;
+        log.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+        log.style.opacity = '1'; log.style.transform = 'translate(-40px,20px) scale(0.88) rotate(-8deg)';
+      }, 550);
+      at(function () {
+        var reg = q('a33-p-register'); if (!reg) return;
+        reg.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+        reg.style.opacity = '1'; reg.style.transform = 'translate(40px,20px) scale(0.88) rotate(8deg)';
+      }, 550);
+    },
+    leave: function () { ca37(); hide37(); }
+  };
+})();
+</script>

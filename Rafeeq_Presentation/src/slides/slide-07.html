@@ -1,0 +1,154 @@
+﻿<!-- ════════════════════════════════
+     SLIDE 06 — SHOT 3: "THE PRICE"
+     Scene: receipt drops in, UNAFFORDABLE stamp slaps on
+════════════════════════════════ -->
+<div class="slide" id="slide-6" data-slide="7"
+     style="background:#07090e; overflow:hidden;">
+
+  <div class="film-scanlines"></div>
+  <div class="film-vignette"></div>
+
+  <!-- Receipt card -->
+  <div id="s4c-receipt" style="
+    position:absolute; left:50%; top:50%; z-index:6;
+    transform:translate(-50%,-50%) rotate(-1.5deg) scale(0.8);
+    opacity:0; transition:none;
+    width:640px;
+    background:#f5f0e8;
+    border-radius:4px 4px 0 0;
+    box-shadow:0 24px 70px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.3);
+  ">
+    <!-- Torn top edge -->
+    <div style="
+      width:100%; height:14px;
+      background: repeating-linear-gradient(
+        90deg, #f5f0e8 0px, #f5f0e8 8px, transparent 8px, transparent 12px
+      );
+      border-bottom: 1px dashed rgba(0,0,0,0.13);
+    "></div>
+
+    <div style="padding:30px 42px 42px; position:relative;">
+      <div style="font-family:'Courier New',monospace; font-size:15px;
+                  color:#999; letter-spacing:0.1em; text-align:center; margin-bottom:22px;">
+        *** SMART WHEELCHAIR MARKET QUOTE ***
+      </div>
+      <div style="border-top:1px dashed #ccc; margin:14px 0;"></div>
+
+      <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
+        <span style="font-family:'Courier New',monospace; font-size:16px; color:#555;">LUCI Retrofit Kit (UK)</span>
+        <span style="font-family:'Courier New',monospace; font-size:16px; color:#333; font-weight:700;">310,000 EGP</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
+        <span style="font-family:'Courier New',monospace; font-size:16px; color:#555;">WHILL Full Chair (Japan)</span>
+        <span style="font-family:'Courier New',monospace; font-size:16px; color:#333; font-weight:700;">135,000 EGP</span>
+      </div>
+
+      <div style="border-top:1px dashed #ccc; margin:20px 0;"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+        <span style="font-family:'Courier New',monospace; font-size:18px; font-weight:700; color:#222;">His Monthly Pension</span>
+        <span style="font-family:'Courier New',monospace; font-size:25px; font-weight:900; color:#C94040;">~80 USD</span>
+      </div>
+      <div style="font-family:'Courier New',monospace; font-size:14px; color:#bbb; text-align:right; margin-bottom:20px;">
+        ≈ 3,900 EGP / month
+      </div>
+
+      <div style="border-top:2px solid #333; margin-bottom:0;"></div>
+
+      <!-- UNAFFORDABLE stamp -->
+      <div id="s4c-stamp" style="
+        position:absolute; top:11%; left:78%;
+        transform:translate(-50%,-50%) rotate(-12deg) scale(0);
+        transition:none; z-index:9;
+        border:4px solid #C94040; border-radius:6px;
+        padding:5px 14px;
+        background:rgba(255,255,255,0.88);
+        white-space:nowrap;
+      ">
+        <div style="font-size:18px; font-weight:900; color:#C94040;
+                    letter-spacing:0.08em; text-transform:uppercase;
+                    font-family:'Inter',sans-serif;">UNAFFORDABLE</div>
+      </div>
+    </div>
+
+    <!-- Torn bottom edge -->
+    <div style="
+      width:100%; height:14px;
+      background: repeating-linear-gradient(
+        90deg, #f5f0e8 0px, #f5f0e8 8px, transparent 8px, transparent 12px
+      );
+      border-top: 1px dashed rgba(0,0,0,0.13);
+    "></div>
+  </div>
+
+  <div class="cctv-ts" id="s4c-ts">
+    <span class="cctv-dot"></span>REC &nbsp; 11:02:55 &nbsp; CAM-03
+  </div>
+  <div class="shot-badge" id="s4c-badge">SHOT 3 / 4</div>
+
+  <div class="shot-caption" id="s4c-caption">
+    <div class="shot-caption-eye">The Cost of Dignity · Egypt, 2024</div>
+    <div class="shot-caption-headline">Out of Reach.</div>
+    <div class="shot-caption-sub" style="color:#fff;">
+      <span style="color:#C9992A;font-weight:900;">The cost that could free him</span> —
+      <strong style="color:#fff;font-weight:900;">310,000 EGP</strong>
+      <span style="color:#C9992A;font-weight:900;">is worth <strong style="color:#fff;font-weight:900;">6 years</strong> of his pension.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(id) { return document.getElementById(id); }
+
+  function hide() {
+    var rec = q('s4c-receipt');
+    if (rec) { rec.style.transition='none'; rec.style.opacity='0'; rec.style.transform='translate(-50%,-50%) rotate(-1.5deg) scale(0.8)'; }
+    var st = q('s4c-stamp');
+    if (st) { st.style.transition='none'; st.style.transform='translate(-50%,-50%) rotate(-18deg) scale(0)'; }
+    var ts=q('s4c-ts'); if(ts){ts.style.transition='none';ts.style.opacity='0';}
+    var bg=q('s4c-badge'); if(bg){bg.style.transition='none';bg.style.opacity='0';}
+    var cap=q('s4c-caption'); if(cap){cap.style.transition='none';cap.style.opacity='0';cap.style.transform='translateY(20px)';}
+  }
+
+  function runSequence() {
+    at(function() {
+      var t=q('s4c-ts'); if(t){t.style.transition='opacity 0.4s ease';t.style.opacity='1';}
+      var b=q('s4c-badge'); if(b){b.style.transition='opacity 0.4s ease';b.style.opacity='1';}
+    }, 100);
+    at(function() {
+      var r = q('s4c-receipt');
+      if (r) {
+        r.style.transition='opacity 0.7s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1)';
+        r.style.opacity='1'; r.style.transform='translate(-50%,-50%) rotate(-1.5deg) scale(1)';
+      }
+    }, 200);
+    at(function() {
+      var cap=q('s4c-caption');
+      if(cap){
+        cap.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+        cap.style.opacity='1'; cap.style.transform='translateY(0)';
+      }
+    }, 800);
+    at(function() {
+      var st=q('s4c-stamp');
+      if(st){
+        st.style.transition='transform 0.22s cubic-bezier(0.34,1.56,0.64,1)';
+        st.style.transform='translate(-50%,-50%) rotate(-18deg) scale(1)';
+      }
+    }, 1300);
+  }
+
+  window._slide07 = {
+    enter: function() { hide(); runSequence(); },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+﻿

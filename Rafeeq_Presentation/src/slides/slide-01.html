@@ -1,0 +1,69 @@
+<!-- SLIDE 01 — PROMO VIDEO (full-screen, click to play) -->
+<div class="slide" id="slide-01" data-slide="1"
+     style="background:#000;overflow:hidden;padding:0;">
+
+  <div style="position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;">
+    <video id="pv-vid"
+           style="width:100%;height:100%;object-fit:contain;display:block;background:#000;"
+           preload="metadata"
+           playsinline>
+      <source src="promovideo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Play overlay -->
+  <div id="pv-overlay" style="position:absolute;inset:0;z-index:10;
+       display:flex;flex-direction:column;align-items:center;justify-content:center;
+       background:rgba(0,0,0,0.45);cursor:pointer;transition:opacity 0.35s ease;">
+    <div style="width:88px;height:88px;background:#C9992A;border-radius:50%;
+                display:flex;align-items:center;justify-content:center;
+                box-shadow:0 0 0 16px rgba(201,153,42,0.18);margin-bottom:18px;">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+    </div>
+    <div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:0.04em;font-family:'Inter',sans-serif;">
+      Click to Play — Rafeeq Promo Video
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  function q(id){ return document.getElementById(id); }
+
+  function playVideo(){
+    var vid = q('pv-vid');
+    var ov  = q('pv-overlay');
+    if (vid) vid.play();
+    if (ov) ov.style.display = 'none';
+  }
+
+  function attach(){
+    var ov = q('pv-overlay');
+    if (ov && !ov.dataset.bound) {
+      ov.dataset.bound = '1';
+      ov.addEventListener('click', playVideo);
+    }
+    var vid = q('pv-vid');
+    if (vid && !vid.dataset.bound) {
+      vid.dataset.bound = '1';
+      vid.addEventListener('ended', function(){
+        if (typeof window.goNext === 'function') window.goNext();
+      });
+    }
+  }
+
+  window._slide01 = {
+    enter: function(){
+      attach();
+      var vid = q('pv-vid'); if (vid) { vid.pause(); vid.currentTime = 0; }
+      var ov = q('pv-overlay'); if (ov) ov.style.display = 'flex';
+    },
+    leave: function(){
+      var vid = q('pv-vid'); if (vid) { vid.pause(); }
+      var ov = q('pv-overlay'); if (ov) ov.style.display = 'flex';
+    }
+  };
+})();
+</script>

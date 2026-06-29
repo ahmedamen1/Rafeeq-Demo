@@ -1,0 +1,50 @@
+/* ─── SLIDE TRANSITION ENGINE ────────────────────────────────────────
+   Strategy: outgoing slide scales down + fades, incoming slides in
+   from the side at full scale. Feels like depth-push / morph.
+   Duration: 520ms, easing: expo-out
+──────────────────────────────────────────────────────────────────── */
+
+/* States managed entirely by JS; no CSS .active transform needed    */
+
+.slide {
+  transition:
+    transform 520ms var(--ease-out-expo),
+    opacity   520ms ease;
+}
+
+/* Outgoing — slide exiting to the left */
+.slide.leaving-left {
+  transform: scale(0.92) translateX(-6%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Outgoing — slide exiting to the right */
+.slide.leaving-right {
+  transform: scale(0.92) translateX(6%);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Incoming — slide entering from right */
+.slide.entering-right {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+/* Incoming — slide entering from left */
+.slide.entering-left {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+
+/* Active / resting position */
+.slide.active {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+/* No-transition for instant repositioning */
+.slide.no-transition {
+  transition: none !important;
+}

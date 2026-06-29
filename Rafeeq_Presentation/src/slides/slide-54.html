@@ -1,0 +1,72 @@
+﻿<div class="slide dark" id="slide-54" data-slide="54">
+  <div class="sp16-bg"></div>
+  <div class="sp16-inner">
+    <div class="sp16-eyebrow" id="sp16-eyebrow">Results &amp; Discussion</div>
+    <div class="sp16-title" id="sp16-title">See It<br>in Action</div>
+    <div class="sp16-uline" id="sp16-uline"></div>
+    <div class="sp16-sub" id="sp16-sub">From prototype to real-world impact</div>
+  </div>
+</div>
+<style>
+#slide-54 { background: #0D1F3C; overflow: hidden; }
+.sp16-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 60% 40%, rgba(201,153,42,0.12) 0%, transparent 65%),
+              radial-gradient(ellipse at 20% 80%, rgba(27,95,166,0.15) 0%, transparent 55%);
+  pointer-events: none;
+}
+.sp16-inner {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: center; gap: 20px;
+  width: 100%; height: 100%; padding: 72px 96px;
+  box-sizing: border-box;
+}
+.sp16-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.28em;
+  text-transform: uppercase; color: #C9992A;
+  opacity: 0; transform: translateY(16px); transition: none;
+}
+.sp16-title {
+  font-size: 80px; font-weight: 900; color: #ffffff;
+  line-height: 1.0; letter-spacing: -0.04em;
+  opacity: 0; transform: translateY(30px); transition: none;
+}
+.sp16-uline {
+  height: 4px; width: 0; background: #C9992A;
+  border-radius: 2px; transition: none;
+}
+.sp16-sub {
+  font-size: 16px; color: rgba(255,255,255,0.45); font-weight: 500;
+  opacity: 0; transition: none;
+}
+</style>
+<script>
+(function(){
+  var timers=[];
+  function at(fn,ms){timers.push(setTimeout(fn,ms));}
+  function clearAll(){timers.forEach(clearTimeout);timers=[];}
+  function q(sel){return document.querySelector(sel);}
+  function hide(){
+    ['eyebrow','title','uline','sub'].forEach(function(k){
+      var el=document.getElementById('sp16-'+k); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+      if(k==='uline') el.style.width='0';
+      else el.style.transform='translateY('+(k==='title'?'30':'16')+'px)';
+    });
+  }
+  window._slide54={
+    enter:function(){
+      hide();
+      at(function(){var e=document.getElementById('sp16-eyebrow');if(e){e.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},80);
+      at(function(){var t=document.getElementById('sp16-title');if(t){t.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';t.style.opacity='1';t.style.transform='translateY(0)';}},220);
+      at(function(){var u=document.getElementById('sp16-uline');if(u){u.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';u.style.width='80px';}},580);
+      at(function(){var s=document.getElementById('sp16-sub');if(s){s.style.transition='opacity 0.4s ease';s.style.opacity='1';}},700);
+    },
+    leave:function(){clearAll();hide();}
+  };
+})();
+</script>
+
+
+﻿<!-- SLIDE 16 — LIVE DEMO -->

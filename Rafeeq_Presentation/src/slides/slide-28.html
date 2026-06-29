@@ -1,0 +1,319 @@
+﻿<div class="slide light" id="slide-28" data-slide="28">
+  <div class="sp12-layout">
+
+    <!-- LEFT: info -->
+    <div class="sp12-left" id="sp12-left">
+      <div class="sp12-num">02</div>
+      <div class="sp12-tag">Autonomous Navigation</div>
+      <div class="sp12-title">It Knows<br>Where to Go</div>
+      <div class="sp12-uline" id="sp12-uline"></div>
+      <div class="sp12-desc">Maps your home once. Navigates forever.<br>No GPS — fully indoor, offline, obstacle-aware.</div>
+
+      <div class="sp12-tech-list">
+        <div class="sp12-tech"><i class="ti ti-camera"></i><div><strong>SLAM Toolbox</strong> — Online async mapping</div></div>
+        <div class="sp12-tech"><i class="ti ti-map-2"></i><div><strong>Dijkstra Planner</strong> — Optimal path on map</div></div>
+        <div class="sp12-tech"><i class="ti ti-brand-raspberry-pi"></i><div><strong>ROS 2 Jazzy</strong> — Raspberry Pi 5</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: floor-plan simulation -->
+    <div class="sp12-right" id="sp12-right">
+      <div class="sp12-map-card">
+        <div class="sp12-map-head">
+          <i class="ti ti-home"></i>Floor Plan Simulation
+          <button class="sp12-replay-btn" id="sp12-replay">&#8635; Replay</button>
+        </div>
+
+        <div class="sp12-map-wrap">
+          <svg class="sp12-svg" id="sp12-svg" viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Room walls -->
+            <rect class="sp12-room" x="10"  y="10"  width="180" height="130" rx="4"/><!-- bedroom -->
+            <rect class="sp12-room" x="10"  y="155" width="100" height="135" rx="4"/><!-- bathroom -->
+            <rect class="sp12-room" x="120" y="155" width="70"  height="135" rx="4"/><!-- hallway -->
+            <rect class="sp12-room" x="200" y="10"  width="230" height="135" rx="4"/><!-- living -->
+            <rect class="sp12-room" x="200" y="155" width="120" height="135" rx="4"/><!-- kitchen -->
+            <rect class="sp12-room" x="330" y="155" width="100" height="135" rx="4"/><!-- dining -->
+
+            <!-- Room labels -->
+            <text class="sp12-lbl" x="100" y="72">Bedroom</text>
+            <text class="sp12-lbl" x="60"  y="222">Bathroom</text>
+            <text class="sp12-lbl" x="155" y="222">Hall</text>
+            <text class="sp12-lbl" x="315" y="72">Living Room</text>
+            <text class="sp12-lbl" x="260" y="222">Kitchen</text>
+            <text class="sp12-lbl" x="380" y="222">Dining</text>
+
+            <!-- Door gaps (visual) -->
+            <line class="sp12-door" x1="190" y1="50"  x2="200" y2="50"/>
+            <line class="sp12-door" x1="155" y1="145" x2="155" y2="155"/>
+            <line class="sp12-door" x1="190" y1="200" x2="200" y2="200"/>
+            <line class="sp12-door" x1="320" y1="200" x2="330" y2="200"/>
+
+            <!-- Obstacles -->
+            <rect class="sp12-obs" x="230" y="40"  width="24" height="18" rx="3"/><!-- sofa -->
+            <rect class="sp12-obs" x="350" y="40"  width="20" height="14" rx="3"/><!-- table -->
+            <rect class="sp12-obs" x="210" y="185" width="18" height="22" rx="3"/><!-- counter -->
+
+            <!-- Path: drawn by JS using stroke-dasharray trick -->
+            <polyline class="sp12-path" id="sp12-path"
+              points="100,75 155,75 195,75 195,200 260,200"
+              stroke-dasharray="1000" stroke-dashoffset="1000"/>
+
+            <!-- Start marker (bedroom) -->
+            <circle class="sp12-start" cx="100" cy="75" r="10"/>
+            <text class="sp12-start-lbl" x="100" y="79">&#9650;</text>
+
+            <!-- End marker (kitchen) — appears when path done -->
+            <circle class="sp12-dest" id="sp12-dest" cx="260" cy="200" r="10" opacity="0"/>
+            <text class="sp12-dest-lbl" id="sp12-dest-lbl" x="260" y="204" opacity="0">&#9651;</text>
+
+            <!-- Wheelchair avatar moving along path -->
+            <g id="sp12-chair" transform="translate(100,75)">
+              <circle r="10" fill="#0D1F3C"/>
+              <text y="4" text-anchor="middle" font-size="12" fill="#C9992A"></text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Status strip -->
+        <div class="sp12-status-row">
+          <div class="sp12-stat" id="sp12-stat0"><div class="sp12-stat-dot"></div><div>SLAM mapping</div></div>
+          <div class="sp12-stat" id="sp12-stat1"><div class="sp12-stat-dot"></div><div>Path planned</div></div>
+          <div class="sp12-stat" id="sp12-stat2"><div class="sp12-stat-dot"></div><div>Obstacle clear</div></div>
+          <div class="sp12-stat" id="sp12-stat3"><div class="sp12-stat-dot"></div><div>Arrived </div></div>
+        </div>
+        <div class="sp12-status-msg" id="sp12-status-msg">Say "Rafeeq, go to kitchen"</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-28 { background: #fff; overflow: hidden; }
+
+.sp12-layout {
+  display: flex; width: 100%; height: 100%;
+  padding: 36px 48px 32px; box-sizing: border-box; gap: 40px;
+}
+
+/* LEFT */
+.sp12-left {
+  flex: 0 0 340px; display: flex; flex-direction: column; gap: 14px;
+  opacity: 0; transform: translateX(-24px); transition: none;
+}
+.sp12-num { font-size: 72px; font-weight: 900; color: rgba(201,153,42,0.12); letter-spacing: -0.05em; line-height: 1; margin-bottom: -8px; }
+.sp12-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #C9992A; }
+.sp12-title { font-size: 30px; font-weight: 900; color: #0D1F3C; line-height: 1.15; letter-spacing: -0.02em; }
+.sp12-uline { height: 3px; background: #C9992A; border-radius: 2px; width: 0; transition: none; }
+.sp12-desc { font-size: 13px; color: rgba(13,31,60,0.6); line-height: 1.6; }
+
+.sp12-tech-list { display: flex; flex-direction: column; gap: 8px; }
+.sp12-tech {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: 8px;
+  background: #fafafa; border: 1px solid #ececec;
+  font-size: 12px; color: #0D1F3C;
+}
+.sp12-tech i { font-size: 16px; color: #C9992A; flex-shrink: 0; width: 20px; text-align: center; }
+.sp12-tech strong { font-weight: 800; }
+
+/* RIGHT */
+.sp12-right {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateX(24px); transition: none;
+}
+.sp12-map-card {
+  background: #0D1F3C; border-radius: 20px;
+  width: 100%; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 8px 40px rgba(13,31,60,0.2);
+}
+.sp12-map-head {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.sp12-map-head i { color: #C9992A; font-size: 16px; }
+.sp12-replay-btn {
+  margin-left: auto; background: rgba(201,153,42,0.15);
+  border: 1px solid rgba(201,153,42,0.4); border-radius: 6px;
+  color: #C9992A; font-size: 11px; font-weight: 700;
+  padding: 4px 12px; cursor: pointer; letter-spacing: 0.05em;
+  font-family: inherit; transition: all 0.2s;
+}
+.sp12-replay-btn:hover { background: rgba(201,153,42,0.25); }
+
+/* SVG Map */
+.sp12-map-wrap { background: rgba(255,255,255,0.96); border-radius: 12px; overflow: hidden; }
+.sp12-svg { width: 100%; height: auto; display: block; }
+.sp12-room { fill: none; stroke: #0D1F3C; stroke-width: 2; }
+.sp12-door { stroke: #fff; stroke-width: 3; }
+.sp12-lbl  { font-size: 10px; fill: rgba(13,31,60,0.5); text-anchor: middle; dominant-baseline: middle; font-family: system-ui,sans-serif; font-weight: 600; }
+.sp12-obs  { fill: rgba(13,31,60,0.12); stroke: rgba(13,31,60,0.25); stroke-width: 1; }
+.sp12-path {
+  fill: none; stroke: #C9992A; stroke-width: 3;
+  stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1000; stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1);
+}
+.sp12-start { fill: #0D1F3C; }
+.sp12-start-lbl { font-size: 10px; fill: #C9992A; text-anchor: middle; dominant-baseline: middle; font-family: system-ui,sans-serif; }
+.sp12-dest  { fill: #22c55e; transition: opacity 0.4s ease 2.4s; }
+.sp12-dest-lbl { font-size: 10px; fill: #fff; text-anchor: middle; dominant-baseline: middle; font-family: system-ui,sans-serif; transition: opacity 0.4s ease 2.4s; }
+
+/* Status */
+.sp12-status-row { display: flex; gap: 8px; }
+.sp12-stat {
+  flex: 1; display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.06); border-radius: 8px;
+  padding: 6px 10px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.35);
+  border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s ease;
+}
+.sp12-stat.on { color: #C9992A; border-color: rgba(201,153,42,0.4); background: rgba(201,153,42,0.08); }
+.sp12-stat.done { color: #22c55e; border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.06); }
+.sp12-stat-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.sp12-status-msg { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); text-align: center; font-style: italic; }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(sel) { return document.querySelector(sel); }
+
+  // Waypoints on the path: bedroom → hallway → kitchen
+  var waypoints = [
+    {x:100,y:75}, {x:155,y:75}, {x:195,y:75},
+    {x:195,y:200}, {x:260,y:200}
+  ];
+  var totalLen = 0;
+  for (var i=1;i<waypoints.length;i++){
+    var dx=waypoints[i].x-waypoints[i-1].x, dy=waypoints[i].y-waypoints[i-1].y;
+    totalLen += Math.sqrt(dx*dx+dy*dy);
+  }
+
+  function chairPos(t) { // t 0→1
+    var dist = t * totalLen, acc = 0;
+    for (var i=1;i<waypoints.length;i++){
+      var dx=waypoints[i].x-waypoints[i-1].x, dy=waypoints[i].y-waypoints[i-1].y;
+      var seg=Math.sqrt(dx*dx+dy*dy);
+      if (acc+seg>=dist){
+        var frac=(dist-acc)/seg;
+        return {x:waypoints[i-1].x+dx*frac, y:waypoints[i-1].y+dy*frac};
+      }
+      acc+=seg;
+    }
+    return waypoints[waypoints.length-1];
+  }
+
+  var animId = null;
+  function animateChair(startTime, duration) {
+    function frame(now) {
+      var t = Math.min((now-startTime)/duration, 1);
+      // ease in-out
+      t = t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+      var p = chairPos(t);
+      var chair = q('#sp12-chair');
+      if (chair) chair.setAttribute('transform','translate('+p.x+','+p.y+')');
+      if (t<1) animId = requestAnimationFrame(frame);
+      else {
+        // arrived
+        var dest = q('#sp12-dest'), destLbl = q('#sp12-dest-lbl');
+        if (dest) dest.setAttribute('opacity','1');
+        if (destLbl) destLbl.setAttribute('opacity','1');
+        setStat(3,'done');
+        var msg = q('#sp12-status-msg');
+        if (msg) msg.textContent = 'Arrived at Kitchen — obstacle-free ';
+      }
+    }
+    animId = requestAnimationFrame(frame);
+  }
+
+  function setStat(idx, state) {
+    var el = q('#sp12-stat'+idx);
+    if (!el) return;
+    el.classList.remove('on','done');
+    if (state) el.classList.add(state);
+  }
+
+  function runNavDemo() {
+    // reset path
+    var path = q('#sp12-path');
+    if (path) { path.style.transition='none'; path.style.strokeDashoffset='1000'; }
+    var dest = q('#sp12-dest'), destLbl = q('#sp12-dest-lbl');
+    if (dest) dest.setAttribute('opacity','0');
+    if (destLbl) destLbl.setAttribute('opacity','0');
+    var chair = q('#sp12-chair');
+    if (chair) chair.setAttribute('transform','translate(100,75)');
+    [0,1,2,3].forEach(function(i){ setStat(i,null); });
+    var msg = q('#sp12-status-msg');
+    if (msg) msg.textContent = 'Initializing SLAM…';
+    if (animId) cancelAnimationFrame(animId);
+
+    // Step 0: SLAM mapping
+    at(function(){ setStat(0,'on'); if (msg) msg.textContent = 'Building map…'; }, 200);
+    at(function(){ setStat(0,'done'); setStat(1,'on'); if (msg) msg.textContent = 'Planning optimal path…'; }, 900);
+
+    // Step 1: draw path
+    at(function(){
+      if (path) { path.style.transition='stroke-dashoffset 2.2s cubic-bezier(0.4,0,0.2,1)'; path.style.strokeDashoffset='0'; }
+      setStat(1,'done'); setStat(2,'on');
+      if (msg) msg.textContent = 'Path found — navigating to Kitchen…';
+    }, 1600);
+
+    // Step 2: move wheelchair
+    at(function(){
+      setStat(2,'done'); setStat(3,'on');
+      animateChair(performance.now(), 2200);
+    }, 2200);
+  }
+
+  function hide() {
+    var left=q('#sp12-left'), right=q('#sp12-right'), ul=q('#sp12-uline');
+    if (left)  { left.style.transition='none'; left.style.opacity='0'; left.style.transform='translateX(-24px)'; }
+    if (right) { right.style.transition='none'; right.style.opacity='0'; right.style.transform='translateX(24px)'; }
+    if (ul)    { ul.style.transition='none'; ul.style.width='0'; }
+    var path=q('#sp12-path');
+    if (path) { path.style.transition='none'; path.style.strokeDashoffset='1000'; }
+    var dest=q('#sp12-dest'), dLbl=q('#sp12-dest-lbl');
+    if (dest) dest.setAttribute('opacity','0');
+    if (dLbl) dLbl.setAttribute('opacity','0');
+    var chair=q('#sp12-chair');
+    if (chair) chair.setAttribute('transform','translate(100,75)');
+    [0,1,2,3].forEach(function(i){ setStat(i,null); });
+    var msg=q('#sp12-status-msg');
+    if (msg) msg.textContent='Say "Rafeeq, go to kitchen"';
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  function runSequence() {
+    at(function(){
+      var left=q('#sp12-left');
+      if (left) { left.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'; left.style.opacity='1'; left.style.transform='translateX(0)'; }
+    },0);
+    at(function(){
+      var ul=q('#sp12-uline');
+      if (ul) { ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='56px'; }
+    },350);
+    at(function(){
+      var right=q('#sp12-right');
+      if (right) { right.style.transition='opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)'; right.style.opacity='1'; right.style.transform='translateX(0)'; }
+    },200);
+    // auto-start demo after entrance
+    at(runNavDemo, 900);
+  }
+
+  window._slide28 = {
+    enter: function() {
+      hide(); runSequence();
+      var replayBtn = q('#sp12-replay');
+      if (replayBtn) replayBtn.addEventListener('click', function(){ clearAll(); runNavDemo(); });
+    },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+
+﻿

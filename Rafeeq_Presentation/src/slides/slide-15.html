@@ -1,0 +1,445 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 13 — MECHANICAL: MOTOR SELECTION
+     Brief: Section 3 — Slide B
+     Phase 1: Problem statement + Torque sizing (side by side) → Phase 2: 4 flip cards + spec strip
+═══════════════════════════════════════════ -->
+<div class="slide" id="slide-15" data-slide="15"
+     style="background:#f8f9fc; overflow:hidden;">
+
+  <!-- Top accent -->
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#0D1F3C,#C9992A);"></div>
+
+  <!-- ── PHASE 1: Problem Statement + Torque Sizing (side by side) ── -->
+  <div id="s13-ph1" style="
+    position:absolute;inset:0;z-index:4;
+    display:flex;flex-direction:column;align-items:center;
+    padding:56px 6% 48px;box-sizing:border-box;
+    opacity:0;pointer-events:none;transition:none;">
+
+    <div id="s13-ey1" style="font-size:11px;font-weight:800;letter-spacing:0.32em;
+      text-transform:uppercase;color:#C9992A;font-family:'Inter',sans-serif;
+      text-align:center;margin-bottom:0;flex-shrink:0;
+      opacity:0;transform:translateY(-12px);transition:none;">
+      MECHANICAL SUBSYSTEM &middot; MOTOR SELECTION
+    </div>
+
+    <div style="width:100%;flex:1;display:flex;gap:64px;align-items:center;min-height:0;">
+
+      <!-- LEFT: Problem statement + criteria pills -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;">
+        <div id="s13-prob" style="font-size:clamp(24px,3.2vw,40px);font-weight:800;
+          color:#0D1F3C;font-family:'Inter',sans-serif;text-align:left;line-height:1.42;
+          letter-spacing:-0.02em;
+          opacity:0;transform:translateY(20px);transition:none;">
+          We need to move a 120&thinsp;kg loaded wheelchair reliably,
+          at low speed, with precise independent wheel control
+          &mdash;&thinsp;at a price that works in Egypt.
+        </div>
+
+        <div id="s13-sub" style="margin-top:24px;font-size:15px;font-weight:500;
+          color:rgba(13,31,60,0.45);font-family:'Inter',sans-serif;
+          text-align:left;line-height:1.65;
+          opacity:0;transition:none;">
+          Four motor types were evaluated against four criteria.<br>Only one passed all of them.
+        </div>
+
+        <div id="s13-crit" style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;
+          justify-content:flex-start;opacity:0;transform:translateY(14px);transition:none;">
+          <div class="s13-cpill"><span style="color:#C9992A;font-weight:900;margin-right:5px;">&bull;</span>Reliability</div>
+          <div class="s13-cpill"><span style="color:#D97706;font-weight:900;margin-right:5px;">!</span>Torque at Low Speed</div>
+          <div class="s13-cpill"><span style="color:#3B7DE8;font-weight:900;margin-right:5px;">&#8635;</span>Closed-loop Control</div>
+          <div class="s13-cpill"><span style="color:#2E7D52;font-weight:900;margin-right:5px;">&pound;</span>Cost</div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div style="width:1px;align-self:stretch;background:rgba(13,31,60,0.08);flex-shrink:0;"></div>
+
+      <!-- RIGHT: Torque sizing box -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div id="s13-ey2" style="font-size:11px;font-weight:800;letter-spacing:0.32em;
+          text-transform:uppercase;color:#C9992A;font-family:'Inter',sans-serif;
+          margin-bottom:22px;opacity:0;transform:translateY(-12px);transition:none;">
+          TORQUE SIZING &mdash; WORST CASE ANALYSIS
+        </div>
+
+        <div id="s13-tbox" style="background:#0D1F3C;border-radius:20px;padding:36px 44px;
+          width:100%;max-width:600px;box-shadow:0 16px 56px rgba(13,31,60,0.15);
+          opacity:0;transform:translateY(20px);transition:none;">
+          <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,0.45);
+                      font-family:'Inter',sans-serif;margin-bottom:18px;line-height:1.5;">
+            Minimum torque per motor to climb a 1:12 ADA indoor ramp at 120&thinsp;kg load?
+          </div>
+          <div style="font-size:clamp(14px,1.5vw,18px);color:#fff;
+                      font-family:'Courier New',monospace;line-height:2.15;">
+            T&thinsp;=&thinsp;(m &times; g &times; sin&theta; &times; r) / 2 &times; SF<br>
+            T&thinsp;=&thinsp;(120 &times; 9.81 &times; 1/12 &times; 0.130) / 2 &times; 1.25<br>
+            T&thinsp;=&thinsp;7.9 &times; 1.25<br>
+            <span style="color:#C9992A;font-size:clamp(17px,2.1vw,24px);font-weight:900;">
+              T &asymp; <strong>10 N&middot;m per motor</strong>
+            </span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:22px;
+                      border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;">m = 120 kg</span>
+            <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;">sin&theta; = 1/12 (ISO ADA)</span>
+            <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;">r = 0.130 m (8-inch hub)</span>
+            <span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;">SF = 1.25 (ISO 13482)</span>
+          </div>
+        </div>
+
+        <div id="s13-tres" style="margin-top:20px;width:100%;max-width:600px;
+          opacity:0;transform:translateY(10px);transition:none;">
+          <div style="background:rgba(46,125,82,0.12);border:1.5px solid #2E7D52;border-radius:12px;
+                      padding:14px 24px;font-size:15px;font-weight:800;color:#2E7D52;
+                      font-family:'Inter',sans-serif;text-align:center;">
+            Selected BLDC: 11 N&middot;m @ 15 A &nbsp;&rarr;&nbsp; 11 &gt; 10 &nbsp;&rarr;&nbsp; Passes &#10003;
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /side-by-side -->
+  </div>
+
+  <!-- ── PHASE 2: 4 Flip Cards + Spec Strip ── -->
+  <div id="s13-ph3" style="
+    position:absolute;inset:0;z-index:4;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    padding:36px 24px 16px;box-sizing:border-box;
+    opacity:0;pointer-events:none;transition:none;">
+
+    <div id="s13-ey3" style="font-size:10px;font-weight:800;letter-spacing:0.3em;
+      text-transform:uppercase;color:#C9992A;font-family:'Inter',sans-serif;
+      margin-bottom:4px;opacity:0;transition:none;">
+      MOTOR EVALUATION &mdash; CLICK EACH CARD TO FLIP
+    </div>
+    <div style="font-size:11px;color:rgba(13,31,60,0.4);font-family:'Inter',sans-serif;
+                margin-bottom:24px;">
+      Four criteria: Reliability &bull; Torque &bull; Closed-loop Control &bull; Cost
+    </div>
+
+    <!-- Cards row — fixed height so flip-inner can use 100% -->
+    <div style="display:flex;gap:16px;width:100%;max-width:1200px;flex:1;min-height:0;
+                flex-shrink:1;">
+
+      <!-- Card 1: Brushed DC — REJECTED -->
+      <div class="s13-fwrap" id="s13-c1" onclick="window.s13Flip(1)">
+        <div class="s13-finner" id="s13-fi1">
+          <div class="s13-front" style="border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej">&#10007; Rejected</div>
+            <div class="s13-imgwrap">
+              <img src="Mechanical Slides/motor_brushed_dc.jpg" alt="Brushed DC"
+                   style="width:100%;height:100%;object-fit:contain;">
+            </div>
+            <div class="s13-cname">Brushed DC</div>
+            <div class="s13-hint">Click to flip</div>
+          </div>
+          <div class="s13-back" style="background:#160505;border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej" style="margin-bottom:6px;">&#10007; Rejected</div>
+            <div class="s13-cname" style="color:#fff;font-size:16px;margin-bottom:10px;">Brushed DC</div>
+            <div class="s13-erows">
+              <div class="s13-erow"><span class="s13-bad">&#10007;</span><b>Reliability</b><span>Brush wear after 6–12 mo &mdash; unacceptable for home medical device</span></div>
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Torque</b><span>Adequate but degrades as brushes wear</span></div>
+              <div class="s13-erow"><span class="s13-warn">&#9651;</span><b>Control</b><span>No built-in Hall sensor &mdash; external encoder adds cost &amp; complexity</span></div>
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Cost</b><span>Low initial cost, but high lifetime maintenance cost</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Stepper — REJECTED -->
+      <div class="s13-fwrap" id="s13-c2" onclick="window.s13Flip(2)">
+        <div class="s13-finner" id="s13-fi2">
+          <div class="s13-front" style="border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej">&#10007; Rejected</div>
+            <div class="s13-imgwrap">
+              <img src="Mechanical Slides/motor_stepper.jpg" alt="Stepper Motor"
+                   style="width:100%;height:100%;object-fit:contain;">
+            </div>
+            <div class="s13-cname">Stepper Motor</div>
+            <div class="s13-hint">Click to flip</div>
+          </div>
+          <div class="s13-back" style="background:#160505;border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej" style="margin-bottom:6px;">&#10007; Rejected</div>
+            <div class="s13-cname" style="color:#fff;font-size:16px;margin-bottom:10px;">Stepper Motor</div>
+            <div class="s13-erows">
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Reliability</b><span>No brushes &mdash; mechanically robust</span></div>
+              <div class="s13-erow"><span class="s13-bad">&#10007;</span><b>Torque</b><span>Open-loop by design &mdash; loses steps under dynamic load, drops at speed</span></div>
+              <div class="s13-erow"><span class="s13-bad">&#10007;</span><b>Control</b><span>No native speed feedback &mdash; can't confirm actual wheel position</span></div>
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Cost</b><span>Moderate cost</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Servo + Gearbox — REJECTED -->
+      <div class="s13-fwrap" id="s13-c3" onclick="window.s13Flip(3)">
+        <div class="s13-finner" id="s13-fi3">
+          <div class="s13-front" style="border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej">&#10007; Rejected</div>
+            <div class="s13-imgwrap">
+              <img src="Mechanical Slides/motor_servo_gearbox.jpg" alt="Servo + Gearbox"
+                   style="width:100%;height:100%;object-fit:contain;">
+            </div>
+            <div class="s13-cname">Servo + Gearbox</div>
+            <div class="s13-hint">Click to flip</div>
+          </div>
+          <div class="s13-back" style="background:#160505;border-top:4px solid #C94040;">
+            <div class="s13-badge s13-rej" style="margin-bottom:6px;">&#10007; Rejected</div>
+            <div class="s13-cname" style="color:#fff;font-size:16px;margin-bottom:10px;">Servo + Gearbox</div>
+            <div class="s13-erows">
+              <div class="s13-erow"><span class="s13-warn">&#9651;</span><b>Reliability</b><span>Gearbox introduces backlash, wear &amp; additional failure points</span></div>
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Torque</b><span>Good low-speed performance via gearbox multiplication</span></div>
+              <div class="s13-erow"><span class="s13-good">&#10003;</span><b>Control</b><span>Closed-loop encoder &mdash; excellent control</span></div>
+              <div class="s13-erow"><span class="s13-bad">&#10007;</span><b>Cost</b><span>3&ndash;4&times; cost of hub motor &mdash; driver + gearbox + motor</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: BLDC Hub — SELECTED -->
+      <div class="s13-fwrap" id="s13-c4" onclick="window.s13Flip(4)">
+        <div class="s13-finner" id="s13-fi4">
+          <div class="s13-front" style="border-top:4px solid #2E7D52;
+               box-shadow:0 8px 32px rgba(46,125,82,0.18);">
+            <div class="s13-badge s13-sel">&#10003; Selected</div>
+            <div class="s13-imgwrap" style="background:#f0faf4;">
+              <img src="Mechanical Slides/motor_bldc_hub.jpg" alt="BLDC Hub Motor"
+                   style="width:100%;height:100%;object-fit:contain;">
+            </div>
+            <div class="s13-cname" style="color:#2E7D52;">BLDC Hub Motor</div>
+            <div class="s13-hint" style="color:rgba(46,125,82,0.6);">Click to flip</div>
+          </div>
+          <div class="s13-back" style="background:#051208;border-top:4px solid #2E7D52;">
+            <div class="s13-badge s13-sel" style="margin-bottom:6px;">&#10003; Selected</div>
+            <div class="s13-cname" style="color:#fff;font-size:16px;margin-bottom:10px;">BLDC Hub Motor</div>
+            <div class="s13-erows">
+              <div class="s13-erow s13-esel"><span class="s13-good">&#10003;</span><b>Reliability</b><span>No brushes, no gears &mdash; zero wear parts in drivetrain. Direct-drive.</span></div>
+              <div class="s13-erow s13-esel"><span class="s13-good">&#10003;</span><b>Torque</b><span>FOC delivers max torque at zero speed &mdash; 11 N&middot;m @ 15 A, ADA ramp validated</span></div>
+              <div class="s13-erow s13-esel"><span class="s13-good">&#10003;</span><b>Control</b><span>Built-in Hall sensors &mdash; 3 sensors, 6 transitions/rev &mdash; closed-loop FOC via EFeru STM32</span></div>
+              <div class="s13-erow s13-esel"><span class="s13-good">&#10003;</span><b>Cost</b><span>~70% cheaper than medical motors &mdash; hoverboard mass-production supply chain</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards row -->
+
+    <!-- Spec strip — visible after all 4 cards flipped -->
+    <div id="s13-spec" style="
+      width:100%;max-width:1100px;margin-top:24px;flex-shrink:0;
+      background:#0D1F3C;border-radius:12px;padding:11px 20px;
+      display:flex;justify-content:space-around;align-items:center;
+      flex-wrap:wrap;gap:8px;
+      opacity:0;transform:translateY(10px);transition:none;">
+      <div class="s13-sitem"><span class="s13-slbl">Wheel</span><span class="s13-sval">8 in (203 mm)</span></div>
+      <div class="s13-sdiv"></div>
+      <div class="s13-sitem"><span class="s13-slbl">Power</span><span class="s13-sval">350 W &times; 2</span></div>
+      <div class="s13-sdiv"></div>
+      <div class="s13-sitem"><span class="s13-slbl">Voltage</span><span class="s13-sval">36 V Li-ion 10S2P</span></div>
+      <div class="s13-sdiv"></div>
+      <div class="s13-sitem"><span class="s13-slbl">Control</span><span class="s13-sval">FOC &middot; EFeru STM32</span></div>
+      <div class="s13-sdiv"></div>
+      <div class="s13-sitem"><span class="s13-slbl">Sensing</span><span class="s13-sval">Hall effect &middot; 3/motor</span></div>
+    </div>
+
+  </div><!-- /ph3 -->
+
+</div><!-- /slide-13 -->
+
+<style>
+#slide-15 { background: #f8f9fc; }
+
+/* Criteria pills */
+.s13-cpill {
+  display:flex;align-items:center;
+  background:rgba(13,31,60,0.06);border:1px solid rgba(13,31,60,0.1);
+  border-radius:24px;padding:7px 16px;
+  font-size:12px;font-weight:700;color:#0D1F3C;font-family:'Inter',sans-serif;
+}
+
+/* Flip wrapper — fixed height supplied by parent row */
+.s13-fwrap {
+  flex:1;min-width:0;height:100%;
+  perspective:1200px;cursor:pointer;
+}
+.s13-finner {
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.s13-finner.flipped { transform:rotateY(180deg); }
+
+.s13-front, .s13-back {
+  position:absolute;inset:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;
+  padding:16px 16px;box-sizing:border-box;
+  background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.07);
+}
+.s13-back {
+  transform:rotateY(180deg);
+  align-items:flex-start;
+}
+
+/* Badges */
+.s13-badge {
+  font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;font-family:'Inter',sans-serif;flex-shrink:0;
+}
+.s13-rej { background:rgba(201,64,64,0.12);color:#C94040; }
+.s13-sel { background:rgba(46,125,82,0.15);color:#2E7D52; }
+
+/* Image on front */
+.s13-imgwrap {
+  width:100%;flex:1;min-height:0;background:#f5f5f5;border-radius:8px;
+  overflow:hidden;display:flex;align-items:center;justify-content:center;margin:10px 0;
+}
+.s13-cname {
+  font-size:13px;font-weight:800;color:#0D1F3C;
+  font-family:'Inter',sans-serif;text-align:center;
+}
+.s13-hint {
+  font-size:9px;font-weight:600;color:rgba(13,31,60,0.3);
+  font-family:'Inter',sans-serif;margin-top:5px;
+}
+
+/* Eval rows on back */
+.s13-erows { display:flex;flex-direction:column;gap:8px;width:100%;flex:1;min-height:0;justify-content:space-evenly; }
+.s13-erow {
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,0.07);border-radius:7px;padding:9px 11px;
+  font-size:12px;color:#fff;font-family:'Inter',sans-serif;line-height:1.5;
+}
+.s13-erow.s13-esel { background:rgba(46,125,82,0.15); }
+.s13-erow b { color:#fff;font-weight:800;min-width:62px;flex-shrink:0; }
+.s13-good { color:#4ade80;font-weight:900;font-size:13px;flex-shrink:0; }
+.s13-bad  { color:#f87171;font-weight:900;font-size:13px;flex-shrink:0; }
+.s13-warn { color:#fbbf24;font-weight:900;font-size:13px;flex-shrink:0; }
+
+/* Spec strip */
+.s13-sitem { display:flex;flex-direction:column;align-items:center;gap:3px; }
+.s13-slbl {
+  font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;
+}
+.s13-sval { font-size:13px;font-weight:800;color:#C9992A;font-family:'Inter',sans-serif; }
+.s13-sdiv { width:1px;height:28px;background:rgba(255,255,255,0.12); }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t15 = [];
+  function at(fn, ms) { _t15.push(setTimeout(fn, ms)); }
+  function ca15() { _t15.forEach(clearTimeout); _t15 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var ph13 = 0;
+  var fc13 = 0; /* flip count */
+
+  /* Global flip handler — called by onclick */
+  window.s13Flip = function(n) {
+    if (ph13 !== 3) return;
+    var fi = q('s13-fi' + n);
+    if (!fi || fi.classList.contains('flipped')) return;
+    fi.classList.add('flipped');
+    fc13++;
+    if (fc13 >= 4) {
+      setTimeout(function() {
+        var sp = q('s13-spec');
+        if (sp) {
+          sp.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+          sp.style.opacity = '1'; sp.style.transform = 'translateY(0)';
+        }
+      }, 400);
+    }
+  };
+
+  function showPh(n) {
+    [1,3].forEach(function(i) {
+      var el = q('s13-ph' + i); if (!el) return;
+      el.style.transition = 'opacity 0.35s ease';
+      el.style.opacity = (i === n) ? '1' : '0';
+      el.style.pointerEvents = (i === n) ? 'auto' : 'none';
+    });
+    ph13 = n;
+  }
+
+  function animPh1() {
+    showPh(1);
+    at(function(){var e=q('s13-ey1');if(e){e.style.transition='opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},0);
+    at(function(){var e=q('s13-prob');if(e){e.style.transition='opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},200);
+    at(function(){var e=q('s13-sub');if(e){e.style.transition='opacity .5s ease';e.style.opacity='1';}},500);
+    at(function(){var e=q('s13-crit');if(e){e.style.transition='opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},700);
+    at(function(){var e=q('s13-ey2');if(e){e.style.transition='opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},300);
+    at(function(){var e=q('s13-tbox');if(e){e.style.transition='opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},450);
+    at(function(){var e=q('s13-tres');if(e){e.style.transition='opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},900);
+  }
+
+  function animPh3() {
+    showPh(3);
+    fc13 = 0;
+    /* Reset all flip cards */
+    [1,2,3,4].forEach(function(i){
+      var fi=q('s13-fi'+i);
+      if(fi){ fi.style.transition='none'; void fi.offsetHeight; fi.classList.remove('flipped'); }
+      var c=q('s13-c'+i);
+      if(c){ c.style.opacity='0'; c.style.transform='translateY(18px)'; }
+    });
+    var sp=q('s13-spec');if(sp){sp.style.transition='none';sp.style.opacity='0';sp.style.transform='translateY(10px)';}
+    at(function(){var e=q('s13-ey3');if(e){e.style.transition='opacity .4s ease';e.style.opacity='1';}},0);
+    [1,2,3,4].forEach(function(i){
+      at(function(){
+        var c=q('s13-c'+i);
+        if(c){c.style.transition='opacity .45s ease,transform .45s cubic-bezier(.16,1,.3,1)';c.style.opacity='1';c.style.transform='translateY(0)';}
+        var fi=q('s13-fi'+i);
+        if(fi) fi.style.transition='transform .6s cubic-bezier(.16,1,.3,1)';
+      }, 120 + (i-1)*160);
+    });
+  }
+
+  function reset13() {
+    ph13=0; fc13=0;
+    [1,3].forEach(function(i){
+      var el=q('s13-ph'+i);
+      if(el){el.style.transition='none';el.style.opacity='0';el.style.pointerEvents='none';}
+    });
+    /* Sub-elements */
+    ['s13-ey1','s13-prob','s13-sub','s13-crit','s13-ey2','s13-tbox','s13-tres','s13-ey3'].forEach(function(id){
+      var el=q(id);if(!el)return;el.style.transition='none';el.style.opacity='0';
+    });
+    var ey1=q('s13-ey1');if(ey1)ey1.style.transform='translateY(-12px)';
+    var ey2=q('s13-ey2');if(ey2)ey2.style.transform='translateY(-12px)';
+    var pr=q('s13-prob');if(pr)pr.style.transform='translateY(20px)';
+    var cr=q('s13-crit');if(cr)cr.style.transform='translateY(14px)';
+    var tb=q('s13-tbox');if(tb)tb.style.transform='translateY(20px)';
+    var tr=q('s13-tres');if(tr)tr.style.transform='translateY(10px)';
+    [1,2,3,4].forEach(function(i){
+      var c=q('s13-c'+i);if(c){c.style.transition='none';c.style.opacity='0';c.style.transform='translateY(18px)';}
+      var fi=q('s13-fi'+i);if(fi){fi.style.transition='none';fi.classList.remove('flipped');}
+    });
+    var sp=q('s13-spec');if(sp){sp.style.transition='none';sp.style.opacity='0';sp.style.transform='translateY(10px)';}
+  }
+
+  window._slide15 = {
+    enter: function() { ca15(); reset13(); animPh1(); },
+    leave: function() { ca15(); },
+    onNext: function() {
+      /* Phase 1 → go to cards phase */
+      if (ph13 === 1) { ca15(); animPh3(); return true; }
+      /* Phase 3 → flip cards one by one with each keypress */
+      if (ph13 === 3) {
+        /* All 4 flipped AND spec strip has had time to appear → advance slide */
+        if (fc13 >= 4) return false;
+        /* Flip the next card */
+        window.s13Flip(fc13 + 1);
+        return true;
+      }
+      return false;
+    }
+  };
+})();
+</script>

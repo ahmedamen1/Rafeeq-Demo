@@ -1,0 +1,124 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 34 — HEALTH: THE LOGIC FLOW
+     hm_flowchart.jpeg — how the system thinks
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-50" data-slide="50"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:30px 44px 26px;box-sizing:border-box;gap:14px;">
+
+    <!-- Header -->
+    <div id="hm4-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C94040;margin-bottom:5px;">Health Monitoring · Firmware Logic</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">How It Thinks — The Logic Flow</div>
+      <div id="hm4-uline" style="height:3px;background:#C94040;border-radius:2px;width:0;margin-top:7px;transition:none;"></div>
+    </div>
+
+    <!-- Body: flowchart + sidebar -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- Flowchart image -->
+      <div id="hm4-flow" style="flex:1;min-width:0;border-radius:14px;overflow:hidden;
+           border:1.5px solid #ececec;opacity:0;transform:scale(0.97);transition:none;background:#fafafa;">
+        <img src="hm_flowchart.jpeg" alt="SmartWheel Health Monitoring System Flowchart"
+             style="width:100%;height:100%;object-fit:contain;object-position:center;">
+      </div>
+
+      <!-- Right: 4-phase highlight cards -->
+      <div id="hm4-side" style="flex:0 0 260px;display:flex;flex-direction:column;gap:11px;opacity:0;transform:translateX(20px);transition:none;">
+
+        <div class="hm4-phase" style="border-color:rgba(251,191,36,0.4);background:#FFFBEB;">
+          <div class="hm4-ph-num" style="background:#f59e0b;color:#fff;">1</div>
+          <div>
+            <div class="hm4-ph-title" style="color:#92400e;">Setup &amp; Initialization</div>
+            <div class="hm4-ph-body">Init pins, connect Wi-Fi, sync NTP time, connect Firebase, initialize both I2C sensor buses</div>
+          </div>
+        </div>
+
+        <div class="hm4-phase" style="border-color:rgba(59,125,232,0.3);background:#EFF6FF;">
+          <div class="hm4-ph-num" style="background:#3B7DE8;color:#fff;">2</div>
+          <div>
+            <div class="hm4-ph-title" style="color:#1e40af;">Main Loop (Continuous)</div>
+            <div class="hm4-ph-body">Read limit switch → MAX30100 (100 samples) → compute average IR → finger detection → SpO₂ + HR algorithm → MLX90614 temperature → 9-point median filter → sanity check → build packet</div>
+          </div>
+        </div>
+
+        <div class="hm4-phase" style="border-color:rgba(167,139,250,0.3);background:#F5F3FF;">
+          <div class="hm4-ph-num" style="background:#7c3aed;color:#fff;">3</div>
+          <div>
+            <div class="hm4-ph-title" style="color:#4c1d95;">Data Upload</div>
+            <div class="hm4-ph-body">Check Firebase connection → upload to /sensor_data/SmartWheel_01/&lt;timestamp&gt; → retry on failure</div>
+          </div>
+        </div>
+
+        <div class="hm4-phase" style="border-color:rgba(249,115,22,0.3);background:#FFF7ED;">
+          <div class="hm4-ph-num" style="background:#f97316;color:#fff;">4</div>
+          <div>
+            <div class="hm4-ph-title" style="color:#9a3412;">Loop Delay</div>
+            <div class="hm4-ph-body">Short delay → repeat loop continuously</div>
+          </div>
+        </div>
+
+        <!-- Graceful degradation highlight -->
+        <div id="hm4-grace" style="background:#0D1F3C;border-radius:12px;padding:13px 15px;opacity:0;transform:translateY(10px);transition:none;margin-top:2px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#C9992A;margin-bottom:6px;">Graceful Degradation</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.6;">If finger removed from sensor — HR &amp; SpO₂ data paused, buffer reset. Temperature and occupancy keep streaming uninterrupted.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hm4-phase {
+  display:flex;gap:12px;align-items:flex-start;
+  border:1.5px solid;border-radius:12px;padding:11px 13px;
+}
+.hm4-ph-num   { flex:0 0 22px;height:22px;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:1px; }
+.hm4-ph-title { font-size:11px;font-weight:800;margin-bottom:3px; }
+.hm4-ph-body  { font-size:10px;color:rgba(13,31,60,0.55);line-height:1.55; }
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+  function show(id,delay,tr){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition=tr||'opacity 0.65s ease,transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0) scale(1)';
+    },delay);
+  }
+  function enter(){
+    show('hm4-hdr',80);
+    at(function(){
+      var ul=q('hm4-uline'); if(!ul)return;
+      ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.width='48px';
+    },340);
+    show('hm4-flow',200,'opacity 0.7s ease,transform 0.7s cubic-bezier(0.16,1,0.3,1)');
+    show('hm4-side',340);
+    show('hm4-grace',700);
+  }
+  function leave(){
+    clearAll();
+    ['hm4-hdr','hm4-flow','hm4-side','hm4-grace'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none'; el.style.opacity='0';
+    });
+    var ul=q('hm4-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+  window._slide50={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

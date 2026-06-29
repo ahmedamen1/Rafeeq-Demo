@@ -1,0 +1,160 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 50 — MARKET OPPORTUNITY
+     Egypt mobility gap + product strategy image
+═══════════════════════════════════════════ -->
+<div class="slide" id="slide-55" data-slide="55"
+     style="background:#0D1F3C;overflow:hidden;">
+
+  <!-- Dot-grid texture -->
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);
+    background-size:32px 32px;"></div>
+
+  <!-- TWO-COLUMN LAYOUT -->
+  <div style="position:absolute;inset:0;display:flex;z-index:5;">
+
+    <!-- ══ LEFT HALF ══ -->
+    <div id="mkt-left" style="flex:0 0 50%;display:flex;flex-direction:column;
+         justify-content:center;padding:44px 40px 48px 52px;box-sizing:border-box;gap:0;
+         opacity:0;transform:translateX(-24px);transition:none;">
+
+      <!-- Eyebrow -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:22px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#C9992A;display:inline-block;flex-shrink:0;"></span>
+        <span style="font-size:10px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;
+                     color:#C9992A;font-family:'Inter',sans-serif;">Market Opportunity</span>
+      </div>
+
+      <!-- Headline -->
+      <div style="font-size:34px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1.15;
+                  font-family:'Inter',sans-serif;margin-bottom:28px;">
+        One kit. Four tiers.<br>A price point for every family.
+      </div>
+
+      <!-- Plain-language bullets -->
+      <div id="mkt-cards" style="display:flex;flex-direction:column;gap:14px;margin-bottom:30px;
+           opacity:0;transform:translateY(16px);transition:none;">
+
+        <div class="mkt-bullet">
+          <span class="mkt-bullet-mark">&#10022;</span>
+          <span>Modular design — start basic, upgrade anytime</span>
+        </div>
+        <div class="mkt-bullet">
+          <span class="mkt-bullet-mark">&#10022;</span>
+          <span>Priced for Egyptian middle-income families</span>
+        </div>
+        <div class="mkt-bullet">
+          <span class="mkt-bullet-mark">&#10022;</span>
+          <span>90% cheaper than the nearest imported alternative</span>
+        </div>
+
+      </div>
+
+      <!-- Source line -->
+      <div id="mkt-source" style="opacity:0;transition:none;">
+        <div style="height:1px;background:#C9992A;opacity:0.35;width:100%;margin-bottom:14px;"></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;
+                    line-height:1.6;font-style:italic;">
+          Business model designed alongside the engineering — not as an afterthought.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ RIGHT HALF ══ -->
+    <div id="mkt-right" style="flex:1;position:relative;display:flex;flex-direction:column;align-items:center;
+         justify-content:center;padding:38px 32px 50px 24px;box-sizing:border-box;
+         opacity:0;transform:translateX(24px);transition:none;">
+
+      <div id="mkt-right-sub" style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+           color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:10px;text-align:center;">
+        Modular &middot; Upgradeable &middot; Accessible
+      </div>
+
+      <div style="position:relative;width:100%;flex:1;min-height:0;">
+        <img src="business.jpeg" alt="Product Strategy"
+             style="width:100%;height:100%;object-fit:contain;object-position:center;display:block;
+                    border-radius:12px;mix-blend-mode:lighten;">
+
+        <!-- Left vignette to blend into navy -->
+        <div style="position:absolute;top:0;left:0;bottom:0;width:80px;pointer-events:none;
+                    background:linear-gradient(to right,#0D1F3C 0%,transparent 100%);"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ══ BOTTOM BAR ══ -->
+  <div id="mkt-bar" style="position:absolute;bottom:0;left:0;right:0;z-index:10;
+       height:38px;background:#0A1628;
+       display:flex;align-items:center;justify-content:center;
+       opacity:0;transform:translateY(38px);transition:none;">
+    <div style="font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+                color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;">
+      R A F E E Q &nbsp;&middot;&nbsp; SmartWheel Retrofit Kit &nbsp;&middot;&nbsp;
+      Zewail City of Science and Technology &nbsp;&middot;&nbsp; 2025–2026
+    </div>
+    <div style="position:absolute;right:32px;font-size:12px;font-weight:800;
+                color:#C9992A;font-family:'Inter',sans-serif;letter-spacing:0.06em;">53</div>
+  </div>
+
+</div>
+
+<style>
+#slide-55 { background: #0D1F3C; }
+
+.mkt-bullet {
+  display:flex;align-items:flex-start;gap:12px;
+  font-family:'Inter',sans-serif;font-size:15px;font-weight:500;
+  color:rgba(255,255,255,0.85);line-height:1.5;
+}
+.mkt-bullet-mark {
+  color:#C9992A;font-size:14px;flex-shrink:0;margin-top:2px;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id, delay, props){
+    at(function(){
+      var el=q(id); if(!el) return;
+      el.style.transition='opacity 0.65s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1)';
+      Object.keys(props).forEach(function(p){ el.style[p]=props[p]; });
+    }, delay);
+  }
+
+  function hide(){
+    var snap={
+      'mkt-left':   { opacity:'0', transform:'translateX(-24px)' },
+      'mkt-right':  { opacity:'0', transform:'translateX(24px)' },
+      'mkt-cards':  { opacity:'0', transform:'translateY(16px)' },
+      'mkt-source': { opacity:'0' },
+      'mkt-bar':    { opacity:'0', transform:'translateY(38px)' }
+    };
+    Object.keys(snap).forEach(function(id){
+      var el=q(id); if(!el) return;
+      el.style.transition='none';
+      Object.keys(snap[id]).forEach(function(p){ el.style[p]=snap[id][p]; });
+    });
+  }
+
+  window._slide55={
+    enter: function(){
+      clearAll(); hide();
+      show('mkt-left',   80,  { opacity:'1', transform:'translateX(0)' });
+      show('mkt-right',  200, { opacity:'1', transform:'translateX(0)' });
+      show('mkt-cards',  400, { opacity:'1', transform:'translateY(0)' });
+      show('mkt-source', 700, { opacity:'1' });
+      show('mkt-bar',    300, { opacity:'1', transform:'translateY(0)' });
+    },
+    leave: function(){ clearAll(); hide(); }
+  };
+})();
+</script>

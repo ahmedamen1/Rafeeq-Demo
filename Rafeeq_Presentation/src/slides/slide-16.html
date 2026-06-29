@@ -1,0 +1,365 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 14 — MECHANICAL: 5 ITERATIONS TIMELINE
+     Brief: Section 4 — Slide C
+     6 states, full-height photo left, text panel right
+     Arrow → advances iterations, ← retreats, dots clickable
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-16" data-slide="16"
+     style="background:#F8F9FA; overflow:hidden;">
+
+  <!-- Top accent gradient -->
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C94040,#C9992A,#2E7D52);"></div>
+
+  <!-- Fixed top bar (headline) -->
+  <div id="s14-topbar" style="
+    position:absolute;top:12px;left:0;right:0;z-index:8;
+    display:flex;flex-direction:column;align-items:center;
+    opacity:0;transition:none;">
+    <div style="font-size:11px;font-weight:800;letter-spacing:0.3em;text-transform:uppercase;
+                color:#C9992A;font-family:'Inter',sans-serif;margin-bottom:4px;">
+      ITERATIVE DESIGN PROCESS &middot; MECHANICAL SUBSYSTEM
+    </div>
+    <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.03em;
+                font-family:'Inter',sans-serif;">
+      Five Iterations. One Validated Mount.
+    </div>
+  </div>
+
+  <!-- Content: photo (55%) + text panel (45%) -->
+  <div style="position:absolute;top:72px;bottom:60px;left:0;right:0;z-index:4;display:flex;">
+
+    <!-- LEFT: photo zone -->
+    <div style="width:55%;position:relative;overflow:hidden;">
+      <img id="s14-p0" src="Mechanical Slides/iter1_prototype.jpg"       class="s14-photo" style="opacity:0;">
+      <img id="s14-p1" src="Mechanical Slides/iter2_steel_box.jpg"        class="s14-photo" style="opacity:0;">
+      <img id="s14-p2" src="Mechanical Slides/iter3_flatbar_bracket.jpg"  class="s14-photo" style="opacity:0;">
+      <img id="s14-p3" src="Mechanical Slides/iter4_cad_suspension_concept.png" class="s14-photo" style="opacity:0;">
+      <img id="s14-p4" src="Mechanical Slides/iter5_problem_misalignment.jpg" class="s14-photo" style="opacity:0;">
+      <img id="s14-p5" src="Mechanical Slides/final_configuration.jpg"    class="s14-photo" style="opacity:0;">
+
+      <!-- right-edge fade to panel -->
+      <div style="position:absolute;inset:0;pointer-events:none;z-index:2;
+        background:linear-gradient(to right,transparent 55%,rgba(248,249,250,0.6) 100%);"></div>
+
+      <!-- Phase tag — top left -->
+      <div id="s14-badge" style="
+        position:absolute;top:18px;left:18px;z-index:3;
+        font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;
+        padding:4px 11px;border-radius:5px;font-family:'Inter',sans-serif;
+        background:rgba(201,64,64,0.9);color:#fff;
+        transition:background 0.25s ease;">
+        Bracket Design &middot; Phase 1
+      </div>
+
+      <!-- Iteration label — bottom left -->
+      <div id="s14-tag" style="
+        position:absolute;bottom:18px;left:18px;z-index:3;
+        font-size:20px;font-weight:900;color:#fff;font-family:'Inter',sans-serif;
+        letter-spacing:-0.02em;text-shadow:0 2px 10px rgba(0,0,0,0.7);">
+        Iteration 1
+      </div>
+    </div><!-- /photo -->
+
+    <!-- RIGHT: text panel -->
+    <div style="width:45%;padding:20px 28px 16px 24px;box-sizing:border-box;
+                display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+
+      <!-- Number + verdict -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div id="s14-num" style="font-size:72px;font-weight:900;color:#C9992A;
+             font-family:'Inter',sans-serif;letter-spacing:-0.06em;line-height:1;">01</div>
+        <div id="s14-verd" style="font-size:11px;font-weight:800;letter-spacing:0.14em;
+             text-transform:uppercase;padding:5px 14px;border-radius:20px;
+             font-family:'Inter',sans-serif;background:rgba(201,64,64,0.12);color:#C94040;">
+          &#10007; REJECTED
+        </div>
+      </div>
+
+      <!-- Title -->
+      <div id="s14-title" style="
+        font-size:24px;font-weight:900;color:#0D1F3C;font-family:'Inter',sans-serif;
+        letter-spacing:-0.02em;margin-bottom:16px;
+        opacity:0;transform:translateX(16px);transition:none;">
+        Bent-plate Bracket
+      </div>
+
+      <!-- Panels: tried / happened / learned -->
+      <div id="s14-tried" class="s14-panel" style="opacity:0;transform:translateX(16px);transition:none;">
+        <div class="s14-plbl">What we tried</div>
+        <div class="s14-ptxt">A simple bent-plate bracket to clamp the motor housing directly to the wheelchair's side frame tube.</div>
+      </div>
+      <div id="s14-happened" class="s14-panel" style="opacity:0;transform:translateX(16px);transition:none;">
+        <div class="s14-plbl" style="color:#C94040;">What happened</div>
+        <div class="s14-ptxt">Hole spacing and bend angles didn't match the motor housing or frame tube. Motor visibly misaligned. Assembly unstable under hand load.</div>
+      </div>
+      <div id="s14-learned" class="s14-panel" style="opacity:0;transform:translateX(16px);transition:none;">
+        <div class="s14-plbl" style="color:#C9992A;">What we learned</div>
+        <div class="s14-ptxt">A single bent plate is insufficient — bracket must be a <strong>closed, self-referencing structure</strong>. Motivated redesign into box-section.</div>
+      </div>
+
+      <!-- Nav hint -->
+      <div id="s14-hint" style="margin-top:16px;font-size:12px;color:rgba(13,31,60,0.3);
+           font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;">
+        <span style="font-size:15px;">&#8594;</span> Arrow key or click dot to advance
+      </div>
+    </div><!-- /text panel -->
+
+  </div><!-- /content -->
+
+  <!-- Bottom timeline bar with 6 dots -->
+  <div style="position:absolute;bottom:0;left:0;right:0;z-index:8;height:60px;
+              background:rgba(255,255,255,0.95);border-top:1px solid rgba(13,31,60,0.1);
+              display:flex;align-items:center;justify-content:center;">
+    <div style="position:relative;width:78%;display:flex;align-items:center;
+                justify-content:space-between;">
+      <!-- connector line -->
+      <div style="position:absolute;top:50%;left:0;right:0;height:1px;
+                  background:rgba(13,31,60,0.1);transform:translateY(-50%);"></div>
+      <div class="s14-dot active" id="s14-d0" onclick="window.s14GoTo(0)" title="Iteration 1"></div>
+      <div class="s14-dot"        id="s14-d1" onclick="window.s14GoTo(1)" title="Iteration 2"></div>
+      <div class="s14-dot"        id="s14-d2" onclick="window.s14GoTo(2)" title="Iteration 3"></div>
+      <div class="s14-dot"        id="s14-d3" onclick="window.s14GoTo(3)" title="Iteration 4 (CAD)"></div>
+      <div class="s14-dot"        id="s14-d4" onclick="window.s14GoTo(4)" title="Iteration 5"></div>
+      <div class="s14-dot s14-final" id="s14-d5" onclick="window.s14GoTo(5)" title="Final Configuration"></div>
+    </div>
+  </div>
+
+</div><!-- /slide-14 -->
+
+<style>
+#slide-16 { background: #F8F9FA; }
+
+.s14-photo {
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:1;transition:opacity 0.3s ease;
+}
+
+.s14-panel { margin-bottom:14px; }
+.s14-plbl {
+  font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(13,31,60,0.4);font-family:'Inter',sans-serif;margin-bottom:6px;
+}
+.s14-ptxt {
+  font-size:15px;font-weight:400;color:rgba(13,31,60,0.8);
+  font-family:'Inter',sans-serif;line-height:1.7;
+}
+.s14-ptxt strong { color:#0D1F3C;font-weight:700; }
+
+.s14-dot {
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+  background:rgba(13,31,60,0.15);border:1.5px solid rgba(13,31,60,0.12);
+  cursor:pointer;transition:all 0.3s ease;position:relative;z-index:1;
+}
+.s14-dot.done { background:#C9992A;border-color:#C9992A; }
+.s14-dot.active {
+  width:16px;height:16px;background:#C9992A;border-color:#C9992A;
+  box-shadow:0 0 0 4px rgba(201,153,42,0.25);
+}
+.s14-dot.s14-final.active {
+  background:#2E7D52;border-color:#2E7D52;
+  box-shadow:0 0 0 4px rgba(46,125,82,0.25);
+}
+.s14-dot.s14-final.done { background:#2E7D52;border-color:#2E7D52; }
+</style>
+
+<script>
+(function () {
+  'use strict';
+  var _t16 = [];
+  function at(fn, ms) { _t16.push(setTimeout(fn, ms)); }
+  function ca16() { _t16.forEach(clearTimeout); _t16 = []; }
+  function q(id) { return document.getElementById(id); }
+
+  var s14idx = 0;
+  var s14on  = false;
+
+  var S14 = [
+    {
+      photo:0, badgeTxt:'&#x2717; Bracket Design &middot; Phase 1', badgeBg:'rgba(201,64,64,0.9)',
+      tag:'Iteration 1', num:'01', verdTxt:'&#10007; REJECTED', verdBg:'rgba(201,64,64,0.15)', verdCol:'#C94040',
+      title:'Bent-plate Bracket',
+      tried:'A simple bent-plate bracket to clamp the motor housing directly to the wheelchair\'s side frame tube.',
+      happened:'Hole spacing and bend angles didn\'t match. Motor visibly misaligned. Assembly unstable under hand load.',
+      hapCol:'#C94040',
+      learned:'A single bent plate is insufficient — bracket must be a <strong>closed, self-referencing structure</strong>. Motivated redesign into box-section.',
+      leaCol:'#C9992A'
+    },
+    {
+      photo:1, badgeTxt:'&#x2717; Bracket Design &middot; Phase 1', badgeBg:'rgba(201,64,64,0.9)',
+      tag:'Iteration 2', num:'02', verdTxt:'&#10007; REJECTED', verdBg:'rgba(201,64,64,0.15)', verdCol:'#C94040',
+      title:'Stainless Steel Box-section',
+      tried:'Welded stainless steel box section wrapping the frame tube on 3 sides, clamped with through-bolts.',
+      happened:'Under bolt torque, thin walls bowed inward — distorting section geometry and loosening the clamp over repeated cycles.',
+      hapCol:'#C94040',
+      learned:'<strong>Wall thickness and bolt-bearing area</strong> are the limiting factors, not bracket shape. Switched to solid flat-bar stock.',
+      leaCol:'#C9992A'
+    },
+    {
+      photo:2, badgeTxt:'&#x2713; Bracket Design &middot; Phase 1', badgeBg:'rgba(217,119,6,0.9)',
+      tag:'Iteration 3', num:'03', verdTxt:'&#x2713; PARTIAL', verdBg:'rgba(217,119,6,0.15)', verdCol:'#D97706',
+      title:'Mild-steel Flat-bar Bracket',
+      tried:'Solid mild steel flat bar, wider bolt pattern, two motor brackets tied by a single rigid cross-bar.',
+      happened:'&#10003; Zero deflection under 120 kg static load. Structurally validated. BUT: rigid cross-bar caused one wheel to lift on uneven floors.',
+      hapCol:'#D97706',
+      learned:'Bracket geometry is now correct. More fundamental problem exposed: <strong>the two drive wheels must be mechanically independent</strong>.',
+      leaCol:'#C9992A'
+    },
+    {
+      photo:3, badgeTxt:'[CAD] CAD Design &middot; Phase 2', badgeBg:'rgba(59,125,232,0.9)',
+      tag:'Iteration 4 (CAD)', num:'04', verdTxt:'&#10003; CAD VALIDATED', verdBg:'rgba(59,125,232,0.12)', verdCol:'#3B7DE8',
+      title:'Independent Suspension (CAD)',
+      tried:'Complete redesign — two fully independent scissor/pantograph suspension links. Each wheel moves vertically independent of the other.',
+      happened:'CAD validation confirmed geometry. Each wheel maintains independent floor contact. Gas struts provide constant downforce. 120 kg rated.',
+      hapCol:'#3B7DE8',
+      learned:'Independent suspension concept is correct. Design sent to manufacturing: CNC milling + Wire EDM.',
+      leaCol:'#C9992A'
+    },
+    {
+      photo:4, badgeTxt:'[MFG] Manufacturing &middot; Phase 3', badgeBg:'rgba(217,119,6,0.85)',
+      tag:'Iteration 5', num:'05', verdTxt:'! FIXED', verdBg:'rgba(217,119,6,0.15)', verdCol:'#D97706',
+      title:'Manufactured Mount — Alignment Correction',
+      tried:'Iteration 4 design manufactured (CNC milled brackets + Wire EDM) and installed on both sides of the wheelchair.',
+      happened:'Two issues found: (1) <strong>Wheel camber</strong> — one wheel leaned, edge contact only. (2) <strong>Toe-in</strong> — constant rolling friction. Both traced to tolerance stack-up.',
+      hapCol:'#D97706',
+      learned:'Brackets re-machined and re-aligned to zero camber and zero toe relative to chair centreline.',
+      leaCol:'#C9992A'
+    },
+    {
+      photo:5, badgeTxt:'&#10003; Production-Ready', badgeBg:'rgba(46,125,82,0.9)',
+      tag:'Final Configuration', num:'&#10003;', verdTxt:'&#10003; VALIDATED', verdBg:'rgba(46,125,82,0.15)', verdCol:'#2E7D52',
+      title:'Re-aligned Brackets — Zero Camber / Zero Toe',
+      tried:'Re-machined and re-aligned brackets reinstalled on both sides of the wheelchair.',
+      happened:'<strong>Zero camber. Zero toe. Both drive wheels achieve full-width floor contact.</strong> Independent suspension maintains contact on uneven surfaces.',
+      hapCol:'#2E7D52',
+      learned:'120 kg: zero measurable deflection. No rotational slip. Modular installation confirmed. No permanent modification to the wheelchair frame.',
+      leaCol:'#2E7D52'
+    }
+  ];
+
+  function setDots(idx) {
+    for (var i = 0; i < 6; i++) {
+      var d = q('s14-d' + i); if (!d) continue;
+      d.classList.remove('active','done');
+      if (i < idx) d.classList.add('done');
+      if (i === idx) d.classList.add('active');
+    }
+  }
+
+  function showState(idx) {
+    var s = S14[idx];
+
+    /* Photo crossfade */
+    for (var i = 0; i < 6; i++) {
+      var ph = q('s14-p' + i);
+      if (ph) ph.style.opacity = (i === s.photo) ? '1' : '0';
+    }
+
+    /* Badge + tag */
+    var badge = q('s14-badge');
+    if (badge) { badge.innerHTML = s.badgeTxt; badge.style.background = s.badgeBg; }
+    var tag = q('s14-tag');
+    if (tag) tag.textContent = s.tag;
+
+    /* Number + verdict */
+    var num = q('s14-num'); if (num) num.innerHTML = s.num;
+    var verd = q('s14-verd');
+    if (verd) { verd.innerHTML = s.verdTxt; verd.style.background = s.verdBg; verd.style.color = s.verdCol; }
+
+    /* Title — instant reset then animate in */
+    var title = q('s14-title');
+    if (title) {
+      title.style.transition='none'; title.style.opacity='0'; title.style.transform='translateX(16px)';
+      title.textContent = s.title;
+      at(function(){
+        title.style.transition='opacity .4s ease,transform .4s cubic-bezier(.16,1,.3,1)';
+        title.style.opacity='1'; title.style.transform='translateX(0)';
+      }, 0);
+    }
+
+    /* Panels */
+    var panels = [
+      { id:'s14-tried',    lbl:'What we tried',    txt:s.tried,    col:'rgba(13,31,60,0.4)',   delay:80 },
+      { id:'s14-happened', lbl:'What happened',     txt:s.happened, col:s.hapCol,               delay:200 },
+      { id:'s14-learned',  lbl:'What we learned',   txt:s.learned,  col:s.leaCol,               delay:330 }
+    ];
+    panels.forEach(function(p) {
+      var el = q(p.id); if (!el) return;
+      el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateX(16px)';
+      var lbl = el.querySelector('.s14-plbl'); if (lbl) { lbl.textContent=p.lbl; lbl.style.color=p.col; }
+      var txt = el.querySelector('.s14-ptxt'); if (txt) txt.innerHTML=p.txt;
+      at((function(e2,d){ return function(){
+        e2.style.transition='opacity .4s ease,transform .4s cubic-bezier(.16,1,.3,1)';
+        e2.style.opacity='1'; e2.style.transform='translateX(0)';
+      }; })(el,p.delay), p.delay);
+    });
+
+    /* Hint */
+    var hint = q('s14-hint'); if (hint) hint.style.opacity = (idx===5)?'0':'1';
+
+    setDots(idx);
+    s14idx = idx;
+  }
+
+  /* Public dot-click handler */
+  window.s14GoTo = function(idx) {
+    if (!s14on) return;
+    ca16(); showState(idx);
+  };
+
+  /* Forward: consumed by onNext */
+  function advance14() {
+    if (s14idx < 5) { ca16(); showState(s14idx + 1); return true; }
+    return false;
+  }
+  /* Backward: consumed by key capture */
+  function retreat14() {
+    if (s14idx > 0) { ca16(); showState(s14idx - 1); return true; }
+    return false;
+  }
+
+  /* Key capture for ← (runs before engine's bubble handler) */
+  var _kh14 = null;
+  function attachKeys() {
+    _kh14 = function(e) {
+      if (!s14on) return;
+      if (e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+      if (e.key==='ArrowLeft'||e.key==='ArrowUp') {
+        if (retreat14()) { e.stopImmediatePropagation(); e.preventDefault(); }
+      }
+    };
+    document.addEventListener('keydown', _kh14, true);
+  }
+  function detachKeys() {
+    if (_kh14) { document.removeEventListener('keydown',_kh14,true); _kh14=null; }
+  }
+
+  function enterSlide14() {
+    s14on=true; s14idx=0; ca16();
+    /* Reset photos */
+    for(var i=0;i<6;i++){var ph=q('s14-p'+i);if(ph)ph.style.opacity='0';}
+    /* Reset text */
+    ['s14-title','s14-tried','s14-happened','s14-learned'].forEach(function(id){
+      var el=q(id);if(el){el.style.transition='none';el.style.opacity='0';el.style.transform='translateX(16px)';}
+    });
+    /* Topbar */
+    var tb=q('s14-topbar');
+    if(tb){tb.style.transition='none';tb.style.opacity='0';
+      at(function(){tb.style.transition='opacity .5s ease';tb.style.opacity='1';},80);}
+    at(function(){showState(0);},300);
+    attachKeys();
+  }
+
+  function leaveSlide14() {
+    s14on=false; ca16(); detachKeys();
+    var tb=q('s14-topbar');if(tb){tb.style.transition='none';tb.style.opacity='0';}
+    setDots(-1);
+  }
+
+  window._slide16 = {
+    enter: enterSlide14,
+    leave: leaveSlide14,
+    onNext: function() { return advance14(); }
+  };
+})();
+</script>

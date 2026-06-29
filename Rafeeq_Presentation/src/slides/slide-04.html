@@ -1,0 +1,132 @@
+﻿<div class="slide light" id="slide-3" data-slide="4">
+  <div class="sp3-inner">
+
+    <!-- Gold accent bar left edge -->
+    <div class="sp3-accent-bar" id="sp3-accent-bar"></div>
+
+    <div class="sp3-content">
+      <!-- Section label -->
+      <div class="sp3-label" id="sp3-label">Motivation and Scope</div>
+
+      <!-- Main title -->
+      <div class="sp3-title" id="sp3-title">The Problem</div>
+
+      <!-- Underline -->
+      <div class="sp3-uline" id="sp3-uline"></div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-3 { background: #ffffff; overflow: hidden; }
+
+.sp3-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; height: 100%;
+  position: relative;
+}
+
+/* Vertical gold bar that slides in from left */
+.sp3-accent-bar {
+  position: absolute;
+  left: 0; top: 0;
+  width: 6px; height: 100%;
+  background: linear-gradient(180deg, #C9992A, #E8B84B);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: none;
+}
+
+.sp3-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 0 100px;
+}
+
+.sp3-label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #C9992A;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: none;
+}
+
+.sp3-title {
+  font-size: 96px;
+  font-weight: 800;
+  color: #0D1F3C;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: none;
+}
+
+.sp3-uline {
+  height: 5px;
+  width: 200px;
+  background: linear-gradient(90deg, #C9992A, #E8B84B);
+  border-radius: 3px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+  function q(sel) { return document.querySelector(sel); }
+
+  function hide() {
+    var bar = q('#sp3-accent-bar');
+    var lbl = q('#sp3-label');
+    var ttl = q('#sp3-title');
+    var ul  = q('#sp3-uline');
+    if (bar) { bar.style.transition = 'none'; bar.style.transform = 'scaleY(0)'; }
+    if (lbl) { lbl.style.transition = 'none'; lbl.style.opacity = '0'; lbl.style.transform = 'translateX(-20px)'; }
+    if (ttl) { ttl.style.transition = 'none'; ttl.style.opacity = '0'; ttl.style.transform = 'translateY(40px)'; }
+    if (ul)  { ul.style.transition  = 'none'; ul.style.transform = 'scaleX(0)'; }
+  }
+
+  window._slide04 = {
+    enter: function() {
+      hide();
+      // Gold bar slides down from top
+      at(function() {
+        var bar = q('#sp3-accent-bar');
+        if (bar) { bar.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)'; bar.style.transform = 'scaleY(1)'; }
+      }, 0);
+      // Section label slides in from left
+      at(function() {
+        var lbl = q('#sp3-label');
+        if (lbl) { lbl.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)'; lbl.style.opacity = '1'; lbl.style.transform = 'translateX(0)'; }
+      }, 200);
+      // Big title rises up
+      at(function() {
+        var ttl = q('#sp3-title');
+        if (ttl) { ttl.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)'; ttl.style.opacity = '1'; ttl.style.transform = 'translateY(0)'; }
+      }, 350);
+      // Underline draws left→right
+      at(function() {
+        var ul = q('#sp3-uline');
+        if (ul) { ul.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.transform = 'scaleX(1)'; }
+      }, 750);
+    },
+    leave: function() { clearAll(); hide(); }
+  };
+})();
+</script>
+
+﻿

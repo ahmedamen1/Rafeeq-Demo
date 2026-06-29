@@ -1,0 +1,443 @@
+﻿<div class="slide light" id="slide-1" data-slide="2">
+  <div class="s1-layout">
+
+    <!-- ══ LEFT COLUMN ══ -->
+    <div class="s1-left">
+
+      <div class="s1-logo-block">
+        <img src="Rafeeq_Logo.jfif" alt="Rafeeq" class="s1-logo-img">
+        <div class="s1-logo-text">
+          <span class="s1-logo-en">Rafeeq</span>
+        </div>
+      </div>
+
+      <div class="s1-title-block">
+        <h1 class="s1-h1">Smart Wheelchair Kit</h1>
+        <p class="s1-tagline">Your wheelchair. Finally smart.</p>
+        <div class="s1-divider"></div>
+      </div>
+
+      <div class="s1-people-section">
+      <div class="s1-people-box s1-team-box">
+        <div class="s1-people-label">The Team</div>
+        <div class="s1-people-names">
+          <span>Ahmed Amin</span>
+          <span>Omar Awad</span>
+          <span>Nourhan Mohamed</span>
+          <span>Mohamed Morshedy</span>
+          <span>Ziad Behairy</span>
+        </div>
+      </div>
+
+      <div class="s1-people-box s1-sup-box">
+        <div class="s1-people-label">Supervised By</div>
+        <div class="s1-people-names">
+          <span>Prof. Moustafa Elshafei</span>
+          <span>Dr. Ahmed Sayed Abd-Rabou</span>
+        </div>
+      </div>
+      </div>
+
+      <div class="s1-sep"></div>
+
+      <div class="s1-zewail-row">
+        <img src="zewail.png" alt="Zewail City" class="s1-zewail-img">
+        <span>Zewail City of Science and Technology</span>
+      </div>
+
+      <div class="s1-isf-box">
+        <div class="s1-isf-text">
+          <span class="s1-isf-label">Sponsored By</span>
+          <span class="s1-isf-name">Innovators Support Fund (ISF)</span>
+        </div>
+        <img src="isf.png" alt="ISF" class="s1-isf-logo">
+      </div>
+
+
+    </div>
+
+    <!-- ══ RIGHT COLUMN ══ -->
+    <div class="s1-right">
+
+      <div class="s1-cards-row">
+        <div class="s1-card">
+          <i class="ti ti-microphone s1-card-icon"></i>
+          <span class="s1-card-label">Egyptian Arabic Voice Control</span>
+        </div>
+        <div class="s1-card">
+          <i class="ti ti-route s1-card-icon"></i>
+          <span class="s1-card-label">Autonomous Navigation</span>
+        </div>
+        <div class="s1-card">
+          <i class="ti ti-brain s1-card-icon"></i>
+          <span class="s1-card-label">Emotion-Aware AI Chatbot</span>
+        </div>
+      </div>
+
+      <div class="s1-video-wrap">
+        <video class="s1-video" autoplay muted loop playsinline>
+          <source src="firstslidevideo.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="s1-cards-row">
+        <div class="s1-card">
+          <i class="ti ti-heart-rate-monitor s1-card-icon"></i>
+          <span class="s1-card-label">Health Monitoring</span>
+        </div>
+        <div class="s1-card">
+          <i class="ti ti-device-mobile s1-card-icon"></i>
+          <span class="s1-card-label">Caregiver Companion App</span>
+        </div>
+        <div class="s1-card">
+          <i class="ti ti-tool s1-card-icon"></i>
+          <span class="s1-card-label">Retrofit — No New Chair Needed</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+#slide-1 {
+  background: #fff;
+  overflow: hidden;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+/* ── Two-column shell ── */
+.s1-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ══ LEFT COLUMN ══ */
+/* ══ LEFT COLUMN ══ */
+.s1-left {
+  flex: 0 0 34%;
+  background: #fff;
+  border-right: 1px solid #ebebeb;
+  padding: 22px 26px 18px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.s1-logo-block {
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0; will-change: transform, opacity;
+}
+.s1-logo-img {
+  width: 56px; height: 56px; object-fit: contain;
+  border-radius: 12px; background: #fff; padding: 3px;
+  box-shadow: 0 2px 10px rgba(201,153,42,0.2); flex-shrink: 0;
+}
+.s1-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.s1-logo-en { font-size: 22px; font-weight: 800; color: #0f2744; letter-spacing: -0.02em; }
+.s1-logo-ar { font-size: 15px; font-weight: 700; color: #C9992A; direction: rtl; }
+
+.s1-title-block { flex-shrink: 0; will-change: transform, opacity; }
+.s1-h1 {
+  font-size: clamp(16px, 1.8vw, 24px);
+  font-weight: 700; color: #0f2744;
+  line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 3px;
+}
+.s1-tagline { font-size: 12px; color: #999; margin: 0 0 6px; }
+.s1-divider {
+  width: 28px; height: 2px; background: #C9992A;
+  border-radius: 2px; transform-origin: left;
+}
+
+/* People section */
+.s1-people-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.s1-people-box {
+  border-radius: 10px;
+  padding: 10px 14px;
+  will-change: transform, opacity;
+}
+.s1-team-box {
+  background: rgba(201,153,42,0.06);
+  border: 1px solid rgba(201,153,42,0.2);
+  display: flex; flex-direction: column;
+}
+.s1-sup-box {
+  flex-shrink: 0;
+  background: rgba(59,125,232,0.06);
+  border: 1px solid rgba(59,125,232,0.18);
+  display: flex; flex-direction: column;
+}
+
+.s1-people-label {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.13em;
+  margin-bottom: 8px; flex-shrink: 0;
+}
+.s1-team-box .s1-people-label { color: #C9992A; }
+.s1-sup-box  .s1-people-label { color: #3B7DE8; }
+
+.s1-people-names {
+  display: flex; flex-direction: column;
+  gap: 5px;
+}
+.s1-people-names span {
+  font-size: 14px; font-weight: 700; color: #0f2744;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 6px; padding: 7px 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.s1-team-box .s1-people-names span::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #C9992A;
+  flex-shrink: 0;
+}
+.s1-sup-box .s1-people-names span::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #3B7DE8;
+  flex-shrink: 0;
+}
+
+.s1-sep {
+  height: 1px; background: rgba(201,153,42,0.2);
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.s1-zewail-row {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 13px; color: #555; font-weight: 600;
+  flex-shrink: 0; will-change: opacity;
+  padding: 6px 0;
+}
+.s1-zewail-img {
+  width: 90px; height: 90px; border-radius: 50%;
+  object-fit: contain; background: #f5f5f5; flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.s1-isf-box {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  background: #faf8f4; border: 0.5px solid #e8e0d0;
+  border-radius: 10px; padding: 18px 18px;
+  flex-shrink: 0; will-change: transform, opacity;
+}
+.s1-isf-text { display: flex; flex-direction: column; gap: 1px; }
+.s1-isf-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #bbb; margin-bottom: 4px; }
+.s1-isf-name { font-size: 14px; font-weight: 700; color: #0f2744; }
+.s1-isf-logo { height: 100px; width: 140px; object-fit: contain; background: #fff; border-radius: 8px; padding: 4px 8px; flex-shrink: 0; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+
+.s1-team { font-size: 10px; color: #ccc; font-weight: 500; letter-spacing: 0.04em; flex-shrink: 0; }
+
+/* ══ RIGHT COLUMN ══ */
+.s1-right {
+  flex: 1;
+  background: #f5f5f3;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Feature card rows */
+.s1-cards-row {
+  display: flex;
+  gap: 10px;
+}
+
+.s1-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #efefef;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  will-change: transform, opacity;
+}
+.s1-card-icon {
+  font-size: 26px;
+  color: #C9992A;
+  flex-shrink: 0;
+}
+.s1-card-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f2744;
+  line-height: 1.4;
+}
+
+/* Video */
+.s1-video-wrap {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+  will-change: transform, opacity;
+  min-height: 0;
+}
+.s1-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ── Keyframes ── */
+@keyframes s1FadeInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes s1FadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes s1FadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes s1ScaleX {
+  from { opacity: 1; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes s1SlideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes s1FadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+</style>
+
+<script>
+(function slide01() {
+  'use strict';
+
+  function q(sel)  { return document.querySelector(sel); }
+  function qa(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+  function hideAll() {
+    [q('.s1-logo-block'), q('.s1-title-block'),
+     q('.s1-team-box'), q('.s1-sup-box'),
+     q('.s1-sep'), q('.s1-zewail-row'),
+     q('.s1-isf-box'), q('.s1-video-wrap')]
+      .forEach(function(el) {
+        if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(22px)'; el.style.transition = 'none'; }
+      });
+    qa('.s1-cards-row').forEach(function(r) { r.style.opacity = '0'; r.style.transition = 'none'; });
+  }
+
+  function reveal(el, delay) {
+    if (!el) return;
+    setTimeout(function() {
+      el.style.transition = 'opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, delay);
+  }
+
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+
+  function runSequence() {
+    reveal(q('.s1-logo-block'),  0);
+    reveal(q('.s1-title-block'), 150);
+    reveal(q('.s1-team-box'),    300);
+
+    // Stagger each name pill inside team box
+    qa('.s1-team-box .s1-people-names span').forEach(function(span, i) {
+      span.style.opacity = '0';
+      span.style.transform = 'translateX(-12px)';
+      span.style.transition = 'none';
+      at(function() {
+        span.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+        span.style.opacity = '1';
+        span.style.transform = 'translateX(0)';
+      }, 450 + i * 80);
+    });
+
+    reveal(q('.s1-sup-box'),    480);
+
+    // Stagger supervisor names
+    qa('.s1-sup-box .s1-people-names span').forEach(function(span, i) {
+      span.style.opacity = '0';
+      span.style.transform = 'translateX(-12px)';
+      span.style.transition = 'none';
+      at(function() {
+        span.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+        span.style.opacity = '1';
+        span.style.transform = 'translateX(0)';
+      }, 630 + i * 80);
+    });
+
+    at(function() {
+      var s = q('.s1-sep');
+      if (s) { s.style.transition = 'opacity 0.4s ease'; s.style.opacity = '1'; s.style.transform = 'none'; }
+    }, 780);
+
+    reveal(q('.s1-zewail-row'), 880);
+    reveal(q('.s1-isf-box'),    1030);
+
+    // Cards and video
+    at(function() {
+      var rows = qa('.s1-cards-row');
+      rows.forEach(function(r) {
+        r.style.transition = 'opacity 0.5s ease';
+        r.style.opacity = '1';
+      });
+      var vw = q('.s1-video-wrap');
+      if (vw) {
+        vw.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+        vw.style.opacity = '1';
+        vw.style.transform = 'translateY(0)';
+      }
+    }, 300);
+  }
+
+  window._slide02 = {
+    enter: function() {
+      hideAll();
+      // Also hide video separately
+      var vw = q('.s1-video-wrap');
+      if (vw) { vw.style.opacity = '0'; vw.style.transform = 'translateY(0)'; vw.style.transition = 'none'; }
+      runSequence();
+      var vid = q('.s1-video');
+      if (vid) vid.play();
+    },
+    leave: function() {
+      clearAll();
+      hideAll();
+      var vid = q('.s1-video');
+      if (vid) vid.pause();
+    }
+  };
+})();
+</script>
+
+﻿<!-- SLIDE 02 — AGENDA -->

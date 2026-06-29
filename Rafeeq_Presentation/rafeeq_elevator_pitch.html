@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafeeq — Elevator Pitch · Zewail City Innovation Exhibition 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#C9992A;
+  --navy:#0D1F3C;
+  --blue:#3B7DE8;
+  --green:#27AE60;
+  --red:#E53E3E;
+}
+
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  font-family:'Inter',sans-serif;
+  background:#000;
+  cursor:default;
+}
+
+/* ─── DECK ─────────────────────────────────────────── */
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+
+/* ─── SLIDES ────────────────────────────────────────── */
+.slide{
+  position:absolute;inset:0;overflow:hidden;
+  opacity:0;pointer-events:none;
+  will-change:opacity,transform;
+}
+.slide.active{opacity:1;pointer-events:all;}
+
+/* Slide-in from right on forward nav */
+.slide.enter-from-right{
+  animation:slideInRight 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.slide.enter-from-left{
+  animation:slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.slide.exit-to-left{
+  animation:slideOutLeft 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  pointer-events:none!important;
+}
+.slide.exit-to-right{
+  animation:slideOutRight 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  pointer-events:none!important;
+}
+
+@keyframes slideInRight{
+  from{opacity:0;transform:translateX(60px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes slideInLeft{
+  from{opacity:0;transform:translateX(-60px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes slideOutLeft{
+  from{opacity:1;transform:translateX(0);}
+  to{opacity:0;transform:translateX(-60px);}
+}
+@keyframes slideOutRight{
+  from{opacity:1;transform:translateX(0);}
+  to{opacity:0;transform:translateX(60px);}
+}
+
+/* ─── CHROME ─────────────────────────────────────────── */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--gold),#e8b84b);
+  z-index:9999;transition:width 0.5s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 0 8px rgba(201,153,42,0.6);
+}
+
+#slide-label{
+  position:fixed;bottom:26px;right:32px;
+  font-size:10px;font-weight:700;letter-spacing:0.14em;
+  z-index:9999;transition:color 0.3s;
+}
+
+#dots{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:10px;z-index:9999;
+}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  cursor:pointer;
+  transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  background:rgba(255,255,255,0.22);
+}
+.dot.active{
+  background:var(--gold);
+  transform:scale(1.45);
+  box-shadow:0 0 6px rgba(201,153,42,0.7);
+}
+.dot.dark{background:rgba(13,31,60,0.2);}
+.dot.dark.active{background:var(--gold);}
+
+.nav-btn{
+  position:fixed;bottom:21px;
+  background:none;border:none;cursor:pointer;
+  font-size:18px;z-index:9999;padding:6px 10px;
+  transition:opacity 0.2s;opacity:0.35;
+}
+.nav-btn:hover{opacity:1;}
+#nb-prev{left:32px;}
+#nb-next{left:64px;}
+
+/* ─── SHARED UTILITIES ────────────────────────────────── */
+.dot-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.045) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.dot-grid-dark{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(13,31,60,0.07) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.top-bar{
+  position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+}
+.eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:0.26em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:14px;
+}
+.gold-line{
+  height:3px;background:var(--gold);border-radius:2px;
+  width:0;transition:width 0.55s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* invisible initial states (JS will animate in) */
+.will-fade{opacity:0;transition:none;}
+.will-up{opacity:0;transform:translateY(22px);transition:none;}
+.will-down{opacity:0;transform:translateY(-18px);transition:none;}
+.will-left{opacity:0;transform:translateX(-28px);transition:none;}
+.will-right{opacity:0;transform:translateX(28px);transition:none;}
+.will-scale{opacity:0;transform:scale(0.88);transition:none;}
+
+/* ══════════════════════════════════════════════════════
+   SLIDE 1  ·  PROBLEM  (light)
+══════════════════════════════════════════════════════ */
+#s1{background:#fff;}
+
+.s1-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 28% 50%,rgba(201,153,42,0.06) 0%,transparent 70%);
+}
+
+#s1-inner{
+  position:absolute;inset:0;z-index:5;
+  display:flex;align-items:center;
+  padding:0 8%;
+  gap:6%;
+}
+
+/* Left: copy */
+#s1-copy{flex:1;min-width:0;}
+
+#s1-eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:0.28em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:22px;
+}
+
+#s1-number{
+  font-size:clamp(80px,14vw,140px);font-weight:900;
+  color:var(--navy);letter-spacing:-0.06em;line-height:0.9;
+  margin-bottom:12px;
+}
+#s1-number span{color:var(--gold);}
+
+#s1-sub{
+  font-size:clamp(16px,2.2vw,22px);font-weight:500;
+  color:rgba(13,31,60,0.5);line-height:1.6;
+  max-width:500px;margin-bottom:36px;
+}
+#s1-sub strong{color:var(--navy);font-weight:800;}
+
+#s1-pills{display:flex;gap:10px;flex-wrap:wrap;}
+.s1-pill{
+  border:1px solid rgba(201,153,42,0.35);
+  background:rgba(201,153,42,0.06);
+  color:rgba(13,31,60,0.7);
+  border-radius:20px;padding:8px 18px;
+  font-size:12px;font-weight:700;letter-spacing:0.04em;
+}
+
+/* Right: pain cards */
+#s1-cards{
+  flex:0 0 300px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.pain-card{
+  background:#fafafa;
+  border:1.5px solid rgba(13,31,60,0.08);
+  border-radius:14px;padding:16px 22px;
+  display:flex;align-items:center;
+}
+.pain-title{font-size:14px;font-weight:700;color:var(--navy);letter-spacing:0.01em;}
+
+/* badge */
+.exhibit-badge{
+  position:absolute;top:22px;right:28px;z-index:10;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;padding:7px 16px;
+}
+.exhibit-badge.light{
+  background:rgba(13,31,60,0.05);
+  border-color:rgba(13,31,60,0.1);
+}
+.exhibit-badge img{height:20px;}
+.exhibit-badge span{
+  font-size:10px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:rgba(255,255,255,0.45);
+}
+.exhibit-badge.light span{color:rgba(13,31,60,0.4);}
+
+/* ══════════════════════════════════════════════════════
+   SLIDE 2  ·  SOLUTION  (white)
+══════════════════════════════════════════════════════ */
+#s2{background:#fff;}
+
+#s2-inner{
+  position:absolute;inset:0;
+  display:flex;
+}
+
+/* Left panel: big title */
+#s2-left{
+  flex:0 0 40%;
+  background:var(--navy);
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:56px 44px;
+  position:relative;
+  overflow:hidden;
+}
+.s2-left-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 100% 80% at 20% 60%,rgba(201,153,42,0.12) 0%,transparent 70%);
+}
+#s2-left-content{position:relative;z-index:2;}
+
+#s2-tag{
+  font-size:10px;font-weight:800;letter-spacing:0.26em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:20px;
+}
+#s2-headline{
+  font-size:clamp(44px,7vw,78px);font-weight:900;
+  color:#fff;letter-spacing:-0.04em;line-height:1;
+  margin-bottom:6px;
+}
+#s2-sub-headline{
+  font-size:clamp(44px,7vw,78px);font-weight:900;
+  color:var(--gold);letter-spacing:-0.04em;line-height:1;
+  margin-bottom:24px;
+}
+#s2-bar{height:3px;width:0;background:var(--gold);border-radius:2px;margin-bottom:22px;transition:none;}
+#s2-desc{
+  font-size:13.5px;color:rgba(255,255,255,0.55);
+  line-height:1.75;max-width:300px;
+}
+#s2-desc strong{color:#fff;font-weight:700;}
+
+/* Right panel: features */
+#s2-right{
+  flex:1;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:52px 48px;
+  gap:16px;
+}
+.s2-feat{
+  display:flex;align-items:center;gap:16px;
+  background:#fafafa;border:1.5px solid rgba(13,31,60,0.08);
+  border-radius:14px;padding:18px 20px;
+}
+.s2-feat-num{
+  flex:0 0 34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;color:#fff;flex-shrink:0;
+}
+.s2-feat-title{font-size:15px;font-weight:800;color:var(--navy);}
+
+/* ══════════════════════════════════════════════════════
+   SLIDE 3  ·  VALUE / IMPACT  (light)
+══════════════════════════════════════════════════════ */
+#s3{background:#F8F9FA;}
+.s3-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 65% 60% at 70% 40%,rgba(201,153,42,0.05) 0%,transparent 70%);
+}
+
+#s3-inner{
+  position:absolute;inset:0;z-index:5;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:0 8%;
+  gap:0;
+}
+
+#s3-hdr{margin-bottom:36px;}
+#s3-eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:0.26em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+#s3-title{
+  font-size:clamp(28px,4vw,46px);font-weight:900;
+  color:var(--navy);letter-spacing:-0.03em;line-height:1.1;
+}
+#s3-title em{color:var(--gold);font-style:normal;}
+#s3-hdr-bar{height:3px;width:0;background:var(--gold);border-radius:2px;margin-top:14px;transition:none;}
+
+#s3-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;margin-bottom:24px;
+}
+.s3-card{
+  background:#fff;
+  border:1.5px solid rgba(13,31,60,0.08);
+  border-radius:18px;padding:26px 22px;
+}
+.s3-num{
+  font-size:clamp(36px,5.5vw,58px);font-weight:900;
+  letter-spacing:-0.05em;line-height:1;margin-bottom:8px;
+}
+.s3-lbl{font-size:12px;color:rgba(13,31,60,0.5);line-height:1.55;font-weight:500;}
+.s3-src{font-size:9.5px;color:rgba(13,31,60,0.25);font-weight:700;letter-spacing:0.06em;margin-top:6px;text-transform:uppercase;}
+
+#s3-quote{
+  background:rgba(201,153,42,0.06);
+  border:1px solid rgba(201,153,42,0.2);
+  border-left:3px solid var(--gold);
+  border-radius:12px;padding:18px 22px;
+}
+#s3-quote p{
+  font-size:13.5px;color:rgba(13,31,60,0.7);
+  line-height:1.75;font-style:italic;
+}
+#s3-quote cite{
+  display:block;margin-top:8px;
+  font-size:10px;font-weight:800;color:var(--gold);
+  font-style:normal;letter-spacing:0.08em;
+}
+
+/* ══════════════════════════════════════════════════════
+   SLIDE 4  ·  CALL TO ACTION  (light)
+══════════════════════════════════════════════════════ */
+#s4{background:#fff;}
+.s4-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(201,153,42,0.05) 0%,transparent 70%);
+}
+
+#s4-inner{
+  position:absolute;inset:0;z-index:5;
+  display:flex;
+  align-items:center;justify-content:center;
+  padding:0 8%;
+  gap:8%;
+}
+
+/* Left: text */
+#s4-text-col{
+  display:flex;flex-direction:column;
+  align-items:flex-start;
+  flex:1;
+}
+
+#s4-logo{margin-bottom:24px;}
+#s4-logo img{height:36px;opacity:0.5;}
+
+#s4-arabic{
+  font-size:clamp(48px,9vw,100px);font-weight:900;
+  color:var(--gold);letter-spacing:-0.04em;line-height:1;
+  margin-bottom:2px;
+}
+#s4-english{
+  font-size:clamp(36px,7vw,80px);font-weight:900;
+  color:var(--navy);letter-spacing:-0.05em;line-height:1;
+  margin-bottom:24px;
+}
+#s4-tagline{
+  font-size:clamp(14px,1.6vw,17px);font-weight:500;
+  color:rgba(13,31,60,0.45);line-height:1.7;
+  max-width:420px;margin-bottom:28px;
+}
+
+#s4-divider{
+  width:0;height:2px;
+  background:rgba(201,153,42,0.3);
+  margin-bottom:24px;
+  transition:width 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.s4-info{text-align:left;}
+.s4-info .label{font-size:9px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(13,31,60,0.3);margin-bottom:4px;}
+.s4-info .val{font-size:12px;font-weight:700;color:rgba(13,31,60,0.65);line-height:1.7;}
+
+#s4-exhibition{
+  margin-top:24px;
+  font-size:10px;font-weight:700;letter-spacing:0.18em;
+  text-transform:uppercase;color:rgba(13,31,60,0.2);
+}
+
+/* Right: big QR */
+#s4-qr-col{
+  flex:0 0 auto;
+  display:flex;flex-direction:column;
+  align-items:center;gap:16px;
+}
+.s4-qr-block{
+  background:#fafafa;
+  border:1.5px solid rgba(13,31,60,0.08);
+  border-radius:20px;padding:20px;
+  display:flex;flex-direction:column;
+  align-items:center;gap:14px;
+}
+.s4-qr-block img.qr{width:180px;height:180px;border-radius:10px;}
+.s4-qr-text{text-align:center;}
+.s4-qr-text .qt{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(13,31,60,0.35);}
+.s4-qr-text .qu{font-size:11px;font-weight:700;color:var(--gold);margin-top:4px;}
+
+/* ─── COUNTDOWN RING (decorative, slide 1) ──────────── */
+#s1-ring{
+  position:absolute;right:3%;bottom:8%;
+  width:180px;height:180px;
+  opacity:0.07;pointer-events:none;z-index:3;
+}
+
+/* ─── BOTTOM-LEFT LOGOS (fixed, every slide) ────────── */
+#logo-bar{
+  position:fixed;bottom:22px;left:32px;
+  display:flex;align-items:center;gap:14px;
+  z-index:9999;
+}
+#logo-bar img{
+  height:36px;width:auto;
+  object-fit:contain;
+  opacity:0.75;
+  transition:opacity 0.2s;
+}
+#logo-bar img:hover{opacity:1;}
+#logo-bar .logo-divider{
+  width:1px;height:28px;
+  background:rgba(13,31,60,0.15);
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed logo bar — bottom left every slide -->
+<div id="logo-bar">
+  <img src="zewail.png" alt="Zewail City">
+  <div class="logo-divider"></div>
+  <img src="isf.png" alt="ISF">
+</div>
+
+<!-- Chrome -->
+<div id="progress"></div>
+<div id="slide-label">1 / 4</div>
+<div id="dots">
+  <div class="dot active" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
+  <div class="dot" data-i="3"></div>
+</div>
+
+<div id="deck">
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 · PROBLEM
+══════════════════════════════════════════════════════ -->
+<div class="slide active" id="s1">
+  <div class="dot-grid-dark"></div>
+  <div class="s1-glow"></div>
+
+  <!-- Decorative SVG ring -->
+  <svg id="s1-ring" viewBox="0 0 180 180">
+    <circle cx="90" cy="90" r="80" fill="none" stroke="#C9992A" stroke-width="1"/>
+    <circle cx="90" cy="90" r="60" fill="none" stroke="#C9992A" stroke-width="0.5"/>
+    <circle cx="90" cy="90" r="40" fill="none" stroke="#C9992A" stroke-width="0.5"/>
+  </svg>
+
+
+  <div id="s1-inner">
+    <!-- Copy -->
+    <div id="s1-copy">
+      <div id="s1-eyebrow" class="will-down">The Problem · Egypt</div>
+
+      <div id="s1-number" class="will-up">
+        1<span>M+</span>
+      </div>
+
+      <div id="s1-sub" class="will-up">
+        Egyptians use a wheelchair —<br>
+        <strong>~0% smart adoption · zero local Arabic solution.</strong>
+      </div>
+    </div>
+
+    <!-- Pain cards -->
+    <div id="s1-cards">
+      <div class="pain-card will-right" id="pc0">
+        <div class="pain-title">Total Dependency</div>
+      </div>
+      <div class="pain-card will-right" id="pc1">
+        <div class="pain-title">Unaffordable Technology</div>
+      </div>
+      <div class="pain-card will-right" id="pc2">
+        <div class="pain-title">No Local Arabic Solution</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 · SOLUTION
+══════════════════════════════════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="top-bar" style="background:linear-gradient(90deg,var(--gold),var(--blue),var(--green));"></div>
+
+
+  <div id="s2-inner">
+    <!-- Left dark panel -->
+    <div id="s2-left" class="will-left">
+      <div class="s2-left-glow"></div>
+      <div class="dot-grid" style="opacity:0.5;"></div>
+      <div id="s2-left-content">
+        <div id="s2-tag">The Solution</div>
+        <div id="s2-headline">Meet</div>
+        <div id="s2-sub-headline">Rafeeq</div>
+        <div id="s2-bar"></div>
+        <div id="s2-desc">
+          Your wheelchair. Finally smart.
+        </div>
+      </div>
+    </div>
+
+    <!-- Right features -->
+    <div id="s2-right">
+      <div class="s2-feat will-up" id="sf0">
+        <div class="s2-feat-num" style="background:var(--gold);">1</div>
+        <div class="s2-feat-title">Egyptian Arabic Voice Control</div>
+      </div>
+      <div class="s2-feat will-up" id="sf1">
+        <div class="s2-feat-num" style="background:var(--blue);">2</div>
+        <div class="s2-feat-title">Autonomous Indoor Navigation</div>
+      </div>
+      <div class="s2-feat will-up" id="sf2">
+        <div class="s2-feat-num" style="background:var(--green);">3</div>
+        <div class="s2-feat-title">Caregiver App + SOS Alerts</div>
+      </div>
+      <div class="s2-feat will-up" id="sf3">
+        <div class="s2-feat-num" style="background:#7c3aed;">4</div>
+        <div class="s2-feat-title">AI Assistant in Arabic</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 · VALUE & IMPACT
+══════════════════════════════════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="dot-grid-dark"></div>
+  <div class="s3-glow"></div>
+
+
+  <div id="s3-inner">
+    <div id="s3-hdr">
+      <div id="s3-eyebrow" class="will-down">Value &amp; Impact · Egypt Focus</div>
+      <div id="s3-title" class="will-up">
+        Real autonomy for Egypt.<br><em>At a price that's actually reachable.</em>
+      </div>
+      <div id="s3-hdr-bar"></div>
+    </div>
+
+    <div id="s3-stats">
+      <div class="s3-card will-up" id="sc0">
+        <div class="s3-num" style="color:var(--gold);">1M<span style="font-size:0.45em;font-weight:700;">+</span></div>
+        <div class="s3-lbl">Egyptians who need this — and currently have nothing</div>
+      </div>
+      <div class="s3-card will-up" id="sc1">
+        <div class="s3-num" style="color:var(--blue);">1</div>
+        <div class="s3-lbl">Kit. Any existing chair becomes smart — no new purchase needed</div>
+      </div>
+      <div class="s3-card will-up" id="sc2">
+        <div class="s3-num" style="color:var(--green);">0</div>
+        <div class="s3-lbl">Local Arabic-first smart mobility solutions before Rafeeq</div>
+      </div>
+    </div>
+
+    <div id="s3-quote" class="will-up">
+      <p>"What if every Egyptian family could afford to make their existing wheelchair smart?"</p>
+      <cite>— Team Rafeeq · Zewail City · 2026</cite>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 · CALL TO ACTION / Q&A
+══════════════════════════════════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="dot-grid-dark"></div>
+  <div class="s4-glow"></div>
+
+  <div id="s4-inner">
+
+    <!-- Left: text -->
+    <div id="s4-text-col">
+      <div id="s4-arabic" class="will-scale">رفيق</div>
+      <div id="s4-english" class="will-scale">Rafeeq</div>
+
+      <div id="s4-tagline" class="will-up">
+        Your wheelchair. Finally smart.<br>
+        <span style="color:rgba(13,31,60,0.35);">Try the live demo. Ask us anything.</span>
+      </div>
+
+      <div id="s4-divider"></div>
+
+    </div>
+
+    <!-- Right: big QR -->
+    <div id="s4-qr-col" class="will-right">
+      <div class="s4-qr-block">
+        <img class="qr" src="qr_demo.png" alt="Demo QR">
+        <div class="s4-qr-text">
+          <div class="qt">Live Demo</div>
+          <div class="qu">ahmedamen1.github.io/Rafeeq-Demo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<script>
+(function(){
+'use strict';
+
+var TOTAL = 4;
+var current = 0;
+var animating = false;
+var slides = [
+  document.getElementById('s1'),
+  document.getElementById('s2'),
+  document.getElementById('s3'),
+  document.getElementById('s4')
+];
+
+var dots     = document.querySelectorAll('.dot');
+var label    = document.getElementById('slide-label');
+var progress = document.getElementById('progress');
+
+/* ── utility ── */
+function $(id){ return document.getElementById(id); }
+
+function set(el, styles){
+  if(!el) return;
+  el.style.transition = 'none';
+  Object.keys(styles).forEach(function(k){ el.style[k] = styles[k]; });
+}
+
+function anim(el, delay, styles, ease){
+  if(!el) return;
+  setTimeout(function(){
+    el.style.transition = 'opacity 0.6s '+(ease||'ease')+
+      ', transform 0.6s cubic-bezier(0.16,1,0.3,1)'+
+      ', width 0.55s cubic-bezier(0.16,1,0.3,1)';
+    Object.keys(styles).forEach(function(k){ el.style[k] = styles[k]; });
+  }, delay);
+}
+
+/* ── RESET helpers ── */
+function resetWillUp(el)  { if(el){ el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateY(22px)'; }}
+function resetWillDown(el){ if(el){ el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateY(-18px)'; }}
+function resetWillLeft(el){ if(el){ el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateX(-28px)'; }}
+function resetWillRight(el){if(el){ el.style.transition='none'; el.style.opacity='0'; el.style.transform='translateX(28px)'; }}
+function resetWillFade(el){ if(el){ el.style.transition='none'; el.style.opacity='0'; }}
+function resetWillScale(el){if(el){ el.style.transition='none'; el.style.opacity='0'; el.style.transform='scale(0.88)'; }}
+function show(el, delay){
+  if(!el) return;
+  setTimeout(function(){
+    el.style.transition='opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+    el.style.opacity='1'; el.style.transform='translate(0,0) scale(1)';
+  }, delay);
+}
+
+/* ══════════════════
+   SLIDE 1 handlers
+══════════════════ */
+function enter1(){
+  resetWillDown($('s1-eyebrow'));
+  resetWillUp($('s1-number'));
+  resetWillUp($('s1-sub'));
+  resetWillFade($('s1-pills'));
+  resetWillRight($('pc0'));
+  resetWillRight($('pc1'));
+  resetWillRight($('pc2'));
+
+  show($('s1-eyebrow'), 80);
+  show($('s1-number'),  220);
+  show($('s1-sub'),     380);
+  show($('s1-pills'),   560);
+  show($('pc0'), 180);
+  show($('pc1'), 320);
+  show($('pc2'), 460);
+}
+
+/* ══════════════════
+   SLIDE 2 handlers
+══════════════════ */
+function enter2(){
+  resetWillLeft($('s2-left'));
+  resetWillUp($('sf0'));
+  resetWillUp($('sf1'));
+  resetWillUp($('sf2'));
+  resetWillUp($('sf3'));
+  set($('s2-bar'), {width:'0', transition:'none'});
+
+  show($('s2-left'), 60);
+  setTimeout(function(){
+    var b=$('s2-bar'); if(!b)return;
+    b.style.transition='width 0.55s cubic-bezier(0.16,1,0.3,1)';
+    b.style.width='64px';
+  }, 360);
+  show($('sf0'), 200);
+  show($('sf1'), 340);
+  show($('sf2'), 480);
+  show($('sf3'), 620);
+}
+
+/* ══════════════════
+   SLIDE 3 handlers
+══════════════════ */
+function enter3(){
+  resetWillDown($('s3-eyebrow'));
+  resetWillUp($('s3-title'));
+  set($('s3-hdr-bar'), {width:'0', transition:'none'});
+  resetWillUp($('sc0'));
+  resetWillUp($('sc1'));
+  resetWillUp($('sc2'));
+  resetWillUp($('s3-quote'));
+
+  show($('s3-eyebrow'), 80);
+  show($('s3-title'),   200);
+  setTimeout(function(){
+    var b=$('s3-hdr-bar'); if(!b)return;
+    b.style.transition='width 0.55s cubic-bezier(0.16,1,0.3,1)';
+    b.style.width='56px';
+  }, 380);
+  show($('sc0'), 280);
+  show($('sc1'), 400);
+  show($('sc2'), 520);
+  show($('s3-quote'), 700);
+}
+
+/* ══════════════════
+   SLIDE 4 handlers
+══════════════════ */
+function enter4(){
+  resetWillScale($('s4-arabic'));
+  resetWillScale($('s4-english'));
+  resetWillUp($('s4-tagline'));
+  resetWillRight($('s4-qr-col'));
+  set($('s4-divider'), {width:'0', transition:'none'});
+
+  show($('s4-arabic'),  80);
+  show($('s4-english'), 310);
+  show($('s4-tagline'), 430);
+  setTimeout(function(){
+    var d=$('s4-divider'); if(!d)return;
+    d.style.transition='width 0.6s cubic-bezier(0.16,1,0.3,1)';
+    d.style.width='240px';
+  }, 480);
+  show($('s4-qr-col'), 300);
+}
+
+var enterFns = [enter1, enter2, enter3, enter4];
+
+/* ── chrome update (all slides light) ── */
+function updateChrome(){
+  dots.forEach(function(d, i){
+    d.classList.add('dark');
+    d.classList.toggle('active', i===current);
+  });
+  label.style.color  = 'rgba(13,31,60,0.3)';
+  label.textContent  = (current+1)+' / '+TOTAL;
+  progress.style.width = ((current+1)/TOTAL*100)+'%';
+}
+
+/* ── goto ── */
+function goTo(idx, dir){
+  if(idx<0||idx>=TOTAL||idx===current||animating) return;
+  animating = true;
+
+  var prev = current;
+  var leaving = slides[prev];
+  var entering = slides[idx];
+
+  // exit old slide
+  leaving.classList.add(dir>0 ? 'exit-to-left' : 'exit-to-right');
+  leaving.classList.remove('active');
+
+  // enter new slide
+  entering.style.opacity = '1';
+  entering.classList.add(dir>0 ? 'enter-from-right' : 'enter-from-left');
+  entering.classList.add('active');
+
+  current = idx;
+  updateChrome();
+
+  // fire enter animation
+  if(enterFns[current]) enterFns[current]();
+
+  setTimeout(function(){
+    leaving.classList.remove('exit-to-left','exit-to-right');
+    entering.classList.remove('enter-from-right','enter-from-left');
+    animating = false;
+  }, 750);
+}
+
+/* ── init ── */
+enter1();
+updateChrome();
+
+/* ── events ── */
+
+dots.forEach(function(d){
+  d.addEventListener('click', function(){
+    var idx = parseInt(d.dataset.i);
+    goTo(idx, idx>current ? 1 : -1);
+  });
+});
+
+document.addEventListener('keydown', function(e){
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='ArrowDown'){
+    e.preventDefault(); goTo(current+1, 1);
+  } else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){
+    e.preventDefault(); goTo(current-1, -1);
+  }
+});
+
+// Touch swipe
+var tx0=null;
+document.addEventListener('touchstart',function(e){tx0=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){
+  if(tx0===null)return;
+  var dx=tx0-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>50) goTo(current+(dx>0?1:-1), dx>0?1:-1);
+  tx0=null;
+},{passive:true});
+
+})();
+</script>
+</body>
+</html>

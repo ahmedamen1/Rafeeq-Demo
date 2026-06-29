@@ -1,0 +1,864 @@
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1F3C;--navy-d:#091529;--navy-m:#1A3155;--navy-p:#EEF2F8;
+  --gold:#C9992A;--gold-l:#E8B84B;--gold-p:#FBF3E0;--gold-b:#DDB84A;
+  --white:#FFFFFF;--bg:#F2F0EC;--s1:#FFFFFF;--s2:#F7F5F1;
+  --bd:#DDD9D0;--bd2:#C5BFB4;
+  --t1:#1A1612;--t2:#4A4540;--t3:#8B8680;
+  --gr:#1A6B45;--gr-bg:#E4F5ED;--gr-bd:#A8D9C0;
+  --am:#8B5E0A;--am-bg:#FDF5E3;--am-bd:#D9A840;
+  --rd:#8B1F1F;--rd-bg:#FBE8E8;--rd-bd:#F0B4B4;
+  --r:8px;--rl:12px;
+}
+body{background:var(--bg);font-family:'Inter',-apple-system,sans-serif;color:var(--t1);font-size:14px;line-height:1.5;min-height:100vh}
+
+/* Header */
+.hdr{background:var(--navy);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.hdr-logo{display:flex;align-items:baseline;gap:10px}
+.hdr-name{font-size:20px;font-weight:700;color:var(--gold);letter-spacing:.04em}
+.hdr-sub{font-size:13px;color:rgba(255,255,255,.5);font-weight:400}
+.hdr-pill{font-size:11px;background:rgba(201,153,42,.18);color:var(--gold-l);border:0.5px solid rgba(201,153,42,.35);padding:4px 12px;border-radius:20px;font-weight:500;white-space:nowrap}
+
+/* Selector bar */
+.sbar{background:var(--navy-d);padding:0 24px;display:flex;align-items:stretch;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.07)}
+.sbar-group{display:flex;align-items:center;border-right:1px solid rgba(255,255,255,.1);padding-right:12px;margin-right:12px;gap:0}
+.sbar-group:last-child{border-right:none}
+.sbar-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);white-space:nowrap;padding-right:8px}
+.sbtn{background:none;border:none;color:rgba(255,255,255,.5);font-size:12.5px;font-family:inherit;padding:11px 13px;cursor:pointer;position:relative;white-space:nowrap;transition:color .15s}
+.sbtn:hover{color:rgba(255,255,255,.8)}
+.sbtn.on{color:var(--gold);font-weight:600}
+.sbtn.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold)}
+.sbtn.guide-btn.on{color:#7DD3FC}
+.sbtn.guide-btn.on::after{background:#7DD3FC}
+
+/* Main */
+.main{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+
+/* Model intro */
+.intro{background:var(--s1);border:0.5px solid var(--bd);border-left:3px solid var(--gold);border-radius:var(--rl);padding:16px 18px;margin-bottom:14px}
+.intro-name{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.intro-sub{font-size:11px;color:var(--t3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.intro-desc{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* Scenario note */
+.sc-note{background:var(--navy-p);border:0.5px solid #C0CDE0;border-radius:var(--r);padding:9px 13px;margin-bottom:14px;font-size:12px;color:var(--navy-m);display:flex;gap:8px;line-height:1.55}
+
+/* Cost bar */
+.cbar-wrap{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--rl);padding:16px 18px;margin-bottom:14px}
+.cbar-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:10px}
+.cbar-track{height:38px;border-radius:6px;overflow:hidden;display:flex;margin-bottom:10px;background:var(--s2)}
+.cbar-bom{background:var(--navy);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.85);font-size:11px;font-weight:600;overflow:hidden;white-space:nowrap;transition:width .45s}
+.cbar-asm{background:var(--navy-m);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:11px;font-weight:500;overflow:hidden;white-space:nowrap;transition:width .45s}
+.cbar-mgn{background:var(--gold);display:flex;align-items:center;justify-content:center;color:#1a0e00;font-size:11px;font-weight:700;overflow:hidden;white-space:nowrap;flex:1;transition:width .45s}
+.cbar-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--t2)}
+.cbar-dot{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
+
+/* Metric cards */
+.mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:14px}
+.mc{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--r);padding:12px 14px}
+.mc.navy{background:var(--navy);border-color:var(--navy)}
+.mc.gold{background:var(--gold-p);border-color:var(--gold-b)}
+.mc.green{background:var(--gr-bg);border-color:var(--gr-bd)}
+.mc-lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);margin-bottom:4px}
+.mc.navy .mc-lbl{color:rgba(255,255,255,.45)}
+.mc.gold .mc-lbl{color:var(--am)}
+.mc.green .mc-lbl{color:var(--gr)}
+.mc-val{font-size:18px;font-weight:700;color:var(--navy);line-height:1.2}
+.mc.navy .mc-val{color:var(--gold)}
+.mc.gold .mc-val{color:var(--am)}
+.mc.green .mc-val{color:var(--gr)}
+.mc-sub{font-size:11px;color:var(--t3);margin-top:3px}
+.mc.navy .mc-sub{color:rgba(255,255,255,.35)}
+
+/* Section heading */
+.sec{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:0.5px;background:var(--bd)}
+
+/* Tables */
+.tbl-wrap{border:0.5px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:4px}
+.bom-tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--s1)}
+.bom-tbl th{background:var(--navy);color:rgba(255,255,255,.55);font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;text-align:left}
+.bom-tbl th:nth-child(3),.bom-tbl th:last-child{text-align:right}
+.bom-tbl td{padding:8px 12px;border-bottom:0.5px solid var(--bg);vertical-align:middle}
+.bom-tbl .cat td{background:var(--s2);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--t3);padding:5px 12px}
+.bom-tbl .sub-row td{background:var(--navy-p);font-weight:600;color:var(--navy);padding:9px 12px;border-top:1px solid #C0CDE0}
+.bom-tbl .cogs-row td{background:var(--navy);color:white;font-weight:700;font-size:14px;padding:10px 12px}
+.bom-tbl .retail-row td{background:var(--gold-p);color:var(--am);font-weight:700;font-size:14px;padding:10px 12px;border-top:1.5px solid var(--gold)}
+.num{text-align:right;font-weight:600;white-space:nowrap}
+.num2{text-align:right;color:var(--t3);font-size:12px;white-space:nowrap}
+.src{font-size:10px;color:var(--t3);margin-top:1px;font-style:italic}
+.b{display:inline-block;font-size:9.5px;font-weight:600;padding:1px 6px;border-radius:4px;margin-left:5px;vertical-align:middle;white-space:nowrap;border-width:0.5px;border-style:solid}
+.b-cn{background:var(--am-bg);color:var(--am);border-color:var(--am-bd)}
+.b-eg{background:var(--gr-bg);color:var(--gr);border-color:var(--gr-bd)}
+.b-sv{background:var(--rd-bg);color:var(--rd);border-color:var(--rd-bd)}
+
+/* Alpha competitive */
+.cmp-box{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:4px}
+.cmp-hdr{background:var(--gold-p);border-bottom:1px solid var(--gold-b);padding:11px 16px;font-size:12px;font-weight:600;color:var(--am);display:flex;align-items:center;gap:8px}
+.cmp-body{padding:14px 16px}
+.cmp-pos{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:14px;padding:10px 12px;border-left:3px solid var(--gold);background:var(--gold-p);border-radius:0 var(--r) var(--r) 0}
+.str-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.str-card{border:0.5px solid var(--bd);border-radius:var(--r);padding:13px;border-top:2.5px solid var(--gold)}
+.str-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:4px}
+.str-ttl{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.str-body{font-size:12px;color:var(--t2);line-height:1.6}
+.str-impact{margin-top:8px;padding:5px 8px;background:var(--gr-bg);border-radius:4px;font-size:11px;color:var(--gr);font-weight:500}
+.chi-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.chi-tbl th{background:var(--s2);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--t3);padding:6px 10px;text-align:left;border-bottom:1px solid var(--bd)}
+.chi-tbl td{padding:8px 10px;border-bottom:0.5px solid var(--bg);vertical-align:top}
+.chi-tbl .rfq-row td{background:var(--gold-p)}
+.chi-tbl .rfq-row td:first-child{border-left:2px solid var(--gold)}
+
+/* Feature/comp tables */
+.feat-tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--s1);border-radius:var(--rl);overflow:hidden;border:0.5px solid var(--bd)}
+.feat-tbl td{padding:8px 12px;border-bottom:0.5px solid var(--bg);vertical-align:top}
+.feat-tbl td:first-child{font-size:12px;color:var(--t3);font-weight:500;width:36%}
+.comp-wrap{overflow-x:auto;border-radius:var(--rl);border:0.5px solid var(--bd)}
+.comp-tbl{width:100%;min-width:700px;border-collapse:collapse;font-size:12px;background:var(--s1)}
+.comp-tbl th{background:var(--navy);color:rgba(255,255,255,.55);font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;text-align:left}
+.comp-tbl td{padding:8px 10px;border-bottom:0.5px solid var(--bg);vertical-align:top;line-height:1.5}
+.comp-tbl .rfq-row td{background:var(--gold-p)}
+.comp-tbl .rfq-row td:first-child{border-left:2px solid var(--gold)}
+.note-box{font-size:11px;color:var(--t3);line-height:1.65;padding:11px 14px;background:var(--s2);border-radius:var(--r);border:0.5px solid var(--bd);margin-top:14px}
+.divider{border:none;border-top:0.5px solid var(--bd);margin:20px 0}
+
+/* ═══ GUIDE STYLES ═══════════════════════════════════════════════════════ */
+.guide-wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+
+/* Scorecard */
+.score-header{background:var(--navy);border-radius:var(--rl);padding:18px 20px;margin-bottom:20px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.score-header-text h2{font-size:17px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.score-header-text p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55;max-width:560px}
+.rag-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px}
+.rag-item{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.5)}
+.rag-dot{width:12px;height:12px;border-radius:50%}
+
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:28px}
+.score-card{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--rl);overflow:hidden}
+.score-card-head{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--bd)}
+.score-card-title{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.05em}
+.rag-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+.rag-g{background:var(--gr-bg);color:var(--gr);border:0.5px solid var(--gr-bd)}
+.rag-a{background:var(--am-bg);color:var(--am);border:0.5px solid var(--am-bd)}
+.rag-r{background:var(--rd-bg);color:var(--rd);border:0.5px solid var(--rd-bd)}
+.score-rows{padding:0}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--bg);gap:12px}
+.score-row:last-child{border-bottom:none}
+.score-row-label{font-size:12px;color:var(--t2);font-weight:500}
+.score-row-val{font-size:13px;font-weight:700;color:var(--navy);text-align:right;white-space:nowrap}
+.score-row-rag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.score-row-note{font-size:11px;color:var(--t3);padding:4px 16px 10px;background:var(--s2)}
+
+.key-insight{background:var(--navy);border-radius:var(--rl);padding:16px 18px;margin-bottom:28px}
+.key-insight h3{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.insight-item{display:flex;gap:10px;margin-bottom:8px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.55}
+.insight-item:last-child{margin-bottom:0}
+.insight-num{font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0;width:20px}
+
+/* Glossary */
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:10px}
+.term-card{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--rl);overflow:hidden}
+.term-head{background:var(--navy);padding:10px 14px;display:flex;align-items:baseline;gap:8px}
+.term-name{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.01em}
+.term-abbr{font-size:10px;color:rgba(255,255,255,.4);font-weight:400}
+.term-body{padding:12px 14px}
+.term-simple{font-size:13px;color:var(--t1);line-height:1.6;margin-bottom:8px;font-weight:500}
+.term-example{font-size:12px;color:var(--t3);line-height:1.55;padding:8px 10px;background:var(--gold-p);border-radius:var(--r);border-left:2px solid var(--gold)}
+.term-example strong{color:var(--am);font-weight:600}
+.term-formula{font-size:11px;color:var(--navy-m);background:var(--navy-p);padding:5px 8px;border-radius:4px;font-family:monospace;margin-bottom:6px;display:block}
+
+/* Standard thresholds box */
+.thresholds{background:var(--s1);border:0.5px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-bottom:20px}
+.thresholds-head{background:var(--navy);padding:12px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.05em}
+.thresh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0}
+.thresh-item{padding:12px 16px;border-right:0.5px solid var(--bd);border-bottom:0.5px solid var(--bd)}
+.thresh-item:last-child{border-right:none}
+.thresh-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:4px}
+.thresh-val{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.thresh-note{font-size:11px;color:var(--t3)}
+
+/* Responsive */
+@media(max-width:580px){
+  .hdr{padding:12px 14px}.sbar{padding:0 10px}
+  .main,.guide-wrap{padding:12px 10px 36px}
+  .mcards{grid-template-columns:repeat(2,1fr)}
+  .str-grid,.score-grid,.gloss-grid{grid-template-columns:1fr}
+  .thresh-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<!-- Header -->
+<div class="hdr">
+  <div class="hdr-logo">
+    <span class="hdr-name">RAFEEQ</span>
+    <span class="hdr-sub">SmartWheel</span>
+  </div>
+  <span class="hdr-pill">Cost &amp; Pricing Model · June 2026</span>
+</div>
+
+<!-- Selector bar -->
+<div class="sbar">
+  <div class="sbar-group">
+    <span class="sbar-lbl">Scenario</span>
+    <button class="sbtn" id="sc0" onclick="setSc(0)">🔧 Prototype<span style="opacity:.6;font-size:11px;margin-left:4px">(salvaged parts)</span></button>
+    <button class="sbtn on" id="sc1" onclick="setSc(1)">🏭 Production<span style="opacity:.6;font-size:11px;margin-left:4px">(brand new)</span></button>
+  </div>
+  <div class="sbar-group">
+    <span class="sbar-lbl">Model</span>
+    <button class="sbtn on" id="m0" onclick="setM(0)">α Alpha</button>
+    <button class="sbtn" id="m1" onclick="setM(1)">β Beta</button>
+    <button class="sbtn" id="m2" onclick="setM(2)">γ Gamma ★</button>
+  </div>
+  <div class="sbar-group">
+    <button class="sbtn guide-btn" id="gbtn" onclick="setGuide()">📚 Business Guide</button>
+  </div>
+</div>
+
+<div id="out"></div>
+
+<script>
+/* ══ DATA ═══════════════════════════════════════════════════════════════ */
+const V={motors:[6000,3100],ctrl:[0,3800],battery:[1120,2241],asmA:[0,2500],asmG:[0,3000]};
+const VSRC={
+  motors:['Salvaged from used hoverboard — 3,000 EGP/unit × 2','Alibaba 1,130 EGP/ea + ~37% import (shipping+customs 20%+VAT 14%) = ~1,550 EGP/ea landed'],
+  ctrl:  ['Came with salvaged hoverboard (no separate cost)','AliExpress 2,221 EGP + 835 shipping + ~744 Egyptian customs/VAT'],
+  battery:['1 pack only — 1,120 EGP (shorter run time)','2 packs × 1,120 EGP = 2,241 EGP from Amazon.eg — no import needed ✓'],
+};
+const S={mount:3000,ard:1200,jtk:750,est:60,sos:145,bz:25,wire:600,rail:2500,bucks:465,esp32:540,mlx:500,max:434,mpu:175,rpi5:14000,nvm:2000,lidar:8500,mic:450};
+const RETAIL=[[20000,24000],[33000,40000],[70000,85000]];
+const COMP_REF=[26750,80000,426000];
+const COMP_LBL=['Generic Chinese electric chair (~26,750 EGP)','iHealth smart import (~80,000 EGP)','LUCI retrofit kit (USA ≈ 426,000 EGP)'];
+const FIXED_COSTS=60000; // EGP/month
+
+let curSc=1,curM=0,curMode='model';
+
+function setSc(i){curSc=i;curMode='model';document.querySelectorAll('.sbtn[id^=sc]').forEach(b=>b.classList.remove('on'));document.getElementById('sc'+i).classList.add('on');document.getElementById('gbtn').classList.remove('on');render();}
+function setM(i){curM=i;curMode='model';document.querySelectorAll('.sbtn[id^=m]').forEach(b=>b.classList.remove('on'));document.getElementById('m'+i).classList.add('on');document.getElementById('gbtn').classList.remove('on');render();}
+function setGuide(){curMode='guide';document.querySelectorAll('.sbtn[id^=m],.sbtn[id^=sc]').forEach(b=>b.classList.remove('on'));document.getElementById('gbtn').classList.add('on');renderGuide();}
+
+function computeBOM(model,sc){
+  const drv=V.motors[sc]+V.ctrl[sc]+S.mount+V.battery[sc];
+  const ctl=S.ard+S.jtk+S.est+S.sos+S.bz+S.wire;
+  const pwr=S.rail+S.bucks;
+  const hlth=model>=1?S.esp32+S.mlx+S.max+S.mpu:0;
+  const nav=model>=2?S.rpi5+S.nvm+S.lidar+S.mic:0;
+  const asm=model>=2?V.asmG[sc]:V.asmA[sc];
+  const comp=drv+ctl+pwr+hlth+nav;
+  return{drv,ctl,pwr,hlth,nav,asm,comp,cogs:comp+asm};
+}
+function fmt(n){return n.toLocaleString();}
+function pct(n){return Math.round(n)+'%';}
+
+/* ══ GUIDE RENDER ═══════════════════════════════════════════════════════ */
+function renderGuide(){
+  // compute key numbers for all models (production scenario)
+  const BA=computeBOM(0,1),BB=computeBOM(1,1),BG=computeBOM(2,1);
+  // production COGS
+  const cogsA=BA.cogs,cogsB=BB.cogs,cogsG=BG.cogs;
+  // retail mids
+  const [rAl,rAh]=RETAIL[0],[rBl,rBh]=RETAIL[1],[rGl,rGh]=RETAIL[2];
+  const rA=Math.round((rAl+rAh)/2),rB=Math.round((rBl+rBh)/2),rG=Math.round((rGl+rGh)/2);
+  // margins
+  const mA=Math.round((1-cogsA/rA)*100),mB=Math.round((1-cogsB/rB)*100),mG=Math.round((1-cogsG/rG)*100);
+  // gross profit per unit
+  const gpA=rA-cogsA,gpB=rB-cogsB,gpG=rG-cogsG;
+  // break-even units/month
+  const beA=Math.round(FIXED_COSTS/gpA*10)/10;
+  const beB=Math.round(FIXED_COSTS/gpB*10)/10;
+  const beG=Math.round(FIXED_COSTS/gpG*10)/10;
+  // also compute Alpha with founder assembly (no labor)
+  const cogsA_founder=BA.comp; // no assembly cost
+  const mA_founder=Math.round((1-cogsA_founder/rA)*100);
+  const gpA_founder=rA-cogsA_founder;
+  const beA_founder=Math.round(FIXED_COSTS/gpA_founder*10)/10;
+
+  function rag(val,good,warn){
+    if(val>=good)return'rag-g';
+    if(val>=warn)return'rag-a';
+    return'rag-r';
+  }
+  function ragLbl(cls){return cls==='rag-g'?'✅ GOOD':cls==='rag-a'?'⚠️ CAUTION':'🔴 PROBLEM';}
+  function beRag(be){return be<=4?'rag-g':be<=10?'rag-a':'rag-r';}
+  function beRagLbl(be){return be<=4?'✅ ACHIEVABLE':be<=10?'⚠️ CHALLENGING':'🔴 VERY HARD';}
+
+  document.getElementById('out').innerHTML=`
+<div class="guide-wrap">
+
+  <!-- SCORE HEADER -->
+  <div class="score-header">
+    <div class="score-header-text">
+      <h2>How to read your numbers — RAFEEQ Scorecard</h2>
+      <p>Every metric below is graded using industry standards for hardware startups. Green means you're in a healthy zone. Amber means it works but needs attention. Red means it's a problem that will hurt the business if not fixed.</p>
+    </div>
+    <div class="rag-legend">
+      <div class="rag-item"><div class="rag-dot" style="background:var(--gr)"></div>Good</div>
+      <div class="rag-item"><div class="rag-dot" style="background:var(--am)"></div>Caution</div>
+      <div class="rag-item"><div class="rag-dot" style="background:var(--rd)"></div>Problem</div>
+    </div>
+  </div>
+
+  <!-- THRESHOLDS: what's good for hardware startups -->
+  <div class="thresholds" style="margin-bottom:20px">
+    <div class="thresholds-head">Industry standards for a hardware startup — what judges & investors expect</div>
+    <div class="thresh-grid">
+      <div class="thresh-item">
+        <div class="thresh-label">Gross margin</div>
+        <div class="thresh-val">35–55%</div>
+        <div class="thresh-note">Minimum 30% to be sustainable. Under 20% = danger zone.</div>
+      </div>
+      <div class="thresh-item">
+        <div class="thresh-label">Break-even (units/month)</div>
+        <div class="thresh-val">&lt; 5 units</div>
+        <div class="thresh-note">If you need &gt;10 units/month to break even, the model is risky early-stage.</div>
+      </div>
+      <div class="thresh-item">
+        <div class="thresh-label">LTV / CAC ratio</div>
+        <div class="thresh-val">&gt; 5×</div>
+        <div class="thresh-note">&gt;3× = OK, &gt;5× = good, &gt;10× = excellent. The higher, the better.</div>
+      </div>
+      <div class="thresh-item">
+        <div class="thresh-label">Runway</div>
+        <div class="thresh-val">&gt; 6 months</div>
+        <div class="thresh-note">Under 3 months is a crisis. Under 1 month = emergency — sell something now.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORE CARDS -->
+  <div class="score-grid">
+
+    <!-- GROSS MARGIN card -->
+    <div class="score-card">
+      <div class="score-card-head">
+        <span class="score-card-title">Gross Margin %</span>
+        <span class="rag-pill rag-g">Gamma &amp; Beta ✅</span>
+      </div>
+      <div class="score-rows">
+        <div class="score-row">
+          <span class="score-row-label">Gamma (flagship) — 77,500 EGP</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${mG}%</span>
+            <span class="score-row-rag ${rag(mG,35,25)}">${ragLbl(rag(mG,35,25))}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Gross profit = ${fmt(gpG)} EGP per unit. Strong. This is your main product.</div>
+        <div class="score-row">
+          <span class="score-row-label">Beta (health) — 36,500 EGP</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${mB}%</span>
+            <span class="score-row-rag ${rag(mB,35,25)}">${ragLbl(rag(mB,35,25))}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Gross profit = ${fmt(gpB)} EGP per unit. Healthy margin.</div>
+        <div class="score-row">
+          <span class="score-row-label">Alpha + contract assembly — 22,000 EGP</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${mA}%</span>
+            <span class="score-row-rag ${rag(mA,30,15)}">${ragLbl(rag(mA,30,15))}</span>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-row-label">Alpha + founder assembly (sweat equity)</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${mA_founder}%</span>
+            <span class="score-row-rag ${rag(mA_founder,30,15)}">${ragLbl(rag(mA_founder,30,15))}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Alpha is the problem model. With contract assembly, the margin is critically low. Founders assembling themselves helps, but Alpha still needs a price increase or cost reduction. See "Strategy B" in the Alpha tab — removing the 12V rail battery saves 2,500 EGP COGS.</div>
+      </div>
+    </div>
+
+    <!-- BREAK-EVEN card -->
+    <div class="score-card">
+      <div class="score-card-head">
+        <span class="score-card-title">Break-even (units per month)</span>
+        <span class="rag-pill rag-g">Gamma ✅</span>
+      </div>
+      <div class="score-rows">
+        <div style="padding:8px 16px;font-size:11px;color:var(--t3);background:var(--s2);border-bottom:0.5px solid var(--bd)">Based on fixed costs of 60,000 EGP/month (team + lab + cloud)</div>
+        <div class="score-row">
+          <span class="score-row-label">Gamma units needed/month</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${beG} units</span>
+            <span class="score-row-rag ${beRag(beG)}">${beRagLbl(beG)}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Sell 3 Gamma units per month → you cover all fixed costs. Every unit beyond 3 is real profit.</div>
+        <div class="score-row">
+          <span class="score-row-label">Beta units needed/month</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${beB} units</span>
+            <span class="score-row-rag ${beRag(beB)}">${beRagLbl(beB)}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Need ~5 Beta units/month. More demanding than Gamma — harder to build, lower revenue per unit.</div>
+        <div class="score-row">
+          <span class="score-row-label">Alpha (founder asm.) units needed</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${beA_founder} units</span>
+            <span class="score-row-rag ${beRag(beA_founder)}">${beRagLbl(beA_founder)}</span>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-row-label">Alpha (contract asm.) units needed</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">${beA} units</span>
+            <span class="score-row-rag ${beRag(beA)}">${beRagLbl(beA)}</span>
+          </div>
+        </div>
+        <div class="score-row-note">Alpha alone cannot sustain the business at realistic volumes. The low margin forces you to sell 15–37 Alpha units/month just to break even. That's the math. Focus on Gamma.</div>
+      </div>
+    </div>
+
+    <!-- LTV/CAC card -->
+    <div class="score-card">
+      <div class="score-card-head">
+        <span class="score-card-title">LTV / CAC Ratio</span>
+        <span class="rag-pill rag-g">Excellent ✅</span>
+      </div>
+      <div class="score-rows">
+        <div style="padding:8px 16px;font-size:11px;color:var(--t3);background:var(--s2);border-bottom:0.5px solid var(--bd)">LTV = lifetime value per customer. CAC = cost to acquire one customer.</div>
+        <div class="score-row">
+          <span class="score-row-label">Gamma B2C family (5yr)</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">48×</span>
+            <span class="score-row-rag rag-g">✅ EXCELLENT</span>
+          </div>
+        </div>
+        <div class="score-row-note">LTV: 70,000 (hardware) + 1,500/yr app + 4,000/yr service × 5 yrs = ~97,500 EGP. CAC: ~2,000 EGP digital marketing. Ratio: 48×. The industry considers 5× good. You're at 48×.</div>
+        <div class="score-row">
+          <span class="score-row-label">Gamma B2B hospital (5 units fleet)</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">&gt;100×</span>
+            <span class="score-row-rag rag-g">✅ EXCELLENT</span>
+          </div>
+        </div>
+        <div class="score-row-note">LTV: 5 × 77,500 = 387,500 EGP hardware + 5 × 3,000/mo institutional app = 180,000 EGP/yr. Multi-year LTV &gt; 500,000 EGP. CAC (1–2 hospital visits + demo): ~5,000 EGP. Ratio: 100×+.</div>
+      </div>
+    </div>
+
+    <!-- RUNWAY card -->
+    <div class="score-card">
+      <div class="score-card-head">
+        <span class="score-card-title">Runway (cash months)</span>
+        <span class="rag-pill rag-r">Critical — sell now 🔴</span>
+      </div>
+      <div class="score-rows">
+        <div style="padding:8px 16px;font-size:11px;color:var(--t3);background:var(--s2);border-bottom:0.5px solid var(--bd)">How long until you run out of money. Burn rate = 60,000 EGP/month.</div>
+        <div class="score-row">
+          <span class="score-row-label">ISF grant only (80,000 EGP)</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">1.3 months</span>
+            <span class="score-row-rag rag-r">🔴 CRITICAL</span>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-row-label">+ 1 Gamma unit sold</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">2.4 months</span>
+            <span class="score-row-rag rag-r">🔴 STILL LOW</span>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-row-label">+ 3 Gamma units sold</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">4.4 months</span>
+            <span class="score-row-rag rag-a">⚠️ CAUTION</span>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-row-label">ISF Stage 2 + 5 Gamma units</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="score-row-val">&gt;8 months</span>
+            <span class="score-row-rag rag-g">✅ STABLE</span>
+          </div>
+        </div>
+        <div class="score-row-note">⚡ Every Gamma unit you sell adds 1.1 months of runway. Close ONE sale this week from the exhibition — it changes your financial position immediately. The exhibition on June 29 is literally a runway extension opportunity.</div>
+      </div>
+    </div>
+
+  </div><!-- end score-grid -->
+
+  <!-- KEY INSIGHTS -->
+  <div class="key-insight">
+    <h3>What the numbers are telling you — 5 key insights</h3>
+    <div class="insight-item"><span class="insight-num">1</span><span>Gamma is your business. Its margin (${mG}%) is healthy and it only needs 3 sales/month to break even. Alpha's margin at ${mA}% is too thin to build a business on alone. Lead with Gamma at every meeting.</span></div>
+    <div class="insight-item"><span class="insight-num">2</span><span>The exhibition on June 29 is a financial emergency as much as a showcase. You have ~1.3 months of runway. One Gamma sale (70,000–85,000 EGP) adds 1.1+ months of survival. Walk in with a clear price sheet and a handshake deal in mind.</span></div>
+    <div class="insight-item"><span class="insight-num">3</span><span>Your LTV/CAC ratio (48×) is excellent — meaning once you find a customer, they're enormously profitable over time. The challenge is acquisition speed, not product economics. Every family or hospital that buys a Gamma is worth ~97,500 EGP over 5 years.</span></div>
+    <div class="insight-item"><span class="insight-num">4</span><span>Alpha needs surgery. Two options: raise price to 26,000–28,000 EGP (margin goes to 28–36%), OR remove the 12V rail battery from Alpha's design (saves 2,500 EGP COGS → 30% margin at 22,000 EGP). Both are valid. Do one of them.</span></div>
+    <div class="insight-item"><span class="insight-num">5</span><span>The app subscription (1,500 EGP/yr B2C, 36,000 EGP/yr institutional) is pure high-margin recurring revenue. Once units are in the field, focus hard on subscription conversion. This is what makes the business model exceptional.</span></div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="sec">Business dictionary — with RAFEEQ examples</div>
+
+  <div class="gloss-grid">
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">BOM</span><span class="term-abbr">Bill of Materials</span></div>
+      <div class="term-body">
+        <div class="term-simple">The complete shopping list of every part needed to build one unit, with its price.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma BOM = ${fmt(BG.comp)} EGP — every component from the RPi5 (14,000 EGP) to the buzzer (25 EGP), added up. BOM is the cost before assembly labor.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">COGS</span><span class="term-abbr">Cost of Goods Sold</span></div>
+      <div class="term-body">
+        <div class="term-simple">Everything it costs to hand one finished unit to a customer: BOM + assembly labor + QA + packaging.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma COGS = ${fmt(cogsG)} EGP (BOM ${fmt(BG.comp)} + assembly 3,000 EGP). This is the number you subtract from the retail price to find your profit per unit.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Gross Margin %</span></div>
+      <div class="term-body">
+        <div class="term-simple">Of every 100 EGP the customer pays you, how much stays with you after paying COGS.</div>
+        <span class="term-formula">Gross Margin = (Retail − COGS) ÷ Retail × 100</span>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma at 77,500 EGP → (77,500 − ${fmt(cogsG)}) ÷ 77,500 = ${mG}%. For every Gamma sold, you keep ${fmt(gpG)} EGP before paying salaries and rent.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Gross Profit</span><span class="term-abbr">Per unit, in EGP</span></div>
+      <div class="term-body">
+        <div class="term-simple">The actual EGP amount you keep from one sale — before paying salaries, rent, or any overhead.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma = ${fmt(gpG)} EGP per unit. Beta = ${fmt(gpB)} EGP. Alpha (production) = ${fmt(gpA)} EGP. This is the key number that tells you how many units you need to sell to survive.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Variable Cost</span></div>
+      <div class="term-body">
+        <div class="term-simple">Costs that appear only when you build a unit. Zero units = zero variable cost. 10 units = 10× variable cost.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma variable cost = COGS ${fmt(cogsG)} EGP per unit. Every single Gamma you build costs this much in parts + labor. Compare to: fixed costs stay the same regardless.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Fixed Cost</span></div>
+      <div class="term-body">
+        <div class="term-simple">Costs you pay every month whether you sell 0 or 100 units. These are always there, like a ticking clock.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> ~${fmt(FIXED_COSTS)} EGP/month — team basic salaries + lab/workshop rent + cloud servers (Firebase) + internet + misc. This is your burn rate even with zero sales.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Break-even Point</span></div>
+      <div class="term-body">
+        <div class="term-simple">The number of units you must sell each month for gross profit to cover all fixed costs. Below this = losing money. Above this = making money.</div>
+        <span class="term-formula">Break-even = Fixed costs ÷ Gross profit per unit</span>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma: ${fmt(FIXED_COSTS)} ÷ ${fmt(gpG)} = ${beG} units/month. Sell 3 Gamma units → all salaries and rent covered. Unit 4 onward is profit.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Landed Cost</span></div>
+      <div class="term-body">
+        <div class="term-simple">What a part from China ACTUALLY costs after it reaches your hands in Egypt. Always higher than the Alibaba price.</div>
+        <span class="term-formula">Landed = China price + shipping + customs (20%) + VAT (14%) + fees (3%)</span>
+        <div class="term-example"><strong>RAFEEQ:</strong> Motors at 1,130 EGP each on Alibaba → × 1.37 import overhead = ~1,550 EGP each landed in Egypt. Always use landed cost in your BOM, not the Alibaba price.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Import Overhead</span></div>
+      <div class="term-body">
+        <div class="term-simple">The extra percentage added on top of the Chinese price to account for all the costs of getting it into Egypt legally.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Small batch: +37% on China price. Volume 50+ units: +25% (organized sea freight + better customs handling). Amazon.eg items: 0% extra — already in Egypt.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">CAC</span><span class="term-abbr">Customer Acquisition Cost</span></div>
+      <div class="term-body">
+        <div class="term-simple">How much money and time it costs to convince one customer to buy. Includes ads, meetings, demos, travel.</div>
+        <div class="term-example"><strong>RAFEEQ estimate:</strong> B2C family via Facebook/Instagram: ~2,000 EGP per sale (ads + calls + demo). B2B hospital: ~5,000 EGP (sales visits + prototype demo + follow-ups). The lower your CAC, the more profitable each customer.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">LTV</span><span class="term-abbr">Lifetime Value</span></div>
+      <div class="term-body">
+        <div class="term-simple">Total money you expect to earn from one customer over the entire relationship — hardware + subscriptions + service contracts + upgrades.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma family over 5 years: 70,000 (hardware) + 1,500/yr app × 5 + 4,000/yr service × 5 = <strong>97,500 EGP LTV</strong>. One customer = one car's worth of revenue.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">LTV / CAC Ratio</span></div>
+      <div class="term-body">
+        <div class="term-simple">LTV divided by CAC. Tells you if it's worth spending money to get a customer. The higher this number, the healthier the business.</div>
+        <span class="term-formula">Rule: &gt;3× = OK | &gt;5× = Good | &gt;10× = Excellent</span>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma B2C: 97,500 ÷ 2,000 = <strong>48× ✅ Excellent.</strong> This means for every 1 EGP you spend finding a customer, you get 48 EGP back over 5 years. This is a strong business model signal.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Runway</span></div>
+      <div class="term-body">
+        <div class="term-simple">How many months until you run out of money, assuming no new sales or funding. Cash in bank ÷ monthly burn rate.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> ISF grant 80,000 EGP ÷ 60,000 EGP/month = <strong>1.3 months</strong>. This means the exhibition on June 29 is not optional — it's a financial survival event. One Gamma sale = +1.1 months of runway.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Burn Rate</span></div>
+      <div class="term-body">
+        <div class="term-simple">How much money your startup spends every month just to exist. Like a candle burning down — it tells you how fast you need to make money.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> ~60,000 EGP/month in fixed costs alone (not counting parts). Every month without a sale, 60,000 EGP disappears. Every Gamma sold (gross profit ~29,500 EGP) covers half a month's burn.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Sweat Equity</span></div>
+      <div class="term-body">
+        <div class="term-simple">Work that founders do without being paid — their time and effort instead of cash. It reduces costs in the early stage, but it IS real value being contributed.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> In the prototype scenario, assembly = 0 EGP because you built it yourselves. In production mode, that same assembly costs 2,500–3,000 EGP per unit when you hire someone. Plan for this when setting your retail price.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Market Entry Pricing</span></div>
+      <div class="term-body">
+        <div class="term-simple">Pricing lower than ideal at launch to get your first customers. You sacrifice margin now to build reputation, testimonials, and market presence.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Alpha strategy — launch at 20,000–22,000 EGP (thin margin) to compete with Chinese chairs for first 20 customers. After 20 units sold + testimonials, raise to 25,000–27,000 EGP. Classic startup playbook.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Gross vs Net Margin</span></div>
+      <div class="term-body">
+        <div class="term-simple">Gross margin = profit after COGS only. Net margin = profit after EVERYTHING (salaries, rent, R&D, tax, marketing). Net is always much lower than gross.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma gross margin = ${mG}%. Net margin = negative (you're pre-revenue). This is <strong>completely normal</strong> for an early-stage startup. Investors know this — they care about gross margin, not net margin, at your stage.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Unit Economics</span></div>
+      <div class="term-body">
+        <div class="term-simple">The profit or loss from selling exactly ONE unit. If the unit economics are positive, scaling up makes the business stronger. If negative, scaling up makes it go bankrupt faster.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Gamma: ✅ +${fmt(gpG)} EGP gross profit per unit (positive — scale it). Alpha (production): ⚠️ +${fmt(gpA)} EGP per unit (barely positive — fix before scaling). Unit economics first — then growth.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Revenue Streams</span></div>
+      <div class="term-body">
+        <div class="term-simple">All the different ways your company earns money. Multiple streams = more stability if one channel slows down.</div>
+        <div class="term-example"><strong>RAFEEQ has 5:</strong> (1) Hardware sales, (2) App subscription 1,500 EGP/yr B2C, (3) Institutional app 3,000–5,000/mo B2B, (4) Annual service contract 3,000–5,000/yr, (5) Spare parts. Subscription revenue is the highest-quality stream (predictable, recurring, high-margin).</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">B2B vs B2C</span></div>
+      <div class="term-body">
+        <div class="term-simple">B2B = you sell to a business (hospital, NGO, government). B2C = you sell directly to the end consumer (family). Each has different sales cycles, margins, and risks.</div>
+        <div class="term-example"><strong>RAFEEQ strategy:</strong> Phase 1 — B2B (hospitals, 10–20 units, faster trust with volume deal). Phase 2 — B2B2C (through medical distributors). Phase 3 — B2C direct (once brand established). B2B closes bigger deals faster; B2C scales bigger long-term.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Upgrade Path</span></div>
+      <div class="term-body">
+        <div class="term-simple">The ability for a customer who bought a cheaper tier to pay for upgrades later. Generates more revenue from the same customer without any acquisition cost.</div>
+        <div class="term-example"><strong>RAFEEQ:</strong> Alpha → Beta (add ~11,000–16,000 EGP for health sensors). Beta → Gamma (add ~30,000–37,000 EGP for navigation + AI). Each upgrade is revenue without a new CAC. Existing customers are your cheapest revenue source.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">HaaS</span><span class="term-abbr">Hardware-as-a-Service</span></div>
+      <div class="term-body">
+        <div class="term-simple">Instead of selling the hardware for a big one-time payment, you rent it to customers for a monthly fee. They get the device; you keep ownership and get recurring revenue.</div>
+        <div class="term-example"><strong>RAFEEQ opportunity:</strong> Hospital fleet — instead of charging 70,000 EGP upfront per Gamma, charge 3,500 EGP/month per wheelchair. Hospital has zero upfront cost (easier to say yes). You get 3,500 × 12 = 42,000 EGP/yr, recouping COGS in ~14 months then pure profit.</div>
+      </div>
+    </div>
+
+    <div class="term-card">
+      <div class="term-head"><span class="term-name">Gross Margin % — what's good?</span></div>
+      <div class="term-body">
+        <div class="term-simple">A quick reference so you always know if a number is healthy or alarming.</div>
+        <div style="margin-top:8px;display:grid;gap:5px">
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--gr-bg);border-radius:4px;font-size:12px"><span>Over 40%</span><span style="font-weight:600;color:var(--gr)">✅ Excellent</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:#f0f9f4;border-radius:4px;font-size:12px"><span>30–40%</span><span style="font-weight:600;color:var(--gr)">✅ Good</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--am-bg);border-radius:4px;font-size:12px"><span>20–30%</span><span style="font-weight:600;color:var(--am)">⚠️ Caution</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:#fdf0e0;border-radius:4px;font-size:12px"><span>10–20%</span><span style="font-weight:600;color:var(--am)">⚠️ Problem</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--rd-bg);border-radius:4px;font-size:12px"><span>Under 10%</span><span style="font-weight:600;color:var(--rd)">🔴 Danger</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end gloss-grid -->
+
+</div><!-- end guide-wrap -->
+`;
+}
+
+/* ══ MODEL RENDER ═══════════════════════════════════════════════════════ */
+function render(){
+  const m=curM,sc=curSc;
+  const B=computeBOM(m,sc);
+  const [retLo,retHi]=RETAIL[m];
+  const retMid=Math.round((retLo+retHi)/2);
+  const margin=Math.round((1-B.cogs/retMid)*100);
+  const saving=Math.round((1-retMid/COMP_REF[m])*100);
+  const bomPct=Math.round(B.comp/retMid*100);
+  const asmPct=Math.round(B.asm/retMid*100);
+  const mgnPct=100-bomPct-asmPct;
+
+  const NAMES=['Alpha α','Beta β','Gamma γ ★'];
+  const SUBS=['Entry level — motorization kit','Health focus — motorization + vitals monitoring','Flagship — full autonomous AI system (built June 2026)'];
+  const DESCS=[
+    'Converts any standard manual wheelchair into a powered one using dual 350W FOC brushless hub motors. Joystick control, emergency E-stop, SOS alert, dual battery setup. No AI, no sensors — lowest-cost entry to electric mobility with a clear upgrade path.',
+    'All Alpha hardware plus continuous health monitoring: heart rate, SpO2, contactless temperature, and fall detection. Real-time Firebase sync to the Flutter caregiver app with push alerts and Twilio SOS calls.',
+    'The complete RAFEEQ system — built June 2026. Autonomous indoor SLAM navigation (ROS2 Jazzy + Nav2 + RPLidar A1M8). Offline Egyptian Arabic voice control via Vosk (94% accuracy, ~120ms). Wake-word AI companion. Full health monitoring and Firebase caregiver app.',
+  ];
+  const SC_NOTE=['Prototype cost uses salvaged hoverboard motors (3,000 EGP/unit × 2) and the original hoverboard controller (0 EGP — came with it). Only 1 battery pack. Assembly = founder sweat equity (not counted as cash cost).','Production cost uses brand-new components. China-sourced parts include the full landed Egypt cost: Alibaba/AliExpress price + shipping + customs (20%) + VAT (14%). Amazon.eg items have no import overhead.'];
+
+  function row(name,qty,unitStr,sub,src,badge){
+    const bdg=badge==='cn'?'<span class="b b-cn">China import</span>':badge==='eg'?'<span class="b b-eg">Egypt local</span>':badge==='sv'?'<span class="b b-sv">salvaged</span>':'';
+    return`<tr><td>${name}${bdg}<div class="src">${src}</div></td><td style="text-align:center;color:var(--t3);font-size:12px">${qty}</td><td class="num2">${unitStr}</td><td class="num">${fmt(sub)} EGP</td></tr>`;
+  }
+  function catRow(n){return`<tr class="cat"><td colspan="4">${n}</td></tr>`;}
+
+  let rows='';
+  rows+=catRow('Drive system');
+  if(sc===0){
+    rows+=row('Hub motors 350W (8-inch) × 2',2,'3,000 EGP/ea (used)',V.motors[sc],VSRC.motors[sc],'sv');
+    rows+=row('STM32 FOC hoverboard controller',1,'included w/ hoverboard',V.ctrl[sc],VSRC.ctrl[sc],'sv');
+  }else{
+    rows+=row('Hub motors 350W (8-inch) × 2',1,'~1,550 EGP/ea landed',V.motors[sc],VSRC.motors[sc],'cn');
+    rows+=row('STM32 FOC hoverboard controller',1,'3,800 EGP landed',V.ctrl[sc],VSRC.ctrl[sc],'cn');
+  }
+  rows+=row('Motor mounting, pistons & custom steel brackets',1,'3,000 EGP',S.mount,'Custom fabrication + machining (confirmed)','eg');
+  rows+=row(`36V 4.4Ah 10S2P battery pack${sc===0?' × 1':' × 2 (dual)'}`,sc===0?1:2,'1,120 EGP/pack',V.battery[sc],VSRC.battery[sc],'eg');
+  rows+=catRow('Control & safety');
+  rows+=row('Arduino Mega 2560',1,'1,200 EGP',S.ard,'Local electronics market','eg');
+  rows+=row('Heavy duty arcade joystick (6-direction)',1,'750 EGP',S.jtk,'Local market','eg');
+  rows+=row('Red mushroom E-stop switch',1,'60 EGP',S.est,'Local','eg');
+  rows+=row('Emergency SOS arcade button (green LED)',1,'145 EGP',S.sos,'Local','eg');
+  rows+=row('Buzzer 95dB',1,'25 EGP',S.bz,'Local','eg');
+  rows+=row('Wiring, connectors, cable management',1,'600 EGP',S.wire,'Local market','eg');
+  rows+=catRow('Power electronics');
+  rows+=row('12V 20Ah Li-ion battery (electronics rail)',1,'2,500 EGP',S.rail,'Local market','eg');
+  rows+=row('XL4016 + LM2596 buck converters × 3 + enclosure',1,'465 EGP',S.bucks,'Local electronics','eg');
+  if(m>=1){
+    rows+=catRow('Health monitoring');
+    rows+=row('ESP32-S3 — IoT gateway, Firebase, BLE',1,'540 EGP',S.esp32,'Local','eg');
+    rows+=row('MLX90614 contactless IR temperature sensor',1,'500 EGP',S.mlx,'Local','eg');
+    rows+=row('MAX30102 heart rate + SpO2 × 2',2,'217 EGP/ea',S.max,'Local','eg');
+    rows+=row('MPU-6050 IMU — fall detection + tilt',1,'175 EGP',S.mpu,'Local','eg');
+  }
+  if(m>=2){
+    rows+=catRow('Computing & navigation');
+    rows+=row('Raspberry Pi 5 (8GB) — ROS2 Jazzy, Nav2, Vosk ASR',1,'14,000 EGP',S.rpi5,'Local Egyptian distributor (confirmed)','eg');
+    rows+=row('NVMe M.2 HAT + 256GB SSD + RPi5 cooler + case',1,'2,000 EGP',S.nvm,'Local/Amazon.eg','eg');
+    rows+=row('RPLidar A1M8 — 360° 2D LiDAR, 5m range',1,'8,500 EGP',S.lidar,'Local distributor (confirmed)','eg');
+    rows+=row('USB omnidirectional microphone',1,'450 EGP',S.mic,'Local','eg');
+  }
+  const asmNote=sc===0?'Founders (sweat equity — 0 cash cost)':m>=2?'~10–12 hrs engineering + QA + packaging':'~7–9 hrs assembly + QA + packaging';
+  rows+=`<tr class="sub-row"><td colspan="3">Component BOM subtotal</td><td class="num">${fmt(B.comp)} EGP</td></tr>
+    <tr><td colspan="3" style="color:var(--t3);font-size:12px;padding:8px 12px">Assembly, QA &amp; packaging<div class="src">${asmNote}</div></td><td class="num2" style="padding:8px 12px">${B.asm===0?'— (sweat equity)':'+'+fmt(B.asm)+' EGP'}</td></tr>
+    <tr class="cogs-row"><td colspan="3">Total COGS — cost to deliver one unit</td><td class="num">${fmt(B.cogs)} EGP</td></tr>
+    <tr class="retail-row"><td colspan="3">Target retail price</td><td class="num">${fmt(retLo)}–${fmt(retHi)} EGP</td></tr>`;
+
+  let chinaHTML='';
+  if(m===0){
+    chinaHTML=`<div class="sec">Competitive positioning — Alpha vs Chinese electric chairs</div>
+    <div class="cmp-box"><div class="cmp-hdr">⚡ How RAFEEQ Alpha competes in the Egyptian market</div>
+    <div class="cmp-body">
+    <div class="cmp-pos"><strong>Core message:</strong> RAFEEQ Alpha doesn't require users to throw away their existing manual wheelchair. It adds electric drive to it — at roughly the same price as a mid-range Chinese replacement. Families who already own a manual wheelchair (worth 2,000–8,000 EGP) effectively get Alpha for far less in total cost.</div>
+    <div style="overflow-x:auto;border-radius:var(--r);border:0.5px solid var(--bd)"><table class="chi-tbl">
+      <thead><tr><th>Feature</th><th>Budget Chinese (15–19K)</th><th>Mid-range Chinese (22–28K)</th><th>RAFEEQ Alpha (20–24K)</th></tr></thead>
+      <tbody>
+      <tr><td>Motor type</td><td>Brush 200–250W</td><td>Brush 250W dual</td><td class="rfq-row"><strong>FOC Brushless 350W × 2</strong></td></tr>
+      <tr><td>System voltage</td><td>24V</td><td>24V or 36V</td><td class="rfq-row"><strong>36V — more torque + range</strong></td></tr>
+      <tr><td>Battery</td><td>Single lead-acid or Li-ion</td><td>Single Li-ion</td><td class="rfq-row"><strong>Dual 36V 4.4Ah Li-ion (2×)</strong></td></tr>
+      <tr><td>Retrofit existing chair</td><td>No — full replacement</td><td>No — full replacement</td><td class="rfq-row"><strong>Yes — keeps user's existing chair</strong></td></tr>
+      <tr><td>Upgrade path</td><td>None</td><td>None</td><td class="rfq-row"><strong>Alpha → Beta → Gamma</strong></td></tr>
+      <tr><td>After-sales in Egypt</td><td>Via distributor (slow)</td><td>Via distributor</td><td class="rfq-row"><strong>Direct — made in Egypt</strong></td></tr>
+      </tbody></table></div>
+    <div class="sec" style="margin-top:16px">Three strategies to win</div>
+    <div class="str-grid">
+      <div class="str-card"><div class="str-lbl">Strategy A</div><div class="str-ttl">Market entry pricing</div><div class="str-body">Launch Alpha at 20,000–22,000 EGP to match Chinese chairs on price. Accept thin margin (8–19%) for first 20 units. Build testimonials and brand trust. Raise to 25,000–27,000 EGP after credibility is established.</div><div class="str-impact">Action: Set 20,000 EGP launch price — same as mid-range Chinese, but technically superior</div></div>
+      <div class="str-card"><div class="str-lbl">Strategy B</div><div class="str-ttl">Remove 12V rail battery</div><div class="str-body">Alpha only needs Arduino + joystick from the electronics rail — a very small load. Power via DC-DC from main 36V pack instead of a separate 12V 20Ah battery. Removes 2,500 EGP from COGS → Alpha margin jumps to ~30% at 22,000 EGP. Requires one hardware revision.</div><div class="str-impact">Impact: −2,500 EGP COGS → viable 28–30% margin at competitive 22,000 EGP retail</div></div>
+      <div class="str-card"><div class="str-lbl">Strategy C</div><div class="str-ttl">Volume cost reduction</div><div class="str-body">At 50+ units: Alibaba volume tier (1,037/ea) + bulk import → motors cost 2,600 instead of 3,100 EGP. Plus negotiated controller pricing. Estimated COGS reduction: 1,000–1,500 EGP. Alpha becomes viable at 22,000 EGP with 25–30% margin.</div><div class="str-impact">Path: Build to 50 units total → volume pricing kicks in → Alpha becomes profitable</div></div>
+    </div></div></div>`;
+  }
+
+  const FEATS=[
+    [['Drive','350W FOC brushless hub motors × 2, 36V, FOC control'],['Dual battery',sc===0?'1× pack only (prototype)':'2× 36V 4.4Ah — extended run time, reduced voltage sag'],['Control','6-direction heavy duty arcade joystick'],['Safety','Mushroom E-stop + 95dB buzzer + SOS emergency button'],['Autonomous navigation','— Not included (upgrade to Gamma)'],['Health monitoring','— Not included (upgrade to Beta)'],['Arabic support','Upgrade path only'],['Offline','✓ Fully offline'],['Retrofit','✓ Any standard manual wheelchair']],
+    [['Drive','350W FOC brushless hub motors × 2, 36V'],['Dual battery',sc===0?'1× pack only':'2× 36V 4.4Ah — extended run time'],['Health','HR (MAX30102), SpO2, contactless temp (MLX90614), fall detection (IMU)'],['Cloud & app','Firebase → Flutter caregiver app (patient + caregiver roles)'],['SOS alert','Button → Twilio voice call + FCM push'],['Fall detection','MPU-6050 >45° tilt → buzzer + cloud alert'],['Autonomous navigation','— Not included'],['Arabic support','✓ Caregiver app fully in Arabic'],['Offline','Drive offline; health sync requires WiFi'],['Retrofit','✓ Any standard manual wheelchair']],
+    [['Autonomous navigation','SLAM Toolbox + Nav2, RPLidar A1M8, ROS2 Jazzy — fully indoor autonomous'],['Voice control','Offline Egyptian Arabic — Vosk, 94% accuracy, ~120ms latency'],['AI companion','Wake-word "Rafeeq" → KWS → conversational NLP (RAG)'],['Drive','350W FOC brushless hub motors × 2, 36V'],['Dual battery',sc===0?'1× pack (prototype)':'2× 36V 4.4Ah — parallel config, ~40A continuous'],['Health','HR, SpO2, contactless temperature, fall detection'],['Cloud & app','Firebase + Flutter — patient + caregiver + navigation'],['SOS alert','Twilio voice call + FCM push + WebSocket'],['Arabic','✓ Egyptian dialect — voice + app + TTS — fully offline'],['Offline','✓ Navigation + ASR + AI offline; cloud optional'],['Retrofit','✓ Any standard manual wheelchair']],
+  ];
+  const COMPS=[
+    [[false,'Generic Chinese electric chair\n(amazon.eg)','15,000–26,750 EGP\n(full replacement)','None','None','None','No — full chair','Brush motor, lower power, no Egypt after-sales, zero upgrade path'],
+     [false,'Dr. Ortho DR-N-40 (Egypt)','~26,000–27,500 EGP\n(full electric chair)','None','None','None','No — full chair','250W brush motor, no retrofit, no modularity, no upgrade'],
+     [true,'RAFEEQ Alpha (this work)',`${fmt(retLo)}–${fmt(retHi)} EGP`,'—','—','Planned','✓ Any chair','FOC 350W×2, dual battery, retrofit, upgrade path → Beta → Gamma, Made in Egypt']],
+    [[false,'Electric chair + separate IoT\n(two products)','30,000–50,000 EGP','None','Partial (disconnected)','None','No','Two separate devices, no integration, no upgrade path, no Arabic'],
+     [false,'iHealth import','80,000–120,000 EGP\nimport + customs','Basic','HR + SpO2 (English)','None','No — full unit','English only, cloud-dependent, no Egypt service, ×2–3 price'],
+     [true,'RAFEEQ Beta (this work)',`${fmt(retLo)}–${fmt(retHi)} EGP`,'—','HR, SpO2, temp, fall','✓ Full Arabic app','✓ Any chair','Fully integrated, ~55% cheaper than imports, Made in Egypt']],
+    [[false,'LUCI retrofit kit (USA)\n(sensors only, no motors)','$8,445 ≈ 426,000 EGP','Collision avoidance only','None','Alexa — English only','Power chairs only','No autonomous nav, no health, no Arabic — ×5–6× price vs RAFEEQ Gamma'],
+     [false,'Permobil M3 (imported)','$15,000–25,000 ≈ 760K–1.26M EGP','Basic avoidance','None','None','No — full chair','Not a retrofit, no Arabic, ×10–20× price'],
+     [true,'RAFEEQ Gamma ★ (this work)',`${fmt(retLo)}–${fmt(retHi)} EGP`,'Full SLAM autonomous\nROS2 Jazzy + Nav2','HR, SpO2, temp, fall','✓ Egyptian dialect\nfully offline','✓ Any chair','Full autonomy + health + Arabic — ~82% cheaper than LUCI (retail vs retail)']],
+  ];
+
+  let featRows='',compRows='';
+  for(const f of FEATS[m]) featRows+=`<tr><td>${f[0]}</td><td>${f[1]}</td></tr>`;
+  for(const c of COMPS[m]){
+    const[us,n,p,nav,hlth,ar,ret,note]=c;
+    const nl=s=>s.replace(/\n/g,'<br>');
+    compRows+=`<tr ${us?'class="rfq-row"':''}>
+      <td style="font-weight:${us?600:400}">${nl(n)}</td>
+      <td>${nl(p)}</td><td>${nl(nav)}</td><td>${nl(hlth)}</td><td>${nl(ar)}</td><td>${nl(ret)}</td>
+      <td style="font-size:11px;${us?'color:var(--am);font-weight:500':''}">${nl(note)}</td></tr>`;
+  }
+
+  document.getElementById('out').innerHTML=`<div class="main">
+    <div class="intro"><div class="intro-name">${NAMES[m]}</div><div class="intro-sub">${SUBS[m]}</div><div class="intro-desc">${DESCS[m]}</div></div>
+    <div class="sc-note">ℹ️ <span>${SC_NOTE[sc]}</span></div>
+    <div class="cbar-wrap">
+      <div class="cbar-lbl">How the retail price is built — ${fmt(retLo)}–${fmt(retHi)} EGP target</div>
+      <div class="cbar-track">
+        <div class="cbar-bom" style="width:${bomPct}%">${bomPct}% BOM</div>
+        <div class="cbar-asm" style="width:${asmPct}%">${asmPct>6?asmPct+'% Asm':''}</div>
+        <div class="cbar-mgn">${mgnPct}% Margin</div>
+      </div>
+      <div class="cbar-leg">
+        <span><span class="cbar-dot" style="background:var(--navy)"></span>Component BOM — ${fmt(B.comp)} EGP</span>
+        <span><span class="cbar-dot" style="background:var(--navy-m)"></span>Assembly + QA — ${B.asm===0?'0 (sweat equity)':fmt(B.asm)+' EGP'}</span>
+        <span><span class="cbar-dot" style="background:var(--gold)"></span>Gross margin — ~${mgnPct}% at ${fmt(retMid)} EGP mid-point</span>
+      </div>
+    </div>
+    <div class="mcards">
+      <div class="mc"><div class="mc-lbl">Component BOM</div><div class="mc-val">${fmt(B.comp)} EGP</div><div class="mc-sub">Parts only</div></div>
+      <div class="mc"><div class="mc-lbl">Assembly + QA</div><div class="mc-val">${B.asm===0?'—':fmt(B.asm)+' EGP'}</div><div class="mc-sub">${sc===0?'Sweat equity':'Contract labor'}</div></div>
+      <div class="mc navy"><div class="mc-lbl">Total COGS</div><div class="mc-val">${fmt(B.cogs)} EGP</div><div class="mc-sub">To deliver 1 unit</div></div>
+      <div class="mc gold"><div class="mc-lbl">Retail target</div><div class="mc-val">${fmt(retLo)}–${fmt(retHi)}</div><div class="mc-sub">EGP</div></div>
+      <div class="mc green"><div class="mc-lbl">Gross margin</div><div class="mc-val">~${margin}%</div><div class="mc-sub">At ${fmt(retMid)} EGP</div></div>
+      <div class="mc"><div class="mc-lbl">${COMP_LBL[m].split('(')[0]}</div><div class="mc-val" style="color:var(--gr)">${saving}% cheaper</div><div class="mc-sub">Retail vs retail</div></div>
+    </div>
+    <div class="sec">Component BOM breakdown</div>
+    <div class="tbl-wrap"><table class="bom-tbl">
+      <thead><tr><th>Component · source</th><th style="text-align:center">Qty</th><th style="text-align:right">Unit / note</th><th style="text-align:right">Subtotal</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <div class="note-box">
+      <strong>China import overhead (amber):</strong> Alibaba/AliExpress price + shipping + Egyptian customs (20%) + VAT (14%) + fees (3%) = approximately +37% total for small batch.
+      <strong> Egypt-local (green):</strong> No additional import overhead. <strong> USD/EGP:</strong> 50.5 (June 2026).
+      <strong> Gross margin %</strong> at retail mid-point — does not include fixed cost overhead (salaries, lab, R&D). Fixed recovery needs ~3 Gamma units/month. → <button onclick="setGuide()" style="background:none;border:none;color:var(--navy);font-weight:600;cursor:pointer;font-family:inherit;font-size:11px;text-decoration:underline">Open Business Guide for full scorecard ↗</button>
+    </div>
+    ${chinaHTML}
+    <div class="sec">Feature breakdown</div>
+    <div class="tbl-wrap"><table class="feat-tbl"><tbody>${featRows}</tbody></table></div>
+    <div class="divider"></div>
+    <div class="sec">Competitive comparison — same tier</div>
+    <div class="comp-wrap"><table class="comp-tbl">
+      <thead><tr><th>Product</th><th>Price (EGP)</th><th>Navigation</th><th>Health</th><th>Arabic</th><th>Retrofit</th><th>Key difference</th></tr></thead>
+      <tbody>${compRows}</tbody></table></div>
+  </div>`;
+}
+
+render();
+</script>

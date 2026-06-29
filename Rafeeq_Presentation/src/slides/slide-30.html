@@ -1,0 +1,136 @@
+﻿<!-- ═══════════════════════════════════════════
+     SLIDE 25 — NAV 2: SLAM — MAPPING THE ENVIRONMENT
+     mapping.png (left) + mapping2.png (right) + flow
+═══════════════════════════════════════════ -->
+<div class="slide light" id="slide-30" data-slide="30"
+     style="background:#ffffff;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:4px;z-index:10;
+    background:linear-gradient(90deg,#C9992A,#22c55e,#3B7DE8);"></div>
+
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;
+              padding:36px 48px 30px;box-sizing:border-box;gap:18px;">
+
+    <!-- Header -->
+    <div id="n2-hdr" style="flex:0 0 auto;opacity:0;transform:translateY(-16px);transition:none;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C9992A;margin-bottom:5px;">Autonomous Navigation · Step 1 — Build the Map</div>
+      <div style="font-size:26px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;">SLAM Toolbox: Simultaneous Localisation and Mapping</div>
+      <div id="n2-uline" style="height:3px;background:#C9992A;border-radius:2px;width:0;margin-top:8px;transition:none;"></div>
+    </div>
+
+    <!-- Body -->
+    <div style="flex:1;min-height:0;display:flex;gap:20px;">
+
+      <!-- LEFT image panel -->
+      <div id="n2-imgL" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateX(-20px);transition:none;">
+        <div style="flex:1;min-height:0;background:#0D1F3C;border-radius:16px;overflow:hidden;position:relative;">
+          <img src="nav_mapping.png" alt="SLAM mapping in progress"
+               style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px;
+            background:linear-gradient(0deg,rgba(13,31,60,0.9),transparent);">
+            <div style="font-size:10px;font-weight:700;color:#C9992A;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2px;">Mapping In Progress</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.6);">Partial occupancy grid + live LiDAR scan rays</div>
+          </div>
+          <!-- Live badge -->
+          <div style="position:absolute;top:12px;left:12px;background:#C94040;color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:0.1em;text-transform:uppercase;">Live SLAM</div>
+        </div>
+      </div>
+
+      <!-- RIGHT image panel -->
+      <div id="n2-imgR" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateX(20px);transition:none;">
+        <div style="flex:1;min-height:0;background:#0D1F3C;border-radius:16px;overflow:hidden;position:relative;">
+          <img src="nav_mapping2.png" alt="Completed map"
+               style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px;
+            background:linear-gradient(0deg,rgba(13,31,60,0.9),transparent);">
+            <div style="font-size:10px;font-weight:700;color:#22c55e;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:2px;">Expanded Map View</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.6);">Larger explored area — robot position visible</div>
+          </div>
+          <div style="position:absolute;top:12px;left:12px;background:#22c55e;color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:0.1em;text-transform:uppercase;">Map Built</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: flow + bullets -->
+    <div style="flex:0 0 auto;display:flex;gap:20px;align-items:stretch;">
+
+      <!-- I/O flow -->
+      <div id="n2-flow" style="flex:0 0 auto;display:flex;align-items:center;gap:0;background:#0D1F3C;border-radius:12px;padding:12px 20px;opacity:0;transform:translateY(14px);transition:none;">
+        <div style="text-align:center;padding:0 16px;">
+          <div style="font-size:10px;font-weight:800;color:#C9992A;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Input</div>
+          <div style="font-size:11px;font-weight:700;color:#fff;">2D LiDAR /scan<br><span style="color:rgba(255,255,255,0.4);font-weight:400;">/odometry/filtered</span></div>
+        </div>
+        <div style="color:#C9992A;font-size:20px;margin:0 4px;font-weight:300;">&#8594;</div>
+        <div style="text-align:center;padding:0 16px;border:1px solid rgba(201,153,42,0.35);border-radius:10px;margin:0 6px;">
+          <div style="font-size:9px;font-weight:800;color:#C9992A;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Algorithm</div>
+          <div style="font-size:13px;font-weight:900;color:#fff;">SLAM Toolbox</div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.4);margin-top:1px;">Ceres · Levenberg-Marquardt</div>
+        </div>
+        <div style="color:#22c55e;font-size:20px;margin:0 4px;font-weight:300;">&#8594;</div>
+        <div style="text-align:center;padding:0 16px;">
+          <div style="font-size:10px;font-weight:800;color:#22c55e;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Output</div>
+          <div style="font-size:11px;font-weight:700;color:#fff;">Occupancy Grid<br><span style="color:rgba(255,255,255,0.4);font-weight:400;">5 cm/cell · map_saver</span></div>
+        </div>
+      </div>
+
+      <!-- Key points -->
+      <div id="n2-bullets" style="flex:1;display:flex;gap:10px;opacity:0;transform:translateY(14px);transition:none;">
+        <div class="n2-bullet"><span style="color:#C9992A;font-weight:800;">&#8226;</span> Loop closure enabled — corrects drift when robot revisits areas</div>
+        <div class="n2-bullet"><span style="color:#C9992A;font-weight:800;">&#8226;</span> Map cells: white = free space · black = walls · grey = unknown</div>
+        <div class="n2-bullet"><span style="color:#C9992A;font-weight:800;">&#8226;</span> Map saved via <span style="font-family:monospace;font-size:10px;background:rgba(13,31,60,0.08);padding:1px 5px;border-radius:3px;">map_saver</span> and reloaded for all navigation sessions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.n2-bullet {
+  flex:1;background:#fafafa;border:1.5px solid #ececec;border-radius:10px;
+  padding:10px 13px;font-size:11px;color:rgba(13,31,60,0.65);line-height:1.6;
+  display:flex;gap:7px;align-items:flex-start;
+}
+</style>
+
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){ timers.push(setTimeout(fn,ms)); }
+  function clearAll(){ timers.forEach(clearTimeout);timers=[]; }
+  function q(id){ return document.getElementById(id); }
+
+  function show(id,delay){
+    at(function(){
+      var el=q(id); if(!el)return;
+      el.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      el.style.opacity='1'; el.style.transform='translate(0,0)';
+    },delay);
+  }
+
+  function enter(){
+    show('n2-hdr',80);
+    at(function(){
+      var ul=q('n2-uline'); if(ul){ul.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';ul.style.width='52px';}
+    },360);
+    show('n2-imgL',200);
+    show('n2-imgR',360);
+    show('n2-flow',480);
+    show('n2-bullets',580);
+  }
+
+  function leave(){
+    clearAll();
+    ['n2-hdr','n2-imgL','n2-imgR','n2-flow','n2-bullets'].forEach(function(id){
+      var el=q(id); if(!el)return;
+      el.style.transition='none';el.style.opacity='0';
+    });
+    var ul=q('n2-uline'); if(ul){ul.style.transition='none';ul.style.width='0';}
+  }
+
+  window._slide30={ enter:enter, leave:leave };
+})();
+</script>
+
+
+
+﻿

@@ -1,0 +1,643 @@
+﻿<div class="slide" id="slide-12" data-slide="12">
+  <div class="sp10-layout">
+
+    <!-- TOP BAR -->
+    <div class="sp10-topbar" id="sp10-topbar">
+      <div class="sp10-section-label">Methodology &amp; Implementation</div>
+      <div class="sp10-title">How We Built It</div>
+      <div class="sp10-subtitle">Full system — hardware to AI to mobile app — watch it come alive</div>
+    </div>
+
+    <div class="sp10-stage">
+
+      <!-- LEFT: phases -->
+      <div class="sp10-phases" id="sp10-phases">
+        <div class="sp10-phase active" id="sp10-ph0" data-phase="0"><div class="sp10-phase-num">00</div><i class="ti ti-circuit-board sp10-phase-icon"></i><div class="sp10-phase-lbl">Backbone</div></div>
+        <div class="sp10-phase-line" id="sp10-pl0"></div>
+        <div class="sp10-phase" id="sp10-ph1" data-phase="1"><div class="sp10-phase-num">01</div><i class="ti ti-tool sp10-phase-icon"></i><div class="sp10-phase-lbl">Install Kit</div></div>
+        <div class="sp10-phase-line" id="sp10-pl1"></div>
+        <div class="sp10-phase" id="sp10-ph2" data-phase="2"><div class="sp10-phase-num">02</div><i class="ti ti-cpu sp10-phase-icon"></i><div class="sp10-phase-lbl">Boot</div></div>
+        <div class="sp10-phase-line" id="sp10-pl2"></div>
+        <div class="sp10-phase" id="sp10-ph3" data-phase="3"><div class="sp10-phase-num">03</div><i class="ti ti-microphone sp10-phase-icon"></i><div class="sp10-phase-lbl">Voice</div></div>
+        <div class="sp10-phase-line" id="sp10-pl3"></div>
+        <div class="sp10-phase" id="sp10-ph4" data-phase="4"><div class="sp10-phase-num">04</div><i class="ti ti-route sp10-phase-icon"></i><div class="sp10-phase-lbl">Navigate</div></div>
+        <div class="sp10-phase-line" id="sp10-pl4"></div>
+        <div class="sp10-phase" id="sp10-ph5" data-phase="5"><div class="sp10-phase-num">05</div><i class="ti ti-heart-rate-monitor sp10-phase-icon"></i><div class="sp10-phase-lbl">Health</div></div>
+        <div class="sp10-phase-line" id="sp10-pl5"></div>
+        <div class="sp10-phase" id="sp10-ph6" data-phase="6"><div class="sp10-phase-num">06</div><i class="ti ti-device-mobile sp10-phase-icon"></i><div class="sp10-phase-lbl">Mobile App</div></div>
+        <div class="sp10-phase-line" id="sp10-pl6"></div>
+        <div class="sp10-phase" id="sp10-ph7" data-phase="7"><div class="sp10-phase-num">07</div><i class="ti ti-brain sp10-phase-icon"></i><div class="sp10-phase-lbl">AI + RAG</div></div>
+      </div>
+
+      <!-- CENTER: viewport -->
+      <div class="sp10-viewport" id="sp10-viewport">
+
+        <!-- Phase 0: Backbone — Mechanical / Electrical / Control -->
+        <div class="sp10-scene" id="sp10-sc0">
+          <div class="sp10-backbone-wrap">
+            <div class="sp10-bb-title" id="sp10-bbt">The Physical Foundation</div>
+            <div class="sp10-bb-cards">
+              <div class="sp10-bb-card" id="sp10-bbc0" style="border-color:#C9992A;">
+                <div class="sp10-bb-icon" style="background:rgba(201,153,42,0.12);color:#C9992A;"><i class="ti ti-tool"></i></div>
+                <div class="sp10-bb-name" style="color:#C9992A;">Mechanical</div>
+                <div class="sp10-bb-pills">
+                  <div class="sp10-bb-pill">Custom Frame</div>
+                  <div class="sp10-bb-pill">Drive Wheels</div>
+                  <div class="sp10-bb-pill">Sensor Mounts</div>
+                  <div class="sp10-bb-pill">Cable Routing</div>
+                </div>
+              </div>
+              <div class="sp10-bb-connector" id="sp10-bbcon0">
+                <div class="sp10-bb-con-line"></div>
+              </div>
+              <div class="sp10-bb-card" id="sp10-bbc1" style="border-color:#3B7DE8;">
+                <div class="sp10-bb-icon" style="background:rgba(59,125,232,0.12);color:#3B7DE8;"><i class="ti ti-bolt"></i></div>
+                <div class="sp10-bb-name" style="color:#3B7DE8;">Electrical</div>
+                <div class="sp10-bb-pills">
+                  <div class="sp10-bb-pill">Power Distribution</div>
+                  <div class="sp10-bb-pill">Motor Drivers</div>
+                  <div class="sp10-bb-pill">ESP32 + Pi 5</div>
+                  <div class="sp10-bb-pill">Battery System</div>
+                </div>
+              </div>
+              <div class="sp10-bb-connector" id="sp10-bbcon1">
+                <div class="sp10-bb-con-line"></div>
+              </div>
+              <div class="sp10-bb-card" id="sp10-bbc2" style="border-color:#22c55e;">
+                <div class="sp10-bb-icon" style="background:rgba(34,197,94,0.12);color:#22c55e;"><i class="ti ti-settings"></i></div>
+                <div class="sp10-bb-name" style="color:#22c55e;">Control</div>
+                <div class="sp10-bb-pills">
+                  <div class="sp10-bb-pill">PID Loops</div>
+                  <div class="sp10-bb-pill">ROS2 Drivers</div>
+                  <div class="sp10-bb-pill">Encoder Feedback</div>
+                  <div class="sp10-bb-pill">Safety Layer</div>
+                </div>
+              </div>
+            </div>
+            <div class="sp10-bb-tagline" id="sp10-bbtag">Everything above runs because this works.</div>
+          </div>
+        </div>
+
+        <!-- Phase 1: Install kit -->
+        <div class="sp10-scene" id="sp10-sc1">
+          <div class="sp10-chair-box"><div class="sp10-chair-icon"><i class="ti ti-wheelchair"></i></div><div class="sp10-chair-label">Standard Wheelchair</div></div>
+          <div class="sp10-arrow-anim"><i class="ti ti-arrow-right"></i></div>
+          <div class="sp10-kit-box">
+            <div class="sp10-kit-parts">
+              <div class="sp10-kit-part" id="sp10-kp0"><i class="ti ti-cpu"></i><span>Pi 5</span></div>
+              <div class="sp10-kit-part" id="sp10-kp1"><i class="ti ti-microphone"></i><span>Mic Array</span></div>
+              <div class="sp10-kit-part" id="sp10-kp2"><i class="ti ti-camera"></i><span>Cameras</span></div>
+              <div class="sp10-kit-part" id="sp10-kp3"><i class="ti ti-heart-rate-monitor"></i><span>Sensors</span></div>
+              <div class="sp10-kit-part" id="sp10-kp4"><i class="ti ti-engine"></i><span>Motors</span></div>
+            </div>
+            <div class="sp10-kit-label">Rafeeq Retrofit Kit</div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Boot -->
+        <div class="sp10-scene" id="sp10-sc2" style="display:none">
+          <div class="sp10-terminal">
+            <div class="sp10-term-bar"><span class="sp10-dr"></span><span class="sp10-dy"></span><span class="sp10-dg"></span><span class="sp10-term-title">Rafeeq Boot</span></div>
+            <div class="sp10-term-body">
+              <div class="sp10-tl" id="sp10-tl0">Booting Raspberry Pi 5…</div>
+              <div class="sp10-tl" id="sp10-tl1" style="display:none">Starting ROS 2 Humble…</div>
+              <div class="sp10-tl" id="sp10-tl2" style="display:none">Loading ORB-SLAM3 map…</div>
+              <div class="sp10-tl" id="sp10-tl3" style="display:none">Wake-word engine: Porcupine ready</div>
+              <div class="sp10-tl" id="sp10-tl4" style="display:none">Sensors: MAX30102 · MLX90614 · MPU-6050</div>
+              <div class="sp10-tl" id="sp10-tl5" style="display:none">Firebase connected · App sync active</div>
+              <div class="sp10-tl sp10-tl-ok" id="sp10-tl6" style="display:none">Rafeeq is ready.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3: Voice -->
+        <div class="sp10-scene" id="sp10-sc3" style="display:none">
+          <div class="sp10-voice-demo">
+            <div class="sp10-mic-ring"><div class="sp10-mic-pulse"></div><div class="sp10-mic-icon"><i class="ti ti-microphone"></i></div></div>
+            <div class="sp10-transcript"><span class="sp10-wake" id="sp10-wake"></span><span class="sp10-cmd" id="sp10-cmd"></span><span class="sp10-cur">|</span></div>
+            <div class="sp10-vpills">
+              <div class="sp10-vpill" id="sp10-vp0">Audio</div><div class="sp10-vparr">→</div>
+              <div class="sp10-vpill" id="sp10-vp1">Wake-Word</div><div class="sp10-vparr">→</div>
+              <div class="sp10-vpill" id="sp10-vp2">NLP Parse</div><div class="sp10-vparr">→</div>
+              <div class="sp10-vpill" id="sp10-vp3">Execute</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4: Navigation -->
+        <div class="sp10-scene" id="sp10-sc4" style="display:none">
+          <div class="sp10-nav-demo">
+            <svg class="sp10-map-svg" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg">
+              <rect class="sp10-room" x="14" y="14" width="280" height="190" rx="8"/>
+              <rect class="sp10-room" x="14" y="224" width="150" height="182" rx="8"/>
+              <rect class="sp10-room" x="174" y="224" width="104" height="182" rx="8"/>
+              <rect class="sp10-room" x="308" y="14" width="398" height="190" rx="8"/>
+              <rect class="sp10-room" x="308" y="224" width="200" height="182" rx="8"/>
+              <rect class="sp10-room" x="518" y="224" width="188" height="182" rx="8"/>
+              <text class="sp10-rlbl" x="154" y="109">Bedroom</text>
+              <text class="sp10-rlbl" x="89" y="315">Bath</text>
+              <text class="sp10-rlbl" x="226" y="315">Hall</text>
+              <text class="sp10-rlbl" x="507" y="109">Living Room</text>
+              <text class="sp10-rlbl" x="408" y="315">Kitchen</text>
+              <text class="sp10-rlbl" x="612" y="315">Dining</text>
+              <polyline class="sp10-nav-path" id="sp10-nav-path" points="154,109 226,109 306,109 306,315 408,315" stroke-dasharray="1600" stroke-dashoffset="1600"/>
+              <circle class="sp10-start-dot" cx="154" cy="109" r="14"/>
+              <circle id="sp10-dest-dot" cx="408" cy="315" r="14" fill="#22c55e" opacity="0"/>
+              <g id="sp10-chair-g" transform="translate(154,109)"><circle r="16" fill="#0D1F3C"/><text y="6" text-anchor="middle" font-size="18" fill="#C9992A">♿</text></g>
+            </svg>
+            <div class="sp10-nav-status" id="sp10-nav-status">Planning path to Kitchen…</div>
+          </div>
+        </div>
+
+        <!-- Phase 5: Health -->
+        <div class="sp10-scene" id="sp10-sc5" style="display:none">
+          <div class="sp10-health-demo">
+            <div class="sp10-vital-row">
+              <div class="sp10-vcard sp10-vcard-hr"><div class="sp10-vcard-lbl"><i class="ti ti-heart"></i>HR</div><div class="sp10-vcard-val"><span id="sp10-hrv">72</span><span class="sp10-vunit">bpm</span></div><div class="sp10-vbar-track"><div class="sp10-vbar-fill sp10-vbar-hr" id="sp10-hrbar" style="width:60%"></div></div></div>
+              <div class="sp10-vcard sp10-vcard-spo2"><div class="sp10-vcard-lbl"><i class="ti ti-lungs"></i>SpO₂</div><div class="sp10-vcard-val"><span id="sp10-spo2v">98</span><span class="sp10-vunit">%</span></div><div class="sp10-vbar-track"><div class="sp10-vbar-fill sp10-vbar-spo2" id="sp10-spo2bar" style="width:98%"></div></div></div>
+              <div class="sp10-vcard sp10-vcard-temp"><div class="sp10-vcard-lbl"><i class="ti ti-thermometer"></i>Temp</div><div class="sp10-vcard-val"><span id="sp10-tempv">36.8</span><span class="sp10-vunit">°C</span></div><div class="sp10-vbar-track"><div class="sp10-vbar-fill sp10-vbar-temp" id="sp10-tempbar" style="width:68%"></div></div></div>
+              <div class="sp10-vcard sp10-vcard-fall" id="sp10-fall-card"><div class="sp10-vcard-lbl"><i class="ti ti-device-watch"></i>Fall</div><div class="sp10-fall-ok" id="sp10-fall-ok"><i class="ti ti-check"></i>Stable</div><div class="sp10-fall-alrt" id="sp10-fall-alrt" style="display:none">FALL!</div></div>
+            </div>
+            <div class="sp10-health-actions">
+              <button class="sp10-fall-btn" id="sp10-fall-btn"><i class="ti ti-run"></i>Simulate Fall</button>
+              <div class="sp10-alert-strip" id="sp10-alert-strip"><i class="ti ti-bell-ringing"></i>Caregiver notified via App + SMS</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 6: Mobile App -->
+        <div class="sp10-scene" id="sp10-sc6" style="display:none">
+          <div class="sp10-app-demo">
+            <div class="sp10-app-title">Flutter + Firebase — Dual Role App</div>
+            <div class="sp10-app-flow">
+              <div class="sp10-app-node sp10-node-patient" style="min-width:130px;">
+                <div class="sp10-app-node-icon"><i class="ti ti-user" style="font-size:22px;color:#3B7DE8;"></i></div>
+                <div class="sp10-app-node-label">Patient</div>
+                <div class="sp10-app-node-sub" style="text-align:left;line-height:1.7;">
+                  JWT login + role routing<br>
+                  Smart med &amp; appt alarms<br>
+                  Daily check-in (mood, pain)<br>
+                  Live vitals monitoring<br>
+                  SOS → call + WhatsApp<br>
+                  Chat + PDF reports
+                </div>
+              </div>
+              <div class="sp10-app-sync" id="sp10-app-sync">
+                <div class="sp10-sync-line"></div>
+                <div class="sp10-sync-dot" id="sp10-sync-dot"></div>
+                <div class="sp10-sync-label">Firebase<br>+ n8n API</div>
+              </div>
+              <div class="sp10-app-node sp10-node-cg" style="min-width:130px;">
+                <div class="sp10-app-node-icon"><i class="ti ti-stethoscope" style="font-size:22px;color:#22c55e;"></i></div>
+                <div class="sp10-app-node-label">Caregiver</div>
+                <div class="sp10-app-node-sub" style="text-align:left;line-height:1.7;">
+                  Unified patient dashboard<br>
+                  Remote alarms &amp; meds mgmt<br>
+                  Instant emergency alerts<br>
+                  n8n automation (6 endpoints)<br>
+                  Monitor all linked patients
+                </div>
+              </div>
+            </div>
+            <div class="sp10-app-features">
+              <div class="sp10-app-feat" id="sp10-af0">JWT Auth</div>
+              <div class="sp10-app-feat" id="sp10-af1">SOS → WhatsApp</div>
+              <div class="sp10-app-feat" id="sp10-af2">Daily Check-in</div>
+              <div class="sp10-app-feat" id="sp10-af3">PDF Reports</div>
+              <div class="sp10-app-feat" id="sp10-af4">n8n Automation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 7: AI + RAG -->
+        <div class="sp10-scene" id="sp10-sc7" style="display:none">
+          <div class="sp10-rag-demo">
+            <div class="sp10-rag-title">RAG Chatbot — GPT-4o-mini + ChromaDB</div>
+            <div class="sp10-rag-flow">
+              <div class="sp10-rag-step" id="sp10-rs0">
+                <div class="sp10-rag-step-icon" style="background:rgba(201,153,42,0.15);color:#C9992A;"><i class="ti ti-microphone"></i></div>
+                <div class="sp10-rag-step-name">Whisper STT</div>
+                <div class="sp10-rag-step-sub">Arabic voice</div>
+              </div>
+              <div class="sp10-rag-arr">→</div>
+              <div class="sp10-rag-step" id="sp10-rs1">
+                <div class="sp10-rag-step-icon" style="background:rgba(52,152,219,0.15);color:#3498DB;"><i class="ti ti-database"></i></div>
+                <div class="sp10-rag-step-name">ChromaDB</div>
+                <div class="sp10-rag-step-sub">76 chunks · top-3</div>
+              </div>
+              <div class="sp10-rag-arr">→</div>
+              <div class="sp10-rag-step" id="sp10-rs2">
+                <div class="sp10-rag-step-icon" style="background:rgba(142,68,173,0.15);color:#8E44AD;"><i class="ti ti-brain"></i></div>
+                <div class="sp10-rag-step-name">GPT-4o-mini</div>
+                <div class="sp10-rag-step-sub">Live patient context</div>
+              </div>
+              <div class="sp10-rag-arr">→</div>
+              <div class="sp10-rag-step" id="sp10-rs3">
+                <div class="sp10-rag-step-icon" style="background:rgba(39,174,96,0.15);color:#27AE60;"><i class="ti ti-volume"></i></div>
+                <div class="sp10-rag-step-name">ElevenLabs TTS</div>
+                <div class="sp10-rag-step-sub">Arabic voice ~6s</div>
+              </div>
+            </div>
+            <!-- Context strip -->
+            <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:4px 0;">
+              <div class="sp10-ctx-pill"><i class="ti ti-pill"></i> Active meds</div>
+              <div class="sp10-ctx-pill"><i class="ti ti-calendar"></i> Appointments</div>
+              <div class="sp10-ctx-pill"><i class="ti ti-mood-smile"></i> Today's mood</div>
+              <div class="sp10-ctx-pill"><i class="ti ti-heart-rate-monitor"></i> Live vitals</div>
+              <div class="sp10-ctx-pill"><i class="ti ti-messages"></i> Chat history</div>
+            </div>
+            <div class="sp10-rag-chat" id="sp10-rag-chat">
+              <div class="sp10-rag-msg sp10-rag-user" id="sp10-rm0" style="opacity:0">أشعر بالوحدة اليوم</div>
+              <div class="sp10-rag-msg sp10-rag-ai" id="sp10-rm1" style="opacity:0">SpO₂ 98% · HR 76bpm · mood: low — retrieving support…</div>
+              <div class="sp10-rag-msg sp10-rag-ai" id="sp10-rm2" style="opacity:0">﴿فَإِنَّ مَعَ الْعُسْرِ يُسْرًا﴾ — أنت لستَ وحدك يا محمد 🤍</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /viewport -->
+
+      <!-- RIGHT: controls -->
+      <div class="sp10-controls" id="sp10-controls">
+        <div class="sp10-ctrl-label">Simulation</div>
+        <button class="sp10-ctrl-btn sp10-play" id="sp10-play-btn"><i class="ti ti-player-play"></i>Play All</button>
+        <button class="sp10-ctrl-btn sp10-next" id="sp10-next-btn"><i class="ti ti-arrow-right"></i>Next</button>
+        <button class="sp10-ctrl-btn sp10-reset" id="sp10-reset-btn"><i class="ti ti-refresh"></i>Reset</button>
+        <div class="sp10-progress-box">
+          <div class="sp10-progress-lbl" id="sp10-progress-lbl">Step 1 of 8</div>
+          <div class="sp10-progress-track"><div class="sp10-progress-fill" id="sp10-progress-fill" style="width:14%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<style>
+#slide-12 { background: #ffffff; overflow: hidden; }
+.sp10-layout { display:flex;flex-direction:column;width:100%;height:100%;padding:24px 40px 20px;box-sizing:border-box;gap:14px; }
+.sp10-topbar { display:flex;align-items:baseline;gap:16px;border-bottom:2px solid rgba(201,153,42,0.25);padding-bottom:12px;opacity:0;transform:translateY(-14px);transition:none;flex-shrink:0; }
+.sp10-section-label { font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#C9992A;flex-shrink:0; }
+.sp10-title { font-size:30px;font-weight:900;color:#0D1F3C;letter-spacing:-0.02em;flex-shrink:0; }
+.sp10-subtitle { font-size:14px;color:rgba(13,31,60,0.45);flex:1; }
+.sp10-stage { display:flex;gap:16px;flex:1;min-height:0; }
+/* Phases */
+.sp10-phases { display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;padding-top:4px;opacity:0;transform:translateX(-18px);transition:none; }
+.sp10-phase { display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:8px;cursor:pointer;border:1.5px solid rgba(13,31,60,0.12);background:rgba(13,31,60,0.03);transition:all 0.3s ease;min-width:74px;text-align:center; }
+.sp10-phase.active { border-color:#C9992A;background:rgba(201,153,42,0.08);box-shadow:0 2px 10px rgba(201,153,42,0.15); }
+.sp10-phase.done { border-color:#22c55e;background:rgba(34,197,94,0.06); }
+.sp10-phase-num { font-size:9px;font-weight:700;color:#C9992A;letter-spacing:0.1em; }
+.sp10-phase.done .sp10-phase-num { color:#22c55e; }
+.sp10-phase-icon { font-size:20px;color:rgba(13,31,60,0.3);transition:color 0.3s; }
+.sp10-phase.active .sp10-phase-icon { color:#C9992A; }
+.sp10-phase.done .sp10-phase-icon { color:#22c55e; }
+.sp10-phase-lbl { font-size:11px;font-weight:700;color:rgba(13,31,60,0.4);line-height:1.2; }
+.sp10-phase.active .sp10-phase-lbl { color:#0D1F3C; }
+.sp10-phase-line { width:2px;flex:1;min-height:6px;background:rgba(13,31,60,0.1);border-radius:1px;transition:background 0.5s; }
+.sp10-phase-line.lit { background:#22c55e; }
+/* Viewport */
+.sp10-viewport { flex:1;background:#f7f8fa;border:1.5px solid rgba(13,31,60,0.08);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden;opacity:0;transition:none;box-shadow:0 8px 32px rgba(13,31,60,0.06); }
+.sp10-scene { width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:20px; }
+/* Phase 0 */
+.sp10-chair-box { display:flex;flex-direction:column;align-items:center;gap:8px; }
+.sp10-chair-icon { font-size:72px;color:rgba(13,31,60,0.18); }
+.sp10-chair-label { font-size:13px;color:rgba(13,31,60,0.3);font-weight:600; }
+.sp10-arrow-anim { font-size:32px;color:#C9992A;animation:sp11Arr 1s ease infinite alternate; }
+@keyframes sp11Arr{to{transform:translateX(5px);opacity:0.6}}
+.sp10-kit-box { display:flex;flex-direction:column;align-items:center;gap:10px; }
+.sp10-kit-parts { display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:240px; }
+.sp10-kit-part { display:flex;flex-direction:column;align-items:center;gap:4px;background:rgba(201,153,42,0.12);border:1px solid rgba(201,153,42,0.3);border-radius:8px;padding:12px 18px;font-size:13px;color:#C9992A;font-weight:700;opacity:0;transform:translateY(8px);transition:opacity 0.4s ease,transform 0.4s ease; }
+.sp10-kit-part i { font-size:24px; }
+.sp10-kit-part.show { opacity:1;transform:translateY(0); }
+.sp10-kit-label { font-size:14px;font-weight:800;color:#C9992A;letter-spacing:0.06em; }
+/* Phase 1 terminal */
+.sp10-terminal { background:#000d1a;border-radius:12px;width:100%;max-width:560px;overflow:hidden;border:1px solid rgba(13,31,60,0.1); }
+.sp10-term-bar { background:rgba(255,255,255,0.06);padding:9px 14px;display:flex;align-items:center;gap:5px; }
+.sp10-dr,.sp10-dy,.sp10-dg { width:11px;height:11px;border-radius:50%; }
+.sp10-dr{background:#ef4444}.sp10-dy{background:#f59e0b}.sp10-dg{background:#22c55e}
+.sp10-term-title { font-size:12px;color:rgba(255,255,255,0.3);margin-left:6px;font-weight:600; }
+.sp10-term-body { padding:18px 20px;display:flex;flex-direction:column;gap:7px; }
+.sp10-tl { font-size:14px;color:#22c55e;font-family:'Courier New',monospace; }
+.sp10-tl::before { content:'> ';color:rgba(34,197,94,0.5); }
+.sp10-tl-ok { color:#C9992A;font-weight:700; }
+.sp10-tl-ok::before { content:''; }
+/* Phase 2 voice */
+.sp10-voice-demo { display:flex;flex-direction:column;align-items:center;gap:18px;width:100%; }
+.sp10-mic-ring { position:relative;width:96px;height:96px;display:flex;align-items:center;justify-content:center; }
+.sp10-mic-pulse { position:absolute;width:96px;height:96px;border-radius:50%;border:2px solid #C9992A;opacity:0.4;animation:sp11Pulse 1.2s ease-in-out infinite; }
+@keyframes sp11Pulse{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.4);opacity:0}}
+.sp10-mic-icon { width:70px;height:70px;border-radius:50%;background:#C9992A;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;z-index:1; }
+.sp10-transcript { background:rgba(13,31,60,0.04);border:1px solid rgba(13,31,60,0.1);border-radius:8px;padding:10px 20px;font-size:26px;font-weight:800;min-width:300px;text-align:center;min-height:54px;direction:rtl;unicode-bidi:bidi-override; }
+.sp10-wake { color:#C9992A; }
+.sp10-cmd { color:#0D1F3C; }
+.sp10-cur { color:rgba(13,31,60,0.3);animation:sp11Blink 0.9s step-end infinite; }
+@keyframes sp11Blink{50%{opacity:0}}
+.sp10-vpills { display:flex;align-items:center;gap:6px; }
+.sp10-vpill { padding:5px 13px;border-radius:7px;background:rgba(13,31,60,0.04);border:1px solid rgba(13,31,60,0.1);font-size:12px;font-weight:700;color:rgba(13,31,60,0.35);transition:all 0.3s; }
+.sp10-vpill.active { background:rgba(201,153,42,0.15);border-color:rgba(201,153,42,0.5);color:#C9992A; }
+.sp10-vpill.done { background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.4);color:#22c55e; }
+.sp10-vparr { color:rgba(13,31,60,0.2);font-size:12px; }
+/* Phase 3 nav */
+.sp10-nav-demo { display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;height:100%; }
+.sp10-map-svg { width:100%;height:100%;flex:1;min-height:0;border-radius:12px;background:#ffffff;border:1px solid rgba(13,31,60,0.08); }
+.sp10-room { fill:none;stroke:#0D1F3C;stroke-width:2.5; }
+.sp10-rlbl { font-size:20px;fill:rgba(13,31,60,0.55);text-anchor:middle;dominant-baseline:middle;font-family:system-ui,sans-serif;font-weight:700; }
+.sp10-nav-path { fill:none;stroke:#C9992A;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1600;stroke-dashoffset:1600;transition:stroke-dashoffset 2s cubic-bezier(0.4,0,0.2,1); }
+.sp10-start-dot { fill:#0D1F3C; }
+.sp10-nav-status { font-size:16px;color:rgba(13,31,60,0.5);font-weight:700;font-style:italic;flex-shrink:0; }
+/* Phase 4 health */
+.sp10-health-demo { display:flex;flex-direction:column;gap:14px;width:100%; }
+.sp10-vital-row { display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px; }
+.sp10-vcard { background:rgba(13,31,60,0.03);border:1px solid rgba(13,31,60,0.08);border-radius:9px;padding:10px 10px 7px;display:flex;flex-direction:column;gap:4px; }
+.sp10-vcard-lbl { font-size:11px;font-weight:700;color:rgba(13,31,60,0.35);letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:4px; }
+.sp10-vcard-hr .sp10-vcard-lbl i{color:#ef4444}.sp10-vcard-spo2 .sp10-vcard-lbl i{color:#3b82f6}.sp10-vcard-temp .sp10-vcard-lbl i{color:#f59e0b}.sp10-vcard-fall .sp10-vcard-lbl i{color:#C9992A}
+.sp10-vcard-val { font-size:30px;font-weight:900;color:#0D1F3C;display:flex;align-items:flex-end;gap:2px; }
+.sp10-vunit { font-size:13px;color:rgba(13,31,60,0.3);margin-bottom:3px; }
+.sp10-vbar-track { height:3px;background:rgba(13,31,60,0.08);border-radius:2px;overflow:hidden; }
+.sp10-vbar-fill { height:100%;border-radius:2px;transition:width 0.5s ease; }
+.sp10-vbar-hr{background:#ef4444}.sp10-vbar-spo2{background:#3b82f6}.sp10-vbar-temp{background:#f59e0b}
+.sp10-fall-ok { font-size:14px;font-weight:800;color:#22c55e;display:flex;align-items:center;gap:3px; }
+.sp10-fall-alrt { font-size:12px;font-weight:900;color:#ef4444;animation:sp11Alrt 0.7s ease infinite alternate; }
+@keyframes sp11Alrt{to{opacity:0.4}}
+.sp10-vcard-fall.alarm { border-color:rgba(239,68,68,0.5);background:rgba(239,68,68,0.1); }
+.sp10-health-actions { display:flex;align-items:center;gap:10px; }
+.sp10-fall-btn { background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:7px;color:#ef4444;font-size:11px;font-weight:700;padding:7px 14px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;transition:all 0.2s; }
+.sp10-fall-btn:hover{background:rgba(239,68,68,0.2)}
+.sp10-alert-strip { flex:1;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.35);border-radius:7px;padding:7px 12px;font-size:11px;font-weight:700;color:#ef4444;display:flex;align-items:center;gap:5px;opacity:0;transform:translateX(8px);transition:opacity 0.4s ease,transform 0.4s ease; }
+.sp10-alert-strip.show{opacity:1;transform:translateX(0)}
+/* Phase 5 mobile app */
+.sp10-app-demo { display:flex;flex-direction:column;align-items:center;gap:16px;width:100%; }
+.sp10-app-title { font-size:15px;font-weight:800;color:#C9992A;letter-spacing:0.06em;text-transform:uppercase; }
+.sp10-app-flow { display:flex;align-items:center;gap:0;width:100%;justify-content:center; }
+.sp10-app-node { display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 26px;border-radius:14px;text-align:center; }
+.sp10-node-patient { background:rgba(27,95,166,0.15);border:1.5px solid rgba(27,95,166,0.3); }
+.sp10-node-cg { background:rgba(39,174,96,0.15);border:1.5px solid rgba(39,174,96,0.3); }
+.sp10-app-node-icon { font-size:36px; }
+.sp10-app-node-label { font-size:15px;font-weight:800;color:#0D1F3C; }
+.sp10-app-node-sub { font-size:12px;color:rgba(13,31,60,0.5);line-height:1.75; }
+.sp10-app-sync { flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative; }
+.sp10-sync-line { width:100%;height:2px;background:linear-gradient(90deg,rgba(27,95,166,0.4),rgba(201,153,42,0.6),rgba(39,174,96,0.4));border-radius:1px; }
+.sp10-sync-dot { width:12px;height:12px;border-radius:50%;background:#C9992A;position:absolute;top:-5px;animation:sp11SyncSlide 2s ease-in-out infinite; }
+@keyframes sp11SyncSlide{0%{left:0}50%{left:calc(100% - 12px)}100%{left:0}}
+.sp10-sync-label { font-size:9px;font-weight:700;color:#C9992A;text-align:center;line-height:1.3;letter-spacing:0.06em; }
+.sp10-app-features { display:flex;gap:10px;flex-wrap:wrap;justify-content:center; }
+.sp10-app-feat { background:rgba(13,31,60,0.03);border:1px solid rgba(13,31,60,0.1);border-radius:8px;padding:7px 14px;font-size:11px;font-weight:700;color:rgba(13,31,60,0.75);opacity:0;transform:translateY(8px);transition:opacity 0.4s ease,transform 0.4s ease; }
+.sp10-app-feat.show{opacity:1;transform:translateY(0)}
+.sp10-ctx-pill{display:flex;align-items:center;gap:6px;background:rgba(13,31,60,0.03);border:1px solid rgba(13,31,60,0.1);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:rgba(13,31,60,0.5);}
+.sp10-ctx-pill i{font-size:13px;color:#C9992A;}
+/* Phase 6 RAG */
+.sp10-rag-demo { display:flex;flex-direction:column;align-items:center;gap:14px;width:100%; }
+.sp10-rag-title { font-size:15px;font-weight:800;color:#C9992A;letter-spacing:0.06em;text-transform:uppercase; }
+.sp10-rag-flow { display:flex;align-items:center;gap:10px;width:100%;justify-content:center; }
+.sp10-rag-step { display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 16px;border-radius:10px;border:1.5px solid rgba(13,31,60,0.08);background:rgba(13,31,60,0.03);transition:all 0.3s;text-align:center;min-width:90px; }
+.sp10-rag-step.active { border-color:#C9992A;background:rgba(201,153,42,0.1); }
+.sp10-rag-step.done { border-color:#22c55e;background:rgba(34,197,94,0.07); }
+.sp10-rag-step-icon { width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px; }
+.sp10-rag-step-name { font-size:13px;font-weight:800;color:#0D1F3C; }
+.sp10-rag-step-sub { font-size:11px;color:rgba(13,31,60,0.4); }
+.sp10-rag-arr { color:rgba(13,31,60,0.2);font-size:18px; }
+.sp10-rag-chat { display:flex;flex-direction:column;gap:8px;width:100%;max-width:520px; }
+.sp10-rag-msg { padding:10px 16px;border-radius:10px;font-size:13px;font-weight:600;line-height:1.6;transition:opacity 0.4s ease; }
+.sp10-rag-user { background:rgba(201,153,42,0.15);color:#9c7416;align-self:flex-end;direction:rtl; }
+.sp10-rag-ai { background:rgba(13,31,60,0.05);color:rgba(13,31,60,0.85); }
+/* Controls */
+.sp10-controls { flex-shrink:0;width:114px;display:flex;flex-direction:column;gap:8px;padding-top:4px;opacity:0;transform:translateX(18px);transition:none; }
+.sp10-ctrl-label { font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(13,31,60,0.3);text-align:center;padding-bottom:5px;border-bottom:1px solid rgba(13,31,60,0.1);margin-bottom:4px; }
+.sp10-ctrl-btn { border-radius:7px;padding:10px 8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:all 0.2s; }
+.sp10-play{background:#C9992A;color:#fff}.sp10-play:hover{background:#b8871f}
+.sp10-next{background:#0D1F3C;color:#fff}.sp10-next:hover{background:#1a3460}
+.sp10-reset{background:rgba(13,31,60,0.05);color:rgba(13,31,60,0.6);border:1px solid rgba(13,31,60,0.12)}.sp10-reset:hover{background:rgba(13,31,60,0.1)}
+.sp10-progress-box { margin-top:6px;display:flex;flex-direction:column;gap:4px; }
+.sp10-progress-lbl { font-size:9px;font-weight:600;color:rgba(13,31,60,0.4);text-align:center; }
+.sp10-progress-track { height:4px;background:rgba(13,31,60,0.08);border-radius:2px;overflow:hidden; }
+.sp10-progress-fill { height:100%;background:#C9992A;border-radius:2px;transition:width 0.5s ease; }
+/* Phase 0 Backbone */
+.sp10-backbone-wrap { display:flex;flex-direction:column;align-items:center;gap:14px;width:100%; }
+.sp10-bb-title { font-size:13px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(13,31,60,0.35);opacity:0;transform:translateY(-10px);transition:none; }
+.sp10-bb-title.show { opacity:1;transform:translateY(0);transition:opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+.sp10-bb-cards { display:flex;align-items:stretch;gap:0;width:100%;max-width:640px; }
+.sp10-bb-card { flex:1;display:flex;flex-direction:column;align-items:center;gap:11px;padding:18px 14px;border-radius:12px;border:1.5px solid;background:rgba(13,31,60,0.02);opacity:0;transform:translateY(18px);transition:none; }
+.sp10-bb-card.show { opacity:1;transform:translateY(0);transition:opacity 0.55s ease,transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+.sp10-bb-icon { width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px; }
+.sp10-bb-name { font-size:15px;font-weight:900;letter-spacing:0.04em; }
+.sp10-bb-pills { display:flex;flex-direction:column;gap:5px;width:100%; }
+.sp10-bb-pill { background:rgba(13,31,60,0.04);border:1px solid rgba(13,31,60,0.08);border-radius:5px;padding:4px 9px;font-size:11px;font-weight:600;color:rgba(13,31,60,0.5);text-align:center; }
+.sp10-bb-connector { display:flex;align-items:center;padding:0 4px;opacity:0;transition:none; }
+.sp10-bb-connector.show { opacity:1;transition:opacity 0.4s ease; }
+.sp10-bb-con-line { width:18px;height:2px;background:rgba(13,31,60,0.12);border-radius:1px; }
+.sp10-bb-tagline { font-size:11px;font-style:italic;color:rgba(13,31,60,0.32);font-weight:600;opacity:0;transition:none; }
+.sp10-bb-tagline.show { opacity:1;transition:opacity 0.6s ease; }
+</style>
+<script>
+(function(){
+  'use strict';
+  var timers=[];
+  function at(fn,ms){timers.push(setTimeout(fn,ms));}
+  function clearAll(){timers.forEach(clearTimeout);timers=[];}
+  function q(sel){return document.querySelector(sel);}
+  var TOTAL=8, cur=0, vInt=null, navId=null, autoPlay=false;
+
+  function setPhaseUI(idx){
+    for(var i=0;i<TOTAL;i++){
+      var ph=q('#sp10-ph'+i);if(!ph)continue;
+      ph.classList.remove('active','done');
+      if(i<idx)ph.classList.add('done');
+      if(i===idx)ph.classList.add('active');
+      var pl=q('#sp10-pl'+i);if(pl)pl.classList.toggle('lit',i<idx);
+    }
+    var lbl=q('#sp10-progress-lbl'),fill=q('#sp10-progress-fill');
+    if(lbl)lbl.textContent='Step '+(idx+1)+' of '+TOTAL;
+    if(fill)fill.style.width=((idx+1)/TOTAL*100)+'%';
+  }
+  function showScene(idx){
+    for(var i=0;i<TOTAL;i++){var sc=q('#sp10-sc'+i);if(sc)sc.style.display=(i===idx)?'flex':'none';}
+  }
+  function rnd(a,b){return Math.random()*(b-a)+a;}
+  function setVPill(i,s){var el=q('#sp10-vp'+i);if(!el)return;el.classList.remove('active','done');if(s)el.classList.add(s);}
+  function setRagStep(i,s){var el=q('#sp10-rs'+i);if(!el)return;el.classList.remove('active','done');if(s)el.classList.add(s);}
+
+  function runPhase0(){
+    setPhaseUI(0);showScene(0);
+    at(function(){var el=q('#sp10-bbt');if(el)el.classList.add('show');},100);
+    [0,1,2].forEach(function(i){
+      at(function(){var el=q('#sp10-bbc'+i);if(el)el.classList.add('show');},300+i*280);
+      at(function(){var el=q('#sp10-bbcon'+i);if(el)el.classList.add('show');},450+i*280);
+    });
+    at(function(){var el=q('#sp10-bbtag');if(el)el.classList.add('show');},1200);
+  }
+  function runPhase1(){
+    setPhaseUI(1);showScene(1);
+    [0,1,2,3,4].forEach(function(i){at(function(){var kp=q('#sp10-kp'+i);if(kp)kp.classList.add('show');},i*180);});
+  }
+  function runPhase2(){
+    setPhaseUI(2);showScene(2);
+    [0,1,2,3,4,5,6].forEach(function(i){at(function(){var tl=q('#sp10-tl'+i);if(tl)tl.style.display='block';},i*450);});
+  }
+  function typeText(el,text,d,cb){el.textContent='';var i=0;function tick(){if(i<text.length){el.textContent+=text[i++];timers.push(setTimeout(tick,d));}else if(cb)cb();}tick();}
+  function runPhase3(){
+    setPhaseUI(3);showScene(3);
+    var wake=q('#sp10-wake'),cmd=q('#sp10-cmd');
+    if(wake)wake.textContent='';if(cmd)cmd.textContent='';
+    [0,1,2,3].forEach(function(i){setVPill(i,null);});
+    setVPill(0,'active');
+    at(function(){setVPill(0,'done');setVPill(1,'active');typeText(wake,'رفيق ',75,null);},600);
+    at(function(){setVPill(1,'done');setVPill(2,'active');typeText(cmd,'روح للمطبخ',65,null);},1400);
+    at(function(){setVPill(2,'done');setVPill(3,'active');},2400);
+    at(function(){setVPill(3,'done');},3000);
+  }
+  var navWP=[{x:154,y:109},{x:226,y:109},{x:306,y:109},{x:306,y:315},{x:408,y:315}];
+  var navLen=0;
+  for(var i=1;i<navWP.length;i++){var dx=navWP[i].x-navWP[i-1].x,dy=navWP[i].y-navWP[i-1].y;navLen+=Math.sqrt(dx*dx+dy*dy);}
+  function navPos(t){var dist=t*navLen,acc=0;for(var i=1;i<navWP.length;i++){var dx=navWP[i].x-navWP[i-1].x,dy=navWP[i].y-navWP[i-1].y,seg=Math.sqrt(dx*dx+dy*dy);if(acc+seg>=dist){var f=(dist-acc)/seg;return{x:navWP[i-1].x+dx*f,y:navWP[i-1].y+dy*f};}acc+=seg;}return navWP[navWP.length-1];}
+  function runPhase4(){
+    setPhaseUI(4);showScene(4);
+    var path=q('#sp10-nav-path'),dest=q('#sp10-dest-dot'),cg=q('#sp10-chair-g'),stat=q('#sp10-nav-status');
+    if(path){path.style.transition='none';path.style.strokeDashoffset='1600';}
+    if(dest)dest.setAttribute('opacity','0');
+    if(cg)cg.setAttribute('transform','translate(154,109)');
+    if(stat)stat.textContent='Planning path to Kitchen…';
+    if(navId)cancelAnimationFrame(navId);
+    at(function(){if(path){path.style.transition='stroke-dashoffset 2s cubic-bezier(0.4,0,0.2,1)';path.style.strokeDashoffset='0';}if(stat)stat.textContent='Path found — navigating…';},500);
+    at(function(){
+      var start=performance.now(),dur=2200;
+      function frame(now){
+        var t=Math.min((now-start)/dur,1);t=t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+        var p=navPos(t);if(cg)cg.setAttribute('transform','translate('+p.x+','+p.y+')');
+        if(t<1)navId=requestAnimationFrame(frame);
+        else{if(dest)dest.setAttribute('opacity','1');if(stat)stat.textContent='Arrived at Kitchen ✓';}
+      }
+      navId=requestAnimationFrame(frame);
+    },1000);
+  }
+  function updateVitals(){
+    var hr=Math.round(rnd(68,82)),spo2=Math.round(rnd(96,99)),temp=rnd(36.5,37.1).toFixed(1);
+    var hre=q('#sp10-hrv'),hb=q('#sp10-hrbar'),se=q('#sp10-spo2v'),sb=q('#sp10-spo2bar'),te=q('#sp10-tempv'),tb=q('#sp10-tempbar');
+    if(hre)hre.textContent=hr;if(hb)hb.style.width=((hr-40)/100*100)+'%';
+    if(se)se.textContent=spo2;if(sb)sb.style.width=spo2+'%';
+    if(te)te.textContent=temp;if(tb)tb.style.width=((parseFloat(temp)-35)/3*100)+'%';
+  }
+  function runPhase5(){
+    setPhaseUI(5);showScene(5);
+    var ok=q('#sp10-fall-ok'),alrt=q('#sp10-fall-alrt'),card=q('#sp10-fall-card'),strip=q('#sp10-alert-strip');
+    if(ok)ok.style.display='flex';if(alrt)alrt.style.display='none';
+    if(card)card.classList.remove('alarm');if(strip)strip.classList.remove('show');
+    updateVitals();if(vInt)clearInterval(vInt);vInt=setInterval(updateVitals,1600);
+    var btn=q('#sp10-fall-btn');
+    if(btn){btn.onclick=function(){
+      if(alrt&&alrt.style.display==='flex')return;
+      if(ok)ok.style.display='none';if(alrt)alrt.style.display='flex';
+      if(card)card.classList.add('alarm');
+      var hre=q('#sp10-hrv'),hb=q('#sp10-hrbar');if(hre)hre.textContent='118';if(hb)hb.style.width='78%';
+      at(function(){if(strip)strip.classList.add('show');},400);
+      at(function(){if(ok)ok.style.display='flex';if(alrt)alrt.style.display='none';if(card)card.classList.remove('alarm');if(strip)strip.classList.remove('show');},5000);
+    };}
+  }
+  function runPhase6(){
+    setPhaseUI(6);showScene(6);
+    [0,1,2,3,4].forEach(function(i){at(function(){var el=q('#sp10-af'+i);if(el)el.classList.add('show');},400+i*220);});
+  }
+  function runPhase7(){
+    setPhaseUI(7);showScene(7);
+    [0,1,2,3].forEach(function(i){setRagStep(i,null);});
+    var steps=[
+      function(){setRagStep(0,'active');var m=q('#sp10-rm0');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}},
+      function(){setRagStep(0,'done');setRagStep(1,'active');},
+      function(){setRagStep(1,'done');setRagStep(2,'active');var m=q('#sp10-rm1');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}},
+      function(){setRagStep(2,'done');setRagStep(3,'active');},
+      function(){setRagStep(3,'done');var m=q('#sp10-rm2');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}}
+    ];
+    var delays=[400,1000,1600,2400,3000];
+    steps.forEach(function(fn,i){at(fn,delays[i]);});
+    // Reset chat visibility
+    [0,1,2].forEach(function(i){var m=q('#sp10-rm'+i);if(m)m.style.opacity='0';});
+    at(function(){var m=q('#sp10-rm0');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}},400);
+    at(function(){var m=q('#sp10-rm1');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}},1600);
+    at(function(){var m=q('#sp10-rm2');if(m){m.style.transition='opacity 0.4s ease';m.style.opacity='1';}},3000);
+  }
+
+  var PHASES=[runPhase0,runPhase1,runPhase2,runPhase3,runPhase4,runPhase5,runPhase6,runPhase7];
+  function goTo(idx){if(idx<0||idx>=TOTAL)return;cur=idx;PHASES[idx]();}
+
+  function stopAll(){
+    clearAll();if(vInt){clearInterval(vInt);vInt=null;}
+    if(navId){cancelAnimationFrame(navId);navId=null;}
+    autoPlay=false;
+  }
+  function resetSim(){
+    stopAll();cur=0;
+    // Backbone
+    [0,1,2].forEach(function(i){var el=q('#sp10-bbc'+i);if(el)el.classList.remove('show');var con=q('#sp10-bbcon'+i);if(con)con.classList.remove('show');});
+    var bbt=q('#sp10-bbt');if(bbt)bbt.classList.remove('show');
+    var bbtag=q('#sp10-bbtag');if(bbtag)bbtag.classList.remove('show');
+    // Install kit
+    [0,1,2,3,4].forEach(function(i){var el=q('#sp10-kp'+i);if(el)el.classList.remove('show');});
+    [0,1,2,3,4,5,6].forEach(function(i){var el=q('#sp10-tl'+i);if(el)el.style.display=(i===0?'block':'none');});
+    var wake=q('#sp10-wake'),cmd=q('#sp10-cmd');if(wake)wake.textContent='';if(cmd)cmd.textContent='';
+    [0,1,2,3].forEach(function(i){setVPill(i,null);setRagStep(i,null);});
+    var path=q('#sp10-nav-path'),dest=q('#sp10-dest-dot'),cg=q('#sp10-chair-g');
+    if(path){path.style.transition='none';path.style.strokeDashoffset='1600';}
+    if(dest)dest.setAttribute('opacity','0');
+    if(cg)cg.setAttribute('transform','translate(154,109)');
+    var ok=q('#sp10-fall-ok'),alrt=q('#sp10-fall-alrt'),card=q('#sp10-fall-card'),strip=q('#sp10-alert-strip');
+    if(ok)ok.style.display='flex';if(alrt)alrt.style.display='none';
+    if(card)card.classList.remove('alarm');if(strip)strip.classList.remove('show');
+    [0,1,2,3,4].forEach(function(i){var el=q('#sp10-af'+i);if(el)el.classList.remove('show');});
+    [0,1,2].forEach(function(i){var m=q('#sp10-rm'+i);if(m)m.style.opacity='0';});
+    setPhaseUI(0);showScene(0);
+    for(var i=0;i<TOTAL;i++){var ph=q('#sp10-ph'+i);if(ph){ph.classList.remove('active','done');if(i===0)ph.classList.add('active');}var pl=q('#sp10-pl'+i);if(pl)pl.classList.remove('lit');}
+  }
+  function hide(){
+    var tb=q('#sp10-topbar'),ph=q('#sp10-phases'),vp=q('#sp10-viewport'),ct=q('#sp10-controls');
+    if(tb){tb.style.transition='none';tb.style.opacity='0';tb.style.transform='translateY(-14px)';}
+    if(ph){ph.style.transition='none';ph.style.opacity='0';ph.style.transform='translateX(-18px)';}
+    if(vp){vp.style.transition='none';vp.style.opacity='0';}
+    if(ct){ct.style.transition='none';ct.style.opacity='0';ct.style.transform='translateX(18px)';}
+    stopAll();
+  }
+  function startAutoPlay(){
+    resetSim();
+    goTo(0); autoPlay=true;
+    var delays=[0,2500,5000,7500,10500,14000,17000,20500];
+    delays.forEach(function(d,i){timers.push(setTimeout(function(){goTo(i);},d));});
+    timers.push(setTimeout(function(){autoPlay=false;},24000));
+  }
+  function runSequence(){
+    at(function(){var el=q('#sp10-topbar');if(el){el.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';el.style.opacity='1';el.style.transform='translateY(0)';}},0);
+    at(function(){var el=q('#sp10-phases');if(el){el.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';el.style.opacity='1';el.style.transform='translateX(0)';}},150);
+    at(function(){var el=q('#sp10-viewport');if(el){el.style.transition='opacity 0.5s ease';el.style.opacity='1';}},200);
+    at(function(){var el=q('#sp10-controls');if(el){el.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';el.style.opacity='1';el.style.transform='translateX(0)';}},300);
+    at(function(){goTo(0);},700);
+  }
+  function attachButtons(){
+    var pb=q('#sp10-play-btn'),nb=q('#sp10-next-btn'),rb=q('#sp10-reset-btn');
+    if(pb)pb.addEventListener('click',function(){
+      stopAll();
+      timers.push(setTimeout(function(){startAutoPlay();},200));
+    });
+    if(nb)nb.addEventListener('click',function(){
+      if(cur < TOTAL-1){stopAll();goTo(cur+1);}
+    });
+    if(rb)rb.addEventListener('click',function(){stopAll();resetSim();goTo(0);});
+    for(var i=0;i<TOTAL;i++){(function(idx){var ph=q('#sp10-ph'+idx);if(ph)ph.addEventListener('click',function(){stopAll();goTo(idx);});})(i);}
+  }
+  var _kh11=null;
+  function attachKeys(){
+    _kh11=function(e){
+      if(e.key===' '||e.key==='ArrowRight'||e.key==='ArrowDown'){
+        if(cur < TOTAL-1){
+          e.stopImmediatePropagation();e.preventDefault();
+          stopAll();goTo(cur+1);
+        }
+        // at last phase: fall through so global handler advances to next slide
+      }
+    };
+    document.addEventListener('keydown',_kh11,true);
+  }
+  function detachKeys(){
+    if(_kh11){document.removeEventListener('keydown',_kh11,true);_kh11=null;}
+  }
+
+  window._slide12={
+    enter:function(){hide();runSequence();attachButtons();attachKeys();},
+    leave:function(){stopAll();hide();detachKeys();}
+  };
+})();
+</script>

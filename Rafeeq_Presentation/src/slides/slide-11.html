@@ -1,0 +1,56 @@
+﻿<div class="slide dark" id="slide-11" data-slide="11" style="background:#0D1F3C;">
+  <div class="sp9t-bg"></div>
+  <div class="sp9t-inner">
+    <div class="sp9t-eyebrow" id="sp9t-eyebrow">Methodology &amp; Implementation</div>
+    <div class="sp9t-title" id="sp9t-title">How We<br>Built It</div>
+    <div class="sp9t-uline" id="sp9t-uline"></div>
+    <div class="sp9t-sub" id="sp9t-sub">From a standard wheelchair to an intelligent care system</div>
+  </div>
+</div>
+<style>
+#slide-11 { background: #0D1F3C; overflow: hidden; }
+.sp9t-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(201,153,42,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 75% 25%, rgba(27,95,166,0.15) 0%, transparent 55%);
+  pointer-events: none;
+}
+.sp9t-inner {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: flex-start;
+  justify-content: center; gap: 20px;
+  width: 100%; height: 100%; padding: 72px 96px; box-sizing: border-box;
+}
+.sp9t-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: #C9992A; opacity: 0; transform: translateY(16px); transition: none; }
+.sp9t-title { font-size: 80px; font-weight: 900; color: #ffffff; line-height: 1.0; letter-spacing: -0.04em; opacity: 0; transform: translateY(30px); transition: none; }
+.sp9t-uline { height: 4px; width: 0; background: #C9992A; border-radius: 2px; transition: none; }
+.sp9t-sub { font-size: 16px; color: rgba(255,255,255,0.45); font-weight: 500; opacity: 0; transition: none; }
+</style>
+<script>
+(function(){
+  var timers=[];
+  function at(fn,ms){timers.push(setTimeout(fn,ms));}
+  function clearAll(){timers.forEach(clearTimeout);timers=[];}
+  function q(sel){return document.querySelector(sel);}
+  function hide(){
+    ['sp9t-eyebrow','sp9t-title','sp9t-uline','sp9t-sub'].forEach(function(id){
+      var el=q('#'+id);if(!el)return;
+      el.style.transition='none';el.style.opacity='0';
+      if(id==='sp9t-uline')el.style.width='0';
+      else el.style.transform='translateY('+(id==='sp9t-title'?'30':'16')+'px)';
+    });
+  }
+  window._slide11={
+    enter:function(){
+      hide();
+      at(function(){var e=q('#sp9t-eyebrow');if(e){e.style.transition='opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1)';e.style.opacity='1';e.style.transform='translateY(0)';}},80);
+      at(function(){var t=q('#sp9t-title');if(t){t.style.transition='opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1)';t.style.opacity='1';t.style.transform='translateY(0)';}},220);
+      at(function(){var u=q('#sp9t-uline');if(u){u.style.transition='width 0.5s cubic-bezier(0.16,1,0.3,1)';u.style.width='80px';}},580);
+      at(function(){var s=q('#sp9t-sub');if(s){s.style.transition='opacity 0.4s ease';s.style.opacity='1';}},700);
+    },
+    leave:function(){clearAll();hide();}
+  };
+})();
+</script>
+
+﻿<!-- SLIDE 11 — HOW WE BUILT IT: FULL INTERACTIVE SYSTEM SIMULATION (7 PHASES) -->

@@ -1,0 +1,327 @@
+﻿<div class="slide light" id="slide-2" data-slide="3">
+
+  <div class="s2-inner">
+
+    <!-- Title + underline -->
+    <div class="s2-title-block">
+      <div class="s2-label" id="s2-label">AGENDA</div>
+      <div class="s2-underline" id="s2-underline"></div>
+    </div>
+
+    <!-- Connector + blocks wrapper -->
+    <div class="s2-stage">
+      <!-- Horizontal connector timeline (drawn by JS, sits behind blocks) -->
+      <div class="s2-connector" id="s2-connector"></div>
+
+      <!-- 5 blocks -->
+      <div class="s2-blocks" id="s2-blocks">
+
+        <div class="s2-block" data-idx="0">
+          <div class="s2-num">01</div>
+          <div class="s2-vline-wrap"><div class="s2-vline"></div></div>
+          <i class="ti ti-focus-2 s2-icon"></i>
+          <div class="s2-btitle">Motivation & Scope</div>
+        </div>
+
+        <div class="s2-block" data-idx="1">
+          <div class="s2-num">02</div>
+          <div class="s2-vline-wrap"><div class="s2-vline"></div></div>
+          <i class="ti ti-books s2-icon"></i>
+          <div class="s2-btitle">Literature Review</div>
+        </div>
+
+        <div class="s2-block" data-idx="2">
+          <div class="s2-num">03</div>
+          <div class="s2-vline-wrap"><div class="s2-vline"></div></div>
+          <i class="ti ti-cpu s2-icon"></i>
+          <div class="s2-btitle">Methodology</div>
+        </div>
+
+        <div class="s2-block" data-idx="3">
+          <div class="s2-num">04</div>
+          <div class="s2-vline-wrap"><div class="s2-vline"></div></div>
+          <i class="ti ti-chart-bar s2-icon"></i>
+          <div class="s2-btitle">Results</div>
+        </div>
+
+        <div class="s2-block" data-idx="4">
+          <div class="s2-num">05</div>
+          <div class="s2-vline-wrap"><div class="s2-vline"></div></div>
+          <i class="ti ti-flag-2 s2-icon"></i>
+          <div class="s2-btitle">Conclusion</div>
+        </div>
+
+      </div><!-- /s2-blocks -->
+    </div><!-- /s2-stage -->
+
+  </div>
+</div>
+
+<style>
+#slide-2 { background: #ffffff; }
+
+.s2-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 60px 60px 80px;
+  box-sizing: border-box;
+  gap: 64px;
+}
+
+/* ── Title block ── */
+.s2-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.s2-label {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0D1F3C;
+  opacity: 0;
+  transition: none;
+}
+
+/* Gold underline — animation 1 */
+.s2-underline {
+  height: 4px;
+  width: 120px;
+  background: linear-gradient(90deg, #C9992A, #E8B84B);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+}
+
+/* ── Stage: holds connector + blocks ── */
+.s2-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Horizontal connector line — animation 5 */
+.s2-connector {
+  position: absolute;
+  /* vertically centered at the bottom of the vline-wrap area */
+  top: 56px; /* num(~35px) + margin-bottom(20px) = ~55px, sits at vline bottom */
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9992A 8%, #C9992A 92%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: none;
+  z-index: 0;
+}
+
+/* ── Blocks row ── */
+.s2-blocks {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.s2-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  opacity: 0;
+  transform: translateY(32px);
+  cursor: default;
+}
+
+/* Number */
+.s2-num {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #C9992A;
+  margin-bottom: 20px;
+}
+
+/* Vertical line */
+.s2-vline-wrap {
+  width: 1px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  margin-bottom: 28px;
+}
+.s2-vline {
+  width: 1px;
+  height: 72px;
+  background: #C9992A;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* Icon — animation 3 (idle pulse via CSS keyframe, added after entrance) */
+.s2-icon {
+  font-size: 56px;
+  color: #C9992A;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+  margin-bottom: 22px;
+}
+
+@keyframes s2IconPulse {
+  0%,100% { transform: scale(1);    }
+  50%      { transform: scale(1.10); }
+}
+
+.s2-icon.pulsing {
+  animation: s2IconPulse 2.8s ease-in-out infinite;
+}
+
+/* stagger each icon's pulse delay */
+.s2-block[data-idx="0"] .s2-icon.pulsing { animation-delay: 0s;    }
+.s2-block[data-idx="1"] .s2-icon.pulsing { animation-delay: 0.56s; }
+.s2-block[data-idx="2"] .s2-icon.pulsing { animation-delay: 1.12s; }
+.s2-block[data-idx="3"] .s2-icon.pulsing { animation-delay: 1.68s; }
+.s2-block[data-idx="4"] .s2-icon.pulsing { animation-delay: 2.24s; }
+
+/* Section title */
+.s2-btitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0D1F3C;
+  line-height: 1.3;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effects */
+.s2-block:hover .s2-icon   { animation: none; transform: scale(1.15); }
+.s2-block:hover .s2-btitle { transform: translateY(-4px); }
+.s2-block:hover .s2-vline  { transform: scaleY(1.35); transform-origin: top; }
+</style>
+
+<script>
+(function slide02() {
+  'use strict';
+
+  function q(sel)  { return document.querySelector(sel); }
+  function qa(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+  var timers = [];
+  function at(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearAll()  { timers.forEach(clearTimeout); timers = []; }
+
+  function hideAll() {
+    var label = q('#s2-label');
+    if (label) { label.style.opacity = '0'; label.style.transition = 'none'; }
+
+    var ul = q('#s2-underline');
+    if (ul) { ul.style.transform = 'scaleX(0)'; ul.style.transition = 'none'; }
+
+    var conn = q('#s2-connector');
+    if (conn) { conn.style.transform = 'scaleX(0)'; conn.style.transition = 'none'; }
+
+    qa('.s2-block').forEach(function(b) {
+      b.style.opacity = '0';
+      b.style.transform = 'translateY(32px)';
+      b.style.transition = 'none';
+      var vl = b.querySelector('.s2-vline');
+      if (vl) { vl.style.transform = 'scaleY(0)'; vl.style.transition = 'none'; }
+      var ic = b.querySelector('.s2-icon');
+      if (ic) {
+        ic.style.opacity = '0';
+        ic.style.transform = 'scale(0.6)';
+        ic.style.transition = 'none';
+        ic.classList.remove('pulsing');
+      }
+    });
+  }
+
+  function runSequence() {
+    // ── Animation 1: AGENDA title fades in ──
+    at(function() {
+      var label = q('#s2-label');
+      if (label) { label.style.transition = 'opacity 0.45s ease'; label.style.opacity = '1'; }
+    }, 0);
+
+    // ── Animation 1: Gold underline draws left→right ──
+    at(function() {
+      var ul = q('#s2-underline');
+      if (ul) { ul.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)'; ul.style.transform = 'scaleX(1)'; }
+    }, 300);
+
+    // ── Blocks stagger entrance ──
+    var lastBlockDone = 0;
+    qa('.s2-block').forEach(function(block, i) {
+      var baseDelay = 500 + i * 120;
+      lastBlockDone = baseDelay + 360; // icon done at baseDelay+240+~120
+
+      at(function() {
+        block.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+        block.style.opacity = '1';
+        block.style.transform = 'translateY(0)';
+      }, baseDelay);
+
+      at(function() {
+        var vl = block.querySelector('.s2-vline');
+        if (vl) { vl.style.transition = 'transform 0.35s cubic-bezier(0.16,1,0.3,1)'; vl.style.transform = 'scaleY(1)'; }
+      }, baseDelay + 120);
+
+      at(function() {
+        var ic = block.querySelector('.s2-icon');
+        if (ic) {
+          ic.style.transition = 'opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+          ic.style.opacity = '1';
+          ic.style.transform = 'scale(1)';
+        }
+      }, baseDelay + 240);
+    });
+
+    // ── Animation 5: Connector timeline draws across ──
+    at(function() {
+      var conn = q('#s2-connector');
+      if (conn) { conn.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)'; conn.style.transform = 'scaleX(1)'; }
+    }, lastBlockDone + 80);
+
+    // ── Animation 3: Icons start pulsing after everything settles ──
+    at(function() {
+      qa('.s2-icon').forEach(function(ic) {
+        ic.style.transition = 'none';
+        ic.classList.add('pulsing');
+      });
+    }, lastBlockDone + 400);
+  }
+
+  window._slide03 = {
+    enter: function() {
+      hideAll();
+      runSequence();
+    },
+    leave: function() {
+      clearAll();
+      hideAll();
+    }
+  };
+})();
+</script>
+
+
+﻿<!-- SLIDE 03 — TRANSITION: THE PROBLEM -->
